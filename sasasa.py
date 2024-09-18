@@ -1,1 +1,1 @@
-
+print("sakana")
