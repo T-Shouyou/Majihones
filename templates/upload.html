@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>食材認識アップロード</title>
+</head>
+<body>
+    <h1>画像をアップロードして食材を認識する</h1>
+    <form action="/gohann" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">アップロード</button>
+    </form>
+</body>
+</html>
