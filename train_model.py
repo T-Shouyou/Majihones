@@ -1,39 +1,29 @@
-import tensorflow as tf
-from tensorflow.keras import layers, models
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-
-# 画像データの前処理を設定
-train_datagen = ImageDataGenerator(rescale=1./255)
-
-# ディレクトリのパスを設定（ここにGitHubのリポジトリ内のパスを指定）
-train_directory = 'static/train'  # 実際の画像があるパスに変更
-
-# データを生成する
-train_generator = train_datagen.flow_from_directory(
-    train_directory,
-    target_size=(224, 224),  # 画像のサイズ
-    batch_size=32,  # バッチサイズ
-    class_mode='categorical'  # 分類のモード
-)
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 
 # モデルの構築
-model = models.Sequential([
-    layers.Conv2D(32, (3, 3), activation='relu', input_shape=(224, 224, 3)),
-    layers.MaxPooling2D(pool_size=(2, 2)),
-    layers.Conv2D(64, (3, 3), activation='relu'),
-    layers.MaxPooling2D(pool_size=(2, 2)),
-    layers.Conv2D(128, (3, 3), activation='relu'),
-    layers.MaxPooling2D(pool_size=(2, 2)),
-    layers.Flatten(),
-    layers.Dense(128, activation='relu'),
-    layers.Dense(5, activation='softmax')  # クラス数はデータセットに応じて調整
-])
+model = Sequential()
+model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(150, 150, 3)))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Flatten())
+model.add(Dense(64, activation='relu'))
+model.add(Dense(1, activation='sigmoid'))  # 二値分類の場合
 
-# モデルのコンパイル
-model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+# 画像データの準備
+train_data_dir = 'C:/Users/h_kono/Desktop/sakana/Majihones/static/train'  # 修正
+batch_size = 32
+
+train_datagen = ImageDataGenerator(rescale=1.0/255)
+
+train_generator = train_datagen.flow_from_directory(
+    train_data_dir,
+    target_size=(150, 150),
+    batch_size=batch_size,
+    class_mode='binary'
+)
 
 # モデルの訓練
-model.fit(train_generator, epochs=10)  # エポック数は必要に応じて調整
-
-# モデルを保存
-model.save('model.h5')
+model.fit(train_generator, epochs=10)
