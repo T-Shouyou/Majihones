@@ -1,3 +1,4 @@
+import os
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
@@ -13,7 +14,7 @@ model.add(Dense(1, activation='sigmoid'))  # 二値分類の場合
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # 画像データの準備
-train_data_dir = 'C:/Users/h_kono/Desktop/sakana/Majihones/static/train'  # 修正
+train_data_dir = os.environ.get('TRAIN_DATA_DIR', './static/train')  # 環境変数から取得
 batch_size = 32
 
 train_datagen = ImageDataGenerator(rescale=1.0/255)
