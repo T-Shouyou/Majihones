@@ -2,27 +2,18 @@ import tensorflow as tf
 from tensorflow.keras import layers, models
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-# データの前処理
-# ここではデータセットのディレクトリを指定します
-train_dir = 'path/to/train'  # トレーニング用データのディレクトリ
-validation_dir = 'path/to/validation'  # バリデーション用データのディレクトリ
-
-# データジェネレータの作成
+# 画像データの前処理を設定
 train_datagen = ImageDataGenerator(rescale=1./255)
-validation_datagen = ImageDataGenerator(rescale=1./255)
 
+# ディレクトリのパスを設定（ここにGitHubのリポジトリ内のパスを指定）
+train_directory = 'static/train'  # 実際の画像があるパスに変更
+
+# データを生成する
 train_generator = train_datagen.flow_from_directory(
-    train_dir,
-    target_size=(224, 224),
-    batch_size=32,
-    class_mode='categorical'
-)
-
-validation_generator = validation_datagen.flow_from_directory(
-    validation_dir,
-    target_size=(224, 224),
-    batch_size=32,
-    class_mode='categorical'
+    train_directory,
+    target_size=(224, 224),  # 画像のサイズ
+    batch_size=32,  # バッチサイズ
+    class_mode='categorical'  # 分類のモード
 )
 
 # モデルの構築
@@ -42,11 +33,7 @@ model = models.Sequential([
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 # モデルの訓練
-model.fit(
-    train_generator,
-    epochs=10,
-    validation_data=validation_generator
-)
+model.fit(train_generator, epochs=10)  # エポック数は必要に応じて調整
 
-# モデルの保存
+# モデルを保存
 model.save('model.h5')
