@@ -18,7 +18,10 @@ labels = ["ごはん", "野菜", "肉", "魚", "果物"]
 @app.route("/")
 def saisyo():
     now = datetime.now().replace(microsecond=0)
-    return f"<h2>このページに訪れた時刻は{now}<br>上のURLバーを正しく書き換えて。</h2>"
+    return f"""
+        <h2>このページに訪れた時刻は {now}<br>上のURLバーを正しく書き換えて。</h2>
+        <a href='/gohann'>gohann に遷移</a>
+    """
 
 @app.route("/gohann", methods=['GET', 'POST'])
 def gohann():
