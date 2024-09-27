@@ -8,7 +8,7 @@ recipe_features = {}
 
 # 料理画像のパスとその名前
 recipe_images = {
-    'ramen': ['recipe_images/ramen.jpg', 'recipe_images/20240221_133857.jpg'],
+    'ramen': ['recipe_images/ramen.jpg', 'recipe_images/20240221_133857.jpg','recipe_images/RAMEN2.jpg','recipe_images/rararamen.jpg'],
     'sushi': ['recipe_images/sushi.jpg'],
     'curry': ['recipe_images/curry.jpg'],
     'bread': ['recipe_images/20230311_114615.jpg'],
