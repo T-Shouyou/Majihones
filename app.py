@@ -55,7 +55,7 @@ def index():
     error = None
     if request.method == 'POST':
         file = request.files.get('file')
-        if file and file.filename:
+        if file is not None and file.filename != '':
             try:
                 bucket = 'custom-labels-console-us-east-1-3b809520ae'
                 s3_client.upload_fileobj(file, bucket, file.filename)
@@ -73,8 +73,10 @@ def index():
                 return render_template('success.html', modified_image=modified_image, food_names=food_names)
             except Exception as e:
                 error = f'Error occurred: {e}'
+                return render_template('error.html', error=error)  # エラー時にエラーページを表示
         else:
             error = 'No file selected'
+            return render_template('error.html', error=error)  # エラー時にエラーページを表示
 
     return render_template('upload.html', error=error)
 
