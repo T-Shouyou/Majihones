@@ -1,17 +1,15 @@
-<!DOCTYPE html>
-<html lang="ja">
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>料理予測</title>
+    <title>Image Upload</title>
 </head>
 <body>
-    <h1>料理画像をアップロードして予測します</h1>
-    <form action="/predict" method="POST" enctype="multipart/form-data">
-        <input type="file" name="image" accept="image/*" required>
-        <button type="submit">予測する</button>
+    <h1>Upload an Image</h1>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*">
+        <input type="submit" value="Upload">
     </form>
-
-    <div id="result"></div>
 </body>
 </html>

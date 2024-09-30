@@ -1,47 +1,82 @@
-import cv2
-import numpy as np
-import pickle  # これを追加
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, render_template
+import boto3
+import io
+from PIL import Image, ImageDraw, ImageFont
+import base64
 
 app = Flask(__name__)
+s3_client = boto3.client('s3')
+rekognition_client = boto3.client('rekognition')
 
-# 事前に計算した料理の特徴をロード
-with open('recipe_features.pkl', 'rb') as f:
-    recipe_features = pickle.load(f)
+# 画像にバウンディングボックスを描画する関数
+def display_image(bucket, photo, response):
+    # S3バケットから画像をロード
+    s3_response = s3_client.get_object(Bucket=bucket, Key=photo.filename)
+    stream = io.BytesIO(s3_response['Body'].read())
+    image = Image.open(stream)
 
-def process_image(image_path):
-    img = cv2.imread(image_path)
-    img = cv2.resize(img, (150, 150))
-    histogram = cv2.calcHist([img], [0, 1, 2], None, [8, 8, 8], [0, 256, 0, 256, 0, 256])
-    cv2.normalize(histogram, histogram)
-    return histogram
+    imgWidth, imgHeight = image.size
+    draw = ImageDraw.Draw(image)
 
-def identify_dish(image_path):
-    features = process_image(image_path)
-    min_distance = float('inf')
-    predicted_dish = '不明な料理名'
+    # カスタムラベルを検出して描画
+    for customLabel in response['CustomLabels']:
+        if 'Geometry' in customLabel:
+            box = customLabel['Geometry']['BoundingBox']
+            left = imgWidth * box['Left']
+            top = imgHeight * box['Top']
+            width = imgWidth * box['Width']
+            height = imgHeight * box['Height']
 
-    # 既知の料理特徴と比較
-    for dish, recipe_hist in recipe_features.items():
-        distance = np.linalg.norm(features - recipe_hist)
-        if distance < min_distance:
-            min_distance = distance
-            predicted_dish = dish
+            draw.text((left, top), customLabel['Name'], fill='#00d400', font=ImageFont.load_default())
+            points = [
+                (left, top),
+                (left + width, top),
+                (left + width, top + height),
+                (left, top + height),
+                (left, top)
+            ]
+            draw.line(points, fill='#00d400', width=5)
 
-    return f'予測された料理名: {predicted_dish}'
+    # 修正した画像をBase64に変換して返す
+    img_byte_arr = io.BytesIO()
+    image.save(img_byte_arr, format='PNG')
+    return base64.b64encode(img_byte_arr.getvalue()).decode('utf-8')
 
-@app.route('/')
+# RekognitionのCustom labelsを判定する関数
+def detect_custom_labels(model, bucket, photo):
+    return rekognition_client.detect_custom_labels(
+        Image={'S3Object': {'Bucket': bucket, 'Name': photo.filename}},
+        MinConfidence=95,
+        ProjectVersionArn=model
+    )
+
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('upload.html')
+    error = None
+    if request.method == 'POST':
+        file = request.files.get('file')
+        if file and file.filename:
+            try:
+                bucket = 'custom-labels-console-us-east-1-3b809520ae'
+                s3_client.upload_fileobj(file, bucket, file.filename)
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    file = request.files['image']
-    image_path = f"uploads/{file.filename}"
-    file.save(image_path)
-    
-    predicted_label = identify_dish(image_path)
-    return jsonify(predicted_label)
+                model = 'arn:aws:rekognition:us-east-1:552409373703:project/SakanaFriends/version/SakanaFriends.2024-09-27T12.23.47/1727407428069'
+                response = detect_custom_labels(model, bucket, file)
 
-if __name__ == '__main__':
+                # 判定された食材名を取得
+                food_names = ', '.join(label['Name'] for label in response['CustomLabels'])
+
+                # バウンディングボックスを描画した画像を取得
+                modified_image = display_image(bucket, file, response)
+
+                # 結果ページをレンダリング
+                return render_template('success.html', modified_image=modified_image, food_names=food_names)
+            except Exception as e:
+                error = f'Error occurred: {e}'
+        else:
+            error = 'No file selected'
+
+    return render_template('upload.html', error=error)
+
+if __name__ == "__main__":
     app.run(debug=True)
