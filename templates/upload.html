@@ -7,9 +7,56 @@
 </head>
 <body>
     <h1>Upload an Image</h1>
-    <form method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept="image/*">
-        <input type="submit" value="Upload">
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="fileInput" name="file" accept="image/*"> <!-- name属性を追加 -->
+        <button type="submit">Upload</button>
     </form>
+
+    <script>
+        document.getElementById('uploadForm').onsubmit = async function(e) {
+            e.preventDefault();
+            const file = document.getElementById('fileInput').files[0];
+            if (!file) {
+                alert('Please select a file!');
+                return;
+            }
+
+            // サーバーにプリサインドURLをリクエスト
+            const response = await fetch('/generate_presigned_url', {
+                method: 'POST',
+                body: JSON.stringify({ filename: file.name }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // S3にファイルをアップロード
+                await fetch(data.url, {
+                    method: 'PUT',
+                    body: file
+                });
+
+                // アップロード後に画像を処理
+                const formData = new FormData();
+                formData.append('file', file); // 'file'はinput要素のname属性と一致
+                const successResponse = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (successResponse.ok) {
+                    const successData = await successResponse.json();
+                    // success.htmlにリダイレクト
+                    window.location.href = '/success.html?food_names=' + encodeURIComponent(successData.food_names) + '&modified_image=' + encodeURIComponent(successData.modified_image);
+                } else {
+                    const errorData = await successResponse.json();
+                    alert('Failed to process the uploaded image: ' + errorData.error);
+                }
+            } else {
+                alert('Failed to get the upload URL: ' + data.error);
+            }
+        };
+    </script>
 </body>
 </html>

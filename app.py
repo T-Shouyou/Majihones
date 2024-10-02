@@ -1,12 +1,30 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 import boto3
 import io
 from PIL import Image, ImageDraw, ImageFont
 import base64
+import os
+from dotenv import load_dotenv
+
+# .envファイルから環境変数を読み込む
+load_dotenv()
 
 app = Flask(__name__)
-s3_client = boto3.client('s3')
-rekognition_client = boto3.client('rekognition')
+
+# 環境変数からAWSの認証情報を取得
+s3_client = boto3.client(
+    's3',
+    aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+    aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
+    aws_session_token=os.getenv('AWS_SESSION_TOKEN')  # セッショントークンがある場合
+)
+
+rekognition_client = boto3.client(
+    'rekognition',
+    aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+    aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
+    aws_session_token=os.getenv('AWS_SESSION_TOKEN')  # セッショントークンがある場合
+)
 
 # 画像にバウンディングボックスを描画する関数
 def display_image(bucket, photo, response):
@@ -50,6 +68,32 @@ def detect_custom_labels(model, bucket, photo):
         ProjectVersionArn=model
     )
 
+# プリサインドURLを生成する関数
+def generate_presigned_url(bucket_name, object_name, expiration=3600):
+    try:
+        response = s3_client.generate_presigned_url('put_object',
+                                                    Params={'Bucket': bucket_name, 'Key': object_name},
+                                                    ExpiresIn=expiration)
+    except Exception as e:
+        print(f"Error generating presigned URL: {e}")
+        return None
+    return response
+
+# プリサインドURLのAPIエンドポイント
+@app.route('/generate_presigned_url', methods=['POST'])
+def generate_presigned_url_route():
+    data = request.get_json()
+    file_name = data['filename']
+    bucket_name = 'custom-labels-console-us-east-1-0df316a052'
+
+    presigned_url = generate_presigned_url(bucket_name, file_name)
+
+    if presigned_url:
+        return jsonify({'url': presigned_url})
+    else:
+        return jsonify({'error': 'Could not generate URL'}), 500
+
+# メインの画像アップロードページ
 @app.route('/', methods=['GET', 'POST'])
 def index():
     error = None
@@ -72,10 +116,7 @@ def index():
                 # 結果ページをレンダリング
                 return render_template('success.html', modified_image=modified_image, food_names=food_names)
             except Exception as e:
-                error = f'Error occurred: {e}'
-                return render_template('error.html', error=error)  # エラー時にエラーページを表示
-        else:
-            error = 'No file selected'
+                error = f'Failed to process the uploaded image: {e}'
             return render_template('error.html', error=error)  # エラー時にエラーページを表示
 
     return render_template('upload.html', error=error)
