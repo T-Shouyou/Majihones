@@ -57,10 +57,10 @@ def index():
         file = request.files.get('file')
         if file is not None and file.filename != '':
             try:
-                bucket = 'custom-labels-console-us-east-1-3b809520ae'
+                bucket = 'custom-labels-console-us-east-1-0df316a052'
                 s3_client.upload_fileobj(file, bucket, file.filename)
 
-                model = 'arn:aws:rekognition:us-east-1:552409373703:project/SakanaFriends/version/SakanaFriends.2024-09-27T12.23.47/1727407428069'
+                model = 'arn:aws:rekognition:us-east-1:898322155510:project/MAJIHONE/version/MAJIHONE.2024-09-30T13.53.23/1727672002204'
                 response = detect_custom_labels(model, bucket, file)
 
                 # 判定された食材名を取得
