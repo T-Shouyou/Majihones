@@ -4,12 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Upload</title>
+    <script>
+        let dotCount = 0;
+        let loadingInterval;
+
+        function showLoadingMessage() {
+            const loadingMessage = document.getElementById("loading-message");
+            loadingMessage.style.display = "block"; // now loadingメッセージを表示
+            
+            loadingInterval = setInterval(() => {
+                dotCount = (dotCount + 1) % 4; // ドットは最大3つまで増える
+                let dots = ".".repeat(dotCount);
+                loadingMessage.textContent = `now loading${dots}`;
+            }, 1000); // 1秒ごとに更新
+        }
+
+        function stopLoadingMessage() {
+            clearInterval(loadingInterval); // インターバルを停止
+        }
+    </script>
+    <style>
+        #loading-message {
+            display: none; /* 最初は非表示 */
+            color: red;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Upload an Image</h1>
-    <form method="post" enctype="multipart/form-data">
+    <h1>Upload</h1>
+    <form method="post" enctype="multipart/form-data" onsubmit="showLoadingMessage()">
         <input type="file" name="file" accept="image/*">
         <input type="submit" value="Upload">
     </form>
+    
+    <p id="loading-message">now loading</p> <!-- now loading メッセージ -->
+
 </body>
 </html>
