@@ -27,17 +27,16 @@ def process_image_from_s3(image_path):
 
 def identify_dish(image_path):
     features = process_image_from_s3(image_path)  # S3から画像を処理
-    min_distance = float('inf')
-    predicted_dish = '不明な料理名'
-
+    distances = {}
+    
     # 既知の料理特徴と比較
     for dish, recipe_hist in recipe_features.items():
         distance = np.linalg.norm(features - recipe_hist)
-        if distance < min_distance:
-            min_distance = distance
-            predicted_dish = dish
+        distances[dish] = distance
 
-    return f'予測された料理名: {predicted_dish}'
+    # 距離を基に料理名をソートして上位3つを取得
+    sorted_dishes = sorted(distances, key=distances.get)[:3]
+    return sorted_dishes  # 上位3つの料理名を返す
 
 @app.route('/')
 def index():
@@ -51,8 +50,10 @@ def predict():
     # S3に画像をアップロード
     s3_client.upload_fileobj(file, 'gazou', image_path)  # 'gazou'はバケット名
 
-    predicted_label = identify_dish(image_path)  # S3上の画像を使用して予測
-    return jsonify(predicted_label)
+    # 予測結果を取得
+    predicted_labels = identify_dish(image_path)  # S3上の画像を使用して予測
+
+    return render_template('success.html', predicted_labels=predicted_labels)  # 成功画面に遷移
 
 @app.route('/upload_recipe', methods=['POST'])
 def upload_recipe():
