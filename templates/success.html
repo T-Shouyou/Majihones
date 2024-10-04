@@ -1,24 +1,13 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Result</title>
-    <style>
-        img {
-            width: 100px;   /* 横幅50px */
-            height: 100px;  /* 縦幅50px */
-            object-fit: contain; /* 画像の形を保って枠内に収める */
-        }
-    </style>
+    <title>予測結果</title>
 </head>
 <body>
-    <h1>検出したもの</h1>
-    <p>{{ food_names }}</p>
-
-    <h1>検出に用いられた画像</h1>
-    <img src="data:image/png;base64,{{ modified_image }}" alt="Result Image">
-
-    <a href="/">Upload another image</a>
+    <h1>予測結果</h1>
+    <h2>{{ dish_name }}</h2>
+    <a href="/">戻る</a>
 </body>
 </html>
