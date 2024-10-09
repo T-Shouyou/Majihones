@@ -25,10 +25,14 @@ def process_image_from_s3(image_path):
     cv2.normalize(histogram, histogram)
     return histogram
 
-def identify_dish(image_path):
-    features = process_image_from_s3(image_path)  # S3から画像を処理
+def average_features(image_paths):
+    features_list = [process_image_from_s3(path) for path in image_paths]
+    return np.mean(features_list, axis=0)
+
+def identify_dishes_from_multiple_images(image_paths):
+    features = average_features(image_paths)  # 複数の画像の特徴を平均化
     distances = {}
-    
+
     # 既知の料理特徴と比較
     for dish, recipe_hist in recipe_features.items():
         distance = np.linalg.norm(features - recipe_hist)
@@ -44,14 +48,21 @@ def index():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    file = request.files['image']
-    image_path = f"uploads/{file.filename}"
+    files = request.files.getlist('image')  # 複数の画像を取得
+    image_paths = []
 
-    # S3に画像をアップロード
-    s3_client.upload_fileobj(file, 'gazou', image_path)  # 'gazou'はバケット名
+    # S3に画像をアップロードし、パスを保存
+    for file in files:
+        image_path = f"uploads/{file.filename}"
+        s3_client.upload_fileobj(file, 'gazou', image_path)  # S3にアップロード
+        image_paths.append(image_path)  # パスをリストに追加
 
-    # 予測結果を取得
-    predicted_labels = identify_dish(image_path)  # S3上の画像を使用して予測
+    # それぞれの認識方法を呼び出し
+    recognized_from_multiple = identify_dishes_from_multiple_images(image_paths)
+    recognized_by_average = identify_dishes_from_multiple_images(image_paths)  # 平均特徴による認識
+
+    # 上位3つの料理名をまとめる
+    predicted_labels = (recognized_from_multiple, recognized_by_average)  # タプルとしてまとめる
 
     return render_template('success.html', predicted_labels=predicted_labels)  # 成功画面に遷移
 
@@ -77,8 +88,11 @@ def update_recipe_features(label, image_path):
     # 新しい画像の特徴を計算
     histogram = process_image_from_s3(image_path)
 
-    # ラベルと特徴を辞書に追加
-    recipe_features[label] = histogram
+    # ラベルに対して特徴を追加
+    if label in recipe_features:
+        recipe_features[label].append(histogram)  # 既存のリストに追加
+    else:
+        recipe_features[label] = [histogram]  # 新規ラベルの場合リストを作成
 
     # 特徴をファイルに保存
     with open('recipe_features.pkl', 'wb') as f:

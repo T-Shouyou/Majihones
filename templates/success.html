@@ -8,11 +8,19 @@
 <body>
     <h1>アップロード成功！</h1>
     <h2>予測された料理名:</h2>
+
+    <h3>複数の画像から認識するパターン:</h3>
     <ul>
-        {% for dish in predicted_labels %}
-            <li>{{ dish }}</li>
-        {% endfor %}
+        <li>１: {{ predicted_labels[0][0] }}</li>
+        <li>２: {{ predicted_labels[0][1] }}</li>
+        <li>３: {{ predicted_labels[0][2] }}</li>
     </ul>
+
+    <h3>特徴を平均して認識するパターン:</h3>
+    <ul>
+        <li>１: {{ predicted_labels[1][0] }}</li>
+    </ul>
+
     <a href="/">戻る</a>
 </body>
 </html>
