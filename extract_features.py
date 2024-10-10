@@ -38,7 +38,10 @@ for label, img_path in recipe_images.items():
         img = cv2.resize(img, (150, 150))
         histogram = cv2.calcHist([img], [0, 1, 2], None, [8, 8, 8], [0, 256, 0, 256, 0, 256])
         cv2.normalize(histogram, histogram)
-        recipe_features[label] = histogram  # ヒストグラムを辞書に保存
+        if label in recipe_features:
+            recipe_features[label].append(histogram)  # 既存のリストに追加
+        else:
+            recipe_features[label] = [histogram]  # 新規ラベルの場合リストを作成
     else:
         print(f"Error: Could not read image {img_path}")  # エラーメッセージ
 

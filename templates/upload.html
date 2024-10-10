@@ -4,17 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>料理予測</title>
+    <script>
+        let dotCount = 1; // 初期表示は1つのドット
+        let interval;
+
+        function startLoading() {
+            const loadingElement = document.getElementById("loading");
+            // ローディングメッセージを表示
+            loadingElement.textContent = "なうろーでぃんぐ." + " ";
+            dotCount = 1; // ドット数を1にリセット
+
+            interval = setInterval(() => {
+                // ドット数を更新
+                if (dotCount < 3) {
+                    dotCount++;
+                } else {
+                    dotCount = 0; // 3つ表示されたら0に戻す
+                }
+
+                // ドットの表示を更新
+                if (dotCount === 0) {
+                    loadingElement.textContent = "なうろーでぃんぐ"; // 何も表示しない
+                } else {
+                    loadingElement.textContent = "なうろーでぃんぐ" + ".".repeat(dotCount);
+                }
+            }, 1000); // 1秒ごとに更新
+        }
+
+        function stopLoading() {
+            clearInterval(interval);
+            document.getElementById("loading").textContent = ""; // ローディングメッセージをクリア
+        }
+    </script>
 </head>
 <body>
     <h1>料理画像をアップロードして予測します</h1>
-    <form action="/predict" method="POST" enctype="multipart/form-data">
-        <input type="file" name="image" accept="image/*" required>
+    <div id="loading">fish fish fish 魚釣りをする魚</div> <!-- 初期状態で特定のテキストを表示 -->
+    <form action="/predict" method="POST" enctype="multipart/form-data" onsubmit="startLoading();">
+        <input type="file" name="image" accept="image/*" multiple required>
         <button type="submit">予測する</button>
     </form>
 
     <div id="result"></div>
 
-    <!-- 追加: recipe_images.htmlへのリンク -->
     <a href="/recipe_images">レシピ画像のアップロードページに移動</a>
+    <br>
+    <a href="/recipe_delete">レシピの削除ページに移動</a>
 </body>
 </html>
