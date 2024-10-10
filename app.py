@@ -1,84 +1,99 @@
-from flask import Flask, request, render_template
-import boto3
-import io
-from PIL import Image, ImageDraw, ImageFont
-import base64
+import cv2
+import numpy as np
+import pickle
+import boto3  # S3用のライブラリ
+from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
-s3_client = boto3.client('s3')
-rekognition_client = boto3.client('rekognition')
 
-# 画像にバウンディングボックスを描画する関数
-def display_image(bucket, photo, response):
-    # S3バケットから画像をロード
-    s3_response = s3_client.get_object(Bucket=bucket, Key=photo.filename)
-    stream = io.BytesIO(s3_response['Body'].read())
-    image = Image.open(stream)
+# S3クライアントの初期化
+s3_client = boto3.client('s3', region_name='us-east-1')  # リージョンを指定
 
-    imgWidth, imgHeight = image.size
-    draw = ImageDraw.Draw(image)
+# 事前に計算した料理の特徴をロード
+with open('recipe_features.pkl', 'rb') as f:
+    recipe_features = pickle.load(f)
 
-    # カスタムラベルを検出して描画
-    for customLabel in response['CustomLabels']:
-        if 'Geometry' in customLabel:
-            box = customLabel['Geometry']['BoundingBox']
-            left = imgWidth * box['Left']
-            top = imgHeight * box['Top']
-            width = imgWidth * box['Width']
-            height = imgHeight * box['Height']
+def process_image(img):
+    img = cv2.resize(img, (150, 150))
+    histogram = cv2.calcHist([img], [0, 1, 2], None, [8, 8, 8], [0, 256, 0, 256, 0, 256])
+    cv2.normalize(histogram, histogram)
+    return histogram
 
-            draw.text((left, top), customLabel['Name'], fill='#00d400', font=ImageFont.load_default())
-            points = [
-                (left, top),
-                (left + width, top),
-                (left + width, top + height),
-                (left, top + height),
-                (left, top)
-            ]
-            draw.line(points, fill='#00d400', width=5)
+def identify_dish(img):
+    features = process_image(img)
+    min_distance = float('inf')
+    predicted_dish = '不明な料理名'
 
-    # 修正した画像をBase64に変換して返す
-    img_byte_arr = io.BytesIO()
-    image.save(img_byte_arr, format='PNG')
-    return base64.b64encode(img_byte_arr.getvalue()).decode('utf-8')
+    # 既知の料理特徴と比較
+    for dish, recipe_hist in recipe_features.items():
+        distance = np.linalg.norm(features - recipe_hist)
+        if distance < min_distance:
+            min_distance = distance
+            predicted_dish = dish
 
-# RekognitionのCustom labelsを判定する関数
-def detect_custom_labels(model, bucket, photo):
-    return rekognition_client.detect_custom_labels(
-        Image={'S3Object': {'Bucket': bucket, 'Name': photo.filename}},
-        MinConfidence=95,
-        ProjectVersionArn=model
-    )
+    return f'予測された料理名: {predicted_dish}'
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
-    error = None
-    if request.method == 'POST':
-        file = request.files.get('file')
-        if file is not None and file.filename != '':
-            try:
-                bucket = 'custom-labels-console-us-east-1-0df316a052'
-                s3_client.upload_fileobj(file, bucket, file.filename)
+    return render_template('upload.html')
 
-                model = 'arn:aws:rekognition:us-east-1:898322155510:project/MAJIHONE/version/MAJIHONE.2024-09-30T13.53.23/1727672002204'
-                response = detect_custom_labels(model, bucket, file)
+@app.route('/recipe_images')
+def recipe_images():
+    return render_template('recipe_images.html')
 
-                # 判定された食材名を取得
-                food_names = ', '.join(label['Name'] for label in response['CustomLabels'])
+@app.route('/predict', methods=['POST'])
+def predict():
+    file = request.files['image']
+    image_path = f"uploads/{file.filename}"
+    
+    # S3に画像をアップロード
+    s3_client.upload_fileobj(file, 'gazou', image_path)
 
-                # バウンディングボックスを描画した画像を取得
-                modified_image = display_image(bucket, file, response)
+    # S3から画像をダウンロード
+    img_data = s3_client.get_object(Bucket='gazou', Key=image_path)['Body'].read()
+    img_array = np.frombuffer(img_data, np.uint8)
+    img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
 
-                # 結果ページをレンダリング
-                return render_template('success.html', modified_image=modified_image, food_names=food_names)
-            except Exception as e:
-                error = f'Error occurred: {e}'
-                return render_template('error.html', error=error)  # エラー時にエラーページを表示
-        else:
-            error = 'No file selected'
-            return render_template('error.html', error=error)  # エラー時にエラーページを表示
+    # 画像の特徴を計算
+    predicted_label = identify_dish(img)
 
-    return render_template('upload.html', error=error)
+    return jsonify(predicted_label)
 
-if __name__ == "__main__":
+@app.route('/upload_recipe', methods=['POST'])
+def upload_recipe():
+    label = request.form['label']  # 入力されたラベルを取得
+    file = request.files['image']
+    image_path = f"recipe_images/{file.filename}"  # S3のrecipe_imagesフォルダに保存するパス
+
+    # S3に画像をアップロード
+    s3_client.upload_fileobj(file, 'gazou', image_path)  # 'gazou'はバケット名
+
+    # extract_features.pyにラベルと画像パスを追加する処理を呼び出す
+    update_recipe_features(label, image_path)
+
+    return "レシピ画像がアップロードされました。"
+
+def update_recipe_features(label, image_path):
+    # 既存の料理特徴を読み込む
+    with open('recipe_features.pkl', 'rb') as f:
+        recipe_features = pickle.load(f)
+
+    # S3から画像をダウンロード
+    img_data = s3_client.get_object(Bucket='gazou', Key=image_path)['Body'].read()
+    img_array = np.frombuffer(img_data, np.uint8)
+    img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
+
+    # 新しい画像の特徴を計算
+    histogram = process_image(img)
+
+    # ラベルと特徴を辞書に追加
+    recipe_features[label] = histogram
+
+    # 特徴をファイルに保存
+    with open('recipe_features.pkl', 'wb') as f:
+        pickle.dump(recipe_features, f)
+
+    print(f"{label} の特徴が成功裏に保存されました。")
+
+if __name__ == '__main__':
     app.run(debug=True)
