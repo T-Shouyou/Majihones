@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja">
+<head>
     <meta charset="UTF-8">
     <title>メインメニュー</title>
     <link rel="stylesheet" href="../mainmenu/css/mainmenu.css">
-</html>
-
+</head>
 <body background="../static/background.png" class="kabegami">
     <div class="container">
         <img src="../static/title.png" class="title">
@@ -16,8 +16,39 @@
         <button class="sug-btn">🍖ごはん提案</button>
         <button class="hiroba-btn"><img src="../static/hiroba-icon.png" class="hiroba-icon">ごはん広場</button>
         <button class="ac_op-btn">⚙アカウント設定</button>
-    </div>    
+    </div> 
 
-    </form>
+    <div class="memo-container">
+        <textarea id="memo" placeholder="ここにメモを書いてください..." disabled></textarea>
+        <div id="admin-controls">
+            <button id="edit-btn">編集</button>
+            <button id="confirm-btn">確定</button>
+        </div>
+    </div>
+
     <br><br>
+
+    <script>
+        // ページ読み込み時にメモを復元する
+        window.addEventListener('load', function() {
+            const savedMemo = localStorage.getItem('memo');
+            if (savedMemo) {
+                document.getElementById('memo').value = savedMemo; // テキストエリアに内容を表示
+            }
+        });
+
+        // 編集ボタンのイベントリスナー
+        document.getElementById('edit-btn').addEventListener('click', function() {
+            const memo = document.getElementById('memo');
+            memo.disabled = false; // テキストエリアを編集可能にする
+        });
+
+        // 確定ボタンのイベントリスナー
+        document.getElementById('confirm-btn').addEventListener('click', function() {
+            const memo = document.getElementById('memo');
+            localStorage.setItem('memo', memo.value); // メモを保存
+            memo.disabled = true; // テキストエリアを再び非編集にする
+        });
+    </script>
 </body>
+</html>
