@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ログイン</title>
+    <link rel="stylesheet" href="./css/login.css">
+</head>
+<body background="../static/background.png" class="kabegami">
+    <h1 class="title">ログイン</h1>
+    <form action="/login" method="post">
+        <div class="login-form">
+            <input name="account_name" class="my-textbox" placeholder="アカウント名" required>
+        </div>
+        <br>
+        <div class="login-form">
+            <input type="password" name="password" class="my-textbox" placeholder="パスワード" required>
+        </div>
+        <br>
+        <div class="login-form">
+            <button type="submit" id="login-button">ログイン</button>
+        </div>
+    </form>
+    <div class="signup-link">
+        <a href="/sign-up">新規登録はこちら</a> <!-- 新規登録リンク -->
+    </div>
+</body>
+</html>

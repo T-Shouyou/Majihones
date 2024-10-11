@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="ja">
+<head>
     <meta charset="UTF-8">
     <title>メインメニュー</title>
     <link rel="stylesheet" href="../mainmenu/css/mainmenu.css">
-</html>
-
+</head>
 <body background="../static/background.png" class="kabegami">
     <div class="container">
         <img src="../static/title.png" class="title">
-        <p>ログイン中：(アカウント名)</p>
+        <p>ログイン中：(アカウント名)</p> <!-- アカウント名はセッションから取得する必要があります -->
     </div>
 
     <div class="button-container">
-        <button class="camera-btn"><img src="../static/camera.png" class="camera-icon">ごはん撮影</button>
+        <form action="/upload" method="get"> <!-- 撮影ボタンを追加 -->
+            <button type="submit" class="camera-btn"><img src="../static/camera.png" class="camera-icon">ごはん撮影</button>
+        </form>
         <button class="sug-btn">🍖ごはん提案</button>
         <button class="hiroba-btn"><img src="../static/hiroba-icon.png" class="hiroba-icon">ごはん広場</button>
         <button class="ac_op-btn">⚙アカウント設定</button>
     </div>    
 
-    </form>
     <br><br>
 </body>
+</html>

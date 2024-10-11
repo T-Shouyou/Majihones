@@ -2,9 +2,24 @@ import cv2
 import numpy as np
 import pickle
 import boto3  # S3用のライブラリ
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, redirect, url_for, session
+from flask_mysqldb import MySQL
+import os
+import secrets
 
 app = Flask(__name__)
+
+# シークレットキーの設定
+app.secret_key = secrets.token_hex(16)  # セキュリティのためのシークレットキー
+
+# MySQLの設定
+app.config['MYSQL_HOST'] = 'UminekoSakana.mysql.pythonanywhere-services.com'
+app.config['MYSQL_USER'] = 'UminekoSakana'
+app.config['MYSQL_PASSWORD'] = 'KounoFriends'
+app.config['MYSQL_DB'] = 'UminekoSakana$default'
+
+# MySQLの初期化
+mysql = MySQL(app)
 
 # S3クライアントの初期化
 s3_client = boto3.client('s3', region_name='us-east-1')  # リージョンを指定
@@ -44,7 +59,7 @@ def identify_dishes_from_multiple_images(image_paths):
 
 @app.route('/')
 def index():
-    return render_template('upload.html')
+    return render_template('top/index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -130,6 +145,63 @@ def delete_recipe():
 
     except Exception as e:
         return f"エラーが発生しました: {str(e)}"
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        account_name = request.form['account_name']
+        password = request.form['password']
+        
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM ACCOUNT WHERE ACCOUNT_NAME = %s AND PASS = %s", (account_name, password))
+        user = cur.fetchone()
+        cur.close()
+
+        if user:
+            session['account_name'] = account_name  # セッションにアカウント名を保存
+            return redirect(url_for('main_menu'))  # ログイン成功時にメインメニューへリダイレクト
+        else:
+            return "ログインに失敗しました。アカウント名またはパスワードが間違っています。"
+
+    return render_template('ninnsyou/login.html')
+
+
+@app.route('/sign-up')
+def sign_up():
+    return render_template('ninnsyou/sign-up.html')  # 新規登録ページを表示
+
+@app.route('/signup', methods=['POST'])
+def signup():
+    account_name = request.form['account_name']
+    mail_address = request.form['mail_address']
+    password = request.form['password']
+
+    # 入力値のバリデーション
+    if len(account_name) > 10 or len(mail_address) > 25 or len(password) < 8 or len(password) > 20:
+        return "入力値が不正です。アカウント名は10桁以内、メールアドレスは25桁以内、パスワードは8桁以上20桁以内で入力してください。"
+
+    cur = mysql.connection.cursor()
+    # アカウント名の重複チェック
+    cur.execute("SELECT * FROM ACCOUNT WHERE ACCOUNT_NAME = %s", (account_name,))
+    if cur.fetchone() is not None:
+        cur.close()
+        return "そのアカウント名は既に使用されています。"
+
+    # データベースに新規登録
+    cur.execute("INSERT INTO ACCOUNT (ACCOUNT_NAME, MAIL, PASS) VALUES (%s, %s, %s)", (account_name, mail_address, password))
+    mysql.connection.commit()
+    cur.close()
+
+    return redirect(url_for('login'))  # 登録後にログインページへリダイレクト
+
+@app.route('/logout')
+def logout():
+    session.pop('account_name', None)  # セッションからアカウント名を削除
+    return redirect(url_for('login'))  # ログアウト後にログイン画面へリダイレクト
+
+@app.route('/main_menu')
+def main_menu():
+    return render_template('mainmenu/mainmenu.html', account_name=session.get('account_name'))
 
 if __name__ == '__main__':
     app.run(debug=True)
