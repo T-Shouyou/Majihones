@@ -64,3 +64,7 @@
 .back-button:hover {
     background-color: #efe8d2; /* ホバー時の水色を少し暗くする */
 }
+
+.txt-center{
+    text-align : center;
+}
