@@ -2,7 +2,7 @@
 <html lang="ja">
     <meta charset="UTF-8">
     <title>新規登録</title>
-    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/sign-up.css">
 </html>
 
 <body background="../static/background.png" class="kabegami">
@@ -12,26 +12,26 @@
 
     <form action="" method="post"> 
         <div id="input1">
-            <div class="login-form">
+            <div class="signup-form">
                 <input id="account_name" class="my-textbox" placeholder="アカウント名(表示名)" required>
             </div>
             <br>
-            <div class="login-form">
+            <div class="signup-form">
                 <input id="mail_address" class="my-textbox" placeholder="メールアドレス" required>
             </div>
             <br>
-            <div class="login-form">
+            <div class="signup-form">
                 <input id="password" class="my-textbox" placeholder="パスワード" required>
             </div>
             <br>
-            <div class="login-form">
-                <button onclick="location.href='../ninnsyou/sign-up_success.html';" id="login-button" class="login-button">登録</button>
-                <!-- <button type="submit" id="login-button" class="login-button">登録</button> -->
+            <div class="signup-form">
+                <button onclick="location.href='../ninnsyou/sign-up_success.html';" id="login-button" class="signup-button">登録</button>
+                <!-- <button type="submit" id="login-button" class="signup-button">登録</button> -->
             </div>
         </div>
     </form>
 
-    <div class="login-form">
+    <div class="signup-form">
         <p>既にアカウントをお持ちですか？<a href="../ninnsyou/login.html">ログイン</a></p>
     </div>
     <button id="back-button" onclick="location.href='../top/index.html'" class="back-button">戻る</button>
