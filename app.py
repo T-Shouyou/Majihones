@@ -146,7 +146,7 @@ def delete_recipe():
     except Exception as e:
         return f"エラーが発生しました: {str(e)}"
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/ninnsyou/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         account_name = request.form['account_name']
@@ -166,11 +166,11 @@ def login():
     return render_template('ninnsyou/login.html')
 
 
-@app.route('/sign-up')
+@app.route('/ninnsyou/signup')
 def sign_up():
-    return render_template('ninnsyou/sign-up.html')  # 新規登録ページを表示
+    return render_template('ninnsyou/signup.html')  # 新規登録ページを表示
 
-@app.route('/signup', methods=['POST'])
+@app.route('/ninnsyou/signup', methods=['POST','GET'])
 def signup():
     account_name = request.form['account_name']
     mail_address = request.form['mail_address']
@@ -194,12 +194,16 @@ def signup():
 
     return redirect(url_for('login'))  # 登録後にログインページへリダイレクト
 
-@app.route('/logout')
+@app.route('/ninnsyou/signup_success')
+def signup_success():
+    return render_template('ninnsyou/signup_success.html')
+
+@app.route('/ninnsyou/logout')
 def logout():
     session.pop('account_name', None)  # セッションからアカウント名を削除
     return redirect(url_for('login'))  # ログアウト後にログイン画面へリダイレクト
 
-@app.route('/main_menu')
+@app.route('/mainmenu/mainmenu')
 def main_menu():
     return render_template('mainmenu/mainmenu.html', account_name=session.get('account_name'))
 
