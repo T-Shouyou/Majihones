@@ -79,9 +79,9 @@ def predict():
     # 上位3つの料理名をまとめる
     predicted_labels = (recognized_from_multiple, recognized_by_average)  # タプルとしてまとめる
 
-    return render_template('success.html', predicted_labels=predicted_labels)  # 成功画面に遷移
+    return render_template('ninnsiki/success.html', predicted_labels=predicted_labels)  # 成功画面に遷移
 
-@app.route('/upload_recipe', methods=['POST'])
+@app.route('/ninnsiki/upload_recipe', methods=['POST'])
 def upload_recipe():
     label = request.form['label']  # 入力されたラベルを取得
     file = request.files['image']
@@ -93,7 +93,7 @@ def upload_recipe():
     # extract_features.pyにラベルと画像パスを追加する処理を呼び出す
     update_recipe_features(label, image_path)
 
-    return render_template('recipe_add_success.html')  # 成功画面に遷移
+    return render_template('ninnsiki/recipe_add_success.html')  # 成功画面に遷移
 
 def update_recipe_features(label, image_path):
     # 既存の料理特徴を読み込む
@@ -115,15 +115,15 @@ def update_recipe_features(label, image_path):
 
     print(f"{label} の特徴が成功裏に保存されました。")
 
-@app.route('/recipe_images', methods=['GET'])
+@app.route('/ninnsiki/recipe_images', methods=['GET'])
 def recipe_images():
-    return render_template('recipe_images.html')
+    return render_template('ninnsiki/recipe_images.html')
 
-@app.route('/recipe_delete', methods=['GET'])
+@app.route('/ninnsiki/recipe_delete', methods=['GET'])
 def recipe_delete():
-    return render_template('recipe_delete.html')
+    return render_template('ninnsiki/recipe_delete.html')
 
-@app.route('/delete_recipe', methods=['POST'])
+@app.route('/ninnsiki/delete_recipe', methods=['POST'])
 def delete_recipe():
     label = request.form['label']  # 入力されたラベルを取得
     try:
@@ -139,7 +139,7 @@ def delete_recipe():
             with open('recipe_features.pkl', 'wb') as f:
                 pickle.dump(recipe_features, f)
 
-            return render_template('recipe_delete_success.html')
+            return render_template('ninnski/recipe_delete_success.html')
         else:
             return "指定された料理名は存在しません。"
 
