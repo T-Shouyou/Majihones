@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>index</title>
 </head>
 <body background="../static/background.png" class="kabegami">
@@ -13,7 +13,7 @@
     <div class="image-container">
         <img src="../static/frireverse.png" alt="フライ返し" class="fryreverse">
         <div class="start-link-container">
-            <a href="../ninnsyou/login.html" class="start_link"> <!-- ログインページへのリンクを修正 -->
+            <a href="{{ url_for('login') }}" class="start_link"> <!-- ログインページへのリンクを修正 -->
                 <img src="../static/bacon.png" alt="スタートボタン">
                 <span class="start-text">スタート！</span>
             </a>

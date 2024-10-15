@@ -146,7 +146,7 @@ def delete_recipe():
     except Exception as e:
         return f"エラーが発生しました: {str(e)}"
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/ninnsyou/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         account_name = request.form['account_name']
@@ -159,18 +159,18 @@ def login():
 
         if user:
             session['account_name'] = account_name  # セッションにアカウント名を保存
-            return redirect(url_for('main_menu'))  # ログイン成功時にメインメニューへリダイレクト
+            return redirect(url_for('mainmenu'))  # ログイン成功時にメインメニューへリダイレクト
         else:
             return "ログインに失敗しました。アカウント名またはパスワードが間違っています。"
 
     return render_template('ninnsyou/login.html')
 
 
-@app.route('/sign-up')
+@app.route('/ninnsyou/signup')
 def sign_up():
-    return render_template('ninnsyou/sign-up.html')  # 新規登録ページを表示
+    return render_template('ninnsyou/signup.html')  # 新規登録ページを表示
 
-@app.route('/signup', methods=['POST'])
+@app.route('/ninnsyou/signup', methods=['POST','GET'])
 def signup():
     account_name = request.form['account_name']
     mail_address = request.form['mail_address']
@@ -178,7 +178,7 @@ def signup():
 
     # 入力値のバリデーション
     if len(account_name) > 10 or len(mail_address) > 25 or len(password) < 8 or len(password) > 20:
-        return "入力値が不正です。アカウント名は10桁以内、メールアドレスは25桁以内、パスワードは8桁以上20桁以内で入力してください。"
+        return "アカウント名は10桁以内、メールアドレスは25桁以内、パスワードは8桁以上20桁以内で入力してね"
 
     cur = mysql.connection.cursor()
     # アカウント名の重複チェック
@@ -194,12 +194,16 @@ def signup():
 
     return redirect(url_for('login'))  # 登録後にログインページへリダイレクト
 
-@app.route('/logout')
+@app.route('/ninnsyou/signup_success')
+def signup_success():
+    return render_template('ninnsyou/signup_success.html')
+
+@app.route('/ninnsyou/logout')
 def logout():
     session.pop('account_name', None)  # セッションからアカウント名を削除
     return redirect(url_for('login'))  # ログアウト後にログイン画面へリダイレクト
 
-@app.route('/main_menu')
+@app.route('/mainmenu/mainmenu')
 def main_menu():
     return render_template('mainmenu/mainmenu.html', account_name=session.get('account_name'))
 

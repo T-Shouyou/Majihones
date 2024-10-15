@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>ログイン</title>
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
 <body background="../static/background.png" class="kabegami">
     <div class="container">
@@ -19,12 +19,12 @@
         </div>
         <br>
         <div class="login-form">
-            <button onclick="location.href='../mainmenu/mainmenu.html';" id="login-button" class="login-button">ログイン</button>
+            <button onclick="location.href='{{ url_for('main_menu') }}';" id="login-button" class="login-button">ログイン</button>
             <!-- <button type="submit" id="login-button" class="login-button">ログイン</button> -->
         </div>
         <br>
         <div class="login-form">
-            <a href="../ninnsyou/sign-up.html">新規登録はこちら</a>
+            <a href="{{ url_for('signup') }}" class="start_link">新規登録はこちら</a>
         </div>
     </form>
     <br><br>
