@@ -203,8 +203,8 @@ def logout():
     session.pop('account_name', None)  # セッションからアカウント名を削除
     return redirect(url_for('login'))  # ログアウト後にログイン画面へリダイレクト
 
-@app.route('/mainmenu/mainmenu')
-def main_menu():
+@app.route('/mainmenu/mainmenu', methods=['POST','GET'])
+def mainmenu():
     return render_template('mainmenu/mainmenu.html', account_name=session.get('account_name'))
 
 if __name__ == '__main__':

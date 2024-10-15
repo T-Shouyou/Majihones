@@ -33,6 +33,6 @@
     <div class="signup-form">
         <p>既にアカウントをお持ちですか？<a href="{{ url_for('login') }}" class="start_link">ログイン</a></p>
     </div>
-    <button id="back-button" onclick="location.href='../top/index.html'" class="back-button">戻る</button>
+    <button id="back-button" onclick="location.href='{{ url_for('index') }}';" class="back-button">戻る</button>
 </body>
 </html>

@@ -19,8 +19,7 @@
         </div>
         <br>
         <div class="login-form">
-            <button onclick="location.href='{{ url_for('main_menu') }}';" id="login-button" class="login-button">ログイン</button>
-            <!-- <button type="submit" id="login-button" class="login-button">ログイン</button> -->
+            <button id="login-button" onclick="location.href='{{ url_for('mainmenu') }}';" class="login-button">ログイン</button>
         </div>
         <br>
         <div class="login-form">
@@ -28,6 +27,6 @@
         </div>
     </form>
     <br><br>
-    <button id="back-button" onclick="location.href='../top/index.html'" class="back-button">戻る</button>
+    <button id="back-button" onclick="location.href='{{ url_for('index') }}';"  class="back-button">戻る</button>
 </body>
 </html>
