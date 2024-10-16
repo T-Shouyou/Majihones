@@ -147,18 +147,18 @@ def delete_recipe():
 @app.route('/ninnsyou/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        account_name = request.form['account_name']
+        mail_address = request.form['mail_address']
         password = request.form['password']
         
         conn = get_db()
         cur = conn.cursor()
-        cur.execute("SELECT * FROM ACCOUNT WHERE ACCOUNT_NAME = ? AND PASS = ?", (account_name, password))
+        cur.execute("SELECT * FROM ACCOUNT WHERE MAIL = ? AND PASS = ?", (mail_address, password))
         user = cur.fetchone()
         cur.close()
         conn.close()
 
         if user:
-            session['account_name'] = account_name  # セッションにアカウント名を保存
+            session['account_name'] = user[1]  # セッションにアカウント名を保存
             return redirect(url_for('mainmenu'))  # ログイン成功時にメインメニューへリダイレクト
         else:
             return "ログインに失敗しました。アカウント名またはパスワードが間違っています。"
