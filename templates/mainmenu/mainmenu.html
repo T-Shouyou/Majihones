@@ -5,16 +5,16 @@
     <title>メインメニュー</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/mainmenu.css') }}">
 </head>
-<body background="../static/background.png" class="kabegami">
+<body background="../static/img/background.png" class="kabegami">
     <div class="container">
-        <img src="../static/title.png" class="title">
+        <img src="../static/img/title.png" class="title">
         <p>ログイン中：{{ account_name }}</p>
     </div>
 
     <div class="button-container">
-        <button onclick="location.href='{{ url_for('photo_menu') }}';" class="camera-btn"><img src="../static/camera.png" class="camera-icon">ごはん撮影</button>
+        <button onclick="location.href='{{ url_for('photo_menu') }}';" class="camera-btn"><img src="../static/img/camera.png" class="camera-icon">ごはん撮影</button>
         <button class="sug-btn">🍖ごはん提案</button>
-        <button class="hiroba-btn"><img src="../static/hiroba-icon.png" class="hiroba-icon">ごはん広場</button>
+        <button class="hiroba-btn"><img src="../static/img/hiroba-icon.png" class="hiroba-icon">ごはん広場</button>
         <button class="ac_op-btn">⚙アカウント設定</button>
     </div> 
 

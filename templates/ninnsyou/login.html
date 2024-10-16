@@ -5,9 +5,9 @@
     <title>ログイン</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
-<body background="{{ url_for('static', filename='background.png') }}" class="kabegami">
+<body background="{{ url_for('static', filename='img/background.png') }}" class="kabegami">
     <div class="container">
-        <img src="{{ url_for('static', filename='title.png') }}" class="title">
+        <img src="{{ url_for('static', filename='img/title.png') }}" class="title">
     </div>
     <form action="{{ url_for('login') }}" method="post">
         <div class="login-form">

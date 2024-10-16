@@ -5,9 +5,9 @@
     <title>新規登録</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
 </head>
-<body background="../static/background.png" class="kabegami">
+<body background="../static/img/background.png" class="kabegami">
     <div class="container">
-        <img src="../static/title.png" class="title">
+        <img src="../static/img/title.png" class="title">
     </div>
     <form action="{{ url_for('signup') }}" method="post">  <!-- 修正点: actionをFlaskのurl_forで指定 -->
         <div id="input1">
