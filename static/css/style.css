@@ -71,3 +71,20 @@ body {
     font-size: 30px; /* フォントサイズを設定 */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* 影を追加して視認性を向上 */
 }
+
+.start_link {
+    color: #fff; /* テキストの色 */
+    text-decoration: none; /* 下線を消す */
+    animation: glow 1.5s infinite alternate; /* アニメーションを設定 */
+}
+
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 5px #ffcc00, 0 0 10px #ffcc00, 0 0 15px #ffcc00; /* 初めの状態 */
+        opacity: 0.7; /* 初めの透明度 */
+    }
+    100% {
+        text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00, 0 0 30px #ffcc00; /* 最後の状態 */
+        opacity: 1; /* 最後の透明度 */
+    }
+}
