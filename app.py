@@ -176,8 +176,8 @@ def signup():
     password = request.form['password']
 
     # 入力値のバリデーション
-    if len(account_name) > 10 or len(mail_address) > 25 or len(password) < 8 or len(password) > 20:
-        return "アカウント名は10桁以内、メールアドレスは25桁以内、パスワードは8桁以上20桁以内で入力してね"
+    if len(account_name) > 10 or len(password) < 8 or len(password) > 20:
+        return "アカウント名は10桁以内、パスワードは8桁以上20桁以内で入力してね"
 
     conn = get_db()
     cur = conn.cursor()
