@@ -158,6 +158,7 @@ def login():
         conn.close()
 
         if user:
+            session['account_id'] = user[0]
             session['account_name'] = user[1]  # セッションにアカウント名を保存
             return redirect(url_for('mainmenu'))  # ログイン成功時にメインメニューへリダイレクト
         else:
@@ -208,8 +209,28 @@ def logout():
 @app.route('/mainmanu/mainmenu')
 def mainmenu():
     if 'account_name' in session:
-        return render_template('mainmenu/mainmenu.html', account_name=session['account_name'])  # ログイン中のアカウント名を表示
+        account_id = session.get('account_id')
+        return render_template('mainmenu/mainmenu.html', account_name=session['account_name'], account_id=account_id)  # ログイン中のアカウント名を表示
     return redirect(url_for('login'))  # 未ログインの場合はログインページへリダイレクト
+
+@app.route('/master/account_look')
+def account_look():
+    # ユーザーがログインしているかを確認
+    if 'account_name' in session:
+        # 以下の条件をコメントアウトして残しておく
+        # if session.get('account_id') == 1:  # ACCOUNT_IDが1かどうかを確認
+            conn = get_db()
+            cur = conn.cursor()
+            # すべてのアカウント情報を取得
+            cur.execute("SELECT ACCOUNT_ID, ACCOUNT_NAME, MAIL, PASS FROM ACCOUNT")
+            accounts = cur.fetchall()  # アカウント情報のリストを取得
+            cur.close()
+            conn.close()
+            
+            return render_template('master/account_look.html', accounts=accounts)  # アカウント情報をテンプレートに渡す
+
+    return redirect(url_for('login'))  # 未ログインの場合はログインページへリダイレクト
+
 
 @app.route('/photo/photo_menu')
 def photo_menu():
