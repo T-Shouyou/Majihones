@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>新規登録</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+</head>
+<body background="../static/background.png" class="kabegami">
+    <div class="container">
+        <img src="../static/title.png" class="title">
+    </div>
+    <form action="{{ url_for('signup') }}" method="post">  <!-- 修正点: actionをFlaskのurl_forで指定 -->
+        <div id="input1">
+            <div class="signup-form">
+                <input name="account_name" class="my-textbox" placeholder="アカウント名(表示名)" required>
+            </div>
+            <br>
+            <div class="signup-form">
+                <input name="mail_address" class="my-textbox" placeholder="メールアドレス" required>
+            </div>
+            <br>
+            <div class="signup-form">
+                <input type="password" name="password" class="my-textbox" placeholder="パスワード" required>
+            </div>
+            <br>
+            <div class="signup-form">
+                <button type="submit" id="login-button" class="signup-button">登録</button> <!-- 修正点: typeをsubmitに変更 -->
+            </div>
+        </div>
+    </form>
+
+    <div class="signup-form">
+        <p>既にアカウントをお持ちですか？<a href="{{ url_for('login') }}" class="start_link">ログイン</a></p>
+    </div>
+    <button id="back-button" onclick="location.href='{{ url_for('index') }}';" class="back-button">戻る</button>
+</body>
+</html>
