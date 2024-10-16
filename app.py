@@ -207,5 +207,13 @@ def logout():
 def mainmenu():
     return render_template('mainmenu/mainmenu.html', account_name=session.get('account_name'))
 
+@app.route('/photo/photo_menu')
+def photo_menu():
+    return render_template('photo/photo_menu.html')  # ごはん撮影メニューを表示
+
+@app.route('/photo/photo_take')
+def photo_take():
+    return render_template('photo/photo_take.html')  # ごはん撮影メニューを表示
+
 if __name__ == '__main__':
     app.run(debug=True)
