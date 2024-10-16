@@ -58,7 +58,9 @@ body {
 }
 
 .back-button {
-    text-align: left;
+    position: fixed; /* 固定位置にする */
+    bottom: 30px; /* 上から20px */
+    left: 30px; /* 左から20px */
     background-color: transparent; /* 透明の背景色 */
     color: black; /* テキストの色を黒に設定 */
     padding: 9px 30px; /* 上下の余白を15px、左右を30pxに設定 */
@@ -67,7 +69,6 @@ body {
     border-radius: 5px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
-    margin-left: 40px; /* 左端との間隔を20pxあける */
 }
 
 .back-button:hover {

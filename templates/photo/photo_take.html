@@ -14,7 +14,12 @@
     <div class="video-container">
         <video id="video" autoplay class="center"></video> <!-- カメラ映像を表示するためのビデオ要素 -->
     </div>
-    <button id="capture">撮影</button> <!-- 撮影ボタン -->
+
+    <div class="button-container">
+        <button id="back-button" onclick="location.href='{{ url_for('photo_menu') }}';" class="back-button">戻る</button>
+        <button id="capture" class="capture">撮影</button> <!-- 撮影ボタン -->
+    </div>
+    
     <br>
     <canvas id="canvas"></canvas> <!-- 撮影した画像を表示するためのcanvas -->
     <br>
@@ -57,6 +62,6 @@
         // ページが読み込まれたらカメラを起動
         window.onload = startCamera;
     </script>
-     <button id="back-button" onclick="location.href='{{ url_for('photo_menu') }}';" class="back-button">戻る</button>
+    
 </body>
 </html>
