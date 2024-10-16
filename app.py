@@ -2,9 +2,22 @@ import cv2
 import numpy as np
 import pickle
 import boto3  # S3用のライブラリ
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, redirect, url_for, session
+import sqlite3  # SQLite用のライブラリ
+import os
+import secrets
 
 app = Flask(__name__)
+
+# シークレットキーの設定
+app.secret_key = secrets.token_hex(16)  # セキュリティのためのシークレットキー
+
+# SQLiteデータベースの設定
+DATABASE = 'mydatabase.db'  # SQLiteデータベースのファイル名
+
+def get_db():
+    conn = sqlite3.connect(DATABASE)
+    return conn
 
 # S3クライアントの初期化
 s3_client = boto3.client('s3', region_name='us-east-1')  # リージョンを指定
@@ -44,7 +57,7 @@ def identify_dishes_from_multiple_images(image_paths):
 
 @app.route('/')
 def index():
-    return render_template('upload.html')
+    return render_template('top/index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -64,9 +77,9 @@ def predict():
     # 上位3つの料理名をまとめる
     predicted_labels = (recognized_from_multiple, recognized_by_average)  # タプルとしてまとめる
 
-    return render_template('success.html', predicted_labels=predicted_labels)  # 成功画面に遷移
+    return render_template('ninnsiki/success.html', predicted_labels=predicted_labels)  # 成功画面に遷移
 
-@app.route('/upload_recipe', methods=['POST'])
+@app.route('/ninnsiki/upload_recipe', methods=['POST'])
 def upload_recipe():
     label = request.form['label']  # 入力されたラベルを取得
     file = request.files['image']
@@ -78,7 +91,7 @@ def upload_recipe():
     # extract_features.pyにラベルと画像パスを追加する処理を呼び出す
     update_recipe_features(label, image_path)
 
-    return render_template('recipe_add_success.html')  # 成功画面に遷移
+    return render_template('ninnsiki/recipe_add_success.html')  # 成功画面に遷移
 
 def update_recipe_features(label, image_path):
     # 既存の料理特徴を読み込む
@@ -100,15 +113,15 @@ def update_recipe_features(label, image_path):
 
     print(f"{label} の特徴が成功裏に保存されました。")
 
-@app.route('/recipe_images', methods=['GET'])
+@app.route('/ninnsiki/recipe_images', methods=['GET'])
 def recipe_images():
-    return render_template('recipe_images.html')
+    return render_template('ninnsiki/recipe_images.html')
 
-@app.route('/recipe_delete', methods=['GET'])
+@app.route('/ninnsiki/recipe_delete', methods=['GET'])
 def recipe_delete():
-    return render_template('recipe_delete.html')
+    return render_template('ninnsiki/recipe_delete.html')
 
-@app.route('/delete_recipe', methods=['POST'])
+@app.route('/ninnsiki/delete_recipe', methods=['POST'])
 def delete_recipe():
     label = request.form['label']  # 入力されたラベルを取得
     try:
@@ -124,12 +137,87 @@ def delete_recipe():
             with open('recipe_features.pkl', 'wb') as f:
                 pickle.dump(recipe_features, f)
 
-            return render_template('recipe_delete_success.html')
+            return render_template('ninnski/recipe_delete_success.html')
         else:
             return "指定された料理名は存在しません。"
 
     except Exception as e:
         return f"エラーが発生しました: {str(e)}"
+
+@app.route('/ninnsyou/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        mail_address = request.form['mail_address']
+        password = request.form['password']
+        
+        conn = get_db()
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM ACCOUNT WHERE MAIL = ? AND PASS = ?", (mail_address, password))
+        user = cur.fetchone()
+        cur.close()
+        conn.close()
+
+        if user:
+            session['account_name'] = user[1]  # セッションにアカウント名を保存
+            return redirect(url_for('mainmenu'))  # ログイン成功時にメインメニューへリダイレクト
+        else:
+            return "ログインに失敗しました。アカウント名またはパスワードが間違っています。"
+
+    return render_template('ninnsyou/login.html')
+
+@app.route('/ninnsyou/signup', methods=['GET'])
+def sign_up():
+    return render_template('ninnsyou/signup.html')  # 新規登録ページを表示
+
+@app.route('/ninnsyou/signup', methods=['POST'])
+def signup():
+    account_name = request.form['account_name']
+    mail_address = request.form['mail_address']
+    password = request.form['password']
+
+    # 入力値のバリデーション
+    if len(account_name) > 10 or len(password) < 8 or len(password) > 20:
+        return "アカウント名は10桁以内、パスワードは8桁以上20桁以内で入力してね"
+
+    conn = get_db()
+    cur = conn.cursor()
+    # メールアドレスの重複チェック
+    cur.execute("SELECT * FROM ACCOUNT WHERE MAIL = ?", (mail_address,))
+    if cur.fetchone() is not None:
+        cur.close()
+        conn.close()
+        return "そのメールアドレスは既に使用されています。"
+
+    # データベースに新規登録
+    cur.execute("INSERT INTO ACCOUNT (ACCOUNT_NAME, MAIL, PASS) VALUES (?, ?, ?)", (account_name, mail_address, password))
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return redirect(url_for('login'))  # 登録後にログインページへリダイレクト
+
+@app.route('/ninnsyou/signup_success')
+def signup_success():
+    return render_template('ninnsyou/signup_success.html')
+
+@app.route('/ninnsyou/logout')
+def logout():
+    session.pop('account_name', None)  # セッションからアカウント名を削除
+    return redirect(url_for('login'))  # ログアウト後にログイン画面へリダイレクト
+
+@app.route('/mainmanu/mainmenu')
+def mainmenu():
+    if 'account_name' in session:
+        return render_template('mainmenu/mainmenu.html', account_name=session['account_name'])  # ログイン中のアカウント名を表示
+    return redirect(url_for('login'))  # 未ログインの場合はログインページへリダイレクト
+
+@app.route('/photo/photo_menu')
+def photo_menu():
+    return render_template('photo/photo_menu.html')  # ごはん撮影メニューを表示
+
+@app.route('/photo/photo_take')
+def photo_take():
+    return render_template('photo/photo_take.html')  # ごはん撮影メニューを表示
 
 if __name__ == '__main__':
     app.run(debug=True)
