@@ -9,7 +9,7 @@
     <div class="container">
         <img src="../static/title.png" class="title">
     </div>
-    <form action="/signup" method="post"> 
+    <form action="{{ url_for('signup') }}" method="post">  <!-- 修正点: actionをFlaskのurl_forで指定 -->
         <div id="input1">
             <div class="signup-form">
                 <input name="account_name" class="my-textbox" placeholder="アカウント名(表示名)" required>
@@ -24,8 +24,7 @@
             </div>
             <br>
             <div class="signup-form">
-                <button onclick="location.href='{{ url_for('signup_success') }}';" id="login-button" class="signup-button">登録</button>
-                <!-- <button type="submit" id="login-button" class="signup-button">登録</button> -->
+                <button type="submit" id="login-button" class="signup-button">登録</button> <!-- 修正点: typeをsubmitに変更 -->
             </div>
         </div>
     </form>
