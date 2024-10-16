@@ -75,7 +75,7 @@ body {
 .start_link {
     color: #fff; /* テキストの色 */
     text-decoration: none; /* 下線を消す */
-    animation: glow 1.5s infinite alternate; /* アニメーションを設定 */
+    animation: glow 1s infinite alternate; /* アニメーションを設定 */
 }
 
 @keyframes glow {
