@@ -160,7 +160,3 @@ body {
     display: flex; /* フレックスボックスを使用 */
     flex-direction: column; /* 縦に並べる */
 }
-
-.news_txt{
-    text-align:center;
-}
