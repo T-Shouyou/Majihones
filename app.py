@@ -256,5 +256,9 @@ def photo_menu():
 def photo_take():
     return render_template('photo/photo_take.html', account_name=session['account_name'])  # ごはん撮影メニューを表示
 
+@app.route('/photo/photo_upload')
+def photo_upload():
+    return render_template('photo/photo_upload.html', account_name=session['account_name'])  # ごはん撮影メニューを表示
+
 if __name__ == '__main__':
     app.run(debug=True)
