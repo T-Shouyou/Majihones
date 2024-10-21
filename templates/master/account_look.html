@@ -14,6 +14,18 @@
             }
             row.querySelector('.edit-button').style.display = 'none'; // 編集ボタン非表示
             row.querySelector('.save-button').style.display = 'inline'; // 保存ボタン表示
+            row.querySelector('.cancel-button').style.display = 'inline'; // キャンセルボタン表示
+        }
+
+        function cancelEdit(row) {
+            const cells = row.getElementsByTagName('td');
+            for (let i = 1; i < cells.length - 1; i++) { // アカウントIDを除外
+                const originalText = cells[i].getAttribute('data-original'); // 元の値を取得
+                cells[i].innerText = originalText; // 元の値に戻す
+            }
+            row.querySelector('.edit-button').style.display = 'inline'; // 編集ボタン表示
+            row.querySelector('.save-button').style.display = 'none'; // 保存ボタン非表示
+            row.querySelector('.cancel-button').style.display = 'none'; // キャンセルボタン非表示
         }
 
         async function saveRow(row) {
@@ -40,12 +52,42 @@
                 // サーバーからの応答を処理
                 for (let i = 1; i < cells.length - 1; i++) {
                     cells[i].innerText = cells[i].querySelector('input').value; // 入力値をセルに設定
+                    cells[i].setAttribute('data-original', cells[i].innerText); // 元の値を保存
                 }
                 row.querySelector('.edit-button').style.display = 'inline'; // 編集ボタン表示
                 row.querySelector('.save-button').style.display = 'none'; // 保存ボタン非表示
+                row.querySelector('.cancel-button').style.display = 'none'; // キャンセルボタン非表示
             } else {
                 alert('更新に失敗しました。');
             }
+        }
+
+        function showDeleteConfirmation(row) {
+            row.querySelector('.delete-confirm').style.display = 'inline'; // 確認ボタン表示
+            row.querySelector('.delete-button').style.display = 'none'; // 削除ボタン非表示
+        }
+
+        async function deleteAccount(row) {
+            const accountId = row.cells[0].innerText; // アカウントIDを取得
+
+            const response = await fetch(`/master/account_delete/${accountId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                // 行を削除
+                row.remove();
+            } else {
+                alert('削除に失敗しました。');
+            }
+        }
+
+        function cancelDelete(row) {
+            row.querySelector('.delete-confirm').style.display = 'none'; // 確認ボタン非表示
+            row.querySelector('.delete-button').style.display = 'inline'; // 削除ボタン表示
         }
     </script>
 </head>
@@ -62,13 +104,18 @@
         {% for account in accounts %}
         <tr>
             <td>{{ account[0] }}</td>  <!-- ACCOUNT_ID (編集不可) -->
-            <td>{{ account[1] }}</td>  <!-- ACCOUNT_NAME -->
-            <td>{{ account[2] }}</td>  <!-- MAIL -->
-            <td>{{ account[3] }}</td>  <!-- PASS -->
+            <td data-original="{{ account[1] }}">{{ account[1] }}</td>  <!-- ACCOUNT_NAME -->
+            <td data-original="{{ account[2] }}">{{ account[2] }}</td>  <!-- MAIL -->
+            <td data-original="{{ account[3] }}">{{ account[3] }}</td>  <!-- PASS -->
             <td>
                 <button class="edit-button" type="button" onclick="editRow(this.parentElement.parentElement)">編集</button>
                 <button class="save-button" type="button" style="display:none;" onclick="saveRow(this.parentElement.parentElement)">保存</button>
-                <button type="button">削除</button>
+                <button class="cancel-button" type="button" style="display:none;" onclick="cancelEdit(this.parentElement.parentElement)">キャンセル</button>
+                <button class="delete-button" type="button" onclick="showDeleteConfirmation(this.parentElement.parentElement)">削除</button>
+                <span class="delete-confirm" style="display:none;">
+                    <button type="button" onclick="deleteAccount(this.closest('tr'))">はい</button>
+                    <button type="button" onclick="cancelDelete(this.parentElement.parentElement)">いいえ</button>
+                </span>
             </td>
         </tr>
         {% endfor %}

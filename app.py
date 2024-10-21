@@ -247,6 +247,20 @@ def edit_account(account_id):
     conn.close()
 
     return '', 204
+
+@app.route('/master/account_delete/<int:account_id>', methods=['POST'])
+def account_delete(account_id):
+    conn = get_db()
+    cur = conn.cursor()
+    
+    # アカウントを削除
+    cur.execute("DELETE FROM ACCOUNT WHERE ACCOUNT_ID = ?", (account_id,))
+    conn.commit()
+    cur.close()
+    conn.close()
+    
+    return redirect(url_for('account_look'))  # アカウント一覧ページにリダイレクト
+
 # @app.route('/edit_account/<int:account_id>', methods=['POST'])
 # def edit_account(account_id):
 #     account_name = request.form['account_name']
