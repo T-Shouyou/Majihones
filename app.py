@@ -215,9 +215,7 @@ def mainmenu():
 
 @app.route('/master/account_look')
 def account_look():
-    # ユーザーがログインしているかを確認
     if 'account_name' in session:
-        # 以下の条件をコメントアウトして残しておく
         # if session.get('account_id') == 1:  # ACCOUNT_IDが1かどうかを確認
             conn = get_db()
             cur = conn.cursor()
@@ -227,9 +225,27 @@ def account_look():
             cur.close()
             conn.close()
             
-            return render_template('master/account_look.html', accounts=accounts)  # アカウント情報をテンプレートに渡す
+            return render_template('master/account_look.html', accounts=accounts)
 
     return redirect(url_for('login'))  # 未ログインの場合はログインページへリダイレクト
+
+
+# @app.route('/edit_account/<int:account_id>', methods=['POST'])
+# def edit_account(account_id):
+#     account_name = request.form['account_name']
+#     mail_address = request.form['mail_address']
+#     password = request.form['password']
+
+#     conn = get_db()
+#     cur = conn.cursor()
+    
+#     cur.execute("UPDATE ACCOUNT SET ACCOUNT_NAME = ?, MAIL = ?, PASS = ? WHERE ACCOUNT_ID = ?", 
+#                 (account_name, mail_address, password, account_id))
+#     conn.commit()
+#     cur.close()
+#     conn.close()
+
+#     return redirect(url_for('account_look'))
 
 
 @app.route('/photo/photo_menu')
