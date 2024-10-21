@@ -225,7 +225,7 @@ def account_look():
             cur.close()
             conn.close()
             
-            return render_template('master/account_look.html', accounts=accounts)
+            return render_template('master/account_look.html', accounts=accounts,account_name=session['account_name'])
 
     return redirect(url_for('login'))  # 未ログインの場合はログインページへリダイレクト
 
