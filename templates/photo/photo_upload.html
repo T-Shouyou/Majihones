@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>メインメニュー</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/photo_menu.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/photo_upload.css') }}">
 </head>
 <body background="../static/img/background.png" class="kabegami">
     <div class="container">
@@ -12,8 +12,9 @@
     </div>
 
     <div class="button-container">
-        <button onclick="location.href='{{ url_for('photo_take') }}';" class="cameramenu-btn">カメラで撮影</button>
-        <button onclick="location.href='{{ url_for('photo_upload') }}';" class="uploadmenu-btn">撮影の代わりにフォルダからアップロード</button>
+        <button class="upload_choose">フォルダからごはんを選ぶ</button>
+        <br>
+        <button class="upload_do">アップロード</button>
     </div> 
 
     <br><br>
