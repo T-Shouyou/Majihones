@@ -12,7 +12,9 @@
     </div>
 
     <div class="button-container">
-        <button class="upload_choose">フォルダからごはんを選ぶ</button>
+        <!-- フォルダから画像を選ぶための入力フィールド -->
+        <input type="file" id="image-input" accept="image/*" style="display:none;" onchange="handleFileSelect(event)">
+        <button class="upload_choose" onclick="document.getElementById('image-input').click();">フォルダからごはんを選ぶ</button>
         <br>
         <button class="upload_do">アップロード</button>
     </div> 
@@ -20,7 +22,15 @@
     <br><br>
 
     <script>
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                console.log("選択されたファイル:", file.name);
+                // ここで選択したファイルを処理するロジックを追加できます
+            }
+        }
     </script>
+    
     <button id="back-button" onclick="location.href='{{ url_for('mainmenu') }}';" class="back-button">戻る</button>
 </body>
 </html>
