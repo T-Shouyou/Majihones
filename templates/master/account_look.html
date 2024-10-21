@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/account_look.css') }}">
     <title>アカウント情報</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script>
         // メールアドレスの重複チェック
         function checkDuplicateEmail(row) {
@@ -136,8 +136,12 @@
     </script>
 </head>
 
-<body>
-    <h1>アカウント情報</h1>
+<body background="../static/img/background.png" class="kabegami">
+    <div class="container">
+        <img src="../static/img/title.png" class="title">
+        <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
+    </div>
+    <h1 class="txtcenter">アカウント情報</h1>
     <table>
         <tr>
             <th>アカウントID</th>
