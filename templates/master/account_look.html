@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アカウント情報</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">  <!-- CSSを追加する場合 -->
+</head>
+<body>
+    <h1>アカウント情報</h1>
+    <table>
+        <tr>
+            <th>アカウントID</th>
+            <th>アカウント名</th>
+            <th>メールアドレス</th>
+            <th>パスワード</th>
+            <th>操作</th>
+        </tr>
+        {% for account in accounts %}
+        <tr>
+            <td>{{ account[0] }}</td>  <!-- ACCOUNT_ID -->
+            <td>{{ account[1] }}</td>  <!-- ACCOUNT_NAME -->
+            <td>{{ account[2] }}</td>  <!-- MAIL -->
+            <td>{{ account[3] }}</td>  <!-- PASS -->
+            <td>
+                <button type="button">編集</button>
+                <button type="button">削除</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ url_for('logout') }}">ログアウト</a>
+</body>
+</html>
