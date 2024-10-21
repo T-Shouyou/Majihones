@@ -4,7 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>アカウント情報</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">  <!-- CSSを追加する場合 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function editRow(row) {
+            const cells = row.getElementsByTagName('td');
+            for (let i = 1; i < cells.length - 1; i++) { // アカウントIDを除外
+                const currentText = cells[i].innerText;
+                cells[i].innerHTML = `<input type="text" value="${currentText}">`;
+            }
+            row.querySelector('.edit-button').style.display = 'none'; // 編集ボタン非表示
+            row.querySelector('.save-button').style.display = 'inline'; // 保存ボタン表示
+        }
+
+        async function saveRow(row) {
+            const cells = row.getElementsByTagName('td');
+            const accountId = cells[0].innerText; // アカウントIDを取得
+            const accountName = cells[1].querySelector('input').value;
+            const mailAddress = cells[2].querySelector('input').value;
+            const password = cells[3].querySelector('input').value;
+
+            // サーバーにデータを送信
+            const response = await fetch(`/edit_account/${accountId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    account_name: accountName,
+                    mail_address: mailAddress,
+                    password: password
+                })
+            });
+
+            if (response.ok) {
+                // サーバーからの応答を処理
+                for (let i = 1; i < cells.length - 1; i++) {
+                    cells[i].innerText = cells[i].querySelector('input').value; // 入力値をセルに設定
+                }
+                row.querySelector('.edit-button').style.display = 'inline'; // 編集ボタン表示
+                row.querySelector('.save-button').style.display = 'none'; // 保存ボタン非表示
+            } else {
+                alert('更新に失敗しました。');
+            }
+        }
+    </script>
 </head>
 <body>
     <h1>アカウント情報</h1>
@@ -18,12 +61,13 @@
         </tr>
         {% for account in accounts %}
         <tr>
-            <td>{{ account[0] }}</td>  <!-- ACCOUNT_ID -->
+            <td>{{ account[0] }}</td>  <!-- ACCOUNT_ID (編集不可) -->
             <td>{{ account[1] }}</td>  <!-- ACCOUNT_NAME -->
             <td>{{ account[2] }}</td>  <!-- MAIL -->
             <td>{{ account[3] }}</td>  <!-- PASS -->
             <td>
-                <button type="button">編集</button>
+                <button class="edit-button" type="button" onclick="editRow(this.parentElement.parentElement)">編集</button>
+                <button class="save-button" type="button" style="display:none;" onclick="saveRow(this.parentElement.parentElement)">保存</button>
                 <button type="button">削除</button>
             </td>
         </tr>

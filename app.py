@@ -230,6 +230,23 @@ def account_look():
     return redirect(url_for('login'))  # 未ログインの場合はログインページへリダイレクト
 
 
+@app.route('/edit_account/<int:account_id>', methods=['POST'])
+def edit_account(account_id):
+    data = request.get_json()
+    account_name = data['account_name']
+    mail_address = data['mail_address']
+    password = data['password']
+
+    conn = get_db()
+    cur = conn.cursor()
+    
+    cur.execute("UPDATE ACCOUNT SET ACCOUNT_NAME = ?, MAIL = ?, PASS = ? WHERE ACCOUNT_ID = ?", 
+                (account_name, mail_address, password, account_id))
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return '', 204
 # @app.route('/edit_account/<int:account_id>', methods=['POST'])
 # def edit_account(account_id):
 #     account_name = request.form['account_name']
