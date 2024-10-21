@@ -15,7 +15,10 @@
         <!-- フォルダから画像を選ぶための入力フィールド -->
         <input type="file" id="image-input" accept="image/*" style="display:none;" onchange="handleFileSelect(event)">
         <button class="upload_choose" onclick="document.getElementById('image-input').click();">フォルダからごはんを選ぶ</button>
-        <br>
+        <div style="margin: 10px 0;"></div>
+        <!-- 選択した画像を表示するためのimgタグ -->
+        <img id="selected-image" style="display:none; max-width: 200px; margin: 10px 0;" alt="選択された画像">
+        <div style="margin: 10px 0;"></div>
         <button class="upload_do">アップロード</button>
     </div> 
 
@@ -26,7 +29,15 @@
             const file = event.target.files[0];
             if (file) {
                 console.log("選択されたファイル:", file.name);
-                // ここで選択したファイルを処理するロジックを追加できます
+                
+                // FileReaderを使用して画像を読み込む
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('selected-image');
+                    img.src = e.target.result; // 画像データを設定
+                    img.style.display = 'block'; // 画像を表示
+                };
+                reader.readAsDataURL(file); // 画像ファイルをData URLとして読み込む
             }
         }
     </script>
