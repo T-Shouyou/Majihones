@@ -217,15 +217,17 @@ def mainmenu():
 def account_look():
     if 'account_name' in session:
         # if session.get('account_id') == 1:  # ACCOUNT_IDが1かどうかを確認
+            account_id = session.get('account_id')
             conn = get_db()
             cur = conn.cursor()
             # すべてのアカウント情報を取得
+            account_id = session.get('account_id')
             cur.execute("SELECT ACCOUNT_ID, ACCOUNT_NAME, MAIL, PASS FROM ACCOUNT")
             accounts = cur.fetchall()  # アカウント情報のリストを取得
             cur.close()
             conn.close()
             
-            return render_template('master/account_look.html', accounts=accounts,account_name=session['account_name'])
+            return render_template('master/account_look.html', accounts=accounts,account_name=session['account_name'],account_id=account_id)
 
     return redirect(url_for('login'))  # 未ログインの場合はログインページへリダイレクト
 
