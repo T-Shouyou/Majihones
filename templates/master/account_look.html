@@ -6,6 +6,37 @@
     <title>アカウント情報</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script>
+        // メールアドレスの重複チェック
+        function checkDuplicateEmail(row) {
+            const mailInput = row.querySelector('td:nth-child(3) input'); // メールアドレスの入力欄
+            const mailAddress = mailInput.value;
+            let isDuplicate = false;
+
+            document.querySelectorAll('tr').forEach(r => {
+                const emailCell = r.querySelector('td:nth-child(3)');
+                if (emailCell && emailCell.innerText === mailAddress && r !== row) {
+                    isDuplicate = true;
+                }
+            });
+
+            const warningMessage = row.querySelector('.email-warning');
+            if (isDuplicate) {
+                if (!warningMessage) {
+                    const warning = document.createElement('div');
+                    warning.classList.add('email-warning');
+                    warning.style.color = 'red';
+                    warning.innerText = 'このメールアドレスはすでに使用されています。';
+                    mailInput.parentElement.appendChild(warning);
+                }
+                row.querySelector('.save-button').disabled = true; // 保存ボタンを無効化
+            } else {
+                if (warningMessage) {
+                    warningMessage.remove(); // 警告メッセージを削除
+                }
+                row.querySelector('.save-button').disabled = false; // 保存ボタンを有効化
+            }
+        }
+
         function editRow(row) {
             const cells = row.getElementsByTagName('td');
             for (let i = 1; i < cells.length - 1; i++) { // アカウントIDを除外
@@ -15,6 +46,10 @@
             row.querySelector('.edit-button').style.display = 'none'; // 編集ボタン非表示
             row.querySelector('.save-button').style.display = 'inline'; // 保存ボタン表示
             row.querySelector('.cancel-button').style.display = 'inline'; // キャンセルボタン表示
+            row.querySelector('.delete-button').style.display = 'none'; // 削除ボタン非表示
+
+            // メールアドレスの変更を監視して重複チェック
+            row.querySelector('td:nth-child(3) input').addEventListener('input', () => checkDuplicateEmail(row));
         }
 
         function cancelEdit(row) {
@@ -26,6 +61,7 @@
             row.querySelector('.edit-button').style.display = 'inline'; // 編集ボタン表示
             row.querySelector('.save-button').style.display = 'none'; // 保存ボタン非表示
             row.querySelector('.cancel-button').style.display = 'none'; // キャンセルボタン非表示
+            row.querySelector('.delete-button').style.display = 'inline'; // 削除ボタン表示
         }
 
         async function saveRow(row) {
@@ -34,6 +70,12 @@
             const accountName = cells[1].querySelector('input').value;
             const mailAddress = cells[2].querySelector('input').value;
             const password = cells[3].querySelector('input').value;
+
+            // メールアドレス重複チェック
+            const warningMessage = row.querySelector('.email-warning');
+            if (warningMessage) {
+                return; // 重複があれば保存しない
+            }
 
             // サーバーにデータを送信
             const response = await fetch(`/edit_account/${accountId}`, {
@@ -57,37 +99,10 @@
                 row.querySelector('.edit-button').style.display = 'inline'; // 編集ボタン表示
                 row.querySelector('.save-button').style.display = 'none'; // 保存ボタン非表示
                 row.querySelector('.cancel-button').style.display = 'none'; // キャンセルボタン非表示
+                row.querySelector('.delete-button').style.display = 'inline'; // 削除ボタン表示
             } else {
                 alert('更新に失敗しました。');
             }
-        }
-
-        function showDeleteConfirmation(row) {
-            row.querySelector('.delete-confirm').style.display = 'inline'; // 確認ボタン表示
-            row.querySelector('.delete-button').style.display = 'none'; // 削除ボタン非表示
-        }
-
-        async function deleteAccount(row) {
-            const accountId = row.cells[0].innerText; // アカウントIDを取得
-
-            const response = await fetch(`/master/account_delete/${accountId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (response.ok) {
-                // 行を削除
-                row.remove();
-            } else {
-                alert('削除に失敗しました。');
-            }
-        }
-
-        function cancelDelete(row) {
-            row.querySelector('.delete-confirm').style.display = 'none'; // 確認ボタン非表示
-            row.querySelector('.delete-button').style.display = 'inline'; // 削除ボタン表示
         }
     </script>
 </head>
