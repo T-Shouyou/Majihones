@@ -92,7 +92,6 @@ body {
     height:80px;
     margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
     border: none; /* 枠線をなしに設定 */
-    color: white;
     font-size: 22px;
     border-radius: 5px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
@@ -101,18 +100,27 @@ body {
 
 .camera-btn{
     background-color: blue;
+    color: white;
 }
 
 .sug-btn{
     background-color: red;
+    color: white;
 }
 
 .hiroba-btn{
     background-color: green;
+    color: white;
 }
 
 .ac_op-btn{
     background-color: gray;
+    color: white;
+}
+
+.ac_look-btn{
+    background-color: rgb(221, 213, 213);
+    color:black;
 }
 
 .camera-icon{
@@ -151,4 +159,8 @@ body {
 .admin-controls {
     display: flex; /* フレックスボックスを使用 */
     flex-direction: column; /* 縦に並べる */
+}
+
+.news_txt{
+    text-align:center;
 }
