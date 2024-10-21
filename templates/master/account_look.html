@@ -127,7 +127,6 @@
             }
         }
 
-
         // 削除キャンセル
         function cancelDelete(row) {
             row.querySelector('.delete-confirm').style.display = 'none'; // 確認ボタン非表示
@@ -154,18 +153,21 @@
             <td data-original="{{ account[2] }}">{{ account[2] }}</td>
             <td data-original="{{ account[3] }}">{{ account[3] }}</td>
             <td>
-                <button class="edit-button" type="button"
-                    onclick="editRow(this.parentElement.parentElement)">編集</button>
-                <button class="save-button" type="button" style="display:none;"
-                    onclick="saveRow(this.parentElement.parentElement)">保存</button>
-                <button class="cancel-button" type="button" style="display:none;"
-                    onclick="cancelEdit(this.parentElement.parentElement)">キャンセル</button>
-                <button class="delete-button" type="button"
-                    onclick="showDeleteConfirmation(this.parentElement.parentElement)">削除</button>
-                <span class="delete-confirm" style="display:none;">
-                    <button type="button" onclick="deleteAccount(this.closest('tr'))">はい</button>
-                    <button type="button" onclick="cancelDelete(this.parentElement.parentElement)">いいえ</button>
-                </span>
+                {% if account[0] == 1 %}
+                    <button class="edit-button" type="button" disabled>編集</button>
+                    <button class="save-button" type="button" style="display:none;" disabled>保存</button>
+                    <button class="cancel-button" type="button" style="display:none;" disabled>キャンセル</button>
+                    <button class="delete-button" type="button" disabled>削除</button>
+                {% else %}
+                    <button class="edit-button" type="button" onclick="editRow(this.parentElement.parentElement)">編集</button>
+                    <button class="save-button" type="button" style="display:none;" onclick="saveRow(this.parentElement.parentElement)">保存</button>
+                    <button class="cancel-button" type="button" style="display:none;" onclick="cancelEdit(this.parentElement.parentElement)">キャンセル</button>
+                    <button class="delete-button" type="button" onclick="showDeleteConfirmation(this.parentElement.parentElement)">削除</button>
+                    <span class="delete-confirm" style="display:none;">
+                        <button type="button" onclick="deleteAccount(this.closest('tr'))">はい</button>
+                        <button type="button" onclick="cancelDelete(this.parentElement.parentElement)">いいえ</button>
+                    </span>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}
