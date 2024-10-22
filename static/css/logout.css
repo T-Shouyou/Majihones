@@ -43,36 +43,6 @@ body {
     justify-content: center; /* 縦方向も中央揃え（高さがある場合） */
 }
 
-.logout-Y {
-    background-color: #ff6161; /* 水色の背景色 */
-    color: white; /* テキストの色を黒に設定 */
-    padding: 10px 30px; /* 上下の余白を15px、左右を30pxに設定 */
-    font-size: 18px; /* フォントサイズを18pxに設定 */
-    border: none; /* 枠線をなしに設定 */
-    border-radius: 5px; /* 角を丸くする */
-    cursor: pointer; /* カーソルをポインターに変更 */
-    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
-}
-
-.logout-Y:hover {
-    background-color: #ffab96; /* ホバー時の水色を少し暗くする */
-}
-
-.logout-N {
-    background-color: #ff6161; /* 水色の背景色 */
-    color: white; /* テキストの色を黒に設定 */
-    padding: 10px 30px; /* 上下の余白を15px、左右を30pxに設定 */
-    font-size: 18px; /* フォントサイズを18pxに設定 */
-    border: none; /* 枠線をなしに設定 */
-    border-radius: 5px; /* 角を丸くする */
-    cursor: pointer; /* カーソルをポインターに変更 */
-    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
-}
-
-.logout-N:hover {
-    background-color: #ffab96; /* ホバー時の水色を少し暗くする */
-}
-
 
 .back-button {
     position: fixed; /* 固定位置にする */
