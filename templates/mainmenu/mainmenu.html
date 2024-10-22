@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>メインメニュー</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/mainmenu.css') }}">
-</head>
-<body background="../static/img/background.png" class="kabegami">
+{% extends 'base.html' %}
+
+{% block title %}ごはんフレンズ！{% endblock %}
+
+{% block content %}
+
     <div class="container">
-        <img src="../static/img/title.png" class="title">
         <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
     </div>
 
@@ -57,5 +54,4 @@
             memo.disabled = true; // テキストエリアを再び非編集にする
         });
     </script>
-</body>
-</html>
+{% endblock %}

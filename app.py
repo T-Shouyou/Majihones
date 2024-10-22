@@ -12,6 +12,15 @@ app = Flask(__name__)
 # シークレットキーの設定
 app.secret_key = secrets.token_hex(16)  # セキュリティのためのシークレットキー
 
+def update_history(path):
+    if 'history' not in session:
+        session['history'] = []
+    session['history'].append(path)
+
+
+
+
+
 # SQLiteデータベースの設定
 DATABASE = 'mydatabase.db'  # SQLiteデータベースのファイル名
 
@@ -206,8 +215,9 @@ def logout():
     session.pop('account_name', None)  # セッションからアカウント名を削除
     return redirect(url_for('login'))  # ログアウト後にログイン画面へリダイレクト
 
-@app.route('/mainmanu/mainmenu')
+@app.route('/mainmenu/mainmenu')
 def mainmenu():
+    update_history('mainmenu')
     if 'account_name' in session:
         account_id = session.get('account_id')
         return render_template('mainmenu/mainmenu.html', account_name=session['account_name'], account_id=account_id)  # ログイン中のアカウント名を表示

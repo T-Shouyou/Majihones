@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ごはんフレンズ！{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body background="{{ url_for('static', filename='img/background.png') }}" class="kabegami">
+    <header class="clearfix">
+        <img src="{{ url_for('static', filename='img/title.png') }}" class="header_logo">
+        <ul class="navi">
+            {% for path in session.get('history', []) %}
+                <li class="navi_li"><a href="{{ path }}">{{ path }}</a></li>
+            {% endfor %}
+        </ul>
+    </header>
+    
+
+    <main>
+        {% block content %}
+        <!-- ここに各ページごとのコンテンツが挿入されます -->
+        {% endblock %}
+    </main>
+</body>
+</html>
