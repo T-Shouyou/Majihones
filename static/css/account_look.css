@@ -1,0 +1,112 @@
+body {
+    height: 100%; /* 高さを100%に設定 */
+    overflow: hidden; /* スクロールを無効にする */
+}
+
+.kabegami {
+    background-size: cover;
+}
+
+.container {
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center; /* 縦方向の中央揃え */
+    height: 100%; /* コンテナの高さを100%に設定 */
+}
+
+.title {
+    max-width: 30%; /* 画像の最大幅を65%に設定 */
+    height: auto; /* 高さを自動に設定してアスペクト比を保持 */
+    margin-top: -50px; /* 上にずらすためのマージンを設定（値は調整可） */
+    margin-left: 205px; 
+}
+
+.image-container {
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center; /* 縦方向の中央揃え */
+    margin-top: 20px; /* タイトル画像との間にマージンを設定（調整可） */
+}
+
+.start_link {
+    height:0%;
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center; /* 縦方向の中央揃え */
+}
+
+.start_link img {
+    width: 65%; /* 幅を35%に設定（必要に応じて調整） */
+    max-width: 100%; /* コンテナの幅を超えないようにする */
+    margin-top: -15%; /* 上にずらすためのマージンを設定（値は調整可） */
+    display: block; /* 画像の隙間をなくすためにブロック表示 */
+}
+
+.fryreverse,
+.fripan {
+    width: 20%; /* 幅を20%に設定（必要に応じて調整） */
+    height: auto; /* 高さは自動でアスペクト比を保持 */
+    margin-top: -15%; /* 上にずらすためのマージンを設定（値は調整可） */
+    animation: float 2s ease-in-out infinite; /* アニメーションの適用 */
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0); /* 初期位置 */
+    }
+    50% {
+        transform: translateY(-10px); /* 上に10px移動 */
+    }
+}
+
+.start-link-container {
+    position: relative; /* 相対位置に設定 */
+}
+
+.start-text {
+    position: absolute; /* 絶対位置に設定 */
+    top: 50%; /* 縦中央揃え */
+    left: 50%; /* 横中央揃え */
+    transform: translate(-50%, -120%); /* 中心に配置 */
+    color: black; /* テキストの色を白に設定 */
+    font-size: 30px; /* フォントサイズを設定 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* 影を追加して視認性を向上 */
+}
+
+.start_link {
+    color: #fff; /* テキストの色 */
+    text-decoration: none; /* 下線を消す */
+    animation: glow 1s infinite alternate; /* アニメーションを設定 */
+}
+
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 5px #ffcc00, 0 0 10px #ffcc00, 0 0 15px #ffcc00; /* スタートの状態 */
+        opacity: 0.7; /* 初めの透明度 */
+    }
+    100% {
+        text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00, 0 0 30px #ffcc00; /* 最後の発光状態 */
+        opacity: 1; /* 最後の透明度 */
+    }
+}
+
+.txtcenter{
+    text-align: center;
+}
+
+.table-container {
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 水平方向に中央揃え */
+    margin: 20px; /* 上下のマージンを追加 */
+}
+
+table {
+    border-collapse: collapse; /* セルの境界を重ねる */
+    width: 80%; /* テーブルの幅を設定（必要に応じて変更） */
+}
+
+th, td {
+    border: 1px solid #ccc; /* セルの境界線 */
+    padding: 8px; /* パディングを追加 */
+    text-align: center; /* テキストを中央揃え */
+}

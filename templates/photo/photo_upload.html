@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>メインメニュー</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/photo_upload.css') }}">
+</head>
+<body background="../static/img/background.png" class="kabegami">
+    <div class="container">
+        <img src="../static/img/title.png" class="title">
+        <p>ログイン中：{{ account_name }}</p>
+    </div>
+
+    <script>
+    function previewImage() {
+        const fileInput = document.getElementById('file-upload');
+        const selectedImage = document.getElementById('selected-image');
+
+        if (fileInput.files && fileInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                selectedImage.src = e.target.result;
+                selectedImage.style.display = 'block'; // 画像を表示
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    }
+    </script>
+
+    <h1 class="txt-center">料理画像をアップロードして予測します</h1>
+    <div id="loading" class="txt-center">fish fish fish 魚釣りをする魚</div> <!-- 初期状態で特定のテキストを表示 -->
+    <form action="/predict" method="POST" enctype="multipart/form-data" onsubmit="startLoading();">
+        <input type="file" name="image" accept="image/*" multiple required style="display: none;" id="file-upload" onchange="previewImage();">
+        <div class="button-container">
+            <label for="file-upload" class="upload-button" >
+                画像を選択
+            </label>
+            <img id="selected-image" style="display:none; max-width: 200px; margin: 10px 0;" alt="選択された画像">
+            <button type="submit" class = "upload_do">予測する</button>
+        </div>
+    </form>
+
+    <img id="selected-image" style="display:none; max-width: 200px; margin: 10px 0;" alt="選択された画像">
+
+    <div id="result"></div>
+
+    <button id="back-button" onclick="location.href='{{ url_for('mainmenu') }}';" class="back-button">戻る</button>
+</body>
+</html>
