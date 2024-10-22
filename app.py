@@ -249,23 +249,23 @@ def photo_take():
 # ーーーーーーーーーーアカウント設定ーーーーーーーーーー
 @app.route('/acset/acct_set')
 def acct_set():
-    return render_template('acset/acct_set.html', account_name=session['account_name'])
+    return render_template('acset/acct_set.html')
 
 @app.route('/acset/allergy_new')
 def allergy_new():
-    return render_template('acset/allergy_new.html', account_name=session['account_name'])
+    return render_template('acset/allergy_new.html')
 
 @app.route('/acset/psd_change')
 def psd_change():
-    return render_template('acset/psd_change.html', account_name=session['account_name'])
+    return render_template('acset/psd_change.html')
 
 @app.route('/acset/logout_k')
 def logout_k():
-    return render_template('acset/logout_k.html', account_name=session['account_name'])
+    return render_template('acset/logout_k.html')
 
 @app.route('/acset/acct_del')
 def acct_del():
-    return render_template('acset/acct_del.html', account_name=session['account_name'])
+    return render_template('acset/acct_del.html')
 
 @app.route('/photo/photo_upload')
 def photo_upload():
