@@ -93,3 +93,20 @@ body {
 .txtcenter{
     text-align: center;
 }
+
+.table-container {
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 水平方向に中央揃え */
+    margin: 20px; /* 上下のマージンを追加 */
+}
+
+table {
+    border-collapse: collapse; /* セルの境界を重ねる */
+    width: 80%; /* テーブルの幅を設定（必要に応じて変更） */
+}
+
+th, td {
+    border: 1px solid #ccc; /* セルの境界線 */
+    padding: 8px; /* パディングを追加 */
+    text-align: center; /* テキストを中央揃え */
+}
