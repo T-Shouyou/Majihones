@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ログアウト完了</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/photo_menu.css') }}">
+</head>
+<body background="{{ url_for('static', filename='img/background.png') }}" class="kabegami">
+    <div class="container">
+        <img src="{{ url_for('static', filename='img/title.png') }}" class="title">
+        <h2>ログアウトしました。</h2>
+        <a href="{{ url_for('login') }}">ログイン画面へ</a>
+    </div>
+</body>
+</html>
