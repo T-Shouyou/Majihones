@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>アカウント設定</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mainmenu.css') }}">
+</head>
+<body background="../static/img/background.png" class="kabegami">
+    <div class="container">
+        <img src="../static/img/title.png" class="title">
+        <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
+    </div>
+
+    <div button-container>
+        <button onclick="location.href='{{ url_for('allergy_new') }}';" class="allergy_btn">アレルギーの登録・更新</button>
+        <button onclick="location.href='{{ url_for('psd_change') }}';" class="chanpsw_btn">パスワードの変更</button>
+        <button onclick="location.href='{{ url_for('logout_k') }}';" class="logout_btn">ログアウト</button>
+    </div>
+
+    <div button-sel>
+        <button onclick="location.href='{{ url_for('acct_del') }}';" class="acctdel_btn">アカウント削除</button>
+        <button onclick="location.href='{{ url_for('mainmenu') }}';" class="back_btn">戻る</button>
+    </div>
+</body>
