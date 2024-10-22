@@ -206,7 +206,7 @@ def logout():
     session.pop('account_name', None)  # セッションからアカウント名を削除
     return redirect(url_for('login'))  # ログアウト後にログイン画面へリダイレクト
 
-@app.route('/mainmanu/mainmenu')
+@app.route('/mainmenu/mainmenu')
 def mainmenu():
     if 'account_name' in session:
         account_id = session.get('account_id')
@@ -215,21 +215,70 @@ def mainmenu():
 
 @app.route('/master/account_look')
 def account_look():
-    # ユーザーがログインしているかを確認
     if 'account_name' in session:
-        # 以下の条件をコメントアウトして残しておく
         # if session.get('account_id') == 1:  # ACCOUNT_IDが1かどうかを確認
+            account_id = session.get('account_id')
             conn = get_db()
             cur = conn.cursor()
             # すべてのアカウント情報を取得
+            account_id = session.get('account_id')
             cur.execute("SELECT ACCOUNT_ID, ACCOUNT_NAME, MAIL, PASS FROM ACCOUNT")
             accounts = cur.fetchall()  # アカウント情報のリストを取得
             cur.close()
             conn.close()
             
-            return render_template('master/account_look.html', accounts=accounts)  # アカウント情報をテンプレートに渡す
+            return render_template('master/account_look.html', accounts=accounts,account_name=session['account_name'],account_id=account_id)
 
     return redirect(url_for('login'))  # 未ログインの場合はログインページへリダイレクト
+
+
+@app.route('/edit_account/<int:account_id>', methods=['POST'])
+def edit_account(account_id):
+    data = request.get_json()
+    account_name = data['account_name']
+    mail_address = data['mail_address']
+    password = data['password']
+
+    conn = get_db()
+    cur = conn.cursor()
+    
+    cur.execute("UPDATE ACCOUNT SET ACCOUNT_NAME = ?, MAIL = ?, PASS = ? WHERE ACCOUNT_ID = ?", 
+                (account_name, mail_address, password, account_id))
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return '', 204
+
+@app.route('/master/account_delete/<int:account_id>', methods=['POST'])
+def account_delete(account_id):
+    conn = get_db()
+    cur = conn.cursor()
+    
+    # アカウントを削除
+    cur.execute("DELETE FROM ACCOUNT WHERE ACCOUNT_ID = ?", (account_id,))
+    conn.commit()
+    cur.close()
+    conn.close()
+    
+    return redirect(url_for('account_look'))  # アカウント一覧ページにリダイレクト
+
+# @app.route('/edit_account/<int:account_id>', methods=['POST'])
+# def edit_account(account_id):
+#     account_name = request.form['account_name']
+#     mail_address = request.form['mail_address']
+#     password = request.form['password']
+
+#     conn = get_db()
+#     cur = conn.cursor()
+    
+#     cur.execute("UPDATE ACCOUNT SET ACCOUNT_NAME = ?, MAIL = ?, PASS = ? WHERE ACCOUNT_ID = ?", 
+#                 (account_name, mail_address, password, account_id))
+#     conn.commit()
+#     cur.close()
+#     conn.close()
+
+#     return redirect(url_for('account_look'))
 
 
 @app.route('/photo/photo_menu')
@@ -239,7 +288,6 @@ def photo_menu():
 @app.route('/photo/photo_take')
 def photo_take():
     return render_template('photo/photo_take.html', account_name=session['account_name'])  # ごはん撮影メニューを表示
-
 
 # ーーーーーーーーーーアカウント設定ーーーーーーーーーー
 @app.route('/acset/acct_set')
@@ -261,6 +309,11 @@ def logout_k():
 @app.route('/acset/acct_del')
 def acct_del():
     return render_template('acset/acct_del.html', account_name=session['account_name'])
+
+@app.route('/photo/photo_upload')
+def photo_upload():
+    return render_template('photo/photo_upload.html', account_name=session['account_name'])  # ごはん撮影メニューを表示
+
 
 if __name__ == '__main__':
     app.run(debug=True)

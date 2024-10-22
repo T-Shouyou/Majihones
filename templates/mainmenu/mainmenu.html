@@ -15,16 +15,19 @@
         <button onclick="location.href='{{ url_for('photo_menu') }}';" class="camera-btn"><img src="../static/img/camera.png" class="camera-icon">ごはん撮影</button>
         <button class="sug-btn">🍖ごはん提案</button>
         <button class="hiroba-btn"><img src="../static/img/hiroba-icon.png" class="hiroba-icon">ごはん広場</button>
+
         <button onclick="location.href='{{ url_for('acct_set') }}';" class="ac_op-btn">⚙アカウント設定</button>
+        
+        <button onclick="location.href='{{ url_for('account_look') }}';" class="ac_look">アカウント閲覧</button>
     </div> 
 
     <div class="memo-container">
         <textarea id="memo" placeholder="ここにメモを書いてください..." disabled>
         12/31   「ごはんフレンズ！」サービス開始のお知らせ
         12/31    リリース記念PickUPガチャ開催！
-         1/5     ☆6おにぎりマンのEXスキル『断食殺し』調整について
         12/31   【重要】緊急メンテナンス実施について
          1/3     メンテナンス終了のお知らせ
+         1/5     ☆6おにぎりマンのEXスキル『断食殺し』調整について
          1/25    サービス終了のお知らせ
         </textarea>
         <div id="admin-controls">
