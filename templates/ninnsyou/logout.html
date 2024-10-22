@@ -8,7 +8,7 @@
 <body background="{{ url_for('static', filename='img/background.png') }}" class="kabegami">
     <div class="container">
         <img src="{{ url_for('static', filename='img/title.png') }}" class="title">
-        <p>ログイン中：{{ account_name }}</p>
+        <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
     </div>
 
     <h2 class="txt-center">現在のアカウントからログアウトします。</h2>
