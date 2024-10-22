@@ -82,16 +82,15 @@ body {
 
 .button-container {
     display: flex;
-    flex-wrap: wrap; /* ボタンを折り返し可能にする */
-    width: 920px; /* コンテナの幅を更新 */
-    justify-content: center; /* 中央揃え */
-    margin: auto; /* コンテナを中央に配置 */
+    flex-direction: column; /* 縦に並べる */
+    align-items: center; /* 中央揃え */
+    margin-top: 20px; /* 上部のマージンを追加 */
 }
 
 .button-container button {
     width: 400px; /* ボタンの幅を設定 */
     height:80px;
-    margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
+    margin:0px 0px 0px 0px; /* ボタンの間にスペースを追加 */
     border: none; /* 枠線をなしに設定 */
     color: black;
     font-size: 22px;
@@ -106,4 +105,41 @@ body {
 
 .upload_do{
     background-color: skyblue;
+}
+
+.upload_do:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
+}
+
+.upload-button {
+    background-color: skyblue;
+    display: flex;
+    flex-wrap: wrap; /* ボタンを折り返し可能にする */
+    width: 920px; /* コンテナの幅を更新 */
+    align-items: center;
+    justify-content: center; /* 中央揃え */
+    margin: auto; /* コンテナを中央に配置 */
+    width: 400px; /* ボタンの幅を設定 */
+    height:80px;
+    margin:0px 0px 10px 0px; /* ボタンの間にスペースを追加 */
+    border: none; /* 枠線をなしに設定 */
+    color: black;
+    font-size: 22px;
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+
+.upload-button:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
+}
+
+#selected-image { /* 画像の最大サイズを制限　「縛り」 */
+    display: none; /* 初期状態で非表示 */
+    max-width: 150px; /* 幅を400pxに制限 */
+    max-height: 150px; /* 高さを300pxに制限 */
+    width: auto; /* 幅の自動調整 */
+    height: auto; /* 高さの自動調整 */
+    margin: 10px 0; /* 上下のマージンを設定 */
+    overflow: hidden; /* はみ出す部分を隠す */
 }

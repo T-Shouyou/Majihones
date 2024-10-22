@@ -220,7 +220,7 @@ def inject_account_info():
         'account_id': session.get('account_id')
     }
 
-@app.route('/mainmanu/mainmenu')
+@app.route('/mainmenu/mainmenu')
 def mainmenu():
     if 'account_name' in session:
         return render_template('mainmenu/mainmenu.html')  # 引数がシンプルになった
@@ -246,9 +246,31 @@ def photo_menu():
 def photo_take():
     return render_template('photo/photo_take.html')  # 引数がシンプルになった
 
+# ーーーーーーーーーーアカウント設定ーーーーーーーーーー
+@app.route('/acset/acct_set')
+def acct_set():
+    return render_template('acset/acct_set.html', account_name=session['account_name'])
+
+@app.route('/acset/allergy_new')
+def allergy_new():
+    return render_template('acset/allergy_new.html', account_name=session['account_name'])
+
+@app.route('/acset/psd_change')
+def psd_change():
+    return render_template('acset/psd_change.html', account_name=session['account_name'])
+
+@app.route('/acset/logout_k')
+def logout_k():
+    return render_template('acset/logout_k.html', account_name=session['account_name'])
+
+@app.route('/acset/acct_del')
+def acct_del():
+    return render_template('acset/acct_del.html', account_name=session['account_name'])
+
 @app.route('/photo/photo_upload')
 def photo_upload():
     return render_template('photo/photo_upload.html')  # 引数がシンプルになった
+
 
 if __name__ == '__main__':
     app.run(debug=True)
