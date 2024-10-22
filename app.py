@@ -302,10 +302,6 @@ def allergy_new():
 def psd_change():
     return render_template('acset/psd_change.html', account_name=session['account_name'])
 
-@app.route('/acset/logout_k')
-def logout_k():
-    return render_template('acset/logout_k.html', account_name=session['account_name'])
-
 @app.route('/acset/acct_del')
 def acct_del():
     return render_template('acset/acct_del.html', account_name=session['account_name'])
