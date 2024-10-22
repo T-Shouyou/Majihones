@@ -206,7 +206,7 @@ def logout():
     session.pop('account_name', None)  # セッションからアカウント名を削除
     return redirect(url_for('login'))  # ログアウト後にログイン画面へリダイレクト
 
-@app.route('/mainmanu/mainmenu')
+@app.route('/mainmenu/mainmenu')
 def mainmenu():
     if 'account_name' in session:
         account_id = session.get('account_id')
