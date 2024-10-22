@@ -238,6 +238,28 @@ def account_look():
         
         return render_template('master/account_look.html', accounts=accounts)  # 引数がシンプルになった
 
+@app.route('/edit_account/<int:account_id>', methods=['POST'])
+def edit_account(account_id):
+    data = request.json
+    account_name = data['account_name']
+    mail_address = data['mail_address']
+    password = data['password']
+
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("UPDATE ACCOUNT SET ACCOUNT_NAME = ?, MAIL = ?, PASS = ? WHERE ACCOUNT_ID = ?",
+                (account_name, mail_address, password, account_id))
+    conn.commit()
+    return '', 204
+
+@app.route('/master/account_delete/<int:account_id>', methods=['POST'])
+def delete_account(account_id):
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("DELETE FROM ACCOUNT WHERE ACCOUNT_ID = ?", (account_id,))
+    conn.commit()
+    return '', 204
+
 @app.route('/photo/photo_menu')
 def photo_menu():
     return render_template('photo/photo_menu.html')  # 引数がシンプルになった
@@ -262,10 +284,6 @@ def psd_change():
 @app.route('/acset/logout_k')
 def logout_k():
     return render_template('acset/logout_k.html')
-
-@app.route('/acset/acct_del')
-def acct_del():
-    return render_template('acset/acct_del.html')
 
 @app.route('/photo/photo_upload')
 def photo_upload():
