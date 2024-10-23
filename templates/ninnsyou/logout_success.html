@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>ログアウト完了</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/photo_menu.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/logout_success.css') }}">
 </head>
 <body background="{{ url_for('static', filename='img/background.png') }}" class="kabegami">
+
     <div class="container">
         <img src="{{ url_for('static', filename='img/title.png') }}" class="title">
-        <h2>ログアウトしました。</h2>
+    </div>
+    <br>
+    <h2 class="txt-center">ログアウトしました。</h2>
+    <br>
+    <div class="txt-center">
         <a href="{{ url_for('login') }}">ログイン画面へ</a>
     </div>
 </body>

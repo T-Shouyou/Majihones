@@ -3,20 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>ログアウト確認</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/photo_menu.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/logout.css') }}">
 </head>
 <body background="{{ url_for('static', filename='img/background.png') }}" class="kabegami">
     <div class="container">
         <img src="{{ url_for('static', filename='img/title.png') }}" class="title">
-        <p>ログイン中：{{ account_name }}</p>
+        <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
     </div>
 
-    <h2>現在のアカウントからログアウトします。よろしいですか。</h2>
+    <h2 class="txt-center">現在のアカウントからログアウトします。</h2>
+    <br>
+    <h2 class="txt-center">よろしいですか。</h2>
     <div class="button-container">
-        <button onclick="window.location.href='{{ url_for('mainmenu') }}'">いいえ</button>
+        <button onclick="window.location.href='{{ url_for('mainmenu') }}'" class="logout-N">いいえ</button>
         <!-- ログアウト処理のためにPOSTリクエストを送信 -->
         <form action="{{ url_for('logout') }}" method="POST" style="display: inline;">
-            <button type="submit">はい</button>
+            <button type="submit" class="logout-Y">はい</button>
         </form>
     </div>
 </body>

@@ -12,6 +12,15 @@ app = Flask(__name__)
 # シークレットキーの設定
 app.secret_key = secrets.token_hex(16)  # セキュリティのためのシークレットキー
 
+def update_history(path):
+    if 'history' not in session:
+        session['history'] = []
+    session['history'].append(path)
+
+
+
+
+
 # SQLiteデータベースの設定
 DATABASE = 'mydatabase.db'  # SQLiteデータベースのファイル名
 
@@ -219,9 +228,9 @@ def inject_account_info():
         'account_name': session.get('account_name'),
         'account_id': session.get('account_id')
     }
-
 @app.route('/mainmenu/mainmenu')
 def mainmenu():
+    update_history('mainmenu')
     if 'account_name' in session:
         return render_template('mainmenu/mainmenu.html')  # 引数がシンプルになった
     return redirect(url_for('login'))
@@ -237,6 +246,28 @@ def account_look():
         conn.close()
         
         return render_template('master/account_look.html', accounts=accounts)  # 引数がシンプルになった
+
+@app.route('/edit_account/<int:account_id>', methods=['POST'])
+def edit_account(account_id):
+    data = request.json
+    account_name = data['account_name']
+    mail_address = data['mail_address']
+    password = data['password']
+
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("UPDATE ACCOUNT SET ACCOUNT_NAME = ?, MAIL = ?, PASS = ? WHERE ACCOUNT_ID = ?",
+                (account_name, mail_address, password, account_id))
+    conn.commit()
+    return '', 204
+
+@app.route('/master/account_delete/<int:account_id>', methods=['POST'])
+def delete_account(account_id):
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("DELETE FROM ACCOUNT WHERE ACCOUNT_ID = ?", (account_id,))
+    conn.commit()
+    return '', 204
 
 @app.route('/photo/photo_menu')
 def photo_menu():

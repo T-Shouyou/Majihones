@@ -15,10 +15,12 @@ body {
 }
 
 .title {
-    max-width: 30%; /* 画像の最大幅を65%に設定 */
+    max-width: 65%; /* 画像の最大幅を65%に設定 */
     height: auto; /* 高さを自動に設定してアスペクト比を保持 */
-    margin-top: -50px; /* 上にずらすためのマージンを設定（値は調整可） */
-    margin-left: 205px; 
+    margin-top: -80px; /* 上にずらすためのマージンを設定（値は調整可） */
+    clear: both;
+    justify-content: center; /* 水平方向に中央配置 */
+
 }
 
 .image-container {
@@ -90,23 +92,18 @@ body {
     }
 }
 
-.txtcenter{
-    text-align: center;
+.header_logo {
+    width: 20px;
 }
 
-.table-container {
-    display: flex; /* フレックスボックスを使用 */
-    justify-content: center; /* 水平方向に中央揃え */
-    margin: 20px; /* 上下のマージンを追加 */
+header {
+    float: left;
 }
 
-table {
-    border-collapse: collapse; /* セルの境界を重ねる */
-    width: 80%; /* テーブルの幅を設定（必要に応じて変更） */
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
 }
 
-th, td {
-    border: 1px solid #ccc; /* セルの境界線 */
-    padding: 8px; /* パディングを追加 */
-    text-align: center; /* テキストを中央揃え */
-}
