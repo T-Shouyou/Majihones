@@ -246,13 +246,14 @@ header {
 
 .ac_look{
     position:fixed;
-    padding:40px;
+    padding:85px 40px;
     margin-left: 20px;
     margin-top:-220px;
     background-color: orange;
     color:white;
     border-radius:5px;
     border-style:none;
+    cursor: pointer; /* カーソルをポインターに変更 */
 }
 
 .memo-container {
