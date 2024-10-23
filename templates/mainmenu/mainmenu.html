@@ -18,7 +18,9 @@
         
     </div> 
 
+    {% if account_id == 1 %}
     <button onclick="location.href='{{ url_for('account_look') }}';" class="ac_look">アカウント閲覧</button>
+    {% endif %}
 
     <div class="memo-container">
         <textarea id="memo" placeholder="ここにメモを書いてください..." disabled>
@@ -30,8 +32,10 @@
          1/25    サービス終了のお知らせ
         </textarea>
         <div id="admin-controls">
-            <button id="edit-btn">編集</button>
-            <button id="confirm-btn">確定</button>
+            {% if account_id == 1 %}
+                <button id="edit-btn">編集</button>
+                <button id="confirm-btn">確定</button>
+            {% endif %}
         </div>
     </div>
 
