@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 
 {% block title %}ごはんフレンズ！{% endblock %}
-
 {% block content %}
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <div class="container">
         <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
     </div>
