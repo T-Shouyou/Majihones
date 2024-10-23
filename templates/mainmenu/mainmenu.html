@@ -7,6 +7,7 @@
         <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
     </div>
 
+    <div class="main_contents">
     <div class="button-container">
         <button onclick="location.href='{{ url_for('photo_menu') }}';" class="camera-btn"><img src="../static/img/camera.png" class="camera-icon">ごはん撮影</button>
         <button class="sug-btn">🍖ごはん提案</button>
@@ -14,8 +15,10 @@
 
         <button onclick="location.href='{{ url_for('acct_set') }}';" class="ac_op-btn">⚙アカウント設定</button>
         
-        <button onclick="location.href='{{ url_for('account_look') }}';" class="ac_look">アカウント閲覧</button>
+        
     </div> 
+
+    <button onclick="location.href='{{ url_for('account_look') }}';" class="ac_look">アカウント閲覧</button>
 
     <div class="memo-container">
         <textarea id="memo" placeholder="ここにメモを書いてください..." disabled>
@@ -56,4 +59,5 @@
             memo.disabled = true; // テキストエリアを再び非編集にする
         });
     </script>
+    </div>
 {% endblock %}
