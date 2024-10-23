@@ -228,7 +228,10 @@ def inject_account_info():
         'account_name': session.get('account_name'),
         'account_id': session.get('account_id')
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9b29d69b011144e47dccc7a29bfba34ea0a8372d
 @app.route('/mainmenu/mainmenu')
 def mainmenu():
     update_history('mainmenu')
@@ -291,9 +294,9 @@ def allergy_new():
 def psd_change():
     return render_template('acset/psd_change.html')
 
-@app.route('/acset/logout_k')
-def logout_k():
-    return render_template('acset/logout_k.html')
+@app.route('/acset/acct_del')
+def acct_del():
+    return render_template('acset/acct_del.html')
 
 @app.route('/photo/photo_upload')
 def photo_upload():

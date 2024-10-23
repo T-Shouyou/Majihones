@@ -80,6 +80,7 @@ body {
 }
 
 .button-container {
+    color:black;
     display: flex;
     flex-wrap: wrap; /* ボタンを折り返し可能にする */
     width: 920px; /* コンテナの幅を更新 */
@@ -92,6 +93,7 @@ body {
     height:80px;
     margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
     border: none; /* 枠線をなしに設定 */
+    color:black;
     font-size: 22px;
     border-radius: 5px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
