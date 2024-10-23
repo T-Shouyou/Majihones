@@ -12,12 +12,6 @@ app = Flask(__name__)
 # シークレットキーの設定
 app.secret_key = secrets.token_hex(16)  # セキュリティのためのシークレットキー
 
-def update_history(path):
-    if 'history' not in session:
-        session['history'] = []
-    session['history'].append(path)
-
-
 
 
 
@@ -218,8 +212,6 @@ def logout():
         return redirect(url_for('logout_success'))
     return render_template('ninnsyou/logout.html')
 
-<<<<<<< HEAD
-=======
 @app.route('/logout_success')
 def logout_success():
     return render_template('ninnsyou/logout_success.html')
@@ -231,10 +223,8 @@ def inject_account_info():
         'account_id': session.get('account_id')
     }
 
->>>>>>> 8de53c0fc62de15a96c1b17a71825d9fdb1473c3
 @app.route('/mainmenu/mainmenu')
 def mainmenu():
-    update_history('mainmenu')
     if 'account_name' in session:
         return render_template('mainmenu/mainmenu.html')  # 引数がシンプルになった
     return redirect(url_for('login'))

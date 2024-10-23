@@ -10,11 +10,16 @@
 <body background="{{ url_for('static', filename='img/background.png') }}" class="kabegami">
     <header class="clearfix">
         <img src="{{ url_for('static', filename='img/title.png') }}" class="header_logo">
-        <ul class="navi">
-            {% for path in session.get('history', []) %}
-                <li class="navi_li"><a href="{{ path }}">{{ path }}</a></li>
-            {% endfor %}
-        </ul>
+        <nav>
+            <a href='/mainmenu/mainmenu'>メインメニュー</a>
+            {% if breadcrumbs %}
+                &gt; 
+                {% for crumb in breadcrumbs %}
+                    <a href="{{ crumb[1] }}">{{ crumb[0] }}</a>
+                    {% if not loop.last %} &gt; {% endif %}
+                {% endfor %}
+            {% endif %}
+        </nav>
     </header>
     
 

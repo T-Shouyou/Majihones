@@ -8,6 +8,7 @@
         <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
     </div>
 
+    <div class="main_contents">
     <div class="button-container">
         <button onclick="location.href='{{ url_for('photo_menu') }}';" class="camera-btn"><img src="../static/img/camera.png" class="camera-icon">ごはん撮影</button>
         <button class="sug-btn">🍖ごはん提案</button>
@@ -57,4 +58,5 @@
             memo.disabled = true; // テキストエリアを再び非編集にする
         });
     </script>
+    </div>
 {% endblock %}
