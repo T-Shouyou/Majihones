@@ -38,12 +38,20 @@ body {
     font-size: 22px;
     border-radius: 5px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
-    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
 }
 
 .allergy_btn {
     background-color: #f0ff8c;
-    border-color: #ffd700;
+    border: 3px solid #ffd700;
+}
+
+.chanpsw_btn {
+    border: 3px solid #696969;
+}
+
+.logout_btn {
+    background-color: #ffb6cb;
+    border: 3px solid #db7093;
 }
 
 /* ----------垢削除と戻る---------- */
@@ -52,7 +60,7 @@ body {
     text-align: center;
     margin: 0 auto;
     width: 800px;
-    height:50px;
+    height: 50px;
 }
 
 .acctdel_btn {
