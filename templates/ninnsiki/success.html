@@ -21,6 +21,6 @@
         <li>１: {{ predicted_labels[1][0] }}</li>
     </ul>
 
-    <a href="/ninnsiki/upload.html">戻る</a>
+    <button onclick="location.href='{{ url_for('photo_upload') }}';" class="uploadmenu-btn">戻る</button>
 </body>
 </html>
