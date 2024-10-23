@@ -11,14 +11,14 @@
         <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
     </div>
 
-    <div button-container>
+    <div class="button-container">
         <button onclick="location.href='{{ url_for('allergy_new') }}';" class="allergy_btn">アレルギーの登録・更新</button>
         <button onclick="location.href='{{ url_for('psd_change') }}';" class="chanpsw_btn">パスワードの変更</button>
         <button onclick="location.href='{{ url_for('logout') }}';" class="logout_btn">ログアウト</button>
     </div>
 
-    <div button-sel>
-        <button onclick="location.href='{{ url_for('acct_del') }}';" class="acctdel_btn">アカウント削除</button>
+    <div class="button-sel">
         <button onclick="location.href='{{ url_for('mainmenu') }}';" class="back_btn">戻る</button>
+        <button onclick="location.href='{{ url_for('acct_del') }}';" class="acctdel_btn">アカウント削除</button>
     </div>
 </body>
