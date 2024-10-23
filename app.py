@@ -222,10 +222,7 @@ def inject_account_info():
         'account_name': session.get('account_name'),
         'account_id': session.get('account_id')
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 9b29d69b011144e47dccc7a29bfba34ea0a8372d
+    
 @app.route('/mainmenu/mainmenu')
 def mainmenu():
     if 'account_name' in session:
