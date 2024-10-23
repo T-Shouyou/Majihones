@@ -12,6 +12,15 @@ app = Flask(__name__)
 # シークレットキーの設定
 app.secret_key = secrets.token_hex(16)  # セキュリティのためのシークレットキー
 
+def update_history(path):
+    if 'history' not in session:
+        session['history'] = []
+    session['history'].append(path)
+
+
+
+
+
 # SQLiteデータベースの設定
 DATABASE = 'mydatabase.db'  # SQLiteデータベースのファイル名
 
@@ -201,97 +210,94 @@ def signup():
 def signup_success():
     return render_template('ninnsyou/signup_success.html')
 
-@app.route('/ninnsyou/logout')
+@app.route('/logout', methods=['GET', 'POST'])
 def logout():
-    session.pop('account_name', None)  # セッションからアカウント名を削除
-    return redirect(url_for('login'))  # ログアウト後にログイン画面へリダイレクト
+    if request.method == 'POST':
+        # ログアウト処理: セッションをクリア
+        session.clear()
+        return redirect(url_for('logout_success'))
+    return render_template('ninnsyou/logout.html')
 
-@app.route('/mainmanu/mainmenu')
+@app.route('/logout_success')
+def logout_success():
+    return render_template('ninnsyou/logout_success.html')
+
+@app.context_processor
+def inject_account_info():
+    return {
+        'account_name': session.get('account_name'),
+        'account_id': session.get('account_id')
+    }
+@app.route('/mainmenu/mainmenu')
 def mainmenu():
+    update_history('mainmenu')
     if 'account_name' in session:
-        account_id = session.get('account_id')
-        return render_template('mainmenu/mainmenu.html', account_name=session['account_name'], account_id=account_id)  # ログイン中のアカウント名を表示
-    return redirect(url_for('login'))  # 未ログインの場合はログインページへリダイレクト
+        return render_template('mainmenu/mainmenu.html')  # 引数がシンプルになった
+    return redirect(url_for('login'))
 
 @app.route('/master/account_look')
 def account_look():
     if 'account_name' in session:
-        # if session.get('account_id') == 1:  # ACCOUNT_IDが1かどうかを確認
-            account_id = session.get('account_id')
-            conn = get_db()
-            cur = conn.cursor()
-            # すべてのアカウント情報を取得
-            account_id = session.get('account_id')
-            cur.execute("SELECT ACCOUNT_ID, ACCOUNT_NAME, MAIL, PASS FROM ACCOUNT")
-            accounts = cur.fetchall()  # アカウント情報のリストを取得
-            cur.close()
-            conn.close()
-            
-            return render_template('master/account_look.html', accounts=accounts,account_name=session['account_name'],account_id=account_id)
-
-    return redirect(url_for('login'))  # 未ログインの場合はログインページへリダイレクト
-
+        conn = get_db()
+        cur = conn.cursor()
+        cur.execute("SELECT ACCOUNT_ID, ACCOUNT_NAME, MAIL, PASS FROM ACCOUNT")
+        accounts = cur.fetchall()  # アカウント情報のリストを取得
+        cur.close()
+        conn.close()
+        
+        return render_template('master/account_look.html', accounts=accounts)  # 引数がシンプルになった
 
 @app.route('/edit_account/<int:account_id>', methods=['POST'])
 def edit_account(account_id):
-    data = request.get_json()
+    data = request.json
     account_name = data['account_name']
     mail_address = data['mail_address']
     password = data['password']
 
     conn = get_db()
     cur = conn.cursor()
-    
-    cur.execute("UPDATE ACCOUNT SET ACCOUNT_NAME = ?, MAIL = ?, PASS = ? WHERE ACCOUNT_ID = ?", 
+    cur.execute("UPDATE ACCOUNT SET ACCOUNT_NAME = ?, MAIL = ?, PASS = ? WHERE ACCOUNT_ID = ?",
                 (account_name, mail_address, password, account_id))
     conn.commit()
-    cur.close()
-    conn.close()
-
     return '', 204
 
 @app.route('/master/account_delete/<int:account_id>', methods=['POST'])
-def account_delete(account_id):
+def delete_account(account_id):
     conn = get_db()
     cur = conn.cursor()
-    
-    # アカウントを削除
     cur.execute("DELETE FROM ACCOUNT WHERE ACCOUNT_ID = ?", (account_id,))
     conn.commit()
-    cur.close()
-    conn.close()
-    
-    return redirect(url_for('account_look'))  # アカウント一覧ページにリダイレクト
-
-# @app.route('/edit_account/<int:account_id>', methods=['POST'])
-# def edit_account(account_id):
-#     account_name = request.form['account_name']
-#     mail_address = request.form['mail_address']
-#     password = request.form['password']
-
-#     conn = get_db()
-#     cur = conn.cursor()
-    
-#     cur.execute("UPDATE ACCOUNT SET ACCOUNT_NAME = ?, MAIL = ?, PASS = ? WHERE ACCOUNT_ID = ?", 
-#                 (account_name, mail_address, password, account_id))
-#     conn.commit()
-#     cur.close()
-#     conn.close()
-
-#     return redirect(url_for('account_look'))
-
+    return '', 204
 
 @app.route('/photo/photo_menu')
 def photo_menu():
-    return render_template('photo/photo_menu.html', account_name=session['account_name'])  # ごはん撮影メニューを表示
+    return render_template('photo/photo_menu.html')  # 引数がシンプルになった
 
 @app.route('/photo/photo_take')
 def photo_take():
-    return render_template('photo/photo_take.html', account_name=session['account_name'])  # ごはん撮影メニューを表示
+    return render_template('photo/photo_take.html')  # 引数がシンプルになった
+
+# ーーーーーーーーーーアカウント設定ーーーーーーーーーー
+@app.route('/acset/acct_set')
+def acct_set():
+    return render_template('acset/acct_set.html')
+
+@app.route('/acset/allergy_new')
+def allergy_new():
+    return render_template('acset/allergy_new.html')
+
+@app.route('/acset/psd_change')
+def psd_change():
+    return render_template('acset/psd_change.html')
+
+@app.route('/acset/logout_k')
+def logout_k():
+    return render_template('acset/logout_k.html')
 
 @app.route('/photo/photo_upload')
 def photo_upload():
-    return render_template('photo/photo_upload.html', account_name=session['account_name'])  # ごはん撮影メニューを表示
+    return render_template('photo/photo_upload.html')  # 引数がシンプルになった
+
 
 if __name__ == '__main__':
     app.run(debug=True)
