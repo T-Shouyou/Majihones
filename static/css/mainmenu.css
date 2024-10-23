@@ -92,7 +92,7 @@ body {
     width: 400px; /* ボタンの幅を設定 */
     height:80px;
     margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
-    border: none; /* 枠線をなしに設定 */
+    border-color:black; /* 枠線をなしに設定 */
     color:black;
     font-size: 22px;
     border-radius: 5px; /* 角を丸くする */
