@@ -12,6 +12,15 @@ app = Flask(__name__)
 # シークレットキーの設定
 app.secret_key = secrets.token_hex(16)  # セキュリティのためのシークレットキー
 
+def update_history(path):
+    if 'history' not in session:
+        session['history'] = []
+    session['history'].append(path)
+
+
+
+
+
 # SQLiteデータベースの設定
 DATABASE = 'mydatabase.db'  # SQLiteデータベースのファイル名
 
@@ -219,9 +228,9 @@ def inject_account_info():
         'account_name': session.get('account_name'),
         'account_id': session.get('account_id')
     }
-
 @app.route('/mainmenu/mainmenu')
 def mainmenu():
+    update_history('mainmenu')
     if 'account_name' in session:
         return render_template('mainmenu/mainmenu.html')  # 引数がシンプルになった
     return redirect(url_for('login'))
