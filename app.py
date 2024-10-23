@@ -22,6 +22,7 @@ def update_history(path):
 
 
 # SQLiteデータベースの設定
+# DATABASE = '/home/UminekoSakana/mysite/mydatabase.db'  # パスが正しいか確認
 DATABASE = 'mydatabase.db'  # SQLiteデータベースのファイル名
 
 def get_db():
@@ -32,6 +33,8 @@ def get_db():
 s3_client = boto3.client('s3', region_name='us-east-1')  # リージョンを指定
 
 # 事前に計算した料理の特徴をロード
+# with open('/home/UminekoSakana/mysite/recipe_features.pkl', 'rb') as f:
+#     recipe_features = pickle.load(f)
 with open('recipe_features.pkl', 'rb') as f:
     recipe_features = pickle.load(f)
 
