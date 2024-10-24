@@ -1,11 +1,7 @@
 {% extends 'base.html' %}
 
-<<<<<<< HEAD
 {% block title %}メインメニュー{% endblock %}
 
-=======
-{% block title %}ごはんフレンズ！{% endblock %}
->>>>>>> be0d1b81e523ece0f0779b50855335671274e1b7
 {% block content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <div class="container">
@@ -18,13 +14,6 @@
             <button class="sug-btn">🍖ごはん提案</button>
             <button class="hiroba-btn"><img src="../static/img/hiroba-icon.png" class="hiroba-icon">ごはん広場</button>
 
-<<<<<<< HEAD
-        <button onclick="location.href='{{ url_for('acct_set') }}';" class="ac_op-btn">⚙アカウント設定</button>
-    </div> 
-    <aside>
-        <button onclick="location.href='{{ url_for('account_look') }}';" class="ac_look">アカウント閲覧</button>
-    </aside>
-=======
             <button onclick="location.href='{{ url_for('acct_set') }}';" class="ac_op-btn">⚙アカウント設定</button>
             
             
@@ -34,7 +23,6 @@
     <button onclick="location.href='{{ url_for('account_look') }}';" class="ac_look">アカウント閲覧</button>
     <button onclick="location.href='{{ url_for('recipe_images') }}';" class="recipe_teach">ごはん教育</button>
     {% endif %}
->>>>>>> be0d1b81e523ece0f0779b50855335671274e1b7
 
     <div class="memo-container">
         <textarea id="memo" placeholder="ここにメモを書いてください..." disabled>
