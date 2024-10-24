@@ -1,67 +1,88 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ごはん撮影</title>
+{% extends 'base.html' %}
+
+{% block title %}撮影画面{% endblock %}
+{% block content %}
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/photo_take.css') }}">
-</head>
-<body background="../static/img/background.png" class="kabegami">
-    <div class="container">
-        <img src="../static/img/title.png" class="title">
-        <p>ログイン中：{{ account_name }}</p>
-    </div>
+
     <div class="video-container">
-        <video id="video" autoplay class="center"></video> <!-- カメラ映像を表示するためのビデオ要素 -->
+        <video id="video" autoplay class="center"></video>
     </div>
 
-    <div class="button-container">
-        <button id="back-button" onclick="location.href='{{ url_for('photo_menu') }}';" class="back-button">戻る</button>
-        <button id="capture" class="capture">撮影</button> <!-- 撮影ボタン -->
-    </div>
+    <form action="/predict" method="POST" enctype="multipart/form-data" onsubmit="startLoading();">
+        <input type="file" name="image" accept="image/*" multiple required style="display: none;" id="file-upload" onchange="previewImage();">
+        <div class="button-container">
+            <button id="back-button" onclick="location.href='{{ url_for('photo_menu') }}';" class="back-button">戻る</button>
+            <button id="capture" class="capture">撮影</button> 
+            <button type="submit" id="recog" class="recog">次へ</button>
+        </div>
+    </form>
     
     <br>
-    <canvas id="canvas"></canvas> <!-- 撮影した画像を表示するためのcanvas -->
+    <canvas id="canvas"></canvas>
     <br>
 
     <script>
-        // カメラを起動して映像を表示する関数
         async function startCamera() {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true }); // カメラストリームを取得
-                const video = document.getElementById('video'); // ビデオ要素を取得
-                video.srcObject = stream; // ストリームをビデオ要素に設定
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                const video = document.getElementById('video');
+                video.srcObject = stream;
             } catch (error) {
                 console.error('カメラを起動できませんでした:', error);
             }
         }
 
-        // 撮影ボタンがクリックされたときの処理
         document.getElementById('capture').addEventListener('click', () => {
             const video = document.getElementById('video');
             const canvas = document.getElementById('canvas');
             const context = canvas.getContext('2d');
 
-            // ビデオのサイズをcanvasに設定
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
-
-            // ビデオから画像をcanvasに描画
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-            // 画像データをURLとして取得（表示する場合）
             const imageUrl = canvas.toDataURL('image/png');
-            console.log(imageUrl); // デバッグ用：画像URLをコンソールに表示
+            sessionStorage.setItem('capturedImage', imageUrl);
 
-            // 画像を表示するための方法を追加できます
-            const img = document.createElement('img');
-            img.src = imageUrl;
-            document.body.appendChild(img);
+            const fileInput = document.getElementById('file-upload');
+            const blob = dataURLtoBlob(imageUrl);
+            const file = new File([blob], "captured_image.png", { type: 'image/png' });
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            fileInput.files = dataTransfer.files;
+
+            const captureButton = document.getElementById('capture');
+            captureButton.textContent = '撮影完了!';
         });
 
-        // ページが読み込まれたらカメラを起動
+        function dataURLtoBlob(dataURL) {
+            const byteString = atob(dataURL.split(',')[1]);
+            const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+            const ab = new ArrayBuffer(byteString.length);
+            const ia = new Uint8Array(ab);
+            for (let i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            return new Blob([ab], { type: mimeString });
+        }
+
         window.onload = startCamera;
+
+        function previewImage() {
+            const fileInput = document.getElementById('file-upload');
+            const selectedImage = document.getElementById('selected-image');
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    selectedImage.src = e.target.result;
+                    selectedImage.style.display = 'block';
+                    sessionStorage.setItem('capturedImage', e.target.result);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
     </script>
-    
-</body>
-</html>
+
+{% endblock %}

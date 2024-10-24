@@ -1,11 +1,13 @@
 import cv2
 import numpy as np
 import pickle
-import boto3  # S3用のライブラリ
+import boto3
 from flask import Flask, request, jsonify, render_template, redirect, url_for, session
-import sqlite3  # SQLite用のライブラリ
+import sqlite3
 import os
 import secrets
+from datetime import datetime 
+
 
 app = Flask(__name__)
 
@@ -149,6 +151,28 @@ def delete_recipe():
 
     except Exception as e:
         return f"エラーが発生しました: {str(e)}"
+    
+@app.route('/ninnsiki/touroku_success', methods=['POST'])
+def register_food():
+    account_id = request.form['account_id']
+    cuisine = request.form['cuisine']
+    eat_date = datetime.now().date()
+
+    conn = get_db()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute('INSERT INTO FOOD_DATA (ACCOUNT_ID, EAT_DATE, CUISINE) VALUES (?, ?, ?)',
+                       (account_id, eat_date, cuisine))
+        conn.commit()
+    finally:
+        conn.close()
+
+    return redirect(url_for('touroku_success'))
+
+@app.route('/ninnsiki/touroku_success')
+def touroku_success():
+    return render_template('ninnsiki/touroku_success.html')
 
 @app.route('/ninnsyou/login', methods=['GET', 'POST'])
 def login():
@@ -229,7 +253,8 @@ def inject_account_info():
 @app.route('/mainmenu/mainmenu')
 def mainmenu():
     if 'account_name' in session:
-        return render_template('mainmenu/mainmenu.html')  # 引数がシンプルになった
+        breadcrumbs=[('メインメニュー', url_for('mainmenu'))]
+        return render_template('mainmenu/mainmenu.html',breadcrumbs=breadcrumbs)  # 引数がシンプルになった
     return redirect(url_for('login'))
 
 @app.route('/master/account_look')
@@ -268,11 +293,14 @@ def delete_account(account_id):
 
 @app.route('/photo/photo_menu')
 def photo_menu():
-    return render_template('photo/photo_menu.html')  # 引数がシンプルになった
+    breadcrumbs = [('メインメニュー', url_for('mainmenu')), ('フォトメニュー', url_for('photo_menu'))]
+    return render_template('photo/photo_menu.html', breadcrumbs=breadcrumbs)
+
 
 @app.route('/photo/photo_take')
 def photo_take():
-    return render_template('photo/photo_take.html')  # 引数がシンプルになった
+    breadcrumbs = [('メインメニュー', url_for('mainmenu')), ('フォトメニュー', url_for('photo_menu')), ('撮影画面', url_for('photo_take'))]
+    return render_template('photo/photo_take.html', breadcrumbs=breadcrumbs)  # 引数がシンプルになった
 
 # ーーーーーーーーーーアカウント設定ーーーーーーーーーー
 @app.route('/acset/acct_set')
@@ -295,6 +323,9 @@ def acct_del():
 def photo_upload():
     return render_template('photo/photo_upload.html')  # 引数がシンプルになった
 
+@app.route('/photo/photo_recog')
+def photo_recog():
+    return render_template('photo/photo_recog.html')  # 引数がシンプルになった
 
 if __name__ == '__main__':
     app.run(debug=True)

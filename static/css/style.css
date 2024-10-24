@@ -175,18 +175,26 @@ header {
     background-color: #009acd; /* ホバー時の水色を少し暗くする */
 }
 
+.back_button_container {
+    position: fixed; /* 視覚的に固定 */
+    bottom: 20px; /* 下から0px */
+    left: 40px; /* 左から0px */
+    width: 100%; /* 幅を100%に */
+    padding: 20px; /* 内側の余白 */
+}
+
 .back-button {
-    text-align: left;
     background-color: transparent; /* 透明の背景色 */
     color: black; /* テキストの色を黒に設定 */
-    padding: 9px 30px; /* 上下の余白を15px、左右を30pxに設定 */
+    padding: 9px 30px; /* 上下の余白を9px、左右を30pxに設定 */
     font-size: 18px; /* フォントサイズを18pxに設定 */
-    border: 2px solid black ; /* 枠線を黒に設定 */
+    border: 2px solid black; /* 枠線を黒に設定 */
     border-radius: 5px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
-    margin-left: 40px; /* 左端との間隔を20pxあける */
 }
+
+
 
 .back-button:hover {
     background-color: #efe8d2; /* ホバー時の水色を少し暗くする */
@@ -232,6 +240,19 @@ header {
     background-color: gray;
 }
 
+.ac_look {
+    font-size: 20px;
+    background-color:black;
+    color: white;
+    text-align: center;
+    float: left; 
+    margin-left: 65px;
+    margin-top: -220px;   
+    width: 80px;
+    height: 190px;
+    writing-mode: vertical-rl;
+}
+
 .camera-icon{
     width: 30px; /* 画像の幅を設定 */
     height: 20px; /* 画像の高さを設定 */
@@ -246,13 +267,14 @@ header {
 
 .ac_look{
     position:fixed;
-    padding:40px;
+    padding:85px 40px;
     margin-left: 20px;
     margin-top:-220px;
     background-color: orange;
     color:white;
     border-radius:5px;
     border-style:none;
+    cursor: pointer; /* カーソルをポインターに変更 */
 }
 
 .memo-container {
@@ -291,3 +313,132 @@ html, body {
     box-sizing: border-box;
   }
   
+
+
+
+  /* photomenu -----------------------------------------------------------------------------------*/
+
+
+
+
+
+.my-textbox {
+    width: 500px;  /* 幅を300ピクセルに設定 */
+    height: 40px;  /* 高さを40ピクセルに設定 */
+    padding: 10px; /* 内側の余白を10ピクセルに設定 */
+    font-size: 16px; /* フォントサイズを16ピクセルに設定 */
+    border: 1px solid #ccc; /* 枠線を設定 */
+    border-radius: 5px; /* 角を丸くする */
+}
+
+
+.login-form{
+    display: flex; /* フレックスボックスを使用 */
+    flex-direction: column; /* 縦に並べる */
+    align-items: center; /* 中央揃え */
+    justify-content: center; /* 縦方向も中央揃え（高さがある場合） */
+}
+
+.login-button {
+    background-color: #749DFC; /* 水色の背景色 */
+    color: black; /* テキストの色を黒に設定 */
+    padding: 10px 30px; /* 上下の余白を15px、左右を30pxに設定 */
+    font-size: 18px; /* フォントサイズを18pxに設定 */
+    border: none; /* 枠線をなしに設定 */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+
+.login-button:hover {
+    background-color: #009acd; /* ホバー時の水色を少し暗くする */
+}
+
+.txt-center{
+    text-align : center;
+}
+
+
+.cameramenu-btn{
+    background-color: skyblue;
+}
+
+.uploadmenu-btn{
+    background-color: skyblue;
+}
+
+.button-container-photo-menu {
+    display: flex;
+    flex-wrap: wrap; /* ボタンを折り返し可能にする */
+    width: 920px; /* コンテナの幅を更新 */
+    justify-content: center; /* 中央揃え */
+    margin: auto; /* コンテナを中央に配置 */
+    padding-top: 80px;
+}
+
+.button-container-photo-menu button {
+    width: 400px; /* ボタンの幅を設定 */
+    height:80px;
+    margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
+    border: none; /* 枠線をなしに設定 */
+    color: black;
+    font-size: 22px;
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+
+
+/* photo_take---------------------------------------------------------------- */
+
+
+.button-container-photo-take {
+    display: flex;
+    flex-wrap: wrap; /* ボタンを折り返し可能にする */
+    width: 100%; /* コンテナの幅を更新 */
+    justify-content: center; /* 中央揃え */
+    margin: auto; /* コンテナを中央に配置 */
+    padding-top: 50px;
+}
+
+
+
+.video-container {
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 水平方向の中央揃え */
+    align-items: center; /* 垂直方向の中央揃え */
+    padding-top: 50px;
+}
+
+.txt-center {
+    text-align: center;
+}
+
+
+
+video {
+    width: 30%; /* ビデオの幅を50%に設定 */
+    height: auto; /* 高さは自動で調整 */
+    border: 1px solid black; /* 境界線を追加（任意） */
+}
+
+canvas {
+    display: none; /* Canvasは非表示にする */
+}
+
+
+
+.capture{
+    display: block;
+    margin:auto;
+    height:50px;
+    margin-top: -20px;
+    background-color: red; /* 赤の背景色 */
+    color: white; /* テキストの色を白に設定 */
+    padding: 9px 30px; /* 上下の余白を15px、左右を30pxに設定 */
+    font-size: 18px; /* フォントサイズを18pxに設定 */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+

@@ -1,6 +1,5 @@
 body {
     height: 100%; /* 高さを100%に設定 */
-    overflow: hidden; /* スクロールを無効にする */
 }
 
 .kabegami {
@@ -40,14 +39,6 @@ body {
     max-width: 100%; /* コンテナの幅を超えないようにする */
     margin-top: -15%; /* 上にずらすためのマージンを設定（値は調整可） */
     display: block; /* 画像の隙間をなくすためにブロック表示 */
-}
-
-.fryreverse,
-.fripan {
-    width: 20%; /* 幅を20%に設定（必要に応じて調整） */
-    height: auto; /* 高さは自動でアスペクト比を保持 */
-    margin-top: -15%; /* 上にずらすためのマージンを設定（値は調整可） */
-    animation: float 2s ease-in-out infinite; /* アニメーションの適用 */
 }
 
 @keyframes float {
