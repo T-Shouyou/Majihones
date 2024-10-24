@@ -3,12 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>アカウント設定</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/mainmenu.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/acct_set.css') }}">
 </head>
 <body background="../static/img/background.png" class="kabegami">
     <div class="container">
         <img src="../static/img/title.png" class="title">
-        <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
+        <p class="login_name">ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
     </div>
 
+    <p class="ale">アレルギーの登録</p>
+
+    <div class="chkbox">
+        <input type="checkbox" name="egg">卵
+        <input type="checkbox" name="milk">乳
+        <input type="checkbox" name="wheat">小麦
+        <input type="checkbox" name="shrimp">えび
+        <input type="checkbox" name="crab">かに
+        <input type="checkbox" name="peanut">落花生
+        <input type="checkbox" name="buckwheat">そば
+    </div>
+
+    <div class="under_cls">
+        <img src="../static/chara/苛立ち.png" class="tmg_friends">
+        <button class="subbutton">登録</button>
+    </div>
+    
+    <div class="bkb">
+        <button onclick="location.href='{{ url_for('acct_set') }}';" class="back_btn">戻る</button>
+    </div>
 </body>
