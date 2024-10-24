@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ごはん撮影</title>
+{% extends 'base.html' %}
+
+{% block title %}ごはんフレンズ！{% endblock %}
+{% block content %}
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/photo_take.css') }}">
-</head>
-<body background="../static/img/background.png" class="kabegami">
-    <div class="container">
-        <img src="../static/img/title.png" class="title">
-        <p>ログイン中：{{ account_name }}</p>
-    </div>
+
     <div class="video-container">
         <video id="video" autoplay class="center"></video>
     </div>
@@ -90,5 +84,5 @@
             }
         }
     </script>
-</body>
-</html>
+
+{% endblock %}
