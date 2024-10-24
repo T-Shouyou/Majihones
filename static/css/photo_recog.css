@@ -1,0 +1,273 @@
+body {
+    height: 100%; /* 高さを100%に設定 */
+    overflow: hidden; /* スクロールを無効にする */
+}
+
+.kabegami {
+    background-size: cover;
+}
+
+
+.title {
+    max-width: 65%; /* 画像の最大幅を65%に設定 */
+    height: auto; /* 高さを自動に設定してアスペクト比を保持 */
+    margin-top: -80px; /* 上にずらすためのマージンを設定（値は調整可） */
+    clear: both;
+    justify-content: center; /* 水平方向に中央配置 */
+
+}
+
+.image-container {
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center; /* 縦方向の中央揃え */
+    margin-top: 20px; /* タイトル画像との間にマージンを設定（調整可） */
+}
+
+.start_link {
+    height:0%;
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center; /* 縦方向の中央揃え */
+}
+
+.start_link img {
+    width: 65%; /* 幅を35%に設定（必要に応じて調整） */
+    max-width: 100%; /* コンテナの幅を超えないようにする */
+    margin-top: -15%; /* 上にずらすためのマージンを設定（値は調整可） */
+    display: block; /* 画像の隙間をなくすためにブロック表示 */
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0); /* 初期位置 */
+    }
+    50% {
+        transform: translateY(-10px); /* 上に10px移動 */
+    }
+}
+
+.start-link-container {
+    position: relative; /* 相対位置に設定 */
+}
+
+.start-text {
+    position: absolute; /* 絶対位置に設定 */
+    top: 50%; /* 縦中央揃え */
+    left: 50%; /* 横中央揃え */
+    transform: translate(-50%, -120%); /* 中心に配置 */
+    color: black; /* テキストの色を白に設定 */
+    font-size: 30px; /* フォントサイズを設定 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* 影を追加して視認性を向上 */
+}
+
+.start_link {
+    color: #fff; /* テキストの色 */
+    text-decoration: none; /* 下線を消す */
+    animation: glow 1s infinite alternate; /* アニメーションを設定 */
+}
+
+header {
+    display: flex; /* フレックスボックスを使用して横並びにする */
+    align-items: center; /* 垂直方向に中央揃え */
+    background-color: rgb(230,230,250,0.5);
+}
+
+.header_logo {
+    width: 200px; /* 画像の幅を設定 */
+    margin-left: 20px;
+    margin-right: 20px; /* 画像とリストの間にスペースを追加 */
+}
+
+.navi {
+    list-style: none; /* リストのドットを削除 */
+    padding: 0; /* パディングを削除 */
+    margin: 0; /* マージンを削除 */
+    display: flex; /* リスト項目を横並びにする */
+}
+
+.navi_li {
+    margin-right: 15px; /* リスト項目の間にスペースを追加 */
+}
+
+
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+
+.kabegami {
+    background-size: cover;
+}
+
+#input1 {
+    display: block;
+    margin: auto;
+    width: 200px;
+}
+
+.my-textbox {
+    width: 500px;  /* 幅を300ピクセルに設定 */
+    height: 40px;  /* 高さを40ピクセルに設定 */
+    padding: 10px; /* 内側の余白を10ピクセルに設定 */
+    font-size: 16px; /* フォントサイズを16ピクセルに設定 */
+    border: 1px solid #ccc; /* 枠線を設定 */
+    border-radius: 5px; /* 角を丸くする */
+}
+
+.container {
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: right; /* 横方向の中央揃え */
+    align-items: center; /* 縦方向の中央揃え */
+    height: 100%; /* コンテナの高さを100%に設定 */
+    padding-right: 10px;
+    margin-top: -85px;  
+    margin-right:40px;
+}
+
+.title {
+    max-width: 30%; /* 画像の最大幅を65%に設定 */
+    height: auto; /* 高さを自動に設定してアスペクト比を保持 */
+    margin-top: -50px; /* 上にずらすためのマージンを設定（値は調整可） */
+    margin-left: 205px; 
+}
+
+
+.back-button {
+    text-align: left;
+    background-color: transparent; /* 透明の背景色 */
+    color: black; /* テキストの色を黒に設定 */
+    padding: 9px 30px; /* 上下の余白を15px、左右を30pxに設定 */
+    font-size: 18px; /* フォントサイズを18pxに設定 */
+    border: 2px solid black ; /* 枠線を黒に設定 */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+    margin-left: 40px; /* 左端との間隔を20pxあける */
+}
+
+.back-button:hover {
+    background-color: #efe8d2; /* ホバー時の水色を少し暗くする */
+}
+
+.txt-center{
+    text-align : center;
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap; /* ボタンを折り返し可能にする */
+    width: 920px; /* コンテナの幅を更新 */
+    justify-content: center; /* 中央揃え */
+    margin: auto; /* コンテナを中央に配置 */
+}
+
+.button-container button {
+    width: 400px; /* ボタンの幅を設定 */
+    height:80px;
+    margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
+    border: none; /* 枠線をなしに設定 */
+    color: white;
+    font-size: 22px;
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+
+body {
+    height: 100%; /* 高さを100%に設定 */
+    overflow: hidden; /* スクロールを無効にする */
+}
+
+.kabegami {
+    background-size: cover;
+}
+
+#input1 {
+    display: block;
+    margin: auto;
+    width: 200px;
+}
+
+.container {
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: right; /* 横方向の中央揃え */
+    align-items: center; /* 縦方向の中央揃え */
+    height: 100%; /* コンテナの高さを100%に設定 */
+    padding-right: 10px;
+    margin-top: -85px;  
+    margin-right:40px;
+}
+
+.back-button {
+    position: fixed; /* 固定位置にする */
+    bottom: 30px; /* 上から20px */
+    left: 30px; /* 左から20px */
+    background-color: transparent; /* 透明の背景色 */
+    color: black; /* テキストの色を黒に設定 */
+    padding: 9px 30px; /* 上下の余白を15px、左右を30pxに設定 */
+    font-size: 18px; /* フォントサイズを18pxに設定 */
+    border: 2px solid black ; /* 枠線を黒に設定 */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+
+.back-button:hover {
+    background-color: #efe8d2; /* ホバー時の水色を少し暗くする */
+}
+
+.txt-center{
+    text-align : center;
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap; /* ボタンを折り返し可能にする */
+    width: 920px; /* コンテナの幅を更新 */
+    justify-content: center; /* 中央揃え */
+    margin: auto; /* コンテナを中央に配置 */
+}
+
+.button-container button {
+    width: 400px; /* ボタンの幅を設定 */
+    height:80px;
+    margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
+    border: none; /* 枠線をなしに設定 */
+    color: black;
+    font-size: 22px;
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+
+.cameramenu-btn{
+    background-color: skyblue;
+}
+
+.uploadmenu-btn{
+    background-color: skyblue;
+}
+
+.main_contents {
+    padding-top: 70px;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+.captured_image { /* 画像の最大サイズを制限　「縛り」 */
+    display: block; /* 画像をブロック要素にする */
+    max-width: 150px; /* 幅を400pxに制限 */
+    max-height: 150px; /* 高さを300pxに制限 */
+    width: auto; /* 幅の自動調整 */
+    height: auto; /* 高さの自動調整 */
+    margin: 10px 0; /* 上下のマージンを設定 */
+    overflow: hidden; /* はみ出す部分を隠す */
+}

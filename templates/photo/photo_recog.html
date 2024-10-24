@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}ごはんフレンズ！{% endblock %}
+{% block content %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/photo_recog.css') }}">
+    <div class="container">
+        <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
+    </div>
+    <div class="main_contents">
+    
+        <h1 class="txt-center">認識中...</h1>
+    <img id="captured-image" alt="撮影した画像が表示されます" class="captured_image">
+    <br>
+    <button onclick="location.href='{{ url_for('photo_take') }}';">戻る</button> <!-- 戻るボタン -->
+    
+    <script>
+        // sessionStorageから画像データを取得して表示
+        const imageUrl = sessionStorage.getItem('capturedImage');
+        if (imageUrl) {
+            document.getElementById('captured-image').src = imageUrl;
+        } else {
+            document.getElementById('captured-image').alt = "画像がありません";
+        }
+    </script>
+
+    <button id="back-button" onclick="location.href='{{ url_for('photo_menu') }}';" class="back-button">戻る</button>
+    </div>
+{% endblock %}

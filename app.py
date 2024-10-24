@@ -1,11 +1,13 @@
 import cv2
 import numpy as np
 import pickle
-import boto3  # S3用のライブラリ
+import boto3
 from flask import Flask, request, jsonify, render_template, redirect, url_for, session
-import sqlite3  # SQLite用のライブラリ
+import sqlite3
 import os
 import secrets
+from datetime import datetime 
+
 
 app = Flask(__name__)
 
@@ -16,6 +18,7 @@ app.secret_key = secrets.token_hex(16)  # セキュリティのためのシー�
 
 
 # SQLiteデータベースの設定
+# DATABASE = '/home/UminekoSakana/mysite/mydatabase.db'  # パスが正しいか確認
 DATABASE = 'mydatabase.db'  # SQLiteデータベースのファイル名
 
 def get_db():
@@ -26,6 +29,8 @@ def get_db():
 s3_client = boto3.client('s3', region_name='us-east-1')  # リージョンを指定
 
 # 事前に計算した料理の特徴をロード
+# with open('/home/UminekoSakana/mysite/recipe_features.pkl', 'rb') as f:
+#     recipe_features = pickle.load(f)
 with open('recipe_features.pkl', 'rb') as f:
     recipe_features = pickle.load(f)
 
@@ -146,6 +151,28 @@ def delete_recipe():
 
     except Exception as e:
         return f"エラーが発生しました: {str(e)}"
+    
+@app.route('/ninnsiki/touroku_success', methods=['POST'])
+def register_food():
+    account_id = request.form['account_id']
+    cuisine = request.form['cuisine']
+    eat_date = datetime.now().date()
+
+    conn = get_db()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute('INSERT INTO FOOD_DATA (ACCOUNT_ID, EAT_DATE, CUISINE) VALUES (?, ?, ?)',
+                       (account_id, eat_date, cuisine))
+        conn.commit()
+    finally:
+        conn.close()
+
+    return redirect(url_for('touroku_success'))
+
+@app.route('/ninnsiki/touroku_success')
+def touroku_success():
+    return render_template('ninnsiki/touroku_success.html')
 
 @app.route('/ninnsyou/login', methods=['GET', 'POST'])
 def login():
@@ -296,6 +323,9 @@ def acct_del():
 def photo_upload():
     return render_template('photo/photo_upload.html')  # 引数がシンプルになった
 
+@app.route('/photo/photo_recog')
+def photo_recog():
+    return render_template('photo/photo_recog.html')  # 引数がシンプルになった
 
 if __name__ == '__main__':
     app.run(debug=True)

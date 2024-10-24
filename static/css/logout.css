@@ -78,7 +78,8 @@ body {
     width: 200px; /* ボタンの幅を設定 */
     height:80px;
     margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
-    border: none; /* 枠線をなしに設定 */
+    border-style: solid;
+    border-color:red; /* 枠線をなしに設定 */
     background-color: #ff6161;
     color: white;
     font-size: 22px;
