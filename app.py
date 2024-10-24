@@ -1,11 +1,13 @@
 import cv2
 import numpy as np
 import pickle
-import boto3  # S3用のライブラリ
+import boto3
 from flask import Flask, request, jsonify, render_template, redirect, url_for, session
-import sqlite3  # SQLite用のライブラリ
+import sqlite3
 import os
 import secrets
+from datetime import datetime 
+
 
 app = Flask(__name__)
 
@@ -149,6 +151,28 @@ def delete_recipe():
 
     except Exception as e:
         return f"エラーが発生しました: {str(e)}"
+    
+@app.route('/ninnsiki/touroku_success', methods=['POST'])
+def register_food():
+    account_id = request.form['account_id']
+    cuisine = request.form['cuisine']
+    eat_date = datetime.now().date()
+
+    conn = get_db()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute('INSERT INTO FOOD_DATA (ACCOUNT_ID, EAT_DATE, CUISINE) VALUES (?, ?, ?)',
+                       (account_id, eat_date, cuisine))
+        conn.commit()
+    finally:
+        conn.close()
+
+    return redirect(url_for('touroku_success'))
+
+@app.route('/ninnsiki/touroku_success')
+def touroku_success():
+    return render_template('ninnsiki/touroku_success.html')
 
 @app.route('/ninnsyou/login', methods=['GET', 'POST'])
 def login():
