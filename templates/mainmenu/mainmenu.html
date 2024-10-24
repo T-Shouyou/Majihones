@@ -22,6 +22,10 @@
     <button onclick="location.href='{{ url_for('account_look') }}';" class="ac_look">アカウント閲覧</button>
     {% endif %}
 
+    {% if account_id == 1 %}
+    <button onclick="location.href='{{ url_for('recipe_images') }}';" class="recipe_teach">ごはん調教</button>
+    {% endif %}
+
     <div class="memo-container">
         <textarea id="memo" placeholder="ここにメモを書いてください..." disabled>
         12/31   「ごはんフレンズ！」サービス開始のお知らせ
