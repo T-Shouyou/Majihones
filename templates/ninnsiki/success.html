@@ -3,24 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>成功</title>
+    <title>撮影結果</title>
 </head>
 <body>
-    <h1>アップロード成功！</h1>
-    <h2>予測された料理名:</h2>
+    <h1>撮影結果</h1>
 
-    <h3>複数の画像から認識するパターン:</h3>
+    <h3>下記のごはんを認識しました</h3>
     <ul>
-        <li>１: {{ predicted_labels[0][0] }}</li>
-        <li>２: {{ predicted_labels[0][1] }}</li>
-        <li>３: {{ predicted_labels[0][2] }}</li>
+        <li><input type="text" id="predicted1" value="{{ predicted_labels[0][0] }}" readonly>
+            <button class="editButton" data-target="predicted1">編集</button>
+            <button class="completeButton" data-target="predicted1" style="display:none;">完了</button>
+        </li>
+        <li><input type="text" id="predicted2" value="{{ predicted_labels[0][1] }}" readonly>
+            <button class="editButton" data-target="predicted2">編集</button>
+            <button class="completeButton" data-target="predicted2" style="display:none;">完了</button>
+        </li>
+        <li><input type="text" id="predicted3" value="{{ predicted_labels[0][2] }}" readonly>
+            <button class="editButton" data-target="predicted3">編集</button>
+            <button class="completeButton" data-target="predicted3" style="display:none;">完了</button>
+        </li>
     </ul>
 
     <h3>特徴を平均して認識するパターン:</h3>
     <ul>
-        <li>１: {{ predicted_labels[1][0] }}</li>
+        <li><input type="text" id="averagePredicted" value="{{ predicted_labels[1][0] }}" readonly>
+            <button class="editButton" data-target="averagePredicted">編集</button>
+            <button class="completeButton" data-target="averagePredicted" style="display:none;">完了</button>
+        </li>
     </ul>
 
+    <!-- 登録ボタン（機能は未実装） -->
+    <button id="submitButton">登録する</button>
+
     <button onclick="location.href='{{ url_for('photo_upload') }}';" class="uploadmenu-btn">戻る</button>
+
+    <script>
+        // 編集ボタンにクリックイベントを追加
+        document.querySelectorAll('.editButton').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var targetId = this.getAttribute('data-target');
+                var input = document.getElementById(targetId);
+                var completeButton = document.querySelector('.completeButton[data-target="' + targetId + '"]');
+
+                // 編集状態を切り替え
+                if (input.hasAttribute('readonly')) {
+                    input.removeAttribute('readonly');
+                    input.focus(); // フォーカスを当てる
+                    completeButton.style.display = 'inline'; // 完了ボタンを表示
+                }
+            });
+        });
+
+        // 完了ボタンにクリックイベントを追加
+        document.querySelectorAll('.completeButton').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var targetId = this.getAttribute('data-target');
+                var input = document.getElementById(targetId);
+                input.setAttribute('readonly', true); // 編集不可に戻す
+                this.style.display = 'none'; // 完了ボタンを非表示
+            });
+        });
+
+        // 登録ボタンは今は機能なし
+        document.getElementById('submitButton').addEventListener('click', function() {
+            // 機能は未実装
+        });
+    </script>
 </body>
 </html>
