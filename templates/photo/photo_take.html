@@ -1,23 +1,22 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ごはん撮影</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/photo_take.css') }}">
-</head>
+{% extends 'base.html' %}
+
+{% block title %}撮影画面{% endblock %}
+
+{% block content %}
 <body background="../static/img/background.png" class="kabegami">
     <div class="container">
-        <img src="../static/img/title.png" class="title">
-        <p>ログイン中：{{ account_name }}</p>
+        <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
     </div>
     <div class="video-container">
-        <video id="video" autoplay class="center"></video> <!-- カメラ映像を表示するためのビデオ要素 -->
+        <video id='video' autoplay></video> <!-- カメラ映像を表示するためのビデオ要素 -->
     </div>
 
-    <div class="button-container">
-        <button id="back-button" onclick="location.href='{{ url_for('photo_menu') }}';" class="back-button">戻る</button>
+    <div class="button-container-photo-take">
         <button id="capture" class="capture">撮影</button> <!-- 撮影ボタン -->
+    </div>
+
+    <div class="back_button_container">
+        <button id="back-button" onclick="location.href='{{ url_for('photo_menu') }}';" class="back-button">戻る</button>
     </div>
     
     <br>
@@ -64,4 +63,4 @@
     </script>
     
 </body>
-</html>
+{% endblock %}

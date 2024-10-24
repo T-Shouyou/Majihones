@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}ごはんフレンズ！{% endblock %}
+{% block title %}メインメニュー{% endblock %}
 
 {% block content %}
 
@@ -15,9 +15,10 @@
         <button class="hiroba-btn"><img src="../static/img/hiroba-icon.png" class="hiroba-icon">ごはん広場</button>
 
         <button onclick="location.href='{{ url_for('acct_set') }}';" class="ac_op-btn">⚙アカウント設定</button>
-        
-        <button onclick="location.href='{{ url_for('account_look') }}';" class="ac_look">アカウント閲覧</button>
     </div> 
+    <aside>
+        <button onclick="location.href='{{ url_for('account_look') }}';" class="ac_look">アカウント閲覧</button>
+    </aside>
 
     <div class="memo-container">
         <textarea id="memo" placeholder="ここにメモを書いてください..." disabled>
