@@ -89,3 +89,15 @@ canvas {
     cursor: pointer; /* カーソルをポインターに変更 */
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
 }
+
+.recog{
+    margin-left:20px;
+    text-align:center;
+    background-color: skyblue; /* 赤の背景色 */
+    color: white; /* テキストの色を白に設定 */
+    padding: 9px 30px; /* 上下の余白を15px、左右を30pxに設定 */
+    font-size: 18px; /* フォントサイズを18pxに設定 */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */    
+}

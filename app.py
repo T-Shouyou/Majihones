@@ -295,6 +295,9 @@ def acct_del():
 def photo_upload():
     return render_template('photo/photo_upload.html')  # 引数がシンプルになった
 
+@app.route('/photo/photo_recog')
+def photo_recog():
+    return render_template('photo/photo_recog.html')  # 引数がシンプルになった
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -67,17 +67,6 @@ body {
     animation: glow 1s infinite alternate; /* アニメーションを設定 */
 }
 
-@keyframes glow {
-    0% {
-        text-shadow: 0 0 5px #ffcc00, 0 0 10px #ffcc00, 0 0 15px #ffcc00; /* スタートの状態 */
-        opacity: 0.7; /* 初めの透明度 */
-    }
-    100% {
-        text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00, 0 0 30px #ffcc00; /* 最後の発光状態 */
-        opacity: 1; /* 最後の透明度 */
-    }
-}
-
 header {
     display: flex; /* フレックスボックスを使用して横並びにする */
     align-items: center; /* 垂直方向に中央揃え */
@@ -205,9 +194,12 @@ body {
 
 .container {
     display: flex; /* フレックスボックスを使用 */
-    justify-content: center; /* 横方向の中央揃え */
+    justify-content: right; /* 横方向の中央揃え */
     align-items: center; /* 縦方向の中央揃え */
     height: 100%; /* コンテナの高さを100%に設定 */
+    padding-right: 10px;
+    margin-top: -85px;  
+    margin-right:40px;
 }
 
 .back-button {
@@ -268,5 +260,14 @@ html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+  }
   
+.captured_image { /* 画像の最大サイズを制限　「縛り」 */
+    display: block; /* 画像をブロック要素にする */
+    max-width: 150px; /* 幅を400pxに制限 */
+    max-height: 150px; /* 高さを300pxに制限 */
+    width: auto; /* 幅の自動調整 */
+    height: auto; /* 高さの自動調整 */
+    margin: 10px 0; /* 上下のマージンを設定 */
+    overflow: hidden; /* はみ出す部分を隠す */
+}
