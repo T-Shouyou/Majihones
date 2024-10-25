@@ -13,20 +13,12 @@
             <button onclick="location.href='{{ url_for('photo_menu') }}';" class="camera-btn"><img src="../static/img/camera.png" class="camera-icon">ごはん撮影</button>
             <button class="sug-btn">🍖ごはん提案</button>
             <button class="hiroba-btn"><img src="../static/img/hiroba-icon.png" class="hiroba-icon">ごはん広場</button>
-<<<<<<< HEAD
             <button onclick="location.href='{{ url_for('acct_set') }}';" class="ac_op-btn">⚙アカウント設定</button>
         </div>     
     </div> 
     <aside>
         <button onclick="location.href='{{ url_for('account_look') }}';" class="ac_look">アカウント閲覧</button>
-    </aside>        
-=======
-
-            <button onclick="location.href='{{ url_for('acct_set') }}';" class="ac_op-btn">⚙アカウント設定</button>
-            
-            
-        </div> 
->>>>>>> 26cd6402e772fc1a1e87df22954d2021cc420e92
+    </aside>
 
     {% if account_id == 1 %}
     <button onclick="location.href='{{ url_for('account_look') }}';" class="ac_look">アカウント閲覧</button>
