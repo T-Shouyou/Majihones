@@ -253,7 +253,8 @@ def inject_account_info():
 @app.route('/mainmenu/mainmenu')
 def mainmenu():
     if 'account_name' in session:
-        return render_template('mainmenu/mainmenu.html')  # 引数がシンプルになった
+        breadcrumbs=[('メインメニュー', url_for('mainmenu'))]
+        return render_template('mainmenu/mainmenu.html',breadcrumbs=breadcrumbs)  # 引数がシンプルになった
     return redirect(url_for('login'))
 
 @app.route('/master/account_look')
@@ -292,6 +293,7 @@ def delete_account(account_id):
 
 @app.route('/photo/photo_menu')
 def photo_menu():
+<<<<<<< HEAD
     return render_template('photo/photo_menu.html')
 
 @app.route('/photo/photo_take')
@@ -309,6 +311,16 @@ def sugg_look():
 @app.route('/sugg/sugg_hist')
 def sugg_hist():
     return render_template('sugg/sugg_hist.html')
+=======
+    breadcrumbs = [('メインメニュー', url_for('mainmenu')), ('フォトメニュー', url_for('photo_menu'))]
+    return render_template('photo/photo_menu.html', breadcrumbs=breadcrumbs)
+
+
+@app.route('/photo/photo_take')
+def photo_take():
+    breadcrumbs = [('メインメニュー', url_for('mainmenu')), ('フォトメニュー', url_for('photo_menu')), ('撮影画面', url_for('photo_take'))]
+    return render_template('photo/photo_take.html', breadcrumbs=breadcrumbs)  # 引数がシンプルになった
+>>>>>>> 585ebc7f277774d21c2df3364ea13287bfab77f4
 
 # ーーーーーーーーーーアカウント設定ーーーーーーーーーー
 @app.route('/acset/acct_set')

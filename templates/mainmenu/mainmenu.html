@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
-{% block title %}ごはんフレンズ！{% endblock %}
+{% block title %}メインメニュー{% endblock %}
+
 {% block content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <div class="container">
@@ -12,16 +13,15 @@
             <button onclick="location.href='{{ url_for('photo_menu') }}';" class="camera-btn"><img src="../static/img/camera.png" class="camera-icon">ごはん撮影</button>
             <button onclick="location.href='{{ url_for('sugg_menu') }}';" class="sug-btn">🍖ごはん提案</button>
             <button class="hiroba-btn"><img src="../static/img/hiroba-icon.png" class="hiroba-icon">ごはん広場</button>
-
             <button onclick="location.href='{{ url_for('acct_set') }}';" class="ac_op-btn">⚙アカウント設定</button>
-            
-            
-        </div> 
-
-    {% if account_id == 1 %}
-    <button onclick="location.href='{{ url_for('account_look') }}';" class="ac_look">アカウント閲覧</button>
-    <button onclick="location.href='{{ url_for('recipe_images') }}';" class="recipe_teach">ごはん教育</button>
-    {% endif %}
+        </div>     
+    </div> 
+    <aside>
+        {% if account_id == 1 %}
+        <button onclick="location.href='{{ url_for('account_look') }}';" class="ac_look">アカウント閲覧</button>
+        <button onclick="location.href='{{ url_for('recipe_images') }}';" class="recipe_teach">ごはん教育</button>
+        {% endif %}  
+    </aside>        
 
     <div class="memo-container">
         <textarea id="memo" placeholder="ここにメモを書いてください..." disabled>

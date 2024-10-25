@@ -10,9 +10,7 @@
     <header class="clearfix">
         <img src="{{ url_for('static', filename='img/title.png') }}" class="header_logo">
         <nav>
-            <a href='/mainmenu/mainmenu'>メインメニュー</a>
             {% if breadcrumbs %}
-                &gt; 
                 {% for crumb in breadcrumbs %}
                     <a href="{{ crumb[1] }}">{{ crumb[0] }}</a>
                     {% if not loop.last %} &gt; {% endif %}
