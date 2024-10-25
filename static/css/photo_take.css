@@ -64,6 +64,7 @@ canvas {
 }
 
 .capture{
+    margin-top: 20px;
     text-align:center;
     background-color: red; /* 赤の背景色 */
     color: white; /* テキストの色を白に設定 */
@@ -75,6 +76,7 @@ canvas {
 }
 
 .recog{
+    margin-top:20px;
     margin-left:20px;
     text-align:center;
     background-color: skyblue; /* 赤の背景色 */

@@ -266,6 +266,17 @@ header {
     cursor: pointer; /* カーソルをポインターに変更 */
 }
 
+.recipe_teach{
+    position:fixed;
+    padding:20px 55px;
+    background-color:pink;
+    margin-left: 20px;
+    color:white;
+    border-radius:5px;
+    border-style:none;
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
 .memo-container {
     width: 100%; /* 幅を100%に設定 */
     max-width: 600px; /* 最大幅を600pxに設定 */
@@ -390,8 +401,6 @@ html, body {
     padding-top: 50px;
 }
 
-
-
 .video-container {
     display: flex; /* フレックスボックスを使用 */
     justify-content: center; /* 水平方向の中央揃え */
@@ -403,8 +412,6 @@ html, body {
     text-align: center;
 }
 
-
-
 video {
     width: 30%; /* ビデオの幅を50%に設定 */
     height: auto; /* 高さは自動で調整 */
@@ -414,8 +421,6 @@ video {
 canvas {
     display: none; /* Canvasは非表示にする */
 }
-
-
 
 .capture{
     display: block;
