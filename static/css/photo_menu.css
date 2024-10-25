@@ -204,10 +204,13 @@ body {
 }
 
 .container {
-    display: flex; /* フレックスボックスを使用 */
-    justify-content: center; /* 横方向の中央揃え */
-    align-items: center; /* 縦方向の中央揃え */
-    height: 100%; /* コンテナの高さを100%に設定 */
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    height: 100%;
+    padding-right: 10px;
+    margin-top: -85px;
+    margin-right: 40px;
 }
 
 .back-button {
