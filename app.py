@@ -14,9 +14,6 @@ app = Flask(__name__)
 # シークレットキーの設定
 app.secret_key = secrets.token_hex(16)  # セキュリティのためのシークレットキー
 
-
-
-
 # SQLiteデータベースの設定
 # DATABASE = '/home/UminekoSakana/mysite/mydatabase.db'  # パスが正しいか確認
 DATABASE = 'mydatabase.db'  # SQLiteデータベースのファイル名
@@ -335,6 +332,34 @@ def acct_set():
 @app.route('/acset/allergy_new')
 def allergy_new():
     return render_template('acset/allergy_new.html')
+
+
+@app.route('/register_allergy', methods=['POST'])
+def register_allergy():
+    # セッションからアカウントIDを取得
+    account_id = session.get('account_id')
+
+    # 受け取ったアレルゲンデータを取得
+    allergies = request.form.getlist('allergy')
+
+    # データベースに接続
+    conn = sqlite3.connect('mydatabase.db')
+    cursor = conn.cursor()
+
+    try:
+        for allergy in allergies:
+            cursor.execute("INSERT INTO ALLERGEN (ACCOUNT_ID, ALLERGY) VALUES (?, ?)", (account_id, allergy))
+
+        # 変更を保存
+        conn.commit()
+    except sqlite3.Error as e:
+        print("エラーが発生しました:", e)
+        conn.rollback()
+    finally:
+        conn.close()
+
+    return redirect(url_for('acct_set'))  # 登録後、アカウント設定ページにリダイレクト
+
 
 @app.route('/acset/psd_change')
 def psd_change():
