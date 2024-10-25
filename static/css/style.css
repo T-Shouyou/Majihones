@@ -277,7 +277,7 @@ aside {
     cursor: pointer; /* カーソルをポインターに変更 */
     font-size: 20px;
 }
-
+/* 
 .recipe_teach{
     position:fixed;
     padding:20px 55px;
@@ -286,8 +286,8 @@ aside {
     color:white;
     border-radius:5px;
     border-style:none;
-    cursor: pointer; /* カーソルをポインターに変更 */
-}
+    cursor: pointer; 
+} */
 
 .memo-container {
     padding-top: 10px;
