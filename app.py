@@ -292,11 +292,23 @@ def delete_account(account_id):
 
 @app.route('/photo/photo_menu')
 def photo_menu():
-    return render_template('photo/photo_menu.html')  # 引数がシンプルになった
+    return render_template('photo/photo_menu.html')
 
 @app.route('/photo/photo_take')
 def photo_take():
-    return render_template('photo/photo_take.html')  # 引数がシンプルになった
+    return render_template('photo/photo_take.html')
+
+@app.route('/sugg/sugg_menu')
+def sugg_menu():
+    return render_template('sugg/sugg_menu.html')
+
+@app.route('/sugg/sugg_look')
+def sugg_look():
+    return render_template('sugg/sugg_look.html')
+
+@app.route('/sugg/sugg_hist')
+def sugg_hist():
+    return render_template('sugg/sugg_hist.html')
 
 # ーーーーーーーーーーアカウント設定ーーーーーーーーーー
 @app.route('/acset/acct_set')
