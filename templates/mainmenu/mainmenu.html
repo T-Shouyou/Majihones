@@ -3,10 +3,7 @@
 {% block title %}メインメニュー{% endblock %}
 
 {% block content %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <div class="container">
-        <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
-    </div>
+
 
     <div class="main_contents">
         <div class="button-container">
@@ -18,8 +15,8 @@
     </div> 
     <aside>
         {% if account_id == 1 %}
-        <button onclick="location.href='{{ url_for('account_look') }}';" class="ac_look">アカウント閲覧</button>
-        <button onclick="location.href='{{ url_for('recipe_images') }}';" class="recipe_teach">ごはん教育</button>
+        <button onclick="location.href='{{ url_for('account_look') }}';" class="Master_only_btn">アカウント閲覧</button>
+        <button onclick="location.href='{{ url_for('recipe_images') }}';" class="Master_only_btn">ごはん教育</button>
         {% endif %}  
     </aside>        
 

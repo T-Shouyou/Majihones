@@ -12,11 +12,14 @@
     <form action="/predict" method="POST" enctype="multipart/form-data" onsubmit="startLoading();">
         <input type="file" name="image" accept="image/*" multiple required style="display: none;" id="file-upload" onchange="previewImage();">
         <div class="button-container">
-            <button id="back-button" onclick="location.href='{{ url_for('photo_menu') }}';" class="back-button">戻る</button>
             <button id="capture" class="capture">撮影</button> 
             <button type="submit" id="recog" class="recog">次へ</button>
         </div>
     </form>
+
+    <div back_button_container>
+        <button id="back-button" onclick="location.href='{{ url_for('photo_menu') }}';" class="back-button">戻る</button>
+    </div>
     
     <br>
     <canvas id="canvas"></canvas>
