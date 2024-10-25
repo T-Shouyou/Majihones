@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>提案リスト</title>
+</head>
+<body>
+    <h1>提案されたごはん</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>摂取日時</th>
+                <th>料理名</th>
+                <th>提案内容</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sugg in suggestions %}
+            <tr>
+                <td>{{ sugg.eat_date }}</td>
+                <td>{{ sugg.cuisine }}</td>
+                <td>{{ sugg.sugg_txt }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
