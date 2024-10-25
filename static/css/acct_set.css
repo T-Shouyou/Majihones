@@ -146,3 +146,16 @@ input {
     margin-top: 100px;
     margin-left: 50px;
 }
+
+/*   あれるぎーちぇっくぼくす */
+
+.chkbox input[type="checkbox"] {
+    width: 20px;  /* チェックボックスの幅 */
+    height: 20px; /* チェックボックスの高さ */
+    transform: scale(1.5); /* チェックボックスを拡大 */
+    margin-right: 10px; /* ラベルとの間にスペースを追加 */
+}
+
+.chkbox {
+    font-size: 25px; /* ラベルの文字サイズ */
+}

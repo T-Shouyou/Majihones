@@ -1,0 +1,91 @@
+header {
+    display: flex; /* フレックスボックスを使用して横並びにする */
+    align-items: center; /* 垂直方向に中央揃え */
+    background-color: rgb(230,230,250,0.5);
+}
+
+.header_logo {
+    width: 200px; /* 画像の幅を設定 */
+    margin-left: 20px;
+    margin-right: 20px; /* 画像とリストの間にスペースを追加 */
+}
+
+.navi {
+    list-style: none; /* リストのドットを削除 */
+    padding: 0; /* パディングを削除 */
+    margin: 0; /* マージンを削除 */
+    display: flex; /* リスト項目を横並びにする */
+}
+
+.navi_li {
+    margin-right: 15px; /* リスト項目の間にスペースを追加 */
+}
+
+
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    height: 100%;
+    padding-right: 10px;
+    margin-top: -85px;
+    margin-right: 40px;
+}
+
+.txt-center{
+    text-align: center;
+}
+
+.form-container {
+    margin-top:40px;
+    display: flex; /* フレックスボックスを使用 */
+    flex-direction: column; /* 縦に配置 */
+    align-items: center; /* 水平方向の中央揃え */
+    justify-content: center; /* 垂直方向の中央揃え */
+}
+
+form {
+    display: flex;
+    flex-direction: column; /* 縦に配置 */
+    align-items: center; /* 水平方向の中央揃え */
+}
+
+.back-button {
+    position: fixed; /* 固定位置にする */
+    bottom: 30px; /* 上から20px */
+    left: 30px; /* 左から20px */
+    background-color: transparent; /* 透明の背景色 */
+    color: black; /* テキストの色を黒に設定 */
+    padding: 9px 30px; /* 上下の余白を15px、左右を30pxに設定 */
+    font-size: 18px; /* フォントサイズを18pxに設定 */
+    border: 2px solid black ; /* 枠線を黒に設定 */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+
+.back-button:hover {
+    background-color: #efe8d2; /* ホバー時の水色を少し暗くする */
+}
+
+.recipe_form{
+    width:300px;
+    margin: auto;
+    display: flex; /* フレックスボックスを使用 */
+    align-items: center; /* 中央揃え */
+    justify-content: center; /* 縦方向も中央揃え（高さがある場合） */
+}

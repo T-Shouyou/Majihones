@@ -1,17 +1,16 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>レシピ画像アップロード</title>
-</head>
-<body>
-    <h1>レシピ画像をアップロード</h1>
-    <form action="/ninnsiki/upload_recipe" method="POST" enctype="multipart/form-data">
-        <input type="text" name="label" placeholder="料理名を入力" required>
-        <input type="file" name="image" accept="image/*" required>
-        <button type="submit">アップロード</button>
-    </form>
-    <a href="/">戻る</a>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}レシピ画像アップロード{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/recipe_images.css') }}">
+    <h1 class="txt-center">レシピ画像をアップロード</h1>
+    <div class="form-container">
+        <form action="/ninnsiki/upload_recipe" method="POST" enctype="multipart/form-data">
+            <input type="text" name="label" placeholder="料理名を入力" class="recipe_form" required>
+            <input type="file" name="image" accept="image/*" required>
+            <button type="submit">アップロード</button>
+        </form>
+    </div>
+    <br><br>
+    <button id="back-button" onclick="location.href='{{ url_for('mainmenu') }}';" class="back-button">戻る</button>
+{% endblock %}

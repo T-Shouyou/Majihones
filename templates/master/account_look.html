@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="ja">
+{% extends 'base.html' %}
+{% block title %}アカウント情報{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/account_look.css') }}">
-    <title>アカウント情報</title>
     <script>
         // メールアドレスの重複チェック
         function checkDuplicateEmail(row) {
@@ -134,11 +131,9 @@
             row.querySelector('.edit-button').style.display = 'inline'; // 編集ボタン表示
         }
     </script>
-</head>
 
-<body background="../static/img/background.png" class="kabegami">
+
     <div class="container">
-        <img src="../static/img/title.png" class="title">
         <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
     </div>
     <h1 class="txtcenter">アカウント情報</h1>
@@ -178,8 +173,9 @@
             {% endfor %}
         </table>
     </div>
+
+    <div class="txtcenter">
     <a href="{{ url_for('mainmenu') }}">メインメニュー</a>
     <a href="{{ url_for('logout') }}">ログアウト</a>
-</body>
-
-</html>
+    </div>
+{% endblock %}

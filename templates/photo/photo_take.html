@@ -13,7 +13,6 @@
         <input type="file" name="image" accept="image/*" multiple required style="display: none;" id="file-upload" onchange="previewImage();">
         <div class="button-container">
             <button id="capture" class="capture">撮影</button> 
-            <button type="submit" id="recog" class="recog">次へ</button>
         </div>
     </form>
 
@@ -36,7 +35,9 @@
             }
         }
 
-        document.getElementById('capture').addEventListener('click', () => {
+        document.getElementById('capture').addEventListener('click', async (event) => {
+            event.preventDefault(); // フォームのデフォルト送信を防ぐ
+
             const video = document.getElementById('video');
             const canvas = document.getElementById('canvas');
             const context = canvas.getContext('2d');
@@ -57,6 +58,9 @@
 
             const captureButton = document.getElementById('capture');
             captureButton.textContent = '撮影完了!';
+
+            // フォームを自動的に送信
+            document.querySelector('form').submit();
         });
 
         function dataURLtoBlob(dataURL) {
