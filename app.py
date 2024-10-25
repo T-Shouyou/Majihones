@@ -15,6 +15,7 @@ app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)  # セキュリティのためのシークレットキー
 
 # SQLiteデータベースの設定
+# 検索してナンバーを消せ
 # DATABASE = '/home/UminekoSakana/mysite/mydatabase.db'  # パスが正しいか確認
 DATABASE = 'mydatabase.db'  # SQLiteデータベースのファイル名
 
@@ -26,6 +27,7 @@ def get_db():
 s3_client = boto3.client('s3', region_name='us-east-1')  # リージョンを指定
 
 # 事前に計算した料理の特徴をロード
+# 検索してナンバーを消せ
 # with open('/home/UminekoSakana/mysite/recipe_features.pkl', 'rb') as f:
 #     recipe_features = pickle.load(f)
 with open('recipe_features.pkl', 'rb') as f:
@@ -60,21 +62,21 @@ def identify_dishes_from_multiple_images(image_paths):
     sorted_dishes = sorted(distances, key=distances.get)[:3]
     return sorted_dishes  # 上位3つの料理名を返す
 
-def hiroba_img(image_file):
+# def hiroba_img(image_file):
 
-    image_path = f"hiroba_img/{image_file.filename}"  
+#     image_path = f"hiroba_img/{image_file.filename}"  
     
-    s3_client.upload_fileobj(image_file, 'gazou', image_path)
+#     s3_client.upload_fileobj(image_file, 'gazou', image_path)
     
-    img_data = s3_client.get_object(Bucket='gazou', Key=image_path)['Body'].read()
-    img_array = np.frombuffer(img_data, np.uint8)
-    img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
+#     img_data = s3_client.get_object(Bucket='gazou', Key=image_path)['Body'].read()
+#     img_array = np.frombuffer(img_data, np.uint8)
+#     img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
 
-    img = cv2.resize(img, (150, 150))
-    histogram = cv2.calcHist([img], [0, 1, 2], None, [8, 8, 8], [0, 256, 0, 256, 0, 256])
-    cv2.normalize(histogram, histogram)
+#     img = cv2.resize(img, (150, 150))
+#     histogram = cv2.calcHist([img], [0, 1, 2], None, [8, 8, 8], [0, 256, 0, 256, 0, 256])
+#     cv2.normalize(histogram, histogram)
 
-    return histogram
+#     return histogram
 
 
 @app.route('/')

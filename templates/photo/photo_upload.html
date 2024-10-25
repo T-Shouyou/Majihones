@@ -11,6 +11,8 @@
     function previewImage() {
         const fileInput = document.getElementById('file-upload');
         const selectedImage = document.getElementById('selected-image');
+        const predictButton = document.getElementById('predictButton'); // 予測ボタンの取得
+        const defaultButton = document.getElementById('defaultButton'); // 画像未選択ボタンの取得
 
         if (fileInput.files && fileInput.files[0]) {
             const reader = new FileReader();
@@ -20,14 +22,29 @@
 
                 // 画像データをsessionStorageに保存
                 sessionStorage.setItem('capturedImage', e.target.result);
+
+                // ボタンの切り替え
+                predictButton.style.display = 'block'; // 予測するボタンを表示
+                defaultButton.style.display = 'none'; // 画像未選択ボタンを非表示
             };
             reader.readAsDataURL(fileInput.files[0]);
+        } else {
+            selectedImage.style.display = 'none'; // 画像が選択されていない場合は非表示
+
+            // ボタンの切り替え
+            predictButton.style.display = 'none'; // 予測するボタンを非表示
+            defaultButton.style.display = 'block'; // 画像未選択ボタンを表示
         }
+    }
+
+    function startLoading() {
+        const loading = document.getElementById('loading');
+        loading.style.display = 'block'; // ローディングメッセージを表示
     }
     </script>
 
     <h1 class="txt-center">料理画像をアップロードして予測します</h1>
-    <div id="loading" class="txt-center">fish fish fish 魚釣りをする魚</div>
+    <div id="loading" class="txt-center" style="display: none;">fish fish fish 魚釣りをする魚</div>
     <form action="/predict" method="POST" enctype="multipart/form-data" onsubmit="startLoading();">
         <input type="file" name="image" accept="image/*" multiple required style="display: none;" id="file-upload" onchange="previewImage();">
         <div class="button-container">
@@ -35,7 +52,8 @@
                 画像を選択
             </label>
             <img id="selected-image" style="display:none; max-width: 200px; margin: 10px 0;" alt="選択された画像">
-            <button type="submit" onclick="location.href='{{ url_for('photo_recog') }}';" class="upload_do">予測する</button>
+            <button type="button" id="defaultButton" class="upload_do" style="display: block;">画像未選択</button> <!-- 画像未選択ボタン -->
+            <button type="submit" id="predictButton" class="upload_do" style="display: none;">予測する</button> <!-- 予測するボタン -->
         </div>
     </form>
 
