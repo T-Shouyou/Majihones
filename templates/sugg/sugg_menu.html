@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}ごはんフレンズ！{% endblock %}
+{% block content %}
+
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/photo_menu.css') }}"> -->
+    <div class="container">
+        <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
+    </div>
+    
+    <div class="main_contents">
+    <div class="button-container">
+        <button onclick="location.href='{{ url_for('sugg_look') }}';" class="sugglook-btn">ごはんの提案を見る</button>
+        <button onclick="location.href='{{ url_for('sugg_hist') }}';" class="sugghist-btn">過去の提案を見る</button>
+    </div> 
+
+    <br><br>
+
+        <script>
+        </script>
+    <button id="back-button" onclick="location.href='{{ url_for('mainmenu') }}';" class="back-button">戻る</button>
+    </div>
+{% endblock %}

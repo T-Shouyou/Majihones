@@ -240,18 +240,7 @@ header {
     background-color: gray;
 }
 
-.ac_look {
-    font-size: 20px;
-    background-color:black;
-    color: white;
-    text-align: center;
-    float: left; 
-    margin-left: 65px;
-    margin-top: -220px;   
-    width: 80px;
-    height: 190px;
-    writing-mode: vertical-rl;
-}
+
 
 .camera-icon{
     width: 30px; /* 画像の幅を設定 */
@@ -271,6 +260,17 @@ header {
     margin-left: 20px;
     margin-top:-220px;
     background-color: orange;
+    color:white;
+    border-radius:5px;
+    border-style:none;
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+.recipe_teach{
+    position:fixed;
+    padding:20px 55px;
+    background-color:pink;
+    margin-left: 20px;
     color:white;
     border-radius:5px;
     border-style:none;
@@ -401,8 +401,6 @@ html, body {
     padding-top: 50px;
 }
 
-
-
 .video-container {
     display: flex; /* フレックスボックスを使用 */
     justify-content: center; /* 水平方向の中央揃え */
@@ -414,8 +412,6 @@ html, body {
     text-align: center;
 }
 
-
-
 video {
     width: 30%; /* ビデオの幅を50%に設定 */
     height: auto; /* 高さは自動で調整 */
@@ -425,8 +421,6 @@ video {
 canvas {
     display: none; /* Canvasは非表示にする */
 }
-
-
 
 .capture{
     display: block;

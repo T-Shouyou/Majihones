@@ -11,19 +11,17 @@
     <div class="main_contents">
         <div class="button-container">
             <button onclick="location.href='{{ url_for('photo_menu') }}';" class="camera-btn"><img src="../static/img/camera.png" class="camera-icon">ごはん撮影</button>
-            <button class="sug-btn">🍖ごはん提案</button>
+            <button onclick="location.href='{{ url_for('sugg_menu') }}';" class="sug-btn">🍖ごはん提案</button>
             <button class="hiroba-btn"><img src="../static/img/hiroba-icon.png" class="hiroba-icon">ごはん広場</button>
             <button onclick="location.href='{{ url_for('acct_set') }}';" class="ac_op-btn">⚙アカウント設定</button>
         </div>     
     </div> 
     <aside>
+        {% if account_id == 1 %}
         <button onclick="location.href='{{ url_for('account_look') }}';" class="ac_look">アカウント閲覧</button>
+        <button onclick="location.href='{{ url_for('recipe_images') }}';" class="recipe_teach">ごはん調教</button>
+        {% endif %}  
     </aside>
-
-    {% if account_id == 1 %}
-    <button onclick="location.href='{{ url_for('account_look') }}';" class="ac_look">アカウント閲覧</button>
-    <button onclick="location.href='{{ url_for('recipe_images') }}';" class="recipe_teach">ごはん教育</button>
-    {% endif %}
 
     <div class="memo-container">
         <textarea id="memo" placeholder="ここにメモを書いてください..." disabled>

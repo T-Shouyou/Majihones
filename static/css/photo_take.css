@@ -1,3 +1,12 @@
+body{
+    height:100%;
+    overflow: hidden;
+}
+
+.kabegami {
+    background-size: cover;
+}
+
 .video-container {
     margin-top:20px;
     display: flex; /* フレックスボックスを使用 */
@@ -49,9 +58,13 @@ canvas {
     display: none; /* Canvasは非表示にする */
 }
 
-
+.center{
+    width: 30%;
+    height: auto;
+}
 
 .capture{
+    margin-top: 20px;
     text-align:center;
     background-color: red; /* 赤の背景色 */
     color: white; /* テキストの色を白に設定 */
@@ -63,6 +76,7 @@ canvas {
 }
 
 .recog{
+    margin-top:20px;
     margin-left:20px;
     text-align:center;
     background-color: skyblue; /* 赤の背景色 */
@@ -96,8 +110,6 @@ header {
 .navi_li {
     margin-right: 15px; /* リスト項目の間にスペースを追加 */
 }
-
-
 
 .clearfix::after {
     content: "";
