@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-<html lang="ja">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ごはん広場</title>
+{% block title %}ごはん広場{% endblock %}
+
+{% block content %}
     <link rel="stylesheet" href="styles.css">
-</head>
 
-<body>
 
-    <header>
-        <h1>ごはん広場</h1>
-    </header>
+
+<br><br>
+    <h1 class="txt-center">ごはん広場</h1>
 
     <!-- 投稿された内容を表示 -->
     <h2>投稿された内容</h2>
@@ -22,16 +18,16 @@
         <div class="post">
             <p>{{ post.sentence }}</p>
             {% if post.photo %}
-            <img src="https://gazou.s3.amazonaws.com/hiroba_img/{{ post.photo }}" alt="投稿画像" style="max-width:100%;">
+            <img src="https://gazou.s3.amazonaws.com/hiroba_img/{{ post.photo }}" alt="投稿画像" style="max-width:15%;">
             {% endif %}
 
         </div>
         {% endfor %}
     </div>
-    <img src="https://gazou.s3.amazonaws.com/hiroba_img/puddin.jpg">
-    <button onclick="location.href='{{ url_for('mainmenu') }}';">メインメニュー</button>
-    <button onclick="location.href='{{ url_for('post_gohan') }}';">ごはん投稿</button>
 
-</body>
+    <div class="fixed-buttons">
+    <button onclick="location.href='{{ url_for('mainmenu') }}';" class="main-btn">メイン<br>メニュー</button>
+    <button onclick="location.href='{{ url_for('post_gohan') }}';" class="post-btn">ごはん投稿</button>
+    </div>
 
-</html>
+{% endblock %}
