@@ -15,7 +15,18 @@
 <!-- 投稿された内容を表示 -->
 <h2>投稿された内容</h2>
 
-<button onclick="location.href='{{ url_for('mainmenu')}}';">メインメニュー</button>
+<div class="posts">
+    {% for post in posts %}
+        <div class="post">
+            <p>{{ post.sentence }}</p>
+            {% if post.photo %}
+                <img src="https://gazou.s3.amazonaws.com/{{ post.photo }}" alt="投稿画像" style="max-width:100%;">
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+<button onclick="location.href='{{ url_for('mainmenu') }}';">メインメニュー</button>
 <button onclick="location.href='{{ url_for('post_gohan') }}';">ごはん投稿</button>
 
 </body>

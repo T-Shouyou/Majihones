@@ -326,6 +326,48 @@ def sugg_look():
 def sugg_hist():
     return render_template('sugg/sugg_hist.html')
 
+@app.route('/hiroba/area_gohan')
+def area_gohan():
+    conn = get_db()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT SENTENCE, PHOTO FROM POST ORDER BY POST_ID DESC")
+    posts = cursor.fetchall()
+    
+    conn.close()
+    
+    posts = [{'sentence': row[0], 'photo': row[1]} for row in posts]
+    
+    return render_template('hiroba/area_gohan.html', posts=posts)
+
+@app.route('/hiroba/post_gohan')
+def post_gohan():
+    return render_template('hiroba/post_gohan.html')
+
+@app.route('/hiroba/save_gohan_post', methods=['POST'])
+def save_gohan_post():
+    account_id = session.get('account_id')
+    sentence = request.form['sentence']
+    photo = request.files['photo']
+    
+    if photo:
+        photo_path = f"gazou/hiroba_img/{photo.filename}"
+        s3_client.upload_fileobj(photo, 'gazou', photo_path)  # S3にアップロード
+
+        conn = get_db()
+        cursor = conn.cursor()
+
+        try:
+            cursor.execute(
+                "INSERT INTO POST (ACCOUNT_ID, SENTENCE, PHOTO) VALUES (?, ?, ?)",
+                (account_id, sentence, photo_path)
+            )
+            conn.commit()
+        finally:
+            conn.close()
+    
+    return redirect(url_for('area_gohan'))
+
 # ーーーーーーーーーーアカウント設定ーーーーーーーーーー
 @app.route('/acset/acct_set')
 def acct_set():
