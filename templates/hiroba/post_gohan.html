@@ -1,4 +1,11 @@
 <!doctype html>
 <html lang="ja">
-    
+    <header><h1>投稿フォーム</h1></header>
+    <form id="postForm">
+        <textarea placeholder="テキストを入力" rows="4" style="width:100%;"></textarea>
+        <input type="file" id="imageUpload" accept="image/*">
+        <img id="imagePreview" class="image-preview" style="display:none;" alt="Image preview">
+        <button type="submit">投稿</button>
+    </form>
+    <button onclick="location.href='{{ url_for('arer_gohan') }}';">戻る</button>
 </html>

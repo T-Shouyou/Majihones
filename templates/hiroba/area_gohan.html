@@ -1,4 +1,22 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
-    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ごはん広場</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <h1>ごはん広場</h1>
+</header>
+
+<!-- 投稿された内容を表示 -->
+<h2>投稿された内容</h2>
+
+<button onclick="location.href='{{ url_for('mainmenu')}}';">メインメニュー</button>
+<button onclick="location.href='{{ url_for('post_gohan') }}';">ごはん投稿</button>
+
+</body>
 </html>
