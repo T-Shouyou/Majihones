@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <title>アカウント設定</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/acct_set.css') }}">
 </head>
+
 <body background="../static/img/background.png" class="kabegami">
     <div class="container">
         <img src="../static/img/title.png" class="title">
@@ -13,6 +15,26 @@
 
     <p class="ale">アレルギーの登録</p>
 
+<<<<<<< HEAD
+    <form action="{{ url_for('register_allergy') }}" method="POST">
+        <input type="hidden" name="account_id" value="{{ account_id }}"> <!-- アカウントIDを隠しフィールドとして追加 -->
+        <div class="chkbox">
+            <input type="checkbox" name="allergies" value="egg">卵
+            <input type="checkbox" name="allergies" value="milk">乳
+            <input type="checkbox" name="allergies" value="wheat">小麦
+            <input type="checkbox" name="allergies" value="shrimp">えび
+            <input type="checkbox" name="allergies" value="crab">かに
+            <input type="checkbox" name="allergies" value="peanut">落花生
+            <input type="checkbox" name="allergies" value="buckwheat">そば
+        </div>
+
+        <div class="under_cls">
+            <img src="../static/chara/苛立ち.png" class="tmg_friends">
+            <button type="submit" class="subbutton">登録</button>
+        </div>
+    </form>
+
+=======
     <div class="chkbox">
         <label><input type="checkbox" name="egg">卵</label>
         <label><input type="checkbox" name="milk">乳</label>
@@ -23,13 +45,11 @@
         <label><input type="checkbox" name="buckwheat">そば</label>
     </div>
     
+>>>>>>> 3d0567e59ddee3e183e80073ae9840b08d964330
 
-    <div class="under_cls">
-        <img src="../static/chara/苛立ち.png" class="tmg_friends">
-        <button class="subbutton">登録</button>
-    </div>
-    
     <div class="bkb">
         <button onclick="location.href='{{ url_for('acct_set') }}';" class="back_btn">戻る</button>
     </div>
 </body>
+
+</html>
