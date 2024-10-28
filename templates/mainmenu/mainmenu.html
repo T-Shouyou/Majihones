@@ -9,7 +9,7 @@
         <div class="button-container">
             <button onclick="location.href='{{ url_for('photo_menu') }}';" class="camera-btn"><img src="../static/img/camera.png" class="camera-icon">ごはん撮影</button>
             <button onclick="location.href='{{ url_for('sugg_menu') }}';" class="sug-btn">🍖ごはん提案</button>
-            <button onclick="location.href='{{ url_for('area_gohan') }}';" class="hiroba-icon">ごはん広場</button>
+            <button onclick="location.href='{{ url_for('area_gohan') }}';" class="hiroba-btn"><img src="../static/img/chat.png" class="hiroba-icon">ごはん広場</button>
             <button onclick="location.href='{{ url_for('acct_set') }}';" class="ac_op-btn">⚙アカウント設定</button>
         </div>     
     </div> 
@@ -37,7 +37,7 @@
             {% endif %}
         </div>
     </div>
-    
+
         <br><br>
 
         <script>

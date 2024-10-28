@@ -351,7 +351,8 @@ def save_gohan_post():
     photo = request.files['photo']
     
     if photo:
-        photo_path = f"gazou/hiroba_img/{photo.filename}"
+        photo_filename = photo.filename  # ここでファイル名を取得
+        photo_path = f"hiroba_img/{photo_filename}"
         s3_client.upload_fileobj(photo, 'gazou', photo_path)  # S3にアップロード
 
         conn = get_db()
@@ -360,13 +361,14 @@ def save_gohan_post():
         try:
             cursor.execute(
                 "INSERT INTO POST (ACCOUNT_ID, SENTENCE, PHOTO) VALUES (?, ?, ?)",
-                (account_id, sentence, photo_path)
+                (account_id, sentence, photo_filename)  # ここでphoto_pathではなくphoto_filenameを保存
             )
             conn.commit()
         finally:
             conn.close()
     
     return redirect(url_for('area_gohan'))
+
 
 # ーーーーーーーーーーアカウント設定ーーーーーーーーーー
 @app.route('/acset/acct_set')
