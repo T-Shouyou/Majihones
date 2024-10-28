@@ -4,12 +4,12 @@
 
 {% block content %}
 
-
+    
     <div class="main_contents">
         <div class="button-container">
             <button onclick="location.href='{{ url_for('photo_menu') }}';" class="camera-btn"><img src="../static/img/camera.png" class="camera-icon">ごはん撮影</button>
             <button onclick="location.href='{{ url_for('sugg_menu') }}';" class="sug-btn">🍖ごはん提案</button>
-            <button onclick="location.href='{{ url_for('area_gohan') }}';" class="hiroba-icon">ごはん広場</button>
+            <button onclick="location.href='{{ url_for('area_gohan') }}';" class="hiroba-btn"><img src="../static/img/chat.png" class="hiroba-icon">ごはん広場</button>
             <button onclick="location.href='{{ url_for('acct_set') }}';" class="ac_op-btn">⚙アカウント設定</button>
         </div>     
     </div> 
@@ -29,12 +29,14 @@
          1/5     ☆6おにぎりマンのEXスキル『断食殺し』調整について
          1/25    サービス終了のお知らせ
         </textarea>
+
         <div id="admin-controls">
             {% if account_id == 1 %}
                 <button id="edit-btn">編集</button>
                 <button id="confirm-btn">確定</button>
             {% endif %}
         </div>
+    </div>
 
         <br><br>
 
@@ -60,5 +62,4 @@
                 memo.disabled = true; // テキストエリアを再び非編集にする
             });
         </script>
-    </div>
 {% endblock %}

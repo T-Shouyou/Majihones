@@ -51,6 +51,7 @@ video {
     width: 50%; /* ビデオの幅を50%に設定 */
     height: auto; /* 高さは自動で調整 */
     border: 1px solid black; /* 境界線を追加（任意） */
+    object-fit: fill; /* 縦横比を無視して埋める (無視できません)*/
 }
 
 
