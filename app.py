@@ -326,6 +326,14 @@ def sugg_look():
 def sugg_hist():
     return render_template('sugg/sugg_hist.html')
 
+@app.route('/hiroba/area_gohan')
+def area_gohan():
+    return render_template('hiroba/area_gohan.html')
+
+@app.route('/hiroba/post_gohan')
+def post_gohan():
+    return render_template('hiroba/post_gohan.html')
+
 # ーーーーーーーーーーアカウント設定ーーーーーーーーーー
 @app.route('/acset/acct_set')
 def acct_set():
