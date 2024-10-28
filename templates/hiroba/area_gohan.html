@@ -16,11 +16,12 @@
     <div class="posts">
         {% for post in posts %}
         <div class="post">
-            <p>{{ post.sentence }}</p>
+            <hr>
+            <p class="post_txt">{{ post.sentence }}</p>
             {% if post.photo %}
-            <img src="https://gazou.s3.amazonaws.com/hiroba_img/{{ post.photo }}" alt="投稿画像" style="max-width:15%;">
+            <img src="https://gazou.s3.amazonaws.com/hiroba_img/{{ post.photo }}" alt="投稿画像" class="post_img">
             {% endif %}
-
+            <hr>
         </div>
         {% endfor %}
     </div>

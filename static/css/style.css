@@ -476,3 +476,9 @@ canvas {
 .fixed-buttons button:hover {
     background-color: #0056b3; /* ホバー時の背景色 */
 }
+
+.post_img{
+    width: 15%;
+    height: 15%;
+    object-fit: cover; /* 縦横比を維持しながら、領域にフィットさせる */
+}
