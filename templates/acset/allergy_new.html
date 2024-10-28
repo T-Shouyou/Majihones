@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html lang="ja">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>アカウント設定</title>
+{% block title %}アレルギー新規登録{% endblock %}
+
+{% block content %}
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/acct_set.css') }}">
-</head>
 
-<body background="../static/img/background.png" class="kabegami">
+
+
     <div class="container">
-        <img src="../static/img/title.png" class="title">
-        <p class="login_name">ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
     </div>
-
+    <br><br><br><br>
     <p class="ale">アレルギーの登録</p>
 
     <form action="{{ url_for('register_allergy') }}" method="POST">
@@ -37,6 +35,5 @@
     <div class="bkb">
         <button onclick="location.href='{{ url_for('acct_set') }}';" class="back_btn">戻る</button>
     </div>
-</body>
 
-</html>
+{% endblock %}

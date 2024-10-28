@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>アカウント設定</title>
+{% extends 'base.html' %}
+
+{% block title %}アカウント設定{% endblock %}
+
+{% block content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/mainmenu.css') }}">
-</head>
-<body background="../static/img/background.png" class="kabegami">
+
     <div class="container">
-        <img src="../static/img/title.png" class="title">
-        <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
     </div>
 
-</body>
+{% endblock %}
