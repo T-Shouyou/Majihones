@@ -1,12 +1,14 @@
 <!doctype html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <title>投稿フォーム</title>
     <style>
         .error-message {
             color: red;
-            display: none; /* 初期状態で非表示 */
+            display: none;
+            /* 初期状態で非表示 */
             margin-left: 10px;
         }
     </style>
@@ -43,14 +45,17 @@
             }
         }
 
-        window.onload = function() {
+        window.onload = function () {
             // フォームの送信時にバリデーションを実行
             document.getElementById('postForm').addEventListener('submit', validateForm);
         };
     </script>
 </head>
+
 <body>
-    <header><h1>投稿フォーム</h1></header>
+    <header>
+        <h1>投稿フォーム</h1>
+    </header>
     <form id="postForm" action="{{ url_for('save_gohan_post') }}" method="post" enctype="multipart/form-data">
         <textarea name="sentence" placeholder="テキストを入力" rows="4" style="width:100%;"></textarea>
         <input type="file" name="photo" id="imageUpload" accept="image/*">
@@ -60,4 +65,5 @@
     </form>
     <button onclick="location.href='{{ url_for('area_gohan') }}';">戻る</button>
 </body>
+
 </html>
