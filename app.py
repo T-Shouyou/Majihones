@@ -197,6 +197,8 @@ def touroku_success():
 
 @app.route('/ninnsyou/login', methods=['GET', 'POST'])
 def login():
+    mail_address = ""
+    error_message = ""
     if request.method == 'POST':
         mail_address = request.form['mail_address']
         password = request.form['password']
@@ -213,9 +215,9 @@ def login():
             session['account_name'] = user[1]  # セッションにアカウント名を保存
             return redirect(url_for('mainmenu'))  # ログイン成功時にメインメニューへリダイレクト
         else:
-            return "ログインに失敗しました。アカウント名またはパスワードが間違っています。"
+            error_message = "ログインに失敗しました。アカウント名またはパスワードが間違っています。"
 
-    return render_template('ninnsyou/login.html')
+    return render_template('ninnsyou/login.html', mail_address=mail_address, error_message=error_message)
 
 @app.route('/ninnsyou/signup', methods=['GET'])
 def sign_up():
@@ -336,14 +338,24 @@ def area_gohan():
     conn = get_db()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT SENTENCE, PHOTO FROM POST ORDER BY POST_ID DESC")
+    # ACCOUNT_NAMEを取得するためにJOINを使用
+    cursor.execute("""
+    SELECT P.POST_ID, A.ACCOUNT_ID, A.ACCOUNT_NAME, P.SENTENCE, P.PHOTO 
+    FROM POST P
+    JOIN ACCOUNT A ON P.ACCOUNT_ID = A.ACCOUNT_ID
+    ORDER BY P.POST_ID DESC
+    """)
+    
     posts = cursor.fetchall()
     
     conn.close()
     
-    posts = [{'sentence': row[0], 'photo': row[1]} for row in posts]
+    # フォーマットを変更して辞書リストを作成
+    posts = [{'post_id': row[0], 'account_id': row[1], 'account_name': row[2], 'sentence': row[3], 'photo': row[4]} for row in posts]
+
+    account_id = session.get('account_id')
     
-    return render_template('hiroba/area_gohan.html', posts=posts)
+    return render_template('hiroba/area_gohan.html', posts=posts, account_id=account_id)
 
 @app.route('/hiroba/post_gohan')
 def post_gohan():

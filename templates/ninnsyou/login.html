@@ -11,7 +11,7 @@
     </div>
     <form action="{{ url_for('login') }}" method="post">
         <div class="login-form">
-            <input name="mail_address" class="my-textbox" placeholder="メールアドレス" required>
+            <input name="mail_address" class="my-textbox" placeholder="メールアドレス" value="{{ mail_address }}" required>
         </div>
         <br>
         <div class="login-form">
@@ -22,6 +22,9 @@
             <button id="login-button" type="submit" class="login-button">ログイン</button>
         </div>
         <br>
+        {% if error_message %}
+            <div class="error-message">{{ error_message }}</div>
+        {% endif %}
         <div class="login-form">
             <a href="{{ url_for('signup') }}" class="start_link">新規登録はこちら</a>
         </div>

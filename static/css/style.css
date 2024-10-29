@@ -11,12 +11,11 @@ html, body {
 
 
 .title {
-    max-width: 65%; /* 画像の最大幅を65%に設定 */
-    height: auto; /* 高さを自動に設定してアスペクト比を保持 */
-    margin-top: -80px; /* 上にずらすためのマージンを設定（値は調整可） */
-    clear: both;
     justify-content: center; /* 水平方向に中央配置 */
-
+    max-width: 30%; /* 画像の最大幅を65%に設定 */
+    height: auto; /* 高さを自動に設定してアスペクト比を保持 */
+    margin-top: -50px; /* 上にずらすためのマージンを設定（値は調整可） */
+    margin-left: 205px; 
 }
 
 .image-container {
@@ -149,12 +148,6 @@ header {
     margin-right:40px;
 }
 
-.title {
-    max-width: 30%; /* 画像の最大幅を65%に設定 */
-    height: auto; /* 高さを自動に設定してアスペクト比を保持 */
-    margin-top: -50px; /* 上にずらすためのマージンを設定（値は調整可） */
-    margin-left: 205px; 
-}
 .login-form{
     display: flex; /* フレックスボックスを使用 */
     flex-direction: column; /* 縦に並べる */
@@ -321,11 +314,6 @@ aside {
     padding-top: 70px;
 }
 
-
-  
-
-
-
   /* photomenu -----------------------------------------------------------------------------------*/
 
 
@@ -414,10 +402,6 @@ aside {
     justify-content: center; /* 水平方向の中央揃え */
     align-items: center; /* 垂直方向の中央揃え */
     padding-top: 50px;
-}
-
-.txt-center {
-    text-align: center;
 }
 
 video {
@@ -540,4 +524,59 @@ canvas {
     border: none;              /* ボーダーを消す */
     text-align: center;        /* テキストを中央揃え */
     margin-top: -50px; 
+}
+
+
+/* photo_upload -------------------------------------------------------------------*/
+
+
+.upload-button:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
+}
+
+#selected-image { /* 画像の最大サイズを制限　「縛り」 */
+    display: none; /* 初期状態で非表示 */
+    max-width: 150px; /* 幅を400pxに制限 */
+    max-height: 150px; /* 高さを300pxに制限 */
+    width: auto; /* 幅の自動調整 */
+    height: auto; /* 高さの自動調整 */
+    margin: 10px 0; /* 上下のマージンを設定 */
+    overflow: hidden; /* はみ出す部分を隠す */
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.txt-center-photo-upload {
+    text-align: center;
+    margin-top: -40px;
+    padding-bottom: 20px;
+}
+
+.upload-button {
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 中央揃え */
+    width: 400px; /* ボタンの幅を設定 */
+    height: 80px; /* ボタンの高さを設定 */
+    margin: 0px 0px 10px 0px; /* ボタンの間にスペースを追加 */
+    border: none; /* 枠線をなしに設定 */
+    color: black;
+    font-size: 22px;
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+
+.button-container-photo-upload {
+    width: 100%;
+    background-color: skyblue;
+    display: flex;
+    flex-wrap: wrap; /* ボタンを折り返し可能にする */
+    margin: auto; /* コンテナを中央に配置 */
+    flex-direction: column; /* 縦に並べる */       
 }
