@@ -336,13 +336,54 @@ def acct_set():
 def allergy_new():
     return render_template('acset/allergy_new.html')
 
-@app.route('/acset/psd_change')
+@app.route('/acset/allergy_set')
+def allergy_set():
+    return render_template('acset/allergy_set.html')
+
+@app.route('/acset/psd_change', methods=['GET', 'POST'])
 def psd_change():
-    return render_template('acset/psd_change.html')
+    if request.method == 'POST':
+        password = request.form['password']
+        
+        conn = get_db()
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM ACCOUNT WHERE PASS = ?", (password))
+        user = cur.fetchone()
+        cur.close()
+        conn.close()
+
+        if user:
+            session['password'] = user[3]  # セッションにアカウント名を保存
+            return redirect(url_for('psd_changec'))  # ログイン成功時にメインメニューへリダイレクト
+        else:
+            return "パスワードが間違っています。"
+
+    return render_template('acset/psd_changec.html')
+
+@app.route('/acset/psd_change/<int:account_id>', methods=['GET','POST'])
+def edit_account(account_id):
+    data = request.json
+    password = data['password']
+    password2 = data['passwordnew']
+    password3 = data['passwordnew2']
+
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM ACCOUNT WHERE PASS = ?", (password))
+    cur.execute("UPDATE ACCOUNT SET PASS = ? WHERE ACCOUNT_ID = ?",
+                (password, account_id))
+    conn.commit()
+    return render_template('acset/psd_changec.html')
+
+# @app.route('/acset/psd_changec')
+# def psd_changec():
+#     return render_template('acset/psd_changec.html')
 
 @app.route('/acset/acct_del')
 def acct_del():
     return render_template('acset/acct_del.html')
+
+# -------------------------------------------------------
 
 @app.route('/photo/photo_upload')
 def photo_upload():
