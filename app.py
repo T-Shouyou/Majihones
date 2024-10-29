@@ -6,6 +6,8 @@ from flask import Flask, request, jsonify, render_template, redirect, url_for, s
 import sqlite3
 import os
 import secrets
+import random
+import string
 from datetime import datetime 
 
 
@@ -13,6 +15,9 @@ app = Flask(__name__)
 
 # シークレットキーの設定
 app.secret_key = secrets.token_hex(16)  # セキュリティのためのシークレットキー
+
+# ローカル画像保存先のパス
+LOCAL_IMAGE_FOLDER = 'static/hiroba_img'
 
 # SQLiteデータベースの設定
 # 検索してナンバーを消せ
@@ -344,6 +349,11 @@ def area_gohan():
 def post_gohan():
     return render_template('hiroba/post_gohan.html')
 
+# ランダムな10文字の英数字を生成する関数
+def generate_unique_filename(extension):
+    random_str = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
+    return f"{random_str}.{extension}"
+
 @app.route('/hiroba/save_gohan_post', methods=['POST'])
 def save_gohan_post():
     account_id = session.get('account_id')
@@ -351,9 +361,13 @@ def save_gohan_post():
     photo = request.files['photo']
     
     if photo:
-        photo_filename = photo.filename  # ここでファイル名を取得
-        photo_path = f"hiroba_img/{photo_filename}"
-        s3_client.upload_fileobj(photo, 'gazou', photo_path)  # S3にアップロード
+        # 元のファイル拡張子を保持
+        extension = photo.filename.rsplit('.', 1)[1].lower()
+        unique_filename = generate_unique_filename(extension)
+        
+        # 画像をローカルフォルダに保存
+        photo_path = os.path.join(LOCAL_IMAGE_FOLDER, unique_filename)
+        photo.save(photo_path)  # ファイルを保存
 
         conn = get_db()
         cursor = conn.cursor()
@@ -361,7 +375,7 @@ def save_gohan_post():
         try:
             cursor.execute(
                 "INSERT INTO POST (ACCOUNT_ID, SENTENCE, PHOTO) VALUES (?, ?, ?)",
-                (account_id, sentence, photo_filename)  # ここでphoto_pathではなくphoto_filenameを保存
+                (account_id, sentence, unique_filename)
             )
             conn.commit()
         finally:
