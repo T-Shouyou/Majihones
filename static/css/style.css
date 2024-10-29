@@ -493,13 +493,51 @@ canvas {
     background-color: skyblue;
 }
 
-.post_txtbox{
 
-    height:100px;
-    width:70px;
+
+/*     ------------------ごはん投稿CSS---------------------------- */
+
+
+
+.post_txtbox{
+    resize: none;  /* リサイズを無効にする（必要に応じて） */
+    height: 200px;
+    width:700px;
 }
 
 .textarea-container {
     display: flex;               /* フレックスボックスを使う */
     justify-content: center;     /* 横方向を中央に配置 */
+}
+
+.post_btn{
+    width:110px;
+    height:50px;
+    margin-top: -30px;
+    margin-left:460px;
+    background-color:skyblue;
+    border-radius: 5px; /* 角を丸くする */
+    border: none; /* ボーダーを消す */
+    color: white; /* テキストの色 */
+    font-size: 16px; /* フォントサイズ */
+    cursor: pointer; /* カーソルをポインターにする */
+    transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
+}
+
+.select_img {
+    display: none; /* デフォルトのファイル入力を隠す */
+}
+
+.select_post_img {
+    width:110px;
+    height:50px;
+    margin-left: 290px; /* 左のマージンを保持 */
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: skyblue; /* ボタンの背景色 */
+    color: white;               /* ボタンの文字色 */
+    border-radius: 5px;        /* 角を丸くする */
+    border: none;              /* ボーダーを消す */
+    text-align: center;        /* テキストを中央揃え */
+    margin-top: -50px; 
 }
