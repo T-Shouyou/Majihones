@@ -16,7 +16,7 @@
             <hr>
             <p class="post_txt">
                 <strong>投稿者名:</strong> {{ post.account_name }}
-                {% if post.account_id == account_id %}
+                {% if post.account_id == account_id or post.account_id == 1 %}
                     <button onclick="alert('編集機能はまだないよぅ、エラーになっちゃうめぅ。');">編集</button>
                 {% endif %}
             </p>
