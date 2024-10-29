@@ -12,15 +12,18 @@
         </div>
         <br>
 
-        <input type="file" name="photo" id="imageUpload" accept="image/*" class="select_img">
+        <input type="file" name="photo" id="imageUpload" accept="image/*" class="select_img" 
+               onchange="document.getElementById('fileName').textContent = this.files[0] ? this.files[0].name : '';">
         <label for="imageUpload" class="select_post_img">画像を選択</label>
+
+        <span id="fileName" class="file-name" style="margin-left: 10px;"></span> <!-- ファイル名表示用の要素 -->
 
         <img id="imagePreview" class="image-preview" style="display:none;" alt="Image preview">
 
         <button type="submit" class="post_btn">投稿</button>
     </form>
     <div class="fixed-buttons">
-    <button onclick="location.href='{{ url_for('area_gohan') }}';" class="">戻る</button>
+        <button onclick="location.href='{{ url_for('area_gohan') }}';" class="">戻る</button>
     </div>
 
 {% endblock %}
