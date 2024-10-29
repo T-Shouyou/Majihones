@@ -340,7 +340,7 @@ def area_gohan():
 
     # ACCOUNT_NAMEを取得するためにJOINを使用
     cursor.execute("""
-    SELECT A.ACCOUNT_NAME, P.SENTENCE, P.PHOTO 
+    SELECT P.POST_ID, A.ACCOUNT_ID, A.ACCOUNT_NAME, P.SENTENCE, P.PHOTO 
     FROM POST P
     JOIN ACCOUNT A ON P.ACCOUNT_ID = A.ACCOUNT_ID
     ORDER BY P.POST_ID DESC
@@ -351,9 +351,11 @@ def area_gohan():
     conn.close()
     
     # フォーマットを変更して辞書リストを作成
-    posts = [{'account_name': row[0], 'sentence': row[1], 'photo': row[2]} for row in posts]
+    posts = [{'post_id': row[0], 'account_id': row[1], 'account_name': row[2], 'sentence': row[3], 'photo': row[4]} for row in posts]
+
+    account_id = session.get('account_id')
     
-    return render_template('hiroba/area_gohan.html', posts=posts)
+    return render_template('hiroba/area_gohan.html', posts=posts, account_id=account_id)
 
 @app.route('/hiroba/post_gohan')
 def post_gohan():
