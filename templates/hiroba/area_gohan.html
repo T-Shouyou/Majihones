@@ -15,6 +15,7 @@
         {% for post in posts %}
         <div class="post">
             <hr>
+            <p class="post_txt"><strong>投稿者名:</strong> {{ post.account_name }}</p>  <!-- ここを修正 -->
             <p class="post_txt">{{ post.sentence }}</p>
             {% if post.photo %}
             <img src="{{ url_for('static', filename='hiroba_img/' + post.photo) }}" alt="投稿画像" class="post_img">

@@ -336,12 +336,20 @@ def area_gohan():
     conn = get_db()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT SENTENCE, PHOTO FROM POST ORDER BY POST_ID DESC")
+    # ACCOUNT_NAMEを取得するためにJOINを使用
+    cursor.execute("""
+    SELECT A.ACCOUNT_NAME, P.SENTENCE, P.PHOTO 
+    FROM POST P
+    JOIN ACCOUNT A ON P.ACCOUNT_ID = A.ACCOUNT_ID
+    ORDER BY P.POST_ID DESC
+    """)
+    
     posts = cursor.fetchall()
     
     conn.close()
     
-    posts = [{'sentence': row[0], 'photo': row[1]} for row in posts]
+    # フォーマットを変更して辞書リストを作成
+    posts = [{'account_name': row[0], 'sentence': row[1], 'photo': row[2]} for row in posts]
     
     return render_template('hiroba/area_gohan.html', posts=posts)
 
