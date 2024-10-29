@@ -6,6 +6,8 @@ from flask import Flask, request, jsonify, render_template, redirect, url_for, s
 import sqlite3
 import os
 import secrets
+import random
+import string
 from datetime import datetime 
 
 
@@ -13,6 +15,9 @@ app = Flask(__name__)
 
 # シークレットキーの設定
 app.secret_key = secrets.token_hex(16)  # セキュリティのためのシークレットキー
+
+# ローカル画像保存先のパス
+LOCAL_IMAGE_FOLDER = 'static/hiroba_img'
 
 # SQLiteデータベースの設定
 # 検索してナンバーを消せ
@@ -192,6 +197,8 @@ def touroku_success():
 
 @app.route('/ninnsyou/login', methods=['GET', 'POST'])
 def login():
+    mail_address = ""
+    error_message = ""
     if request.method == 'POST':
         mail_address = request.form['mail_address']
         password = request.form['password']
@@ -208,9 +215,9 @@ def login():
             session['account_name'] = user[1]  # セッションにアカウント名を保存
             return redirect(url_for('mainmenu'))  # ログイン成功時にメインメニューへリダイレクト
         else:
-            return "ログインに失敗しました。アカウント名またはパスワードが間違っています。"
+            error_message = "ログインに失敗しました。アカウント名またはパスワードが間違っています。"
 
-    return render_template('ninnsyou/login.html')
+    return render_template('ninnsyou/login.html', mail_address=mail_address, error_message=error_message)
 
 @app.route('/ninnsyou/signup', methods=['GET'])
 def sign_up():
@@ -331,18 +338,33 @@ def area_gohan():
     conn = get_db()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT SENTENCE, PHOTO FROM POST ORDER BY POST_ID DESC")
+    # ACCOUNT_NAMEを取得するためにJOINを使用
+    cursor.execute("""
+    SELECT P.POST_ID, A.ACCOUNT_ID, A.ACCOUNT_NAME, P.SENTENCE, P.PHOTO 
+    FROM POST P
+    JOIN ACCOUNT A ON P.ACCOUNT_ID = A.ACCOUNT_ID
+    ORDER BY P.POST_ID DESC
+    """)
+    
     posts = cursor.fetchall()
     
     conn.close()
     
-    posts = [{'sentence': row[0], 'photo': row[1]} for row in posts]
+    # フォーマットを変更して辞書リストを作成
+    posts = [{'post_id': row[0], 'account_id': row[1], 'account_name': row[2], 'sentence': row[3], 'photo': row[4]} for row in posts]
+
+    account_id = session.get('account_id')
     
-    return render_template('hiroba/area_gohan.html', posts=posts)
+    return render_template('hiroba/area_gohan.html', posts=posts, account_id=account_id)
 
 @app.route('/hiroba/post_gohan')
 def post_gohan():
     return render_template('hiroba/post_gohan.html')
+
+# ランダムな10文字の英数字を生成する関数
+def generate_unique_filename(extension):
+    random_str = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
+    return f"{random_str}.{extension}"
 
 @app.route('/hiroba/save_gohan_post', methods=['POST'])
 def save_gohan_post():
@@ -351,9 +373,13 @@ def save_gohan_post():
     photo = request.files['photo']
     
     if photo:
-        photo_filename = photo.filename  # ここでファイル名を取得
-        photo_path = f"hiroba_img/{photo_filename}"
-        s3_client.upload_fileobj(photo, 'gazou', photo_path)  # S3にアップロード
+        # 元のファイル拡張子を保持
+        extension = photo.filename.rsplit('.', 1)[1].lower()
+        unique_filename = generate_unique_filename(extension)
+        
+        # 画像をローカルフォルダに保存
+        photo_path = os.path.join(LOCAL_IMAGE_FOLDER, unique_filename)
+        photo.save(photo_path)  # ファイルを保存
 
         conn = get_db()
         cursor = conn.cursor()
@@ -361,7 +387,7 @@ def save_gohan_post():
         try:
             cursor.execute(
                 "INSERT INTO POST (ACCOUNT_ID, SENTENCE, PHOTO) VALUES (?, ?, ?)",
-                (account_id, sentence, photo_filename)  # ここでphoto_pathではなくphoto_filenameを保存
+                (account_id, sentence, unique_filename)
             )
             conn.commit()
         finally:
