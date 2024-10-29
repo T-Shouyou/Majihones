@@ -341,7 +341,6 @@ aside {
     border-radius: 5px; /* 角を丸くする */
 }
 
-
 .login-form{
     display: flex; /* フレックスボックスを使用 */
     flex-direction: column; /* 縦に並べる */
@@ -367,7 +366,6 @@ aside {
 .txt-center{
     text-align : center;
 }
-
 
 .cameramenu-btn{
     background-color: skyblue;
@@ -478,7 +476,30 @@ canvas {
 }
 
 .post_img{
-    width: 15%;
-    height: 15%;
-    object-fit: cover; /* 縦横比を維持しながら、領域にフィットさせる */
+    width: 100px;
+    height: 100px;
+    object-fit: fill; /* 縦横比を維持しながら、領域にフィットさせる */
+}
+
+
+
+/*     ------------------ごはん提案CSS---------------------------- */
+
+.sugglook-btn{
+    background-color: skyblue;
+}
+
+.sugghist-btn{
+    background-color: skyblue;
+}
+
+.post_txtbox{
+
+    height:100px;
+    width:70px;
+}
+
+.textarea-container {
+    display: flex;               /* フレックスボックスを使う */
+    justify-content: center;     /* 横方向を中央に配置 */
 }
