@@ -487,6 +487,8 @@ canvas {
     resize: none;  /* リサイズを無効にする（必要に応じて） */
     height: 200px;
     width:700px;
+    border: 1px solid black; /* 枠線 */
+    border-radius:5px;
 }
 
 .textarea-container {
@@ -498,7 +500,7 @@ canvas {
     position: fixed;  /* ボタンを固定位置に配置 */
     width: 110px;     /* 幅 */
     height: 50px;     /* 高さ */
-    bottom: 116px;     /* 画面下からの距離 */
+    bottom: 118px;     /* 画面下からの距離 */
     right: 290px;      /* 画面右からの距離 */
     background-color: skyblue; /* 背景色 */
     border-radius: 5px; /* 角を丸くする */
@@ -527,7 +529,40 @@ canvas {
     margin-top: -50px; 
 }
 
+.error-message {
+    color: red;
+    display: none; /* 初期状態で非表示 */
+    margin-left: 10px;
+}
 
+.fixed-buttons-back {
+    position: fixed; /* 固定位置にする */
+    bottom: 20px; /* 下からの距離 */
+    left: 20px; /* 右からの距離 */
+    display: flex; /* フレックスボックスを使用 */
+    flex-direction: column; /* 縦に並べる */
+    gap: 10px; /* ボタン間のスペース */
+    z-index: 1000; /* 他の要素の上に表示するためにz-indexを設定 */
+}
+
+.fixed-buttons-back button {
+    width: 100px; /* ボタンの幅 */
+    height: 100px; /* ボタンの高さ */
+    border-radius: 50%; /* 円形にする */
+    border: none; /* ボーダーを消す */
+    background-color: #007BFF; /* ボタンの背景色 */
+    color: white; /* テキストの色 */
+    font-size: 16px; /* フォントサイズ */
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center; /* 縦方向の中央揃え */
+    cursor: pointer; /* カーソルをポインターにする */
+    transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
+}
+
+.fixed-buttons-back button:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
+}
 /* photo_upload -------------------------------------------------------------------*/
 
 
