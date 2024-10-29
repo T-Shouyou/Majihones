@@ -197,6 +197,7 @@ def touroku_success():
 
 @app.route('/ninnsyou/login', methods=['GET', 'POST'])
 def login():
+    error_message = ""
     if request.method == 'POST':
         mail_address = request.form['mail_address']
         password = request.form['password']
@@ -213,9 +214,9 @@ def login():
             session['account_name'] = user[1]  # セッションにアカウント名を保存
             return redirect(url_for('mainmenu'))  # ログイン成功時にメインメニューへリダイレクト
         else:
-            return "ログインに失敗しました。アカウント名またはパスワードが間違っています。"
+            error_message = "ログインに失敗しました。アカウント名またはパスワードが間違っています。"
 
-    return render_template('ninnsyou/login.html')
+    return render_template('ninnsyou/login.html', error_message=error_message)
 
 @app.route('/ninnsyou/signup', methods=['GET'])
 def sign_up():
