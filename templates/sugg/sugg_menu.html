@@ -1,23 +1,17 @@
 {% extends 'base.html' %}
 
 {% block title %}ごはんフレンズ！{% endblock %}
+
 {% block content %}
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <div class="container">
-    </div>
-    
-    <br><br><br><br>
-    <div class="main_contents">
-    <div class="button-container">
-        <button onclick="location.href='{{ url_for('sugg_look') }}';" class="sugglook-btn">ごはんの提案を見る</button>
-        <button onclick="location.href='{{ url_for('sugg_hist') }}';" class="sugghist-btn">過去の提案を見る</button>
+    <!-- <br><br><br><br> -->
+<div class="main-contents">
+    <div class="button-container-sugg">
+        <button onclick="location.href='{{ url_for('sugg_look') }}';" class="sugg-button">ごはんの提案を見る</button>
+        <button onclick="location.href='{{ url_for('sugg_hist') }}';" class="sugg-button">過去の提案を見る</button>
     </div> 
-
-    <br><br>
-
-        <script>
-        </script>
-    <button id="back-button" onclick="location.href='{{ url_for('mainmenu') }}';" class="back-button">戻る</button>
+    <!-- <br><br> -->
+    <div class="back-button-container">
+        <button id="back-button" onclick="location.href='{{ url_for('mainmenu') }}';" class="back-button">戻る</button>
     </div>
+</div>
 {% endblock %}

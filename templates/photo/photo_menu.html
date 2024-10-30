@@ -4,17 +4,15 @@
 
 {% block content %}
     
-    <div class="main_contents">
-    <div class="button-container">
-        <button onclick="location.href='{{ url_for('photo_take') }}';" class="cameramenu-btn">カメラで撮影</button>
-        <button onclick="location.href='{{ url_for('photo_upload') }}';" class="uploadmenu-btn">撮影の代わりに<br>フォルダからアップロード</button>
+<div class="main-contents">
+    <div class="button-container-photo-menu">
+        <button onclick="location.href='{{ url_for('photo_take') }}';" class="cameramenu-button">カメラで撮影</button>
+        <button onclick="location.href='{{ url_for('photo_upload') }}';" class="uploadmenu-button">撮影の代わりに<br>フォルダからアップロード</button>
     </div>
 
-    <br><br>
-
-
-    <div class="back_button_container">
+    <div class="back-button-container">
         <button id="back-button" onclick="location.href='{{ url_for('mainmenu') }}';" class="back-button">戻る</button>
     </div>
+</div>
 
 {% endblock %}

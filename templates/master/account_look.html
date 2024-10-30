@@ -21,7 +21,7 @@
             if (isDuplicate) {
                 if (!warningMessage) {
                     const warning = document.createElement('div');
-                    warning.classList.add('email-warning');
+                    warning.classList.add('email_warning');
                     warning.style.color = 'red';
                     warning.innerText = 'このメールアドレスはすでに使用されています。';
                     mailInput.parentElement.appendChild(warning);
@@ -73,7 +73,7 @@
                 return;
             }
 
-            const response = await fetch(`/edit_account/${accountId}`, {
+            const response = await fetch(`/edit-account/${accountId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

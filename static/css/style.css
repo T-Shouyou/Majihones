@@ -25,6 +25,28 @@ html, body {
     margin-top: 20px; /* タイトル画像との間にマージンを設定（調整可） */
 }
 
+.button-container-mainmenu {
+    display: flex;
+    flex-wrap: wrap; /* ボタンを折り返し可能にする */
+    width: 920px; /* コンテナの幅を更新 */
+    justify-content: center; /* 中央揃え */
+    margin: auto; /* コンテナを中央に配置 */
+}
+
+.button-container-mainmenu button {
+    width: 400px; /* ボタンの幅を設定 */
+    height:80px;
+    margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
+    border: none; /* 枠線をなしに設定 */
+    color: white;
+    font-size: 22px;
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+
+
+
 .start_link {
     height:0%;
     display: flex; /* フレックスボックスを使用 */
@@ -199,26 +221,6 @@ header {
     text-align : center;
 }
 
-.button-container {
-    display: flex;
-    flex-wrap: wrap; /* ボタンを折り返し可能にする */
-    width: 920px; /* コンテナの幅を更新 */
-    justify-content: center; /* 中央揃え */
-    margin: auto; /* コンテナを中央に配置 */
-}
-
-.button-container button {
-    width: 400px; /* ボタンの幅を設定 */
-    height:80px;
-    margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
-    border: none; /* 枠線をなしに設定 */
-    color: white;
-    font-size: 22px;
-    border-radius: 5px; /* 角を丸くする */
-    cursor: pointer; /* カーソルをポインターに変更 */
-    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
-}
-
 .camera-btn{
     background-color: blue;
 }
@@ -351,25 +353,13 @@ aside {
     background-color: #009acd; /* ホバー時の水色を少し暗くする */
 }
 
-.txt-center{
-    text-align : center;
-}
-
-.cameramenu-btn{
-    background-color: skyblue;
-}
-
-.uploadmenu-btn{
-    background-color: skyblue;
-}
-
 .button-container-photo-menu {
     display: flex;
     flex-wrap: wrap; /* ボタンを折り返し可能にする */
-    width: 920px; /* コンテナの幅を更新 */
+    width: 100%; /* コンテナの幅を更新 */
     justify-content: center; /* 中央揃え */
     margin: auto; /* コンテナを中央に配置 */
-    padding-top: 80px;
+    flex-direction: column;
 }
 
 .button-container-photo-menu button {
@@ -378,10 +368,13 @@ aside {
     margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
     border: none; /* 枠線をなしに設定 */
     color: black;
+    background-color: skyblue;
     font-size: 22px;
     border-radius: 5px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+    margin:auto;
+    margin-bottom: 60px;
 }
 
 
@@ -465,23 +458,7 @@ canvas {
     object-fit: fill; /* 縦横比を維持しながら、領域にフィットさせる */
 }
 
-
-
-/*     ------------------ごはん提案CSS---------------------------- */
-
-.sugglook-btn{
-    background-color: skyblue;
-}
-
-.sugghist-btn{
-    background-color: skyblue;
-}
-
-
-
 /*     ------------------ごはん投稿CSS---------------------------- */
-
-
 
 .post_txtbox{
     resize: none;  /* リサイズを無効にする（必要に応じて） */
@@ -620,3 +597,62 @@ canvas {
     margin: auto; /* コンテナを中央に配置 */
     flex-direction: column; /* 縦に並べる */       
 }
+
+
+/* ごはん提案メニュー */
+.button-container-sugg {
+    display: flex;
+    flex-wrap: wrap; /* ボタンを折り返し可能にする */
+    width: 920px; /* コンテナの幅を更新 */
+    justify-content: center; /* 中央揃え */
+    margin: auto; /* コンテナを中央に配置 */
+}
+
+.sugg-btn {
+    width: 400px; /* ボタンの幅を設定 */
+    height:80px;
+    margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
+    border: none; /* 枠線をなしに設定 */
+    color: black;
+    background-color: skyblue;
+    font-size: 22px;
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+
+
+
+.submit_button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+
+
+
+
+/* 
+
+<style>
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.custom-file-upload:hover {
+    background-color: #d32f2f;
+}
+</style> */
