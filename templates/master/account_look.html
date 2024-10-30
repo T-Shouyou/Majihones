@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/account_look.css') }}">
     <script>
         let currentEditingRow = null;
+        let currentDeletingRow = null;
 
         // メールアドレスの重複チェック
         function checkDuplicateEmail(row) {
@@ -111,6 +112,11 @@
 
         // 削除確認
         function showDeleteConfirmation(row) {
+            if (currentDeletingRow && currentDeletingRow !== row) {
+                cancelDelete(currentDeletingRow);
+            }
+
+            currentDeletingRow = row;
             row.querySelector('.delete-confirm').style.display = 'inline'; // 確認ボタン表示
             row.querySelector('.delete-button').style.display = 'none'; // 削除ボタン非表示
             row.querySelector('.edit-button').style.display = 'none'; // 編集ボタン非表示
@@ -137,6 +143,10 @@
             row.querySelector('.delete-confirm').style.display = 'none'; // 確認ボタン非表示
             row.querySelector('.delete-button').style.display = 'inline'; // 削除ボタン表示
             row.querySelector('.edit-button').style.display = 'inline'; // 編集ボタン表示
+
+            if (currentDeletingRow === row) {
+                currentDeletingRow = null;
+            }
         }
     </script>
 
