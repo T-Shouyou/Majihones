@@ -13,7 +13,6 @@
     <div class="posts">
         {% for post in posts %}
         <div class="post">
-            <hr>
             <p class="post_txt">
                 <strong>投稿者名:</strong> {{ post.account_name }}
                 {% if account_id == 1 or post.account_id == account_id %}
@@ -21,12 +20,13 @@
                 <button class="delete-btn" style="display:none;">削除</button>
                 {% endif %}
             </p>
-            
-            <p class="post_txt">{{ post.sentence }}</p>
-            {% if post.photo %}
-            <img src="{{ url_for('static', filename='hiroba_img/' + post.photo) }}" alt="投稿画像" class="post_img">
-            {% endif %}
             <hr>
+            <div class="post-content">
+                {% if post.photo %}
+                <img src="{{ url_for('static', filename='hiroba_img/' + post.photo) }}" alt="投稿画像" class="post_img">
+                {% endif %}
+                <p class="post_txt">{{ post.sentence }}</p>
+            </div>
         </div>
         {% endfor %}
     </div>

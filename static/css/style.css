@@ -462,7 +462,8 @@ canvas {
 .post_img{
     width: 100px;
     height: 100px;
-    object-fit: fill; /* 縦横比を維持しながら、領域にフィットさせる */
+    margin-left:20px;
+    object-fit: contain; /* 縦横比を維持しながら、領域にフィットさせる */
 }
 
 .posts{
@@ -474,13 +475,28 @@ canvas {
 }
 
 .post {
-    width: 80%; /* 投稿の幅を指定 */
-    max-width: 600px; /* 最大幅を指定 */
+    background-color:white;
+    border-radius:5px;
+    border:gray 3px solid;
+    width: 100%; /* 投稿の幅を指定 */
+    max-width: 900px; /* 最大幅を指定 */
     margin: 10px 0; /* 上下にマージンを追加 */
+    margin-left:75%;
     text-align: left; /* テキストを左揃え */
 }
 
+.post-content {
+    display: flex; /* フレックスコンテナにする */
+    align-items: flex-start; /* 縦の位置を揃える */
+    margin-top: 10px; /* 上部にマージンを追加（必要に応じて調整） */
+    margin-bottom:20px;
+}
 
+.post_txt {
+    margin-left:10px;
+    margin-bottom:20px;
+    flex: 1; /* テキストが残りのスペースを占有する */
+}
 
 /*     ------------------ごはん提案CSS---------------------------- */
 
