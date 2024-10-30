@@ -456,24 +456,28 @@ canvas {
 }
 
 .upload-button {
-    background-color: red;
+    background-color: white;
     display: flex;
     align-items: center;
     justify-content: center; /* 中央揃え */
+    
     width: 400px; /* ボタンの幅を設定 */
-    height: 80px; /* ボタンの高さを設定 */
-    margin: 0px 0px 10px 0px; /* ボタンの間にスペースを追加 */
+    height: 70px; /* ボタンの高さを設定 */
+    margin: 35px 0px 0px 55px; /* ボタンの間にスペースを追加 */
     border: none; /* 枠線をなしに設定 */
     color: black;
     font-size: 22px;
-    border-radius: 5px; /* 角を丸くする */
+    border-radius: 10px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
 }
 
 .button-container-photo-upload {
-    width: 100%;
-    background-color: skyblue;
+    width: 40%;
+    height: 250px;
+    padding-top: -50px;
+    background-color: #dae8fc;
+    border: 2px solid cornflowerblue;
     display: flex;
     flex-wrap: wrap; /* ボタンを折り返し可能にする */
     margin: auto; /* コンテナを中央に配置 */
