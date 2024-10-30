@@ -16,7 +16,7 @@ function previewImage() {
             selectedImage.src = e.target.result;
             selectedImage.style.display = 'block'; // 画像を表示
 
-            // 画像データをsessionStorageに保存
+            // 一時的に保存
             sessionStorage.setItem('capturedImage', e.target.result);
 
             // ボタンの切り替え
