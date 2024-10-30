@@ -3,14 +3,14 @@
 {% block title %}アカウント設定{% endblock %}
 
 {% block content %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/acct_set.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
     <br><br>
-    <div class="container">
+    <!-- <div class="container">
         <img src="../static/chara/なまたまご.png" class="login-image">
-    </div>
+    </div> -->
     <br><br><br><br><br><br>
-    <div class="button-container">
+    <div class="button-container-ac">
         <button onclick="location.href='{{ url_for('allergy_new') }}';" class="allergy-button">アレルギーの登録・更新</button>
 
         {% if account_id != 1 %}
@@ -22,7 +22,7 @@
 
     <div class="button-sel">
         <div class="back-button-container">
-            <button onclick="location.href='{{ url_for('mainmenu') }}';" class="back-button">戻る</button>
+            <button onclick="location.href='{{ url_for('mainmenu') }}';" class="back-button-ac">戻る</button>
         </div>
         {% if account_id != 1 %}
             <button onclick="location.href='{{ url_for('acct_del') }}';" class="acctdel-button">アカウント削除</button>

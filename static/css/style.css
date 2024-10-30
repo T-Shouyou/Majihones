@@ -47,14 +47,14 @@ html, body {
 
 
 
-.start_link {
+.start-link {
     height:0%;
     display: flex; /* フレックスボックスを使用 */
     justify-content: center; /* 横方向の中央揃え */
     align-items: center; /* 縦方向の中央揃え */
 }
 
-.start_link img {
+.start-link img {
     width: 65%; /* 幅を35%に設定（必要に応じて調整） */
     max-width: 100%; /* コンテナの幅を超えないようにする */
     margin-top: -15%; /* 上にずらすためのマージンを設定（値は調整可） */
@@ -92,7 +92,7 @@ html, body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* 影を追加して視認性を向上 */
 }
 
-.start_link {
+.start-link {
     color: #fff; /* テキストの色 */
     text-decoration: none; /* 下線を消す */
     animation: glow 1s infinite alternate; /* アニメーションを設定 */
@@ -115,7 +115,7 @@ header {
     background-color: rgb(230,230,250,0.5);
 }
 
-.header_logo {
+.header-logo {
     width: 200px; /* 画像の幅を設定 */
     margin-left: 20px;
     margin-right: 20px; /* 画像とリストの間にスペースを追加 */
@@ -128,7 +128,7 @@ header {
     display: flex; /* リスト項目を横並びにする */
 }
 
-.navi_li {
+.navi-li {
     margin-right: 15px; /* リスト項目の間にスペースを追加 */
 }
 
@@ -192,7 +192,7 @@ header {
     background-color: #009acd; /* ホバー時の水色を少し暗くする */
 }
 
-.back_button_container {
+.back-button-container {
     position: fixed; /* 視覚的に固定 */
     bottom: 20px; /* 下から0px */
     left: 40px; /* 左から0px */
@@ -221,19 +221,19 @@ header {
     text-align : center;
 }
 
-.camera-btn{
+.camera-button{
     background-color: blue;
 }
 
-.sug-btn{
+.sug-button{
     background-color: red;
 }
 
-.hiroba-btn{
+.hiroba-button{
     background-color: green;
 }
 
-.ac_op-btn{
+.ac-op-button{
     background-color: gray;
 }
 
@@ -259,7 +259,7 @@ aside {
     margin-top: -220px;
 }
 
-.Master_only_btn{
+.Master-only-button{
     width: 170px;
     height: 80px;
     /* margin-top:-220px;
@@ -312,7 +312,7 @@ aside {
     flex-direction: column; /* 縦に並べる */
 }
 
-.main_contents {
+.main-contents {
     padding-top: 70px;
 }
 
@@ -423,7 +423,7 @@ canvas {
 
 /*     ------------------ごはん広場CSS---------------------------- */
 
-.fixed-buttons {
+.fixed-button {
     position: fixed; /* 固定位置にする */
     bottom: 20px; /* 下からの距離 */
     right: 20px; /* 右からの距離 */
@@ -433,7 +433,7 @@ canvas {
     z-index: 1000; /* 他の要素の上に表示するためにz-indexを設定 */
 }
 
-.fixed-buttons button {
+.fixed-button button {
     width: 100px; /* ボタンの幅 */
     height: 100px; /* ボタンの高さ */
     border-radius: 50%; /* 円形にする */
@@ -448,11 +448,11 @@ canvas {
     transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
 }
 
-.fixed-buttons button:hover {
+.fixed-button button:hover {
     background-color: #0056b3; /* ホバー時の背景色 */
 }
 
-.post_img{
+.post-img{
     width: 100px;
     height: 100px;
     margin-left:20px;
@@ -485,7 +485,7 @@ canvas {
     margin-bottom:20px;
 }
 
-.post_txt {
+.post-txt {
     margin-left:10px;
     margin-bottom:20px;
     flex: 1; /* テキストが残りのスペースを占有する */
@@ -493,11 +493,11 @@ canvas {
 
 /*     ------------------ごはん提案CSS---------------------------- */
 
-.sugglook-btn{
+.sugglook-button{
     background-color: skyblue;
 }
 
-.sugghist-btn{
+.sugghist-button{
     background-color: skyblue;
 }
 
@@ -505,7 +505,7 @@ canvas {
 
 /*     ------------------ごはん投稿CSS---------------------------- */
 
-.post_txtbox{
+.post-txtbox{
     resize: none;  /* リサイズを無効にする（必要に応じて） */
     height: 200px;
     width:700px;
@@ -518,7 +518,7 @@ canvas {
     justify-content: center;     /* 横方向を中央に配置 */
 }
 
-.post_btn {
+.post-button {
     position: fixed;  /* ボタンを固定位置に配置 */
     width: 110px;     /* 幅 */
     height: 50px;     /* 高さ */
@@ -533,11 +533,11 @@ canvas {
     transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
 }
 
-.select_img {
+.select-img {
     display: none; /* デフォルトのファイル入力を隠す */
 }
 
-.select_post_img {
+.select-post-img {
     width:110px;
     height:50px;
     margin-left: 290px; /* 左のマージンを保持 */
@@ -557,7 +557,7 @@ canvas {
     margin-left: 10px;
 }
 
-.fixed-buttons-back {
+.fixed-button-back {
     position: fixed; /* 固定位置にする */
     bottom: 20px; /* 下からの距離 */
     left: 20px; /* 右からの距離 */
@@ -567,7 +567,7 @@ canvas {
     z-index: 1000; /* 他の要素の上に表示するためにz-indexを設定 */
 }
 
-.fixed-buttons-back button {
+.fixed-button-back button {
     width: 100px; /* ボタンの幅 */
     height: 100px; /* ボタンの高さ */
     border-radius: 50%; /* 円形にする */
@@ -582,7 +582,7 @@ canvas {
     transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
 }
 
-.fixed-buttons-back button:hover {
+.fixed-button-back button:hover {
     background-color: #0056b3; /* ホバー時の背景色 */
 }
 /* photo_upload -------------------------------------------------------------------*/
@@ -653,7 +653,7 @@ canvas {
     margin: auto; /* コンテナを中央に配置 */
 }
 
-.sugg-btn {
+.sugg-button {
     width: 400px; /* ボタンの幅を設定 */
     height:80px;
     margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
@@ -668,7 +668,7 @@ canvas {
 
 
 
-.submit_button {
+.submit-button {
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -701,3 +701,85 @@ input[type="file"] {
     background-color: #d32f2f;
 }
 </style> */
+
+
+
+/* アカウント設定CSS */
+
+.allergy-button {
+    background-color: #f0ff8c;
+    border: 3px solid #ffd700;
+}
+
+.chanpsw-button {
+    border: 3px solid #696969;
+}
+
+.logout-button {
+    background-color: #ffb6cb;
+    border: 3px solid #db7093;
+}
+
+/* ----------垢削除と戻る---------- */
+.button-sel {
+    display: flex;
+    text-align: center;
+    margin: 0 auto;
+    width: 800px;
+    height: 50px;
+}
+
+.acctdel-button {
+    position:fixed;
+    right:300px;
+    width: 160px;
+    height:40px;
+    font-size: 18px;
+    color: white;
+    background-color:red;
+    border-radius: 5px;
+    border: solid #000;
+    cursor: pointer;
+}
+
+.button-container-ac{
+    display: flex;
+    flex-direction: column;
+    width: 920px; /* コンテナの幅を更新 */
+    text-align: center; /* 中央揃え */
+    margin: 0 auto; /* コンテナを中央に配置 */
+    margin-top:-130px;
+}
+
+.button-container-ac button {
+    width: 700px; /* ボタンの幅を設定 */
+    height:70px;
+    margin:0px 30px 30px 100px; /* ボタンの間にスペースを追加 */
+    font-size: 22px;
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+
+/*------------即席修理なので直せる人は直してくださいお願いいたします----*/
+
+.back-button-ac {
+    position: fixed;
+    text-align: left;
+    background-color: transparent; /* 透明の背景色 */
+    color: black; /* テキストの色を黒に設定 */
+    padding: 9px 30px; /* 上下の余白を15px、左右を30pxに設定 */
+    font-size: 18px; /* フォントサイズを18pxに設定 */
+    border: 2px solid black ; /* 枠線を黒に設定 */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+    left: 60px; /* 左端との間隔を40pxあける */
+    bottom:40px;
+}
+
+.back-button-ac:hover {
+    background-color: #efe8d2; /* ホバー時の水色を少し暗くする */
+}
+
+/*----------------------------即席修理ここまで------------------------*/
