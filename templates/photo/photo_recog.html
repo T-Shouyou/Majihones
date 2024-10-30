@@ -6,10 +6,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/photo_recog.css') }}">
     <div class="container">
     </div>
-    <div class="main_contents">
+    <div class="main-contents">
     
         <h1 class="txt-center">認識中...</h1>
-    <img id="captured-image" alt="撮影した画像が表示されます" class="captured_image">
+    <img id="captured-image" alt="撮影した画像が表示されます" class="captured-image">
     <br>
     <button onclick="location.href='{{ url_for('photo_take') }}';">戻る</button> <!-- 戻るボタン -->
     
@@ -22,7 +22,7 @@
             document.getElementById('captured-image').alt = "画像がありません";
         }
     </script>
-
-    <button id="back-button" onclick="location.href='{{ url_for('photo_menu') }}';" class="back-button">戻る</button>
+    <div class="back-button-container">
+        <button id="back-button" onclick="location.href='{{ url_for('photo_menu') }}';" class="back-button">戻る</button>
     </div>
 {% endblock %}

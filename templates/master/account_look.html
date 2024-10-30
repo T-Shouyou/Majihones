@@ -4,6 +4,9 @@
 {% block content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/account_look.css') }}">
     <script>
+        let currentEditingRow = null;
+        let currentDeletingRow = null;
+
         // メールアドレスの重複チェック
         function checkDuplicateEmail(row) {
             const mailInput = row.querySelector('td:nth-child(3) input');
@@ -21,7 +24,7 @@
             if (isDuplicate) {
                 if (!warningMessage) {
                     const warning = document.createElement('div');
-                    warning.classList.add('email-warning');
+                    warning.classList.add('email_warning');
                     warning.style.color = 'red';
                     warning.innerText = 'このメールアドレスはすでに使用されています。';
                     mailInput.parentElement.appendChild(warning);
@@ -36,6 +39,12 @@
         }
 
         function editRow(row) {
+            if (currentEditingRow && currentEditingRow !== row) {
+                cancelEdit(currentEditingRow);
+            }
+
+            currentEditingRow = row;
+
             const cells = row.getElementsByTagName('td');
             for (let i = 1; i < cells.length - 1; i++) {
                 const currentText = cells[i].innerText;
@@ -45,7 +54,6 @@
             row.querySelector('.save-button').style.display = 'inline';
             row.querySelector('.cancel-button').style.display = 'inline';
             row.querySelector('.delete-button').style.display = 'none';
-
             row.querySelector('td:nth-child(3) input').addEventListener('input', () => checkDuplicateEmail(row));
         }
 
@@ -59,6 +67,10 @@
             row.querySelector('.save-button').style.display = 'none';
             row.querySelector('.cancel-button').style.display = 'none';
             row.querySelector('.delete-button').style.display = 'inline';
+
+            if (currentEditingRow === row) {
+                currentEditingRow = null;
+            }
         }
 
         async function saveRow(row) {
@@ -73,7 +85,7 @@
                 return;
             }
 
-            const response = await fetch(`/edit_account/${accountId}`, {
+            const response = await fetch(`/edit-account/${accountId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -94,11 +106,17 @@
                 row.querySelector('.save-button').style.display = 'none';
                 row.querySelector('.cancel-button').style.display = 'none';
                 row.querySelector('.delete-button').style.display = 'inline';
+                currentEditingRow = null;
             }
         }
 
         // 削除確認
         function showDeleteConfirmation(row) {
+            if (currentDeletingRow && currentDeletingRow !== row) {
+                cancelDelete(currentDeletingRow);
+            }
+
+            currentDeletingRow = row;
             row.querySelector('.delete-confirm').style.display = 'inline'; // 確認ボタン表示
             row.querySelector('.delete-button').style.display = 'none'; // 削除ボタン非表示
             row.querySelector('.edit-button').style.display = 'none'; // 編集ボタン非表示
@@ -108,7 +126,7 @@
         async function deleteAccount(row) {
             const accountId = row.cells[0].innerText;
 
-            const response = await fetch(`/master/account_delete/${accountId}`, {  // エンドポイントを修正
+            const response = await fetch(`/master/account_delete/${accountId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -125,9 +143,12 @@
             row.querySelector('.delete-confirm').style.display = 'none'; // 確認ボタン非表示
             row.querySelector('.delete-button').style.display = 'inline'; // 削除ボタン表示
             row.querySelector('.edit-button').style.display = 'inline'; // 編集ボタン表示
+
+            if (currentDeletingRow === row) {
+                currentDeletingRow = null;
+            }
         }
     </script>
-
 
     <div class="container">
         
@@ -172,7 +193,7 @@
     </div>
 
     <div class="txtcenter">
-    <a href="{{ url_for('mainmenu') }}">メインメニュー</a>
-    <a href="{{ url_for('logout') }}">ログアウト</a>
+        <a href="{{ url_for('mainmenu') }}">メインメニュー</a>
+        <a href="{{ url_for('logout') }}">ログアウト</a>
     </div>
 {% endblock %}

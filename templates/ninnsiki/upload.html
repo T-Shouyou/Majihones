@@ -43,38 +43,13 @@
     コードをコピーする
     <h1>料理画像をアップロードして予測します</h1>
     <div id="loading">fish fish fish 魚釣りをする魚</div> <!-- 初期状態で特定のテキストを表示 -->
-    <form action="/predict" method="POST" enctype="multipart/form-data" onsubmit="startLoading();">
+    <form action="/predict" method="POST" enctype="multipart/form_data" onsubmit="startLoading();">
         <label for="file-upload" class="custom-file-upload">
             画像を選択
         </label>
         <input type="file" id="file-upload" name="image" accept="image/*" multiple required>
-        <button type="submit"
-            style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; cursor: pointer;">予測する</button>
+        <button type="submit" class="submit-button">予測する</button>
     </form>
-
-    <style>
-        input[type="file"] {
-            display: none;
-            /* 元のファイル入力を隠す */
-        }
-
-        .custom-file-upload {
-            display: inline-block;
-            padding: 10px 20px;
-            cursor: pointer;
-            background-color: #f44336;
-            /* 赤色 */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            /* 角を丸くする */
-        }
-
-        .custom-file-upload:hover {
-            background-color: #d32f2f;
-            /* ホバー時の色 */
-        }
-    </style>
 
     <div id="result"></div>
 

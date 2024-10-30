@@ -26,10 +26,11 @@
             <div class="error-message">{{ error_message }}</div>
         {% endif %}
         <div class="login-form">
-            <a href="{{ url_for('signup') }}" class="start_link">新規登録はこちら</a>
+            <a href="{{ url_for('signup') }}" class="start-link">新規登録はこちら</a>
         </div>
     </form>
-    <br><br>
-    <button id="back-button" onclick="location.href='{{ url_for('index') }}';" class="back-button">戻る</button>
+    <div class="back-button-container">
+        <button id="back-button" onclick="location.href='{{ url_for('index') }}';" class="back-button">戻る</button>
+    </div>
 </body>
 </html>
