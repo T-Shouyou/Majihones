@@ -108,7 +108,7 @@
         async function deleteAccount(row) {
             const accountId = row.cells[0].innerText;
 
-            const response = await fetch(`/master/account_delete/${accountId}`, {  // エンドポイントを修正
+            const response = await fetch(`/master/account_delete/${accountId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
