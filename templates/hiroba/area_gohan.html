@@ -21,11 +21,6 @@
                 <button class="delete-button" style="display:none;">削除</button>
                 {% endif %}
             </p>
-            
-            <p class="post-txt">{{ post.sentence }}</p>
-            {% if post.photo %}
-            <img src="{{ url_for('static', filename='hiroba_img/' + post.photo) }}" alt="投稿画像" class="post-img">
-            {% endif %}
             <hr>
             <div class="post-content">
                 {% if post.photo %}
