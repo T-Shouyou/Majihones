@@ -455,9 +455,57 @@ canvas {
 .post_img{
     width: 100px;
     height: 100px;
-    object-fit: fill; /* 縦横比を維持しながら、領域にフィットさせる */
+    margin-left:20px;
+    object-fit: contain; /* 縦横比を維持しながら、領域にフィットさせる */
 }
 
+<<<<<<< HEAD
+=======
+.posts{
+    height:50px;
+    width:700px;
+    display: flex; /* フレックスコンテナにする */
+    flex-direction: column; /* 子要素を縦に並べる */
+    align-items: center; /* 子要素を中央揃えにする */
+}
+
+.post {
+    background-color:white;
+    border-radius:5px;
+    border:gray 3px solid;
+    width: 100%; /* 投稿の幅を指定 */
+    max-width: 900px; /* 最大幅を指定 */
+    margin: 10px 0; /* 上下にマージンを追加 */
+    margin-left:75%;
+    text-align: left; /* テキストを左揃え */
+}
+
+.post-content {
+    display: flex; /* フレックスコンテナにする */
+    align-items: flex-start; /* 縦の位置を揃える */
+    margin-top: 10px; /* 上部にマージンを追加（必要に応じて調整） */
+    margin-bottom:20px;
+}
+
+.post_txt {
+    margin-left:10px;
+    margin-bottom:20px;
+    flex: 1; /* テキストが残りのスペースを占有する */
+}
+
+/*     ------------------ごはん提案CSS---------------------------- */
+
+.sugglook-btn{
+    background-color: skyblue;
+}
+
+.sugghist-btn{
+    background-color: skyblue;
+}
+
+
+
+>>>>>>> 2f981a2c9a3edf322df27411321b72c19ffe29e4
 /*     ------------------ごはん投稿CSS---------------------------- */
 
 .post_txtbox{
