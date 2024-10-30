@@ -17,7 +17,8 @@
             <p class="post_txt">
                 <strong>投稿者名:</strong> {{ post.account_name }}
                 {% if account_id == 1 or post.account_id == account_id %}
-                    <button onclick="alert('編集機能はまだないよぅ、エラーになっちゃうめぅ。');">編集</button>
+                <button onclick="showDeleteButton(this)">編集</button>
+                <button class="delete-btn" style="display:none;">削除</button>
                 {% endif %}
             </p>
             
@@ -34,4 +35,12 @@
         <button onclick="location.href='{{ url_for('mainmenu') }}';" class="main-btn">メイン<br>メニュー</button>
         <button onclick="location.href='{{ url_for('post_gohan') }}';" class="post-btn">ごはん投稿</button>
     </div>
+
+    <script>
+        function showDeleteButton(button) {
+            const postElement = button.parentNode;
+            const deleteButton = postElement.querySelector('.delete-btn');
+            deleteButton.style.display = 'inline';
+        }
+    </script>
 {% endblock %}

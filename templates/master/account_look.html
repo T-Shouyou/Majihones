@@ -94,12 +94,10 @@
                 row.querySelector('.save-button').style.display = 'none';
                 row.querySelector('.cancel-button').style.display = 'none';
                 row.querySelector('.delete-button').style.display = 'inline';
-            } else {
-                alert('更新に失敗しました。');
             }
         }
 
-        // 削除確認ダイアログ表示
+        // 削除確認
         function showDeleteConfirmation(row) {
             row.querySelector('.delete-confirm').style.display = 'inline'; // 確認ボタン表示
             row.querySelector('.delete-button').style.display = 'none'; // 削除ボタン非表示
@@ -118,9 +116,7 @@
             });
 
             if (response.ok) {
-                row.remove(); // 行を削除
-            } else {
-                alert('削除に失敗しました。');
+                row.remove();
             }
         }
 

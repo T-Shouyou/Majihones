@@ -315,6 +315,46 @@ aside {
 }
 
   /* photomenu -----------------------------------------------------------------------------------*/
+
+
+
+
+
+.my-textbox {
+    width: 500px;  /* 幅を300ピクセルに設定 */
+    height: 40px;  /* 高さを40ピクセルに設定 */
+    padding: 10px; /* 内側の余白を10ピクセルに設定 */
+    font-size: 16px; /* フォントサイズを16ピクセルに設定 */
+    border: 1px solid #ccc; /* 枠線を設定 */
+    border-radius: 5px; /* 角を丸くする */
+}
+
+.login-form{
+    display: flex; /* フレックスボックスを使用 */
+    flex-direction: column; /* 縦に並べる */
+    align-items: center; /* 中央揃え */
+    justify-content: center; /* 縦方向も中央揃え（高さがある場合） */
+}
+
+.login-button {
+    background-color: #749DFC; /* 水色の背景色 */
+    color: black; /* テキストの色を黒に設定 */
+    padding: 10px 30px; /* 上下の余白を15px、左右を30pxに設定 */
+    font-size: 18px; /* フォントサイズを18pxに設定 */
+    border: none; /* 枠線をなしに設定 */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+
+.login-button:hover {
+    background-color: #009acd; /* ホバー時の水色を少し暗くする */
+}
+
+.txt-center{
+    text-align : center;
+}
+
 .cameramenu-btn{
     background-color: skyblue;
 }
@@ -420,12 +460,109 @@ canvas {
 }
 
 .post_img{
-    width: 15%;
-    height: 15%;
-    object-fit: cover; /* 縦横比を維持しながら、領域にフィットさせる */
+    width: 100px;
+    height: 100px;
+    object-fit: fill; /* 縦横比を維持しながら、領域にフィットさせる */
 }
 
 
+
+/*     ------------------ごはん提案CSS---------------------------- */
+
+.sugglook-btn{
+    background-color: skyblue;
+}
+
+.sugghist-btn{
+    background-color: skyblue;
+}
+
+
+
+/*     ------------------ごはん投稿CSS---------------------------- */
+
+
+
+.post_txtbox{
+    resize: none;  /* リサイズを無効にする（必要に応じて） */
+    height: 200px;
+    width:700px;
+    border: 1px solid black; /* 枠線 */
+    border-radius:5px;
+}
+
+.textarea-container {
+    display: flex;               /* フレックスボックスを使う */
+    justify-content: center;     /* 横方向を中央に配置 */
+}
+
+.post_btn {
+    position: fixed;  /* ボタンを固定位置に配置 */
+    width: 110px;     /* 幅 */
+    height: 50px;     /* 高さ */
+    bottom: 118px;     /* 画面下からの距離 */
+    right: 290px;      /* 画面右からの距離 */
+    background-color: skyblue; /* 背景色 */
+    border-radius: 5px; /* 角を丸くする */
+    border: none; /* ボーダーを消す */
+    color: white; /* テキストの色 */
+    font-size: 16px; /* フォントサイズ */
+    cursor: pointer; /* カーソルをポインターにする */
+    transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
+}
+
+.select_img {
+    display: none; /* デフォルトのファイル入力を隠す */
+}
+
+.select_post_img {
+    width:110px;
+    height:50px;
+    margin-left: 290px; /* 左のマージンを保持 */
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: skyblue; /* ボタンの背景色 */
+    color: white;               /* ボタンの文字色 */
+    border-radius: 5px;        /* 角を丸くする */
+    border: none;              /* ボーダーを消す */
+    text-align: center;        /* テキストを中央揃え */
+    margin-top: -50px; 
+}
+
+.error-message {
+    color: red;
+    display: none; /* 初期状態で非表示 */
+    margin-left: 10px;
+}
+
+.fixed-buttons-back {
+    position: fixed; /* 固定位置にする */
+    bottom: 20px; /* 下からの距離 */
+    left: 20px; /* 右からの距離 */
+    display: flex; /* フレックスボックスを使用 */
+    flex-direction: column; /* 縦に並べる */
+    gap: 10px; /* ボタン間のスペース */
+    z-index: 1000; /* 他の要素の上に表示するためにz-indexを設定 */
+}
+
+.fixed-buttons-back button {
+    width: 100px; /* ボタンの幅 */
+    height: 100px; /* ボタンの高さ */
+    border-radius: 50%; /* 円形にする */
+    border: none; /* ボーダーを消す */
+    background-color: #007BFF; /* ボタンの背景色 */
+    color: white; /* テキストの色 */
+    font-size: 16px; /* フォントサイズ */
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center; /* 縦方向の中央揃え */
+    cursor: pointer; /* カーソルをポインターにする */
+    transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
+}
+
+.fixed-buttons-back button:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
+}
 /* photo_upload -------------------------------------------------------------------*/
 
 
