@@ -5,18 +5,18 @@
 {% block content %}
 
     
-    <div class="main_contents">
-        <div class="button-container">
-            <button onclick="location.href='{{ url_for('photo_menu') }}';" class="camera-btn"><img src="../static/img/camera.png" class="camera-icon">ごはん撮影</button>
-            <button onclick="location.href='{{ url_for('sugg_menu') }}';" class="sug-btn">🍖ごはん提案</button>
-            <button onclick="location.href='{{ url_for('area_gohan') }}';" class="hiroba-btn"><img src="../static/img/chat.png" class="hiroba-icon">ごはん広場</button>
-            <button onclick="location.href='{{ url_for('acct_set') }}';" class="ac_op-btn">⚙アカウント設定</button>
+    <div class="main-contents">
+        <div class="button-container-mainmenu">
+            <button onclick="location.href='{{ url_for('photo_menu') }}';" class="camera-button"><img src="../static/img/camera.png" class="camera-icon">ごはん撮影</button>
+            <button onclick="location.href='{{ url_for('sugg_menu') }}';" class="sug-button">🍖ごはん提案</button>
+            <button onclick="location.href='{{ url_for('area_gohan') }}';" class="hiroba-button"><img src="../static/img/chat.png" class="hiroba-icon">ごはん広場</button>
+            <button onclick="location.href='{{ url_for('acct_set') }}';" class="ac-op-button">⚙アカウント設定</button>
         </div>     
     </div> 
     <aside>
         {% if account_id == 1 %}
-        <button onclick="location.href='{{ url_for('account_look') }}';" class="Master_only_btn">アカウント閲覧</button>
-        <button onclick="location.href='{{ url_for('recipe_images') }}';" class="Master_only_btn">ごはん調教</button>
+        <button onclick="location.href='{{ url_for('account_look') }}';" class="Master-only-button">アカウント閲覧</button>
+        <button onclick="location.href='{{ url_for('recipe_images') }}';" class="Master-only-button">ごはん調教</button>
         {% endif %}  
     </aside>
 
@@ -32,8 +32,8 @@
 
         <div id="admin-controls">
             {% if account_id == 1 %}
-                <button id="edit-btn">編集</button>
-                <button id="confirm-btn">確定</button>
+                <button id="edit-button">編集</button>
+                <button id="confirm-button">確定</button>
             {% endif %}
         </div>
     </div>
@@ -50,13 +50,13 @@
             });
 
             // 編集ボタンのイベントリスナー
-            document.getElementById('edit-btn').addEventListener('click', function() {
+            document.getElementById('edit_button').addEventListener('click', function() {
                 const memo = document.getElementById('memo');
                 memo.disabled = false; // テキストエリアを編集可能にする
             });
 
             // 確定ボタンのイベントリスナー
-            document.getElementById('confirm-btn').addEventListener('click', function() {
+            document.getElementById('confirm_button').addEventListener('click', function() {
                 const memo = document.getElementById('memo');
                 localStorage.setItem('memo', memo.value); // メモを保存
                 memo.disabled = true; // テキストエリアを再び非編集にする

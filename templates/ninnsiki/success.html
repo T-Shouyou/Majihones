@@ -38,7 +38,9 @@
         <button id="submitButton">登録する</button>
     </form>
     </div>
-    <button onclick="location.href='{{ url_for('photo_upload') }}';" class="back-btn">戻る</button>
+    <div class="back-button-container">
+        <button onclick="location.href='{{ url_for('photo_upload') }}';" class="back-button">戻る</button>
+    </div>
 
     <script>
         // 編集ボタンにクリックイベントを追加

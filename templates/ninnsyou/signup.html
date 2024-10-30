@@ -30,8 +30,10 @@
     </form>
 
     <div class="signup-form">
-        <p>既にアカウントをお持ちですか？<a href="{{ url_for('login') }}" class="start_link">ログイン</a></p>
+        <p>既にアカウントをお持ちですか？<a href="{{ url_for('login') }}" class="start-link">ログイン</a></p>
     </div>
-    <button id="back-button" onclick="location.href='{{ url_for('index') }}';" class="back-button">戻る</button>
+    <div class="back-button-container">
+        <button id="back-button" onclick="location.href='{{ url_for('index') }}';" class="back-button">戻る</button>
+    </div>
 </body>
 </html>
