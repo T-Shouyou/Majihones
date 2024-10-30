@@ -6,33 +6,20 @@
     <link rel="stylesheet" href="styles.css">
 
     <br><br>
-    <h1 class="txt_center">ごはん広場</h1>
+    <h1 class="txt-center">ごはん広場</h1>
 
     <h2 class="txt-center">投稿された内容</h2>
 
     <div class="posts">
         {% for post in posts %}
         <div class="post">
-<<<<<<< HEAD
-            <hr>
             <p class="post-txt">
-=======
-            <p class="post_txt">
->>>>>>> 2f981a2c9a3edf322df27411321b72c19ffe29e4
                 <strong>投稿者名:</strong> {{ post.account_name }}
                 {% if account_id == 1 or post.account_id == account_id %}
                 <button onclick="showDeleteButton(this)">編集</button>
                 <button class="delete-button" style="display:none;">削除</button>
                 {% endif %}
             </p>
-<<<<<<< HEAD
-            
-            <p class="post-txt">{{ post.sentence }}</p>
-            {% if post.photo %}
-            <img src="{{ url_for('static', filename='hiroba_img/' + post.photo) }}" alt="投稿画像" class="post-img">
-            {% endif %}
-=======
->>>>>>> 2f981a2c9a3edf322df27411321b72c19ffe29e4
             <hr>
             <div class="post-content">
                 {% if post.photo %}
