@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}ごはんフレンズ！{% endblock %}</title>
+    <link rel="stylesheet" href="../static/css/style.css">
 </head>
 
 <body background="{{ url_for('static', filename='img/background.png') }}" class="kabegami">
@@ -21,6 +22,10 @@
     
 
     <main>
+        <div class="container">
+            <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
+        </div>
+        
         {% block content %}
         <!-- ここに各ページごとのコンテンツが挿入されます -->
         {% endblock %}

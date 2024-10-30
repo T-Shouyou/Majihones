@@ -1,4 +1,32 @@
-<!doctype html>
-<html lang="ja">
-    
-</html>
+<!-- area_gohan.html -->
+{% extends 'base.html' %}
+
+{% block title %}ごはん広場{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="styles.css">
+
+    <br><br>
+    <h1 class="txt-center">ごはん広場</h1>
+
+    <h2>投稿された内容</h2>
+
+    <div class="posts">
+        {% for post in posts %}
+        <div class="post">
+            <hr>
+            <p class="post_txt"><strong>投稿者名:</strong> {{ post.account_name }}</p>  <!-- ここを修正 -->
+            <p class="post_txt">{{ post.sentence }}</p>
+            {% if post.photo %}
+            <img src="{{ url_for('static', filename='hiroba_img/' + post.photo) }}" alt="投稿画像" class="post_img">
+            {% endif %}
+            <hr>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="fixed-buttons">
+        <button onclick="location.href='{{ url_for('mainmenu') }}';" class="main-btn">メイン<br>メニュー</button>
+        <button onclick="location.href='{{ url_for('post_gohan') }}';" class="post-btn">ごはん投稿</button>
+    </div>
+{% endblock %}

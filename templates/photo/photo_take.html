@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block title %}撮影画面{% endblock %}
+
 {% block content %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/photo_take.css') }}">
 
     <div class="video-container">
         <video id="video" autoplay class="center"></video>
@@ -11,12 +11,14 @@
 
     <form action="/predict" method="POST" enctype="multipart/form-data" onsubmit="startLoading();">
         <input type="file" name="image" accept="image/*" multiple required style="display: none;" id="file-upload" onchange="previewImage();">
-        <div class="button-container">
-            <button id="back-button" onclick="location.href='{{ url_for('photo_menu') }}';" class="back-button">戻る</button>
+        <div class="button-container-photo-take">
             <button id="capture" class="capture">撮影</button> 
-            <button type="submit" id="recog" class="recog">次へ</button>
         </div>
     </form>
+
+    <div class="back_button_container">
+        <button id="back-button" onclick="location.href='{{ url_for('photo_menu') }}';" class="back-button">戻る</button>
+    </div>
     
     <br>
     <canvas id="canvas"></canvas>
@@ -33,7 +35,9 @@
             }
         }
 
-        document.getElementById('capture').addEventListener('click', () => {
+        document.getElementById('capture').addEventListener('click', async (event) => {
+            event.preventDefault(); // フォームのデフォルト送信を防ぐ
+
             const video = document.getElementById('video');
             const canvas = document.getElementById('canvas');
             const context = canvas.getContext('2d');
@@ -54,6 +58,9 @@
 
             const captureButton = document.getElementById('capture');
             captureButton.textContent = '撮影完了!';
+
+            // フォームを自動的に送信
+            document.querySelector('form').submit();
         });
 
         function dataURLtoBlob(dataURL) {

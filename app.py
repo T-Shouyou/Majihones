@@ -6,6 +6,8 @@ from flask import Flask, request, jsonify, render_template, redirect, url_for, s
 import sqlite3
 import os
 import secrets
+import random
+import string
 from datetime import datetime 
 
 
@@ -14,10 +16,11 @@ app = Flask(__name__)
 # シークレットキーの設定
 app.secret_key = secrets.token_hex(16)  # セキュリティのためのシークレットキー
 
-
-
+# ローカル画像保存先のパス
+LOCAL_IMAGE_FOLDER = 'static/hiroba_img'
 
 # SQLiteデータベースの設定
+# 検索してナンバーを消せ
 # DATABASE = '/home/UminekoSakana/mysite/mydatabase.db'  # パスが正しいか確認
 DATABASE = 'mydatabase.db'  # SQLiteデータベースのファイル名
 
@@ -29,6 +32,7 @@ def get_db():
 s3_client = boto3.client('s3', region_name='us-east-1')  # リージョンを指定
 
 # 事前に計算した料理の特徴をロード
+# 検索してナンバーを消せ
 # with open('/home/UminekoSakana/mysite/recipe_features.pkl', 'rb') as f:
 #     recipe_features = pickle.load(f)
 with open('recipe_features.pkl', 'rb') as f:
@@ -63,21 +67,21 @@ def identify_dishes_from_multiple_images(image_paths):
     sorted_dishes = sorted(distances, key=distances.get)[:3]
     return sorted_dishes  # 上位3つの料理名を返す
 
-def hiroba_img(image_file):
+# def hiroba_img(image_file):
 
-    image_path = f"hiroba_img/{image_file.filename}"  
+#     image_path = f"hiroba_img/{image_file.filename}"  
     
-    s3_client.upload_fileobj(image_file, 'gazou', image_path)
+#     s3_client.upload_fileobj(image_file, 'gazou', image_path)
     
-    img_data = s3_client.get_object(Bucket='gazou', Key=image_path)['Body'].read()
-    img_array = np.frombuffer(img_data, np.uint8)
-    img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
+#     img_data = s3_client.get_object(Bucket='gazou', Key=image_path)['Body'].read()
+#     img_array = np.frombuffer(img_data, np.uint8)
+#     img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
 
-    img = cv2.resize(img, (150, 150))
-    histogram = cv2.calcHist([img], [0, 1, 2], None, [8, 8, 8], [0, 256, 0, 256, 0, 256])
-    cv2.normalize(histogram, histogram)
+#     img = cv2.resize(img, (150, 150))
+#     histogram = cv2.calcHist([img], [0, 1, 2], None, [8, 8, 8], [0, 256, 0, 256, 0, 256])
+#     cv2.normalize(histogram, histogram)
 
-    return histogram
+#     return histogram
 
 
 @app.route('/')
@@ -193,6 +197,8 @@ def touroku_success():
 
 @app.route('/ninnsyou/login', methods=['GET', 'POST'])
 def login():
+    mail_address = ""
+    error_message = ""
     if request.method == 'POST':
         mail_address = request.form['mail_address']
         password = request.form['password']
@@ -209,9 +215,9 @@ def login():
             session['account_name'] = user[1]  # セッションにアカウント名を保存
             return redirect(url_for('mainmenu'))  # ログイン成功時にメインメニューへリダイレクト
         else:
-            return "ログインに失敗しました。アカウント名またはパスワードが間違っています。"
+            error_message = "ログインに失敗しました。アカウント名またはパスワードが間違っています。"
 
-    return render_template('ninnsyou/login.html')
+    return render_template('ninnsyou/login.html', mail_address=mail_address, error_message=error_message)
 
 @app.route('/ninnsyou/signup', methods=['GET'])
 def sign_up():
@@ -327,6 +333,67 @@ def sugg_look():
 def sugg_hist():
     return render_template('sugg/sugg_hist.html')
 
+@app.route('/hiroba/area_gohan')
+def area_gohan():
+    conn = get_db()
+    cursor = conn.cursor()
+
+    # ACCOUNT_NAMEを取得するためにJOINを使用
+    cursor.execute("""
+    SELECT A.ACCOUNT_NAME, P.SENTENCE, P.PHOTO 
+    FROM POST P
+    JOIN ACCOUNT A ON P.ACCOUNT_ID = A.ACCOUNT_ID
+    ORDER BY P.POST_ID DESC
+    """)
+    
+    posts = cursor.fetchall()
+    
+    conn.close()
+    
+    # フォーマットを変更して辞書リストを作成
+    posts = [{'account_name': row[0], 'sentence': row[1], 'photo': row[2]} for row in posts]
+    
+    return render_template('hiroba/area_gohan.html', posts=posts)
+
+@app.route('/hiroba/post_gohan')
+def post_gohan():
+    return render_template('hiroba/post_gohan.html')
+
+# ランダムな10文字の英数字を生成する関数
+def generate_unique_filename(extension):
+    random_str = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
+    return f"{random_str}.{extension}"
+
+@app.route('/hiroba/save_gohan_post', methods=['POST'])
+def save_gohan_post():
+    account_id = session.get('account_id')
+    sentence = request.form['sentence']
+    photo = request.files['photo']
+    
+    if photo:
+        # 元のファイル拡張子を保持
+        extension = photo.filename.rsplit('.', 1)[1].lower()
+        unique_filename = generate_unique_filename(extension)
+        
+        # 画像をローカルフォルダに保存
+        photo_path = os.path.join(LOCAL_IMAGE_FOLDER, unique_filename)
+        photo.save(photo_path)  # ファイルを保存
+
+        conn = get_db()
+        cursor = conn.cursor()
+
+        try:
+            cursor.execute(
+                "INSERT INTO POST (ACCOUNT_ID, SENTENCE, PHOTO) VALUES (?, ?, ?)",
+                (account_id, sentence, unique_filename)
+            )
+            conn.commit()
+        finally:
+            conn.close()
+    
+    return redirect(url_for('area_gohan'))
+
+
 # ーーーーーーーーーーアカウント設定ーーーーーーーーーー
 @app.route('/acset/acct_set')
 def acct_set():
@@ -340,29 +407,59 @@ def allergy_new():
 def allergy_set():
     return render_template('acset/allergy_set.html')
 
-@app.route('/acset/psd_change', methods=['GET', 'POST'])
-def psd_change():
-    if request.method == 'POST':
-        password = request.form['password']
-        
-        conn = get_db()
-        cur = conn.cursor()
-        cur.execute("SELECT * FROM ACCOUNT WHERE PASS = ?", (password))
-        user = cur.fetchone()
-        cur.close()
+@app.route('/register_allergy', methods=['POST'])
+def register_allergy():
+    # セッションからアカウントIDを取得
+    account_id = session.get('account_id')
+
+    # 受け取ったアレルゲンデータを取得
+    allergies = request.form.getlist('allergy')
+
+    # データベースに接続
+    conn = sqlite3.connect('mydatabase.db')
+    cursor = conn.cursor()
+
+    try:
+        for allergy in allergies:
+            cursor.execute("INSERT INTO ALLERGEN (ACCOUNT_ID, ALLERGY) VALUES (?, ?)", (account_id, allergy))
+
+        # 変更を保存
+        conn.commit()
+    except sqlite3.Error as e:
+        print("エラーが発生しました:", e)
+        conn.rollback()
+    finally:
         conn.close()
 
-        if user:
-            session['password'] = user[3]  # セッションにアカウント名を保存
-            return redirect(url_for('psd_changec'))  # ログイン成功時にメインメニューへリダイレクト
-        else:
-            return "パスワードが間違っています。"
+    return redirect(url_for('acct_set'))  # 登録後、アカウント設定ページにリダイレクト
 
-    return render_template('acset/psd_changec.html')
+
+# @app.route('/acset/psd_change', methods=['GET', 'POST'])
+# def psd_change():
+#     if request.method == 'POST':
+#         password = request.form['password']
+        
+#         conn = get_db()
+#         cur = conn.cursor()
+#         cur.execute("SELECT * FROM ACCOUNT WHERE PASS = ?", (password))
+#         user = cur.fetchone()
+#         cur.close()
+#         conn.close()
+
+#         if user:
+#             session['account_id'] = user[0]
+#             session['account_name'] = user[1]  # セッションにアカウント名を保存
+#             return redirect(url_for('mainmenu'))  # ログイン成功時にメインメニューへリダイレクト
+#         else:
+#             error_message = "ログインに失敗しました。アカウント名またはパスワードが間違っています。"
+
+#     return render_template('acset/psd_change.html')
 
 @app.route('/acset/psd_change/<int:account_id>', methods=['GET','POST'])
-def edit_account(account_id):
+def acset_edit(account_id):
     data = request.json
+    error_message=""
+    newpassword = ""
     password = data['password']
     password2 = data['passwordnew']
     password3 = data['passwordnew2']
@@ -370,14 +467,36 @@ def edit_account(account_id):
     conn = get_db()
     cur = conn.cursor()
     cur.execute("SELECT * FROM ACCOUNT WHERE PASS = ?", (password))
-    cur.execute("UPDATE ACCOUNT SET PASS = ? WHERE ACCOUNT_ID = ?",
-                (password, account_id))
-    conn.commit()
-    return render_template('acset/psd_changec.html')
+    acuser = cur.fetchone()
 
-# @app.route('/acset/psd_changec')
-# def psd_changec():
-#     return render_template('acset/psd_changec.html')
+    if acuser:
+        pass
+    else:
+        error_message = "入力されたパスワードが間違っています"
+        cur.close()
+        conn.close()
+        return render_template('acset/psd_change.html',error_message=error_message)
+
+    if password2 == password3:
+        newpassword = password2
+        cur.execute("UPDATE ACCOUNT SET PASS = ? WHERE ACCOUNT_ID = ?",
+                    (newpassword, account_id))
+        conn.commit()
+
+        cur.close()
+        conn.close()
+
+        return render_template('acset/psd_change.html')
+    else:
+        error_message = "新しく入力したパスワードのどちらかが間違っています"
+        cur.close()
+        conn.close()
+        return render_template('acset/psd_change.html',error_message=error_message)
+
+
+@app.route('/acset/psd_changec')
+def psd_changec():
+    return render_template('acset/psd_changec.html')
 
 @app.route('/acset/acct_del')
 def acct_del():

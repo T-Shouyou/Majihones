@@ -1,7 +1,9 @@
-body {
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     height: 100%; /* 高さを100%に設定 */
-    overflow: hidden; /* スクロールを無効にする */
-}
+  }
 
 .kabegami {
     background-size: cover;
@@ -180,7 +182,7 @@ header {
     bottom: 20px; /* 下から0px */
     left: 40px; /* 左から0px */
     width: 100%; /* 幅を100%に */
-    padding: 20px; /* 内側の余白 */
+    padding: 20px;
 }
 
 .back-button {
@@ -254,18 +256,27 @@ header {
     margin-right: 10px; /* 画像とテキストの間にスペースを追加 */
 }
 
-.ac_look{
-    position:fixed;
-    padding:85px 40px;
-    margin-left: 20px;
-    margin-top:-220px;
+aside {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-left: 20px;
+    margin-top: -220px;
+}
+
+.Master_only_btn{
+    width: 170px;
+    height: 80px;
+    /* margin-top:-220px;
+    margin-bottom: 20px; */
     background-color: orange;
     color:white;
     border-radius:5px;
     border-style:none;
     cursor: pointer; /* カーソルをポインターに変更 */
+    font-size: 20px;
 }
-
+/* 
 .recipe_teach{
     position:fixed;
     padding:20px 55px;
@@ -274,18 +285,25 @@ header {
     color:white;
     border-radius:5px;
     border-style:none;
-    cursor: pointer; /* カーソルをポインターに変更 */
-}
+    cursor: pointer; 
+} */
 
 .memo-container {
+    position: fixed; /* 要素を固定 */
+    top: 370px; /* 上からの距離を固定 */
+    left: 50%; /* 左から50%の位置 */
+    transform: translateX(-50%); /* 自身の幅の50%を左に移動して中央揃え */
+    padding-top: 10px;
     width: 100%; /* 幅を100%に設定 */
-    max-width: 600px; /* 最大幅を600pxに設定 */
-    margin: 20px auto; /* 中央揃え */
+    max-width: 700px; /* 最大幅を700pxに設定 */
+    margin: 0; /* マージンを0に設定 */
+    display: flex; /* フレックスボックスを使用 */
+    align-items: flex-end; /* 下に揃える */
 }
 
 #memo {
     width: 100%; /* 幅を100%に設定 */
-    height: 100px; /* 高さを300pxに設定 */
+    height: 120px; /* 高さを300pxに設定 */
     padding: 10px; /* 内側の余白 */
     font-size: 16px; /* フォントサイズ */
     border: 1px solid #ccc; /* 枠線 */
@@ -293,10 +311,6 @@ header {
     resize: none; /* リサイズを無効にする */
 }
 
-.memo-container {
-    display: flex; /* フレックスボックスを使用 */
-    align-items: flex-end; /* 下に揃える */
-}
 
 .admin-controls {
     display: flex; /* フレックスボックスを使用 */
@@ -307,11 +321,7 @@ header {
     padding-top: 70px;
 }
 
-html, body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+
   
 
 
@@ -398,7 +408,7 @@ html, body {
     width: 100%; /* コンテナの幅を更新 */
     justify-content: center; /* 中央揃え */
     margin: auto; /* コンテナを中央に配置 */
-    padding-top: 50px;
+    padding-top: 30px;
 }
 
 .video-container {
@@ -424,15 +434,51 @@ canvas {
 
 .capture{
     display: block;
-    margin:auto;
-    height:50px;
-    margin-top: -20px;
+    width: 150px;
+    height: 50px;  
     background-color: red; /* 赤の背景色 */
     color: white; /* テキストの色を白に設定 */
-    padding: 9px 30px; /* 上下の余白を15px、左右を30pxに設定 */
     font-size: 18px; /* フォントサイズを18pxに設定 */
     border-radius: 5px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
 }
 
+
+
+/*     ------------------ごはん広場CSS---------------------------- */
+
+.fixed-buttons {
+    position: fixed; /* 固定位置にする */
+    bottom: 20px; /* 下からの距離 */
+    right: 20px; /* 右からの距離 */
+    display: flex; /* フレックスボックスを使用 */
+    flex-direction: column; /* 縦に並べる */
+    gap: 10px; /* ボタン間のスペース */
+    z-index: 1000; /* 他の要素の上に表示するためにz-indexを設定 */
+}
+
+.fixed-buttons button {
+    width: 100px; /* ボタンの幅 */
+    height: 100px; /* ボタンの高さ */
+    border-radius: 50%; /* 円形にする */
+    border: none; /* ボーダーを消す */
+    background-color: #007BFF; /* ボタンの背景色 */
+    color: white; /* テキストの色 */
+    font-size: 16px; /* フォントサイズ */
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center; /* 縦方向の中央揃え */
+    cursor: pointer; /* カーソルをポインターにする */
+    transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
+}
+
+.fixed-buttons button:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
+}
+
+.post_img{
+    width: 15%;
+    height: 15%;
+    object-fit: cover; /* 縦横比を維持しながら、領域にフィットさせる */
+}

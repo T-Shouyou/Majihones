@@ -134,8 +134,9 @@
 
 
     <div class="container">
-        <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
+        
     </div>
+    <br><br><br><br>
     <h1 class="txtcenter">アカウント情報</h1>
     <div class="table-container">
         <table>
@@ -173,6 +174,9 @@
             {% endfor %}
         </table>
     </div>
+
+    <div class="txtcenter">
     <a href="{{ url_for('mainmenu') }}">メインメニュー</a>
     <a href="{{ url_for('logout') }}">ログアウト</a>
+    </div>
 {% endblock %}
