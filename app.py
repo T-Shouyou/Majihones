@@ -13,10 +13,9 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-# シークレットキーの設定
-app.secret_key = secrets.token_hex(16)  # セキュリティのためのシークレットキー
+app.secret_key = secrets.token_hex(16)
 
-# ローカル画像保存先のパス
+# 自分のパソコンで実行する際の画像の保存先のパス、本番では検索して消せ
 LOCAL_IMAGE_FOLDER = 'static/hiroba_img'
 
 # SQLiteデータベースの設定
