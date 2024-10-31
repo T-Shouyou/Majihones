@@ -6,30 +6,30 @@
     <link rel="stylesheet" href="style.css">
     <br>
     <h1 class="txt-center">投稿フォーム</h1>
-    <form id="postForm" action="{{ url_for('save_gohan_post') }}" method="post" enctype="multipart/form-data">
+    <form id="postForm" action="{{ url_for('save_gohan_post') }}" method="post" enctype="multipart/form_data">
         <div class="textarea-container">
-            <textarea name="sentence" placeholder="テキストを入力..." rows="4" class="post_txtbox"></textarea>
+            <textarea name="sentence" placeholder="テキストを入力..." rows="4" class="post-txtbox"></textarea>
         </div>
         <br>
 
-        <input type="file" name="photo" id="imageUpload" accept="image/*" class="select_img" 
+        <input type="file" name="photo" id="imageUpload" accept="image/*" class="select-img" 
                onchange="document.getElementById('fileName').textContent = this.files[0] ? this.files[0].name : '';">
-        <label for="imageUpload" class="select_post_img">画像を選択</label>
+        <label for="imageUpload" class="select-post-img">画像を選択</label>
         
-        <span id="imageErrorMessage" class="error-message" style="display:none; color:red;">画像が未選択です</span> <!-- エラーメッセージ -->
-        <span id="fileName" class="file-name" style="margin-left: 10px;"></span> <!-- ファイル名表示用の要素 -->
+        <span id="imageErrorMessage" class="error-message">画像が未選択です</span> <!-- エラーメッセージ -->
+        <span id="fileName" class="file-name"></span> <!-- ファイル名表示用の要素 -->
 
         <img id="imagePreview" class="image-preview" style="display:none;" alt="Image preview">
 
-        <button type="submit" class="post_btn">投稿</button>
+        <button type="submit" class="post-button">投稿</button>
     </form>
-    <div class="fixed-buttons-back">
+    <div class="fixed-button-back">
         <button onclick="location.href='{{ url_for('area_gohan') }}';">戻る</button>
     </div>
 
 
 
-    
+
     <script>
         function validateForm(event) {
             const textArea = document.querySelector('textarea[name="sentence"]');

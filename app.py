@@ -13,10 +13,9 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-# シークレットキーの設定
-app.secret_key = secrets.token_hex(16)  # セキュリティのためのシークレットキー
+app.secret_key = secrets.token_hex(16)
 
-# ローカル画像保存先のパス
+# 自分のパソコンで実行する際の画像の保存先のパス、本番では検索して消せ
 LOCAL_IMAGE_FOLDER = 'static/hiroba_img'
 
 # SQLiteデータベースの設定
@@ -434,48 +433,44 @@ def register_allergy():
 def psd_change():
     return render_template('acset/psd_change.html')
 
-@app.route('/change_psd/<int:account_id>', methods=['GET','POST'])
+@app.route('/change_psd/<int:account_id>', methods=['POST'])
 def change_psd(account_id):
-    data = request.json
-    error_message=""
-    newpassword = ""
-    password = data['password']
-    password2 = data['passwordnew']
-    password3 = data['passwordnew2']
+    error_message = ""
+    password = request.form.get('password')
+    password2 = request.form.get('passwordnew')
+    password3 = request.form.get('passwordnew2')
 
     conn = get_db()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM ACCOUNT WHERE PASS = ?", (password))
-    acuser = cur.fetchone()
-
-    if acuser:
-        print("通過１")
-        pass
-    else:
-        error_message = "入力されたパスワードが間違っています"
-        cur.close()
-        conn.close()
-        return render_template('acset/psd_change.html',error_message=error_message)
-
-    if password2 == password3:
-        print("通過２")
-        pass
-    else:
-        error_message = "新しく入力したパスワードのどちらかが間違っています"
-        cur.close()
-        conn.close()
-        return render_template('acset/psd_change.html',error_message=error_message)
     
-    newpassword = password2
-    cur.execute("UPDATE ACCOUNT SET PASS = ? WHERE ACCOUNT_ID = ?",
-                (newpassword, accid))
-    conn.commit()
+    try:
+        cur.execute("SELECT * FROM ACCOUNT WHERE PASS = ?", (password,))
+        acuser = cur.fetchone()
 
-    cur.close()
-    conn.close()
+        if acuser:
+            print("通過１")
+        else:
+            error_message = "入力されたパスワードが間違っています"
+            return render_template('acset/psd_change.html', error_message=error_message)
 
-    return '',204
-
+        if password2 == password3:
+            if len(password2) > 7 and len(password2) < 21:
+                newpassword = password2
+                cur.execute("UPDATE ACCOUNT SET PASS = ? WHERE ACCOUNT_ID = ?", (newpassword, account_id))
+                conn.commit()
+                return redirect(url_for('psd_changec'))
+            else:
+                error_message = "パスワードは8文字以上20文字以下で入力してください"
+                return render_template('acset/psd_change.html', error_message=error_message)
+        else:
+            error_message = "新しく入力したパスワードのどちらかが間違っています"
+            return render_template('acset/psd_change.html', error_message=error_message)
+    except Exception as e:
+        error_message = str(e)
+        return render_template('acset/psd_change.html', error_message=error_message)
+    finally:
+        cur.close()
+        conn.close()
 
 @app.route('/acset/psd_changec')
 def psd_changec():

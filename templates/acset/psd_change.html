@@ -7,14 +7,14 @@
 </head>
 <body background="../static/img/background.png" class="kabegami">
     <div class="container">
-        <img src="../static/chara/なまたまご.png" class="login_image">
+        <img src="../static/chara/なまたまご.png" class="login-image">
         <img src="../static/img/title.png" class="title">
-        <p class="login_name">ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
+        <p class="login-name">ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
     </div>
 
-    <p class="p_p">パスワードの変更</p>
+    <p class="p-p">パスワードの変更</p>
 
-    <form action="{{ url_for('change_psd') }}" method="post">
+    <form action="{{ url_for('change_psd',account_id=account_id) }}" method="post">
         <div class="login-form">
             <input type="password" name="password" class="my-textbox" placeholder="現在のパスワードを入力..." required>
         </div>
@@ -25,7 +25,7 @@
             <input type="password" name="passwordnew2" class="my-textbox" placeholder="新しいパスワードを入力...(2回目)" required>
         </div>
         <div class="login-form">
-            <button id="update_button" type="submit" class="update_button">更新</button>
+            <button id="update-button" type="submit" class="update-button">更新</button>
         </div>
         {% if error_message %}
             <div class="error-message">{{ error_message }}</div>
@@ -33,7 +33,7 @@
     </form>
 
     <div class="button-sel">
-        <button onclick="location.href='{{ url_for('acct_set') }}';" class="back_btn">戻る</button>
+        <button onclick="location.href='{{ url_for('acct_set') }}';" class="back-button">戻る</button>
     </div>
 </body>
 </html>
