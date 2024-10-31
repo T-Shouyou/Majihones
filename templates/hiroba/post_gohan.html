@@ -8,7 +8,7 @@
     <h1 class="txt-center">投稿フォーム</h1>
     <form id="postForm" action="{{ url_for('save_gohan_post') }}" method="post" enctype="multipart/form-data">
         <div class="textarea-container">
-            <textarea name="sentence" placeholder="テキストを入力..." rows="4" class="post-txtbox"></textarea>
+            <textarea name="sentence" placeholder="テキストを入力...(100字以内)" rows="4" class="post-txtbox"></textarea>
         </div>
         <br>
 
@@ -16,27 +16,27 @@
                onchange="document.getElementById('fileName').textContent = this.files[0] ? this.files[0].name : '';">
         <label for="imageUpload" class="select-post-img">画像を選択</label>
         
-        <span id="imageErrorMessage" class="error-message">画像が未選択です</span>
+        <span id="imageErrorMessage" class="error-message">画像が未選択です。</span>
         <span id="fileName" class="file-name"></span>
 
         <img id="imagePreview" class="image-preview" style="display:none;" alt="Image-preview">
-
+        
+        <span id="txtErrorMessage" class="txterror-message" style="display:none; color: red;">投稿文は100文字以内にしてください。</span>
         <button type="submit" class="post-button">投稿</button>
     </form>
     <div class="fixed-button-back">
         <button onclick="location.href='{{ url_for('area_gohan') }}';">戻る</button>
     </div>
 
-
-
-
     <script>
         function validateForm(event) {
             const textArea = document.querySelector('textarea[name="sentence"]');
             const imageUpload = document.getElementById('imageUpload');
             const imageErrorMessage = document.getElementById('imageErrorMessage');
+            const txtErrorMessage = document.getElementById('txtErrorMessage');
 
             imageErrorMessage.style.display = 'none';
+            txtErrorMessage.style.display = 'none'; // エラーメッセージを隠す
 
             let valid = true;
 
@@ -47,6 +47,11 @@
                 textArea.placeholder = 'テキストを入力';
             }
 
+            if (textArea.value.length > 100) {
+                txtErrorMessage.style.display = 'inline'; // エラーメッセージを表示
+                valid = false;
+            }
+
             if (imageUpload.files.length === 0) {
                 imageErrorMessage.style.display = 'inline';
                 valid = false;
@@ -55,7 +60,7 @@
             }
 
             if (!valid) {
-                event.preventDefault();
+                event.preventDefault(); // フォームの送信を防ぐ
             }
         }
 
@@ -65,4 +70,3 @@
     </script>
 
 {% endblock %}
-

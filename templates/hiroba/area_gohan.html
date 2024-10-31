@@ -49,7 +49,7 @@
             const postId = postElement.getAttribute('data-post-id');
 
             if (editButton.textContent === "編集") {
-                sentenceElement.innerHTML = `<textarea>${originalText}</textarea>`;
+                sentenceElement.innerHTML = `<textarea class="edit-txtarea" maxlength="100">${originalText}</textarea>`;
                 editButton.textContent = "完了";
                 cancelButton.style.display = 'inline';
                 currentEditingPost = postElement;
