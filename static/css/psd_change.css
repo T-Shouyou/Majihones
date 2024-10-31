@@ -1,0 +1,95 @@
+body {
+    height: 100%; /* 高さを100%に設定 */
+    overflow: hidden; /* スクロールを無効にする */
+}
+
+.kabegami {
+    background-size: cover;
+}
+
+.container {
+    align-items: center; /* 縦方向の中央揃え */
+    height: 100%; /* コンテナの高さを100%に設定 */
+}
+
+
+.title {
+    padding-left: 450px;
+    max-width: 30%; 
+    height: auto; 
+    margin-top: -50px; 
+}
+
+.login-image{
+    height: 120px;
+    width: 120px;
+    float: right;
+    position: absolute;
+    margin-left: 1100px;
+}
+
+.login-name {
+    float: right;
+    margin-top: 100px;
+}
+
+.p-p {
+    text-align: center;
+    font-size: 20px;
+}
+
+.login-form{
+    display: flex; /* フレックスボックスを使用 */
+    flex-direction: column; /* 縦に並べる */
+    align-items: center; /* 中央揃え */
+    justify-content: center; /* 縦方向も中央揃え（高さがある場合） */
+}
+
+.login-form input {
+    width: 450px;
+    height: 40px;
+    margin-bottom: 20px;
+}
+
+.login-form button {
+    width: 120px;
+    height: 50px;
+    font-size: 18px;
+    background-color: #ffb6cb;
+    border-radius: 5px;
+    border: 3px solid #db7093;
+    cursor: pointer;
+}
+
+.button-sel {
+    display: flex;
+    text-align: center;
+    margin: 0 auto;
+    width: 800px;
+    height: 50px;
+}
+
+.back-button {
+    text-align: left;
+    background-color: transparent; /* 透明の背景色 */
+    color: black; /* テキストの色を黒に設定 */
+    padding: 9px 30px; /* 上下の余白を15px、左右を30pxに設定 */
+    font-size: 18px; /* フォントサイズを18pxに設定 */
+    border: 2px solid black ; /* 枠線を黒に設定 */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+    margin-left: 40px; /* 左端との間隔を20pxあける */
+}
+
+.menu-button {
+    width: 120px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 400px;
+    margin: 0 auto;
+    background-color: skyblue;
+    border: 3px solid #44acce;
+    border-radius: 5px;
+}

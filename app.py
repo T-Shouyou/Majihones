@@ -426,6 +426,9 @@ def acct_set():
 def allergy_new():
     return render_template('acset/allergy_new.html')
 
+@app.route('/acset/allergy_set')
+def allergy_set():
+    return render_template('acset/allergy_set.html')
 
 @app.route('/register_allergy', methods=['POST'])
 def register_allergy():
@@ -450,14 +453,58 @@ def register_allergy():
 
     return redirect(url_for('acct_set'))
 
-
-@app.route('/acset/psd_change')
+@app.route('/acset/psd_change', methods=['GET','POST'])
 def psd_change():
     return render_template('acset/psd_change.html')
+
+@app.route('/change_psd/<int:account_id>', methods=['POST'])
+def change_psd(account_id):
+    error_message = ""
+    password = request.form.get('password')
+    password2 = request.form.get('passwordnew')
+    password3 = request.form.get('passwordnew2')
+
+    conn = get_db()
+    cur = conn.cursor()
+    
+    try:
+        cur.execute("SELECT * FROM ACCOUNT WHERE PASS = ?", (password,))
+        acuser = cur.fetchone()
+
+        if acuser:
+            print("通過１")
+        else:
+            error_message = "入力されたパスワードが間違っています"
+            return render_template('acset/psd_change.html', error_message=error_message)
+
+        if password2 == password3:
+            if len(password2) > 7 and len(password2) < 21:
+                newpassword = password2
+                cur.execute("UPDATE ACCOUNT SET PASS = ? WHERE ACCOUNT_ID = ?", (newpassword, account_id))
+                conn.commit()
+                return redirect(url_for('psd_changec'))
+            else:
+                error_message = "パスワードは8文字以上20文字以下で入力してください"
+                return render_template('acset/psd_change.html', error_message=error_message)
+        else:
+            error_message = "新しく入力したパスワードのどちらかが間違っています"
+            return render_template('acset/psd_change.html', error_message=error_message)
+    except Exception as e:
+        error_message = str(e)
+        return render_template('acset/psd_change.html', error_message=error_message)
+    finally:
+        cur.close()
+        conn.close()
+
+@app.route('/acset/psd_changec')
+def psd_changec():
+    return render_template('acset/psd_changec.html')
 
 @app.route('/acset/acct_del')
 def acct_del():
     return render_template('acset/acct_del.html')
+
+# -------------------------------------------------------
 
 @app.route('/photo/photo_upload')
 def photo_upload():
