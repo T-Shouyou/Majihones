@@ -12,13 +12,13 @@
 
     <div class="posts">
         {% for post in posts %}
-        <div class="post">
+        <div class="post" data-post-id="{{ post.post_id }}">
             <hr>
             <p class="post-txt">
                 <strong>投稿者名:</strong> {{ post.account_name }}
                 {% if account_id == 1 or post.account_id == account_id %}
-                <button onclick="showDeleteButton(this)">編集</button>
-                <button class="delete-button" style="display:none;">削除</button>
+                <button onclick="toggleEditMode(this)" class="edit-button">編集</button>
+                <button class="cancel-button" style="display:none;" onclick="cancelEdit(this)">キャンセル</button>
                 {% endif %}
             </p>
             <hr>
@@ -26,7 +26,7 @@
                 {% if post.photo %}
                 <img src="{{ url_for('static', filename='hiroba_img/' + post.photo) }}" alt="投稿画像" class="post-img">
                 {% endif %}
-                <p class="post-txt">{{ post.sentence }}</p>
+                <p class="post-txt" data-original="{{ post.sentence }}">{{ post.sentence }}</p>
             </div>
         </div>
         {% endfor %}
@@ -38,10 +38,53 @@
     </div>
 
     <script>
-        function showDeleteButton(button) {
-            const postElement = button.parentNode;
-            const deleteButton = postElement.querySelector('.delete-button');
-            deleteButton.style.display = 'inline';
+        let currentEditingPost = null;
+
+        async function toggleEditMode(button) {
+            const postElement = button.closest('.post');
+            const sentenceElement = postElement.querySelector('.post-txt[data-original]');
+            const originalText = sentenceElement.getAttribute('data-original');
+            const editButton = postElement.querySelector('.edit-button');
+            const cancelButton = postElement.querySelector('.cancel-button');
+            const postId = postElement.getAttribute('data-post-id');
+
+            if (editButton.textContent === "編集") {
+                sentenceElement.innerHTML = `<textarea>${originalText}</textarea>`;
+                editButton.textContent = "完了";
+                cancelButton.style.display = 'inline';
+                currentEditingPost = postElement;
+            } else if (editButton.textContent === "完了") {
+                const updatedSentence = sentenceElement.querySelector('textarea').value;
+
+                const response = await fetch(`/hiroba/edit_post/${postId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ sentence: updatedSentence })
+                });
+
+                if (response.ok) {
+                    sentenceElement.innerHTML = updatedSentence;
+                    sentenceElement.setAttribute('data-original', updatedSentence);
+                    editButton.textContent = "編集";
+                    cancelButton.style.display = 'none';
+                    currentEditingPost = null;
+                }
+            }
+        }
+
+        function cancelEdit(button) {
+            const postElement = button.closest('.post');
+            const sentenceElement = postElement.querySelector('.post-txt[data-original]');
+            const originalText = sentenceElement.getAttribute('data-original');
+            const editButton = postElement.querySelector('.edit-button');
+            const cancelButton = postElement.querySelector('.cancel-button');
+
+            // 編集内容をキャンセルし元に戻す
+            sentenceElement.innerHTML = originalText;  // 元のテキストに戻す
+            editButton.textContent = "編集";  // 編集ボタンのテキストを変更
+            cancelButton.style.display = 'none';  // キャンセルボタンを非表示
         }
     </script>
 {% endblock %}
