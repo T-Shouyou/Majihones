@@ -194,6 +194,19 @@ def register_food():
 def touroku_success():
     return render_template('ninnsiki/touroku_success.html')
 
+@app.route('/ninnsiki/recipe_look', methods=['GET'])
+def recipe_look():
+    # 既存の料理特徴を読み込む
+    with open('recipe_features.pkl', 'rb') as f:
+        recipe_features = pickle.load(f)
+
+    # レシピのラベルを取得
+    recipe_labels = list(recipe_features.keys())
+    
+    return render_template('ninnsiki/recipe_look.html', recipe_labels=recipe_labels)
+
+
+
 @app.route('/ninnsyou/login', methods=['GET', 'POST'])
 def login():
     mail_address = ""

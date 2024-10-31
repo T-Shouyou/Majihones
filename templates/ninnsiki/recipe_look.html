@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レシピ一覧</title>
+</head>
+<body>
+    <h1>現在のレシピ一覧</h1>
+    <ul>
+        {% for label in recipe_labels %}
+            <li>{{ label }}</li>
+        {% endfor %}
+    </ul>
+    <a href="/ninnsiki/recipe_delete">レシピを削除する</a>
+    <a href="/ninnsiki/recipe_images">戻る</a>
+</body>
+</html>
