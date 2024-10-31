@@ -1,17 +1,73 @@
-<!doctype html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>投稿フォーム</title>
-</head>
-<body>
-    <header><h1>投稿フォーム</h1></header>
+{% extends 'base.html' %}
+
+{% block title %}投稿フォーム{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="style.css">
+    <br>
+    <h1 class="txt-center">投稿フォーム</h1>
     <form id="postForm" action="{{ url_for('save_gohan_post') }}" method="post" enctype="multipart/form-data">
-        <textarea name="sentence" placeholder="テキストを入力" rows="4" style="width:100%;"></textarea>
-        <input type="file" name="photo" id="imageUpload" accept="image/*">
+        <div class="textarea-container">
+            <textarea name="sentence" placeholder="テキストを入力..." rows="4" class="post_txtbox"></textarea>
+        </div>
+        <br>
+
+        <input type="file" name="photo" id="imageUpload" accept="image/*" class="select_img" 
+               onchange="document.getElementById('fileName').textContent = this.files[0] ? this.files[0].name : '';">
+        <label for="imageUpload" class="select_post_img">画像を選択</label>
+        
+        <span id="imageErrorMessage" class="error-message" style="display:none; color:red;">画像が未選択です</span> <!-- エラーメッセージ -->
+        <span id="fileName" class="file-name" style="margin-left: 10px;"></span> <!-- ファイル名表示用の要素 -->
+
         <img id="imagePreview" class="image-preview" style="display:none;" alt="Image preview">
-        <button type="submit">投稿</button>
+
+        <button type="submit" class="post_btn">投稿</button>
     </form>
-    <button onclick="location.href='{{ url_for('area_gohan') }}';">戻る</button>
-</body>
-</html>
+    <div class="fixed-buttons-back">
+        <button onclick="location.href='{{ url_for('area_gohan') }}';">戻る</button>
+    </div>
+
+
+
+    
+    <script>
+        function validateForm(event) {
+            const textArea = document.querySelector('textarea[name="sentence"]');
+            const imageUpload = document.getElementById('imageUpload');
+            const imageErrorMessage = document.getElementById('imageErrorMessage');
+
+            // 初期状態でエラーメッセージを非表示
+            imageErrorMessage.style.display = 'none';
+
+            let valid = true;
+
+            // テキストエリアが空の場合
+            if (textArea.value.trim() === '') {
+                textArea.placeholder = '未入力のままでは投稿ができません、この欄にテキストを入力してください';
+                valid = false;
+            } else {
+                textArea.placeholder = 'テキストを入力';
+            }
+
+            // 画像が選択されていない場合
+            if (imageUpload.files.length === 0) {
+                imageErrorMessage.style.display = 'inline';
+                valid = false;
+            } else {
+                imageErrorMessage.style.display = 'none';
+            }
+
+            // 無効な場合、フォームの送信をキャンセル
+            if (!valid) {
+                event.preventDefault();
+            }
+        }
+
+        window.onload = function () {
+            // フォームの送信時にバリデーションを実行
+            document.getElementById('postForm').addEventListener('submit', validateForm);
+        };
+    </script>
+
+{% endblock %}
+

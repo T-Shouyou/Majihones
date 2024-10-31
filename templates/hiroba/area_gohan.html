@@ -1,4 +1,3 @@
-<!-- area_gohan.html -->
 {% extends 'base.html' %}
 
 {% block title %}ごはん広場{% endblock %}
@@ -9,18 +8,25 @@
     <br><br>
     <h1 class="txt-center">ごはん広場</h1>
 
-    <h2>投稿された内容</h2>
+    <h2 class="txt-center">投稿された内容</h2>
 
     <div class="posts">
         {% for post in posts %}
         <div class="post">
+            <p class="post_txt">
+                <strong>投稿者名:</strong> {{ post.account_name }}
+                {% if account_id == 1 or post.account_id == account_id %}
+                <button onclick="showDeleteButton(this)">編集</button>
+                <button class="delete-btn" style="display:none;">削除</button>
+                {% endif %}
+            </p>
             <hr>
-            <p class="post_txt"><strong>投稿者名:</strong> {{ post.account_name }}</p>  <!-- ここを修正 -->
-            <p class="post_txt">{{ post.sentence }}</p>
-            {% if post.photo %}
-            <img src="{{ url_for('static', filename='hiroba_img/' + post.photo) }}" alt="投稿画像" class="post_img">
-            {% endif %}
-            <hr>
+            <div class="post-content">
+                {% if post.photo %}
+                <img src="{{ url_for('static', filename='hiroba_img/' + post.photo) }}" alt="投稿画像" class="post_img">
+                {% endif %}
+                <p class="post_txt">{{ post.sentence }}</p>
+            </div>
         </div>
         {% endfor %}
     </div>
@@ -29,4 +35,12 @@
         <button onclick="location.href='{{ url_for('mainmenu') }}';" class="main-btn">メイン<br>メニュー</button>
         <button onclick="location.href='{{ url_for('post_gohan') }}';" class="post-btn">ごはん投稿</button>
     </div>
+
+    <script>
+        function showDeleteButton(button) {
+            const postElement = button.parentNode;
+            const deleteButton = postElement.querySelector('.delete-btn');
+            deleteButton.style.display = 'inline';
+        }
+    </script>
 {% endblock %}

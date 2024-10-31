@@ -11,12 +11,11 @@ html, body {
 
 
 .title {
-    max-width: 65%; /* 画像の最大幅を65%に設定 */
-    height: auto; /* 高さを自動に設定してアスペクト比を保持 */
-    margin-top: -80px; /* 上にずらすためのマージンを設定（値は調整可） */
-    clear: both;
     justify-content: center; /* 水平方向に中央配置 */
-
+    max-width: 30%; /* 画像の最大幅を65%に設定 */
+    height: auto; /* 高さを自動に設定してアスペクト比を保持 */
+    margin-top: -50px; /* 上にずらすためのマージンを設定（値は調整可） */
+    margin-left: 205px; 
 }
 
 .image-container {
@@ -149,12 +148,6 @@ header {
     margin-right:40px;
 }
 
-.title {
-    max-width: 30%; /* 画像の最大幅を65%に設定 */
-    height: auto; /* 高さを自動に設定してアスペクト比を保持 */
-    margin-top: -50px; /* 上にずらすためのマージンを設定（値は調整可） */
-    margin-left: 205px; 
-}
 .login-form{
     display: flex; /* フレックスボックスを使用 */
     flex-direction: column; /* 縦に並べる */
@@ -321,11 +314,6 @@ aside {
     padding-top: 70px;
 }
 
-
-  
-
-
-
   /* photomenu -----------------------------------------------------------------------------------*/
 
 
@@ -340,7 +328,6 @@ aside {
     border: 1px solid #ccc; /* 枠線を設定 */
     border-radius: 5px; /* 角を丸くする */
 }
-
 
 .login-form{
     display: flex; /* フレックスボックスを使用 */
@@ -367,7 +354,6 @@ aside {
 .txt-center{
     text-align : center;
 }
-
 
 .cameramenu-btn{
     background-color: skyblue;
@@ -416,10 +402,6 @@ aside {
     justify-content: center; /* 水平方向の中央揃え */
     align-items: center; /* 垂直方向の中央揃え */
     padding-top: 50px;
-}
-
-.txt-center {
-    text-align: center;
 }
 
 video {
@@ -478,7 +460,194 @@ canvas {
 }
 
 .post_img{
-    width: 15%;
-    height: 15%;
-    object-fit: cover; /* 縦横比を維持しながら、領域にフィットさせる */
+    width: 100px;
+    height: 100px;
+    margin-left:20px;
+    object-fit: contain; /* 縦横比を維持しながら、領域にフィットさせる */
+}
+
+.posts{
+    height:50px;
+    width:700px;
+    display: flex; /* フレックスコンテナにする */
+    flex-direction: column; /* 子要素を縦に並べる */
+    align-items: center; /* 子要素を中央揃えにする */
+}
+
+.post {
+    background-color:white;
+    border-radius:5px;
+    border:gray 3px solid;
+    width: 100%; /* 投稿の幅を指定 */
+    max-width: 900px; /* 最大幅を指定 */
+    margin: 10px 0; /* 上下にマージンを追加 */
+    margin-left:75%;
+    text-align: left; /* テキストを左揃え */
+}
+
+.post-content {
+    display: flex; /* フレックスコンテナにする */
+    align-items: flex-start; /* 縦の位置を揃える */
+    margin-top: 10px; /* 上部にマージンを追加（必要に応じて調整） */
+    margin-bottom:20px;
+}
+
+.post_txt {
+    margin-left:10px;
+    margin-bottom:20px;
+    flex: 1; /* テキストが残りのスペースを占有する */
+}
+
+/*     ------------------ごはん提案CSS---------------------------- */
+
+.sugglook-btn{
+    background-color: skyblue;
+}
+
+.sugghist-btn{
+    background-color: skyblue;
+}
+
+
+
+/*     ------------------ごはん投稿CSS---------------------------- */
+
+
+
+.post_txtbox{
+    resize: none;  /* リサイズを無効にする（必要に応じて） */
+    height: 200px;
+    width:700px;
+    border: 1px solid black; /* 枠線 */
+    border-radius:5px;
+}
+
+.textarea-container {
+    display: flex;               /* フレックスボックスを使う */
+    justify-content: center;     /* 横方向を中央に配置 */
+}
+
+.post_btn {
+    position: fixed;  /* ボタンを固定位置に配置 */
+    width: 110px;     /* 幅 */
+    height: 50px;     /* 高さ */
+    bottom: 118px;     /* 画面下からの距離 */
+    right: 290px;      /* 画面右からの距離 */
+    background-color: skyblue; /* 背景色 */
+    border-radius: 5px; /* 角を丸くする */
+    border: none; /* ボーダーを消す */
+    color: white; /* テキストの色 */
+    font-size: 16px; /* フォントサイズ */
+    cursor: pointer; /* カーソルをポインターにする */
+    transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
+}
+
+.select_img {
+    display: none; /* デフォルトのファイル入力を隠す */
+}
+
+.select_post_img {
+    width:110px;
+    height:50px;
+    margin-left: 290px; /* 左のマージンを保持 */
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: skyblue; /* ボタンの背景色 */
+    color: white;               /* ボタンの文字色 */
+    border-radius: 5px;        /* 角を丸くする */
+    border: none;              /* ボーダーを消す */
+    text-align: center;        /* テキストを中央揃え */
+    margin-top: -50px; 
+}
+
+.error-message {
+    color: red;
+    display: none; /* 初期状態で非表示 */
+    margin-left: 10px;
+}
+
+.fixed-buttons-back {
+    position: fixed; /* 固定位置にする */
+    bottom: 20px; /* 下からの距離 */
+    left: 20px; /* 右からの距離 */
+    display: flex; /* フレックスボックスを使用 */
+    flex-direction: column; /* 縦に並べる */
+    gap: 10px; /* ボタン間のスペース */
+    z-index: 1000; /* 他の要素の上に表示するためにz-indexを設定 */
+}
+
+.fixed-buttons-back button {
+    width: 100px; /* ボタンの幅 */
+    height: 100px; /* ボタンの高さ */
+    border-radius: 50%; /* 円形にする */
+    border: none; /* ボーダーを消す */
+    background-color: #007BFF; /* ボタンの背景色 */
+    color: white; /* テキストの色 */
+    font-size: 16px; /* フォントサイズ */
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center; /* 縦方向の中央揃え */
+    cursor: pointer; /* カーソルをポインターにする */
+    transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
+}
+
+.fixed-buttons-back button:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
+}
+/* photo_upload -------------------------------------------------------------------*/
+
+
+.upload-button:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
+}
+
+#selected-image { /* 画像の最大サイズを制限　「縛り」 */
+    display: none; /* 初期状態で非表示 */
+    max-width: 150px; /* 幅を400pxに制限 */
+    max-height: 150px; /* 高さを300pxに制限 */
+    width: auto; /* 幅の自動調整 */
+    height: auto; /* 高さの自動調整 */
+    margin: 10px 0; /* 上下のマージンを設定 */
+    overflow: hidden; /* はみ出す部分を隠す */
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.txt-center-photo-upload {
+    text-align: center;
+    margin-top: -40px;
+    padding-bottom: 20px;
+}
+
+.upload-button {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 中央揃え */
+    
+    width: 400px; /* ボタンの幅を設定 */
+    height: 70px; /* ボタンの高さを設定 */
+    margin: 35px 0px 0px 55px; /* ボタンの間にスペースを追加 */
+    border: none; /* 枠線をなしに設定 */
+    color: black;
+    font-size: 22px;
+    border-radius: 10px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+
+.button-container-photo-upload {
+    width: 40%;
+    height: 250px;
+    padding-top: -50px;
+    background-color: #dae8fc;
+    border: 2px solid cornflowerblue;
+    display: flex;
+    flex-wrap: wrap; /* ボタンを折り返し可能にする */
+    margin: auto; /* コンテナを中央に配置 */
+    flex-direction: column; /* 縦に並べる */       
 }

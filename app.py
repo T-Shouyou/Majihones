@@ -212,8 +212,8 @@ def login():
 
         if user:
             session['account_id'] = user[0]
-            session['account_name'] = user[1]  # セッションにアカウント名を保存
-            return redirect(url_for('mainmenu'))  # ログイン成功時にメインメニューへリダイレクト
+            session['account_name'] = user[1]
+            return redirect(url_for('mainmenu'))
         else:
             error_message = "ログインに失敗しました。アカウント名またはパスワードが間違っています。"
 
@@ -221,7 +221,7 @@ def login():
 
 @app.route('/ninnsyou/signup', methods=['GET'])
 def sign_up():
-    return render_template('ninnsyou/signup.html')  # 新規登録ページを表示
+    return render_template('ninnsyou/signup.html')
 
 @app.route('/ninnsyou/signup', methods=['POST'])
 def signup():
@@ -242,13 +242,13 @@ def signup():
         conn.close()
         return "そのメールアドレスは既に使用されています。"
 
-    # データベースに新規登録
+    #新規登録
     cur.execute("INSERT INTO ACCOUNT (ACCOUNT_NAME, MAIL, PASS) VALUES (?, ?, ?)", (account_name, mail_address, password))
     conn.commit()
     cur.close()
     conn.close()
 
-    return redirect(url_for('login'))  # 登録後にログインページへリダイレクト
+    return redirect(url_for('login'))
 
 @app.route('/ninnsyou/signup_success')
 def signup_success():
@@ -257,7 +257,6 @@ def signup_success():
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
     if request.method == 'POST':
-        # ログアウト処理: セッションをクリア
         session.clear()
         return redirect(url_for('logout_success'))
     return render_template('ninnsyou/logout.html')
@@ -276,7 +275,7 @@ def inject_account_info():
 @app.route('/mainmenu/mainmenu')
 def mainmenu():
     if 'account_name' in session:
-        return render_template('mainmenu/mainmenu.html')  # 引数がシンプルになった
+        return render_template('mainmenu/mainmenu.html')
     return redirect(url_for('login'))
 
 @app.route('/master/account_look')
@@ -285,11 +284,11 @@ def account_look():
         conn = get_db()
         cur = conn.cursor()
         cur.execute("SELECT ACCOUNT_ID, ACCOUNT_NAME, MAIL, PASS FROM ACCOUNT")
-        accounts = cur.fetchall()  # アカウント情報のリストを取得
+        accounts = cur.fetchall()
         cur.close()
         conn.close()
         
-        return render_template('master/account_look.html', accounts=accounts)  # 引数がシンプルになった
+        return render_template('master/account_look.html', accounts=accounts)
 
 @app.route('/edit_account/<int:account_id>', methods=['POST'])
 def edit_account(account_id):
@@ -338,9 +337,8 @@ def area_gohan():
     conn = get_db()
     cursor = conn.cursor()
 
-    # ACCOUNT_NAMEを取得するためにJOINを使用
     cursor.execute("""
-    SELECT A.ACCOUNT_NAME, P.SENTENCE, P.PHOTO 
+    SELECT P.POST_ID, A.ACCOUNT_ID, A.ACCOUNT_NAME, P.SENTENCE, P.PHOTO 
     FROM POST P
     JOIN ACCOUNT A ON P.ACCOUNT_ID = A.ACCOUNT_ID
     ORDER BY P.POST_ID DESC
@@ -351,15 +349,17 @@ def area_gohan():
     conn.close()
     
     # フォーマットを変更して辞書リストを作成
-    posts = [{'account_name': row[0], 'sentence': row[1], 'photo': row[2]} for row in posts]
+    posts = [{'post_id': row[0], 'account_id': row[1], 'account_name': row[2], 'sentence': row[3], 'photo': row[4]} for row in posts]
+
+    account_id = session.get('account_id')
     
-    return render_template('hiroba/area_gohan.html', posts=posts)
+    return render_template('hiroba/area_gohan.html', posts=posts, account_id=account_id)
 
 @app.route('/hiroba/post_gohan')
 def post_gohan():
     return render_template('hiroba/post_gohan.html')
 
-# ランダムな10文字の英数字を生成する関数
+# 英数字の桁数を変えたいときは k= の後の数値を変えてね
 def generate_unique_filename(extension):
     random_str = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
     return f"{random_str}.{extension}"
@@ -371,13 +371,13 @@ def save_gohan_post():
     photo = request.files['photo']
     
     if photo:
-        # 元のファイル拡張子を保持
+        # 元の拡張子のまま
         extension = photo.filename.rsplit('.', 1)[1].lower()
         unique_filename = generate_unique_filename(extension)
         
-        # 画像をローカルフォルダに保存
+        # 保存
         photo_path = os.path.join(LOCAL_IMAGE_FOLDER, unique_filename)
-        photo.save(photo_path)  # ファイルを保存
+        photo.save(photo_path)
 
         conn = get_db()
         cursor = conn.cursor()
@@ -409,13 +409,11 @@ def allergy_set():
 
 @app.route('/register_allergy', methods=['POST'])
 def register_allergy():
-    # セッションからアカウントIDを取得
     account_id = session.get('account_id')
 
     # 受け取ったアレルゲンデータを取得
     allergies = request.form.getlist('allergy')
 
-    # データベースに接続
     conn = sqlite3.connect('mydatabase.db')
     cursor = conn.cursor()
 
@@ -423,7 +421,6 @@ def register_allergy():
         for allergy in allergies:
             cursor.execute("INSERT INTO ALLERGEN (ACCOUNT_ID, ALLERGY) VALUES (?, ?)", (account_id, allergy))
 
-        # 変更を保存
         conn.commit()
     except sqlite3.Error as e:
         print("エラーが発生しました:", e)
@@ -431,32 +428,14 @@ def register_allergy():
     finally:
         conn.close()
 
-    return redirect(url_for('acct_set'))  # 登録後、アカウント設定ページにリダイレクト
+    return redirect(url_for('acct_set'))
 
+@app.route('/acset/psd_change', methods=['GET','POST'])
+def psd_change():
+    return render_template('acset/psd_change.html')
 
-# @app.route('/acset/psd_change', methods=['GET', 'POST'])
-# def psd_change():
-#     if request.method == 'POST':
-#         password = request.form['password']
-        
-#         conn = get_db()
-#         cur = conn.cursor()
-#         cur.execute("SELECT * FROM ACCOUNT WHERE PASS = ?", (password))
-#         user = cur.fetchone()
-#         cur.close()
-#         conn.close()
-
-#         if user:
-#             session['account_id'] = user[0]
-#             session['account_name'] = user[1]  # セッションにアカウント名を保存
-#             return redirect(url_for('mainmenu'))  # ログイン成功時にメインメニューへリダイレクト
-#         else:
-#             error_message = "ログインに失敗しました。アカウント名またはパスワードが間違っています。"
-
-#     return render_template('acset/psd_change.html')
-
-@app.route('/acset/psd_change/<int:account_id>', methods=['GET','POST'])
-def acset_edit(account_id):
+@app.route('/change_psd/<int:account_id>', methods=['GET','POST'])
+def change_psd(account_id):
     data = request.json
     error_message=""
     newpassword = ""
@@ -470,6 +449,7 @@ def acset_edit(account_id):
     acuser = cur.fetchone()
 
     if acuser:
+        print("通過１")
         pass
     else:
         error_message = "入力されたパスワードが間違っています"
@@ -478,20 +458,23 @@ def acset_edit(account_id):
         return render_template('acset/psd_change.html',error_message=error_message)
 
     if password2 == password3:
-        newpassword = password2
-        cur.execute("UPDATE ACCOUNT SET PASS = ? WHERE ACCOUNT_ID = ?",
-                    (newpassword, account_id))
-        conn.commit()
-
-        cur.close()
-        conn.close()
-
-        return render_template('acset/psd_change.html')
+        print("通過２")
+        pass
     else:
         error_message = "新しく入力したパスワードのどちらかが間違っています"
         cur.close()
         conn.close()
         return render_template('acset/psd_change.html',error_message=error_message)
+    
+    newpassword = password2
+    cur.execute("UPDATE ACCOUNT SET PASS = ? WHERE ACCOUNT_ID = ?",
+                (newpassword, accid))
+    conn.commit()
+
+    cur.close()
+    conn.close()
+
+    return '',204
 
 
 @app.route('/acset/psd_changec')
@@ -506,11 +489,11 @@ def acct_del():
 
 @app.route('/photo/photo_upload')
 def photo_upload():
-    return render_template('photo/photo_upload.html')  # 引数がシンプルになった
+    return render_template('photo/photo_upload.html')
 
 @app.route('/photo/photo_recog')
 def photo_recog():
-    return render_template('photo/photo_recog.html')  # 引数がシンプルになった
+    return render_template('photo/photo_recog.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
