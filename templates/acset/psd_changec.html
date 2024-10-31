@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>アカウント設定</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/psd_change.css') }}">
+</head>
+<body background="../static/img/background.png" class="kabegami">
+    <div class="container">
+        <img src="../static/chara/なまたまご.png" class="login-image">
+        <img src="../static/img/title.png" class="title">
+        <p class="login-name">ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
+    </div>
+
+    <div>
+        <p class="p-p">パスワードの変更が完了しました</p>
+    </div>
+
+    <div class="button-sel">
+        <button onclick="location.href='{{ url_for('mainmenu') }}';" class="menu-button">メニュー</button>
+    </div>
+
+</body>
+</html>
