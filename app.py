@@ -354,6 +354,17 @@ def area_gohan():
     
     return render_template('hiroba/area_gohan.html', posts=posts, account_id=account_id)
 
+@app.route('/hiroba/edit_post/<int:post_id>', methods=['POST'])
+def edit_post(post_id):
+    data = request.json
+    sentence = data['sentence']
+
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("UPDATE POST SET SENTENCE = ? WHERE POST_ID = ?", (sentence, post_id))
+    conn.commit()
+    return '', 204
+
 @app.route('/hiroba/post_gohan')
 def post_gohan():
     return render_template('hiroba/post_gohan.html')
