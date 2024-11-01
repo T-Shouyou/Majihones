@@ -788,8 +788,7 @@ canvas {
 
 /*----------------------------即席修理ここまで------------------------*/
 
-
-/* success */
+/* 予測結果画面　またの名をsuccess */
 .text-success {
     display: flex;
     text-align: center;
@@ -808,7 +807,7 @@ canvas {
     height: 100px;
     list-style-type: none; /* リストマーカーを消す */
     padding: 0; /* デフォルトのパディングを消す */
-    margin: 0; /* デフォルトのマージンを消す */
+    margin-left: 50%; /* デフォルトのマージンを消す */
 }
 
 .prediction_result li {
@@ -829,4 +828,71 @@ canvas {
     left:30px;
     height:200px;
     width:auto;
+}
+
+.pred-txt{
+    font-size: 16px;
+    height:60px;
+    width:auto;
+}
+
+.editButton{
+    border-radius: 5px;
+    background-color:palegreen;
+    margin-left:10px;
+    height:50px;
+    min-width: 85px; /* 最小幅も設定 */
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+.completeButton{
+    color:white;
+    border-radius: 5px;
+    background-color:red;
+    margin-left:10px;
+    height:50px;
+    min-width: 85px; /* 最小幅も設定 */
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+#submitButton{
+    border-radius: 5px;
+    position:fixed;
+    justify-content: center; /* 横方向の中央揃え */
+    left:50%;
+    background-color:plum;
+    height:60px;
+    min-width: 110px; /* 最小幅も設定 */
+    padding:10px;
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+/* ごはんアップロード完了ページCSS */
+
+.touroku-comp{
+    text-align:center;
+    margin-top:100px;
+}
+
+.touroku-comp-button {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 中央揃え */
+    
+    width: 400px; /* ボタンの幅を設定 */
+    height: 70px; /* ボタンの高さを設定 */
+    margin: 150px 0px 0px 35%; /* ボタンの間にスペースを追加 */
+    border: none; /* 枠線をなしに設定 */
+    color: black;
+    font-size: 22px;
+    border-radius: 10px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+
+.touroku-comp-button:hover {
+    background-color: #efe8d2; /* ホバー時の灰色を少し暗くする */
 }
