@@ -615,12 +615,13 @@ canvas {
 }
 
 #selected-image { /* 画像の最大サイズを制限　「縛り」 */
+    position:fixed;
+    left:90px;
     display: none; /* 初期状態で非表示 */
     max-width: 150px; /* 幅を400pxに制限 */
     max-height: 150px; /* 高さを300pxに制限 */
     width: auto; /* 幅の自動調整 */
     height: auto; /* 高さの自動調整 */
-    margin: 10px 0; /* 上下のマージンを設定 */
     overflow: hidden; /* はみ出す部分を隠す */
 }
 
@@ -664,6 +665,14 @@ canvas {
     margin: auto; /* コンテナを中央に配置 */
     flex-direction: column; /* 縦に並べる */       
 }
+
+.disabled-button {
+    background-color: lightgray; /* 薄い灰色 */
+    color: darkgray; /* 文字色も薄く */
+    pointer-events: none; /* クリックイベントを無効にする */
+    cursor: not-allowed; /* カーソルを禁止にする */
+}
+
 
 
 /* ごはん提案メニュー */

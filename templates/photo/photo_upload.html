@@ -22,6 +22,9 @@ function previewImage() {
             // ボタンの切り替え
             predictButton.style.display = 'block'; // 予測するボタンを表示
             defaultButton.style.display = 'none'; // 画像未選択ボタンを非表示
+
+            // ボタンのクラスを変更
+            defaultButton.classList.remove('disabled-button');
         };
         reader.readAsDataURL(fileInput.files[0]);
     } else {
@@ -30,6 +33,9 @@ function previewImage() {
         // ボタンの切り替え
         predictButton.style.display = 'none'; // 予測するボタンを非表示
         defaultButton.style.display = 'block'; // 画像未選択ボタンを表示
+
+        // ボタンのクラスを変更
+        defaultButton.classList.add('disabled-button');
     }
 }
 
@@ -49,7 +55,7 @@ function startLoading() {
             画像を選択
         </label>
         <img id="selected-image" style="display:none; max-width: 200px; margin: 10px 0;" alt="選択された画像">
-        <button type="button" id="defaultButton" class="upload-button" style="display: block;">画像未選択</button> <!-- 画像未選択ボタン -->
+        <button type="button" id="defaultButton" class="upload-button disabled-button" style="display: block;">画像未選択</button> <!-- 画像未選択ボタン -->
         <button type="submit" id="predictButton" class="upload-button" style="display: none;">予測する</button> <!-- 予測するボタン -->
     </div>
 </form>
