@@ -2,13 +2,13 @@
 {% block title %}レシピ画像アップロード{% endblock %}
 
 {% block content %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/recipe_images.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <br>
     <h1 class="txt-center">レシピ画像をアップロード</h1>
 
     <!--カメラ部分-->
     <div class="video-container">
-        <video id="video" autoplay class="center"></video>
+        <video id="video" autoplay class="recipe-camera"></video>
     </div>
 
     <form action="/predict" method="POST" enctype="multipart/form-data" onsubmit="startLoading();">
