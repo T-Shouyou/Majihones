@@ -9,6 +9,13 @@
     <div class="container">
         <img src="../static/img/title.png" class="title">
     </div>
+
+    {% if error_message %}
+        <div class="error-message" style="color: red; text-align: center;">
+            {{ error_message }}
+        </div>
+    {% endif %}
+    
     <form action="{{ url_for('signup') }}" method="post">  <!-- 修正点: actionをFlaskのurl_forで指定 -->
         <div id="input1">
             <div class="signup-form">
