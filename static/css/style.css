@@ -490,9 +490,22 @@ canvas {
 }
 
 .post-txt {
+    word-wrap: break-word; /* 単語の途中で改行を許可 */
+    overflow-wrap: break-word; /* overflow-wrapのプロパティをサポートするブラウザ向け */
+    white-space: normal; /* 通常の改行を有効にする */
     margin-left:10px;
     margin-bottom:20px;
     flex: 1; /* テキストが残りのスペースを占有する */
+}
+
+.edit-txtarea{
+    font-size: 16px;
+    min-height: 100px; /* 最小高さを設定 */
+    height:auto;
+    width: 500px; /* 幅を固定 */
+    resize: none; /* ユーザーによるサイズ変更を無効化 */
+    overflow:hidden ; /* 内容に応じて高さが増える */
+    white-space: pre-wrap; /* 改行を保持しつつ、単語の途中での折り返しを許可 */
 }
 
 /*     ------------------ごはん提案CSS---------------------------- */
@@ -588,6 +601,10 @@ canvas {
 
 .fixed-button-back button:hover {
     background-color: #0056b3; /* ホバー時の背景色 */
+}
+
+.txterror-message{
+    text-align:center;
 }
 /* photo_upload -------------------------------------------------------------------*/
 

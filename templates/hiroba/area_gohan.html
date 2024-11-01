@@ -8,17 +8,20 @@
     <br><br>
     <h1 class="txt-center">ごはん広場</h1>
 
-    <h2 class="txt-center">投稿された内容</h2>
+    <h2 class="txt-center">投稿の責任は投稿した本人にあります。</h2>
 
     <div class="posts">
         {% for post in posts %}
-        <div class="post">
+        <div class="post" data-post-id="{{ post.post_id }}">
             <hr>
             <p class="post-txt">
                 <strong>投稿者名:</strong> {{ post.account_name }}
                 {% if account_id == 1 or post.account_id == account_id %}
-                <button onclick="showDeleteButton(this)">編集</button>
-                <button class="delete-button" style="display:none;">削除</button>
+                <button onclick="toggleEditMode(this)" class="edit-button">編集</button>
+                <button onclick="confirmDelete(this)" class="delete-button">削除</button>
+                <button class="cancel-button" style="display:none;" onclick="cancelEdit(this)">キャンセル</button>
+                <button class="confirm-delete-button" style="display:none;" onclick="deletePost(this)">はい</button>
+                <button class="cancel-delete-button" style="display:none;" onclick="cancelDelete(this)">いいえ</button>
                 {% endif %}
             </p>
             <hr>
@@ -26,7 +29,7 @@
                 {% if post.photo %}
                 <img src="{{ url_for('static', filename='hiroba_img/' + post.photo) }}" alt="投稿画像" class="post-img">
                 {% endif %}
-                <p class="post-txt">{{ post.sentence }}</p>
+                <p class="post-txt" data-original="{{ post.sentence }}">{{ post.sentence }}</p>
             </div>
         </div>
         {% endfor %}
@@ -38,10 +41,94 @@
     </div>
 
     <script>
-        function showDeleteButton(button) {
-            const postElement = button.parentNode;
+        let currentEditingPost = null;
+
+        async function toggleEditMode(button) {
+            const postElement = button.closest('.post');
+            const sentenceElement = postElement.querySelector('.post-txt[data-original]');
+            const originalText = sentenceElement.getAttribute('data-original');
+            const editButton = postElement.querySelector('.edit-button');
+            const cancelButton = postElement.querySelector('.cancel-button');
             const deleteButton = postElement.querySelector('.delete-button');
-            deleteButton.style.display = 'inline';
+
+            if (editButton.textContent === "編集") {
+                sentenceElement.innerHTML = `<textarea class="edit-txtarea" maxlength="100">${originalText}</textarea>`;
+                editButton.textContent = "完了";
+                cancelButton.style.display = 'inline';
+                deleteButton.style.display = 'none'; // 削除ボタンを非表示
+            } else if (editButton.textContent === "完了") {
+                const updatedSentence = sentenceElement.querySelector('textarea').value;
+
+                const response = await fetch(`/hiroba/edit_post/${postElement.getAttribute('data-post-id')}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ sentence: updatedSentence })
+                });
+
+                if (response.ok) {
+                    sentenceElement.innerHTML = updatedSentence;
+                    sentenceElement.setAttribute('data-original', updatedSentence);
+                    editButton.textContent = "編集";
+                    cancelButton.style.display = 'none';
+                    deleteButton.style.display = 'inline'; // 削除ボタンを再表示
+                }
+            }
+        }
+
+        function cancelEdit(button) {
+            const postElement = button.closest('.post');
+            const sentenceElement = postElement.querySelector('.post-txt[data-original]');
+            const originalText = sentenceElement.getAttribute('data-original');
+            const editButton = postElement.querySelector('.edit-button');
+            const cancelButton = postElement.querySelector('.cancel-button');
+            const deleteButton = postElement.querySelector('.delete-button');
+
+            // 編集内容をキャンセルし元に戻す
+            sentenceElement.innerHTML = originalText; // 元のテキストに戻す
+            editButton.textContent = "編集"; // 編集ボタンのテキストを変更
+            cancelButton.style.display = 'none'; // キャンセルボタンを非表示
+            deleteButton.style.display = 'inline'; // 削除ボタンを再表示
+        }
+
+        function confirmDelete(button) {
+            const postElement = button.closest('.post');
+            const editButton = postElement.querySelector('.edit-button');
+            const deleteButton = postElement.querySelector('.delete-button');
+            const confirmDeleteButton = postElement.querySelector('.confirm-delete-button');
+            const cancelDeleteButton = postElement.querySelector('.cancel-delete-button');
+
+            editButton.style.display = 'none'; // 編集ボタンを非表示
+            deleteButton.style.display = 'none'; // 削除ボタンを非表示
+            confirmDeleteButton.style.display = 'inline'; // はいボタンを表示
+            cancelDeleteButton.style.display = 'inline'; // いいえボタンを表示
+        }
+
+        async function deletePost(button) {
+            const postElement = button.closest('.post');
+            const postId = postElement.getAttribute('data-post-id');
+
+            const response = await fetch(`/hiroba/delete_post/${postId}`, {
+                method: 'POST'
+            });
+
+            if (response.ok) {
+                postElement.remove();
+            }
+        }
+
+        function cancelDelete(button) {
+            const postElement = button.closest('.post');
+            const editButton = postElement.querySelector('.edit-button');
+            const deleteButton = postElement.querySelector('.delete-button');
+            const confirmDeleteButton = postElement.querySelector('.confirm-delete-button');
+            const cancelDeleteButton = postElement.querySelector('.cancel-delete-button');
+
+            editButton.style.display = 'inline'; // 編集ボタンを再表示
+            deleteButton.style.display = 'inline'; // 削除ボタンを再表示
+            confirmDeleteButton.style.display = 'none'; // はいボタンを非表示
+            cancelDeleteButton.style.display = 'none'; // いいえボタンを非表示
         }
     </script>
 {% endblock %}
