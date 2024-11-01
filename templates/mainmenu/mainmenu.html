@@ -4,62 +4,78 @@
 
 {% block content %}
 
-    
-    <div class="main-contents">
-        <div class="button-container-mainmenu">
-            <button onclick="location.href='{{ url_for('photo_menu') }}';" class="camera-button"><img src="../static/img/camera.png" class="camera-icon">ごはん撮影</button>
-            <button onclick="location.href='{{ url_for('sugg_menu') }}';" class="sug-button">🍖ごはん提案</button>
-            <button onclick="location.href='{{ url_for('area_gohan') }}';" class="hiroba-button"><img src="../static/img/chat.png" class="hiroba-icon">ごはん広場</button>
-            <button onclick="location.href='{{ url_for('acct_set') }}';" class="ac-op-button">⚙アカウント設定</button>
-        </div>     
-    </div> 
-    <aside>
-        {% if account_id == 1 %}
-        <button onclick="location.href='{{ url_for('account_look') }}';" class="Master-only-button">アカウント閲覧</button>
-        <button onclick="location.href='{{ url_for('recipe_images') }}';" class="Master-only-button">ごはん調教</button>
-        {% endif %}  
-    </aside>
 
-    <div class="memo-container">
-        <textarea id="memo" placeholder="ここにお知らせを書いてください..." disabled>
+<div class="main-contents">
+    <div class="button-container-mainmenu">
+        <button onclick="location.href='{{ url_for('photo_menu') }}';" class="camera-button"><img
+                src="../static/img/camera.png" class="camera-icon">ごはん撮影</button>
+        
+        <!-- ごはん提案ボタン -->
+        <button id="sugg-button" class="sug-button">🍖ごはん提案</button>
+
+        <script>
+            // 「ごはん提案」ボタンのテキスト変更
+            const suggButton = document.getElementById('sugg-button');
+            suggButton.addEventListener('mouseenter', function () {
+                suggButton.textContent = '課金機能です';
+            });
+            suggButton.addEventListener('mouseleave', function () {
+                suggButton.textContent = '🍖ごはん提案';
+            });
+        </script>
+
+        <button onclick="location.href='{{ url_for('area_gohan') }}';" class="hiroba-button"><img
+                src="../static/img/chat.png" class="hiroba-icon">ごはん広場</button>
+        <button onclick="location.href='{{ url_for('acct_set') }}';" class="ac-op-button">⚙アカウント設定</button>
+    </div>
+</div>
+<aside>
+    {% if account_id == 1 %}
+    <button onclick="location.href='{{ url_for('account_look') }}';" class="Master-only-button">アカウント閲覧</button>
+    <button onclick="location.href='{{ url_for('recipe_images') }}';" class="Master-only-button">ごはん調教</button>
+    {% endif %}
+</aside>
+
+<div class="memo-container">
+    <textarea id="memo" placeholder="ここにお知らせを書いてください..." disabled>
         12/31   「ごはんフレンズ！」サービス開始のお知らせ
         12/31    リリース記念PickUPガチャ開催！
         12/31   【重要】緊急メンテナンス実施について
          1/3     メンテナンス終了のお知らせ
          1/5     ☆6おにぎりマンのEXスキル『断食殺し』調整について
          1/25    サービス終了のお知らせ
-        </textarea>
+    </textarea>
 
-        <div id="admin-controls">
-            {% if account_id == 1 %}
-                <button id="edit-button">編集</button>
-                <button id="confirm-button">確定</button>
-            {% endif %}
-        </div>
+    <div id="admin-controls">
+        {% if account_id == 1 %}
+        <button id="edit-button">編集</button>
+        <button id="confirm-button">確定</button>
+        {% endif %}
     </div>
+</div>
 
-        <br><br>
+<br><br>
 
-        <script>
-            // ページ読み込み時にメモを復元する
-            window.addEventListener('load', function() {
-                const savedMemo = localStorage.getItem('memo');
-                if (savedMemo) {
-                    document.getElementById('memo').value = savedMemo; // テキストエリアに内容を表示
-                }
-            });
+<script>
+    // ページ読み込み時にメモを復元する
+    window.addEventListener('load', function () {
+        const savedMemo = localStorage.getItem('memo');
+        if (savedMemo) {
+            document.getElementById('memo').value = savedMemo; // テキストエリアに内容を表示
+        }
+    });
 
-            // 編集ボタンのイベントリスナー
-            document.getElementById('edit_button').addEventListener('click', function() {
-                const memo = document.getElementById('memo');
-                memo.disabled = false; // テキストエリアを編集可能にする
-            });
+    // 編集ボタンのイベントリスナー
+    document.getElementById('edit-button').addEventListener('click', function () {
+        const memo = document.getElementById('memo');
+        memo.disabled = false; // テキストエリアを編集可能にする
+    });
 
-            // 確定ボタンのイベントリスナー
-            document.getElementById('confirm_button').addEventListener('click', function() {
-                const memo = document.getElementById('memo');
-                localStorage.setItem('memo', memo.value); // メモを保存
-                memo.disabled = true; // テキストエリアを再び非編集にする
-            });
-        </script>
+    // 確定ボタンのイベントリスナー
+    document.getElementById('confirm-button').addEventListener('click', function () {
+        const memo = document.getElementById('memo');
+        localStorage.setItem('memo', memo.value); // メモを保存
+        memo.disabled = true; // テキストエリアを再び非編集にする
+    });
+</script>
 {% endblock %}
