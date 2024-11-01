@@ -492,7 +492,8 @@ canvas {
 .post-txt {
     word-wrap: break-word; /* 単語の途中で改行を許可 */
     overflow-wrap: break-word; /* overflow-wrapのプロパティをサポートするブラウザ向け */
-    white-space: normal; /* 通常の改行を有効にする */
+    overflow: hidden; /* はみ出す部分を隠す */
+    white-space: pre-wrap normal; /* 空白を保持し、折り返す */
     margin-left:10px;
     margin-bottom:20px;
     flex: 1; /* テキストが残りのスペースを占有する */
@@ -614,12 +615,13 @@ canvas {
 }
 
 #selected-image { /* 画像の最大サイズを制限　「縛り」 */
+    position:fixed;
+    left:90px;
     display: none; /* 初期状態で非表示 */
     max-width: 150px; /* 幅を400pxに制限 */
     max-height: 150px; /* 高さを300pxに制限 */
     width: auto; /* 幅の自動調整 */
     height: auto; /* 高さの自動調整 */
-    margin: 10px 0; /* 上下のマージンを設定 */
     overflow: hidden; /* はみ出す部分を隠す */
 }
 
@@ -663,6 +665,14 @@ canvas {
     margin: auto; /* コンテナを中央に配置 */
     flex-direction: column; /* 縦に並べる */       
 }
+
+.disabled-button {
+    background-color: lightgray; /* 薄い灰色 */
+    color: darkgray; /* 文字色も薄く */
+    pointer-events: none; /* クリックイベントを無効にする */
+    cursor: not-allowed; /* カーソルを禁止にする */
+}
+
 
 
 /* ごはん提案メニュー */
@@ -809,4 +819,14 @@ canvas {
     height: 30px; /* 固定高さ */
     font-size: 20px; /* フォントサイズ */
     margin: 10px; /* 各要素間の間隔を調整する */
+}
+
+/* レシピアップロード画面CSS */
+.recipe-camera {
+    position:fixed;
+    flex-direction: column;     /* 縦方向に要素を配置 */
+    top:200px;
+    left:30px;
+    height:200px;
+    width:auto;
 }
