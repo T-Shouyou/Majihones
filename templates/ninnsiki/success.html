@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 
 {% block title %}ごはんフレンズ！{% endblock %}
+
 {% block content %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/photo_menu.css') }}">
-    <title>撮影結果</title>
-
-    <h1 class="txt-center">撮影結果</h1>
-
-    <h3 class="txt-center">下記のごはんを認識しました</h3>
+<title>撮影結果</title>
+<div class="main-contents">
+    <ul class="text-success">
+        <li>撮影結果</p>
+        <li>下記のごはんを認識しました</p>
+    </ul>
     <!-- <ul>
         <li><input type="text" id="predicted1" value="{{ predicted_labels[0][0] }}" readonly>
             <button class="editButton" data-target="predicted1">編集</button>
@@ -23,9 +24,8 @@
             <button class="completeButton" data-target="predicted3" style="display:none;">完了</button>
         </li>
     </ul> -->
-    <div class="center">
     <!-- <h3>特徴を平均して認識するパターン:</h3> -->
-    <ul>
+    <ul class="prediction_result">
         <li><input type="text" id="averagePredicted" value="{{ predicted_labels[1][0] }}" readonly>
             <button class="editButton" data-target="averagePredicted">編集</button>
             <button class="completeButton" data-target="averagePredicted" style="display:none;">完了</button>
@@ -37,8 +37,8 @@
         <input type="hidden" name="cuisine" value="{{ predicted_labels[1][0] }}"> <!-- 料理名 -->
         <button id="submitButton">登録する</button>
     </form>
-    </div>
-    <button onclick="location.href='{{ url_for('photo_menu') }}';" class="back-btn">戻る</button>
+</div>
+<button onclick="location.href='{{ url_for('photo_menu') }}';" class="back-btn">戻る</button>
 
     <script>
         // 編集ボタンにクリックイベントを追加
