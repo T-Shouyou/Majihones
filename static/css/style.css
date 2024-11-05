@@ -615,13 +615,31 @@ canvas {
 
 #selected-image { /* 画像の最大サイズを制限　「縛り」 */
     position:fixed;
-    left:90px;
+    top:270px;
+    left:130px;
     display: none; /* 初期状態で非表示 */
     max-width: 150px; /* 幅を400pxに制限 */
     max-height: 150px; /* 高さを300pxに制限 */
     width: auto; /* 幅の自動調整 */
     height: auto; /* 高さの自動調整 */
     overflow: hidden; /* はみ出す部分を隠す */
+}
+
+.upload-img-zone{
+    background-color:gainsboro;
+    position:fixed;
+    top:240px;
+    left:90px;
+    width: 270px; /* 幅を400pxに制限 */
+    height: 220px; /* 高さを300pxに制限 */
+    overflow: hidden; /* はみ出す部分を隠す */
+}
+
+.upload-img-zone-text {
+    color: #555;
+    font-size: 16px;
+    text-align: center;
+    line-height: 220px; /* 高さに合わせて垂直中央に配置 */
 }
 
 .clearfix::after {
@@ -823,7 +841,7 @@ canvas {
     position:fixed;
     flex-direction: column;     /* 縦方向に要素を配置 */
     top:200px;
-    left:30px;
+    left:60px;
     height:200px;
     width:auto;
 }
@@ -832,6 +850,9 @@ canvas {
     font-size: 16px;
     height:60px;
     width:auto;
+}
+.recipe-photo-take{
+
 }
 
 .editButton{
