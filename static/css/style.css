@@ -945,3 +945,37 @@ canvas {
 .touroku-comp-button:hover {
     background-color: #efe8d2; /* ホバー時の灰色を少し暗くする */
 }
+
+
+/* ---------------------MasterCheck用CSS -------------------------*/
+
+.master-pad1{
+    padding-top:100px;
+}
+
+.MC-button-container{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.MasCheck-button {
+    width: 150px; /* ボタンの幅を設定 */
+    height:40px;
+    margin:10px 10px 10px 10px; /* ボタンの間にスペースを追加 */
+    border-style: solid;
+    border-color:darkslateblue; /* 枠線をなしに設定 */
+    background-color: #007BFF;
+    color: white;
+    font-size: 22px;
+    border-radius: 65px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+
+.MasCheck-button:hover {
+    background-color: #0056b3; /* ホバー時の水色を少し暗くする */
+}
+
+form.MC-form {
+    display: inline-flex;  /* フォーム自体をインラインフレックスに設定 */
+}

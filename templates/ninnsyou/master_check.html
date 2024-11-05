@@ -2,24 +2,21 @@
 {% block title %}運営アカウント確認{% endblock %}
 {% block content %}
 
-    <div class="container">
-<<<<<<< HEAD
-        <div class="master-pad"></div>
-        <h2 class="txt-center">運営用のアカウントでログインしています。</h2>
-        <p class="txt-center">このまま続ける場合ははいボタンを、ログアウトする場合はいいえボタンを押下</p>
-=======
-        <h2>運営用のアカウントでログインしています。</h2>
-        <p>このまま続ける場合は右のはいボタンを<br>ログアウトする場合は左のいいえボタンを押下</p>
->>>>>>> f8b3d6db9479604ea4db3ca45fac9189e8637538
+    
+        <div class="master-pad1">
+            <h2 class="txt-center">運営用のアカウントでログインしています。</h2>
+        </div>
+        
+        <div class="master-pad2">
+            <p class="txt-center">このまま続ける場合ははいボタンを<br>ログアウトする場合はいいえボタンを押下</p>
+        </div>
 
-        <div class="button-container">
-            <form action="{{ url_for('mainmenu') }}" method="GET">
-                <button type="submit" class="button-yes">はい</button>
+        <div class="MC-button-container">
+            <form action="{{ url_for('logout') }}" method="POST" class="MC-form">
+                <button type="submit" class="MasCheck-button">いいえ</button>
             </form>
-            <form action="{{ url_for('logout') }}" method="POST">
-                <button type="submit" class="button-no">いいえ</button>
+            <form action="{{ url_for('mainmenu') }}" method="GET" class="MC-form">
+                <button type="submit" class="MasCheck-button">はい</button>
             </form>
         </div>
-    </div>
-
 {% endblock %}
