@@ -8,6 +8,7 @@ import os
 import secrets
 import random
 import string
+import re
 from datetime import datetime 
 
 
@@ -240,6 +241,11 @@ def signup():
     account_name = request.form['account_name']
     mail_address = request.form['mail_address']
     password = request.form['password']
+
+    email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(email_regex, mail_address):
+        error_message = "メールアドレスの形式が正しくありません。"
+        return render_template('ninnsyou/signup.html', account_name=account_name, mail_address=mail_address, error_message=error_message)
 
     # 入力値のバリデーション
     if len(account_name) > 10 or len(password) < 8 or len(password) > 20:
