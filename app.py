@@ -226,11 +226,24 @@ def login():
         if user:
             session['account_id'] = user[0]
             session['account_name'] = user[1]
-            return redirect(url_for('mainmenu'))
+            if user[0] == 1:
+                return redirect(url_for('master_check'))
+            else:
+                return redirect(url_for('mainmenu'))
         else:
             error_message = "ログインに失敗しました。アカウント名またはパスワードが間違っています。"
 
     return render_template('ninnsyou/login.html', mail_address=mail_address, error_message=error_message)
+
+@app.route('/ninnsyou/master_check', methods=['GET', 'POST'])
+def master_check():
+    if request.method == 'POST':
+        if request.form['confirm'] == 'yes':
+            return redirect(url_for('mainmenu'))
+        else:
+            return redirect(url_for('login'))
+
+    return render_template('ninnsyou/master_check.html')
 
 @app.route('/ninnsyou/signup', methods=['GET'])
 def sign_up():
@@ -292,7 +305,7 @@ def inject_account_info():
         'account_id': session.get('account_id')
     }
 
-@app.route('/mainmenu/mainmenu')
+@app.route('/mainmenu/mainmenu', methods=['GET', 'POST'])
 def mainmenu():
     if 'account_name' in session:
         return render_template('mainmenu/mainmenu.html')
