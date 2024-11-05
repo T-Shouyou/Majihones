@@ -508,6 +508,10 @@ canvas {
     white-space: pre-wrap; /* 改行を保持しつつ、単語の途中での折り返しを許可 */
 }
 
+#searchByContent{
+    margin-left:20px;
+}
+
 /*     ------------------ごはん提案CSS---------------------------- */
 
 .sugglook-button{
