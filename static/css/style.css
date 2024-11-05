@@ -196,7 +196,6 @@ header {
     position: fixed; /* 視覚的に固定 */
     bottom: 20px; /* 下から0px */
     left: 40px; /* 左から0px */
-    width: 100%; /* 幅を100%に */
     padding: 20px;
 }
 
@@ -492,7 +491,8 @@ canvas {
 .post-txt {
     word-wrap: break-word; /* 単語の途中で改行を許可 */
     overflow-wrap: break-word; /* overflow-wrapのプロパティをサポートするブラウザ向け */
-    white-space: normal; /* 通常の改行を有効にする */
+    overflow: hidden; /* はみ出す部分を隠す */
+    white-space: pre-wrap normal; /* 空白を保持し、折り返す */
     margin-left:10px;
     margin-bottom:20px;
     flex: 1; /* テキストが残りのスペースを占有する */
@@ -614,12 +614,13 @@ canvas {
 }
 
 #selected-image { /* 画像の最大サイズを制限　「縛り」 */
+    position:fixed;
+    left:90px;
     display: none; /* 初期状態で非表示 */
     max-width: 150px; /* 幅を400pxに制限 */
     max-height: 150px; /* 高さを300pxに制限 */
     width: auto; /* 幅の自動調整 */
     height: auto; /* 高さの自動調整 */
-    margin: 10px 0; /* 上下のマージンを設定 */
     overflow: hidden; /* はみ出す部分を隠す */
 }
 
@@ -663,6 +664,14 @@ canvas {
     margin: auto; /* コンテナを中央に配置 */
     flex-direction: column; /* 縦に並べる */       
 }
+
+.disabled-button {
+    background-color: lightgray; /* 薄い灰色 */
+    color: darkgray; /* 文字色も薄く */
+    pointer-events: none; /* クリックイベントを無効にする */
+    cursor: not-allowed; /* カーソルを禁止にする */
+}
+
 
 
 /* ごはん提案メニュー */
@@ -778,9 +787,14 @@ canvas {
 
 /*----------------------------即席修理ここまで------------------------*/
 
+<<<<<<< HEAD
 
 /* success */
 .success_text {
+=======
+/* 予測結果画面　またの名をsuccess */
+.text-success {
+>>>>>>> 24f0f4ac9553ea7892761c790301c251b8747300
     display: flex;
     text-align: center;
     flex-direction: column;
@@ -802,6 +816,7 @@ canvas {
 
 
 .prediction_result {
+<<<<<<< HEAD
     display: flex; /* フレックスボックスにする */
     justify-content: center; /* 横方向の中央揃え */
     align-items: center; /* 縦方向の中央揃え */
@@ -811,6 +826,12 @@ canvas {
     padding: 0; /* デフォルトのパディングを消す */
     margin: 0; /* デフォルトのマージンを消す */
     margin-top: -40px;
+=======
+    height: 100px;
+    list-style-type: none; /* リストマーカーを消す */
+    padding: 0; /* デフォルトのパディングを消す */
+    margin-left: 50%; /* デフォルトのマージンを消す */
+>>>>>>> 24f0f4ac9553ea7892761c790301c251b8747300
 }
 
 .prediction_result li {
@@ -823,6 +844,7 @@ canvas {
     margin: 10px; /* 各要素間の間隔を調整する */
 }
 
+<<<<<<< HEAD
 #averagePredicted {
     width: 400px;
     height: 40px;
@@ -837,3 +859,81 @@ canvas {
 }
 
 
+=======
+/* レシピアップロード画面CSS */
+.recipe-camera {
+    position:fixed;
+    flex-direction: column;     /* 縦方向に要素を配置 */
+    top:200px;
+    left:30px;
+    height:200px;
+    width:auto;
+}
+
+.pred-txt{
+    font-size: 16px;
+    height:60px;
+    width:auto;
+}
+
+.editButton{
+    border-radius: 5px;
+    background-color:palegreen;
+    margin-left:10px;
+    height:50px;
+    min-width: 85px; /* 最小幅も設定 */
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+.completeButton{
+    color:white;
+    border-radius: 5px;
+    background-color:red;
+    margin-left:10px;
+    height:50px;
+    min-width: 85px; /* 最小幅も設定 */
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+#submitButton{
+    border-radius: 5px;
+    position:fixed;
+    justify-content: center; /* 横方向の中央揃え */
+    left:50%;
+    background-color:plum;
+    height:60px;
+    min-width: 110px; /* 最小幅も設定 */
+    padding:10px;
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+/* ごはんアップロード完了ページCSS */
+
+.touroku-comp{
+    text-align:center;
+    margin-top:100px;
+}
+
+.touroku-comp-button {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 中央揃え */
+    
+    width: 400px; /* ボタンの幅を設定 */
+    height: 70px; /* ボタンの高さを設定 */
+    margin: 150px 0px 0px 35%; /* ボタンの間にスペースを追加 */
+    border: none; /* 枠線をなしに設定 */
+    color: black;
+    font-size: 22px;
+    border-radius: 10px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+
+.touroku-comp-button:hover {
+    background-color: #efe8d2; /* ホバー時の灰色を少し暗くする */
+}
+>>>>>>> 24f0f4ac9553ea7892761c790301c251b8747300

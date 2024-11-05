@@ -25,9 +25,9 @@
     </ul> -->
     <!-- <h3>特徴を平均して認識するパターン:</h3> -->
     <ul class="prediction_result">
-        <li><input type="text" id="averagePredicted" value="{{ predicted_labels[1][0] }}" readonly>
-            <button class="editButton" data-target="averagePredicted">編集</button>
-            <button class="completeButton" data-target="averagePredicted" style="display:none;">完了</button>
+        <li><input type="text" id="averagePredicted" value="{{ predicted_labels[1][0] }}" class="pred-txt" readonly>
+            <button class="editButton" data-target="averagePredicted">✎編集</button>
+            <button class="completeButton" data-target="averagePredicted" style="display:none;">✔完了</button>
         </li>
     </ul>
 
@@ -37,7 +37,10 @@
         <button id="submitButton">登録する</button>
     </form>
 </div>
-<button onclick="location.href='{{ url_for('photo_menu') }}';" class="back-btn">戻る</button>
+
+<div class="back-button-container">
+    <button onclick="location.href='{{ url_for('photo_menu') }}';" class="back-button">戻る</button>
+</div>
 
     <script>
         // 編集ボタンにクリックイベントを追加
