@@ -202,7 +202,7 @@ def recipe_look():
         recipe_features = pickle.load(f)
 
     # レシピのラベルを取得
-    recipe_labels = list(recipe_features.keys())
+    recipe_labels = sorted(recipe_features.keys())
     
     return render_template('ninnsiki/recipe_look.html', recipe_labels=recipe_labels)
 

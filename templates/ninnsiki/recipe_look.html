@@ -3,15 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>レシピ一覧</title>
+    <meta charset="UTF-8">
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <h1>現在のレシピ一覧</h1>
-    <ul>
+    <p>Unicodeのコードポイントに基づいてソートしてるよん</p>
+
+    <input type="text" id="searchBox" placeholder="レシピを検索...">
+    
+    <ul id="recipeList">
         {% for label in recipe_labels %}
             <li>{{ label }}</li>
         {% endfor %}
     </ul>
+
     <a href="/ninnsiki/recipe_delete">レシピを削除する</a>
     <a href="/ninnsiki/recipe_images">戻る</a>
+
+    <script>
+        // JavaScriptでリアルタイム検索機能を実装
+        document.getElementById("searchBox").addEventListener("input", function() {
+            const filter = this.value.toLowerCase();
+            const items = document.querySelectorAll("#recipeList li");
+            
+            items.forEach(item => {
+                // 項目が検索語に一致するかどうか
+                if (item.textContent.toLowerCase().includes(filter)) {
+                    item.classList.remove("hidden");
+                } else {
+                    item.classList.add("hidden");
+                }
+            });
+        });
+    </script>
 </body>
 </html>
