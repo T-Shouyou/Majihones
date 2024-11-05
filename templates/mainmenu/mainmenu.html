@@ -4,7 +4,6 @@
 
 {% block content %}
 
-
 <div class="main-contents">
     <div class="button-container-mainmenu">
         <button onclick="location.href='{{ url_for('photo_menu') }}';" class="camera-button"><img
@@ -65,17 +64,26 @@
         }
     });
 
-    // 編集ボタンのイベントリスナー
-    document.getElementById('edit-button').addEventListener('click', function () {
-        const memo = document.getElementById('memo');
-        memo.disabled = false; // テキストエリアを編集可能にする
-    });
+    // DOMの読み込みが完了してからイベントリスナーを設定
+    document.addEventListener('DOMContentLoaded', function () {
+        // 編集ボタンのイベントリスナー
+        const editButton = document.getElementById('edit-button');
+        if (editButton) {
+            editButton.addEventListener('click', function () {
+                const memo = document.getElementById('memo');
+                memo.disabled = false; // テキストエリアを編集可能にする
+            });
+        }
 
-    // 確定ボタンのイベントリスナー
-    document.getElementById('confirm-button').addEventListener('click', function () {
-        const memo = document.getElementById('memo');
-        localStorage.setItem('memo', memo.value); // メモを保存
-        memo.disabled = true; // テキストエリアを再び非編集にする
+        // 確定ボタンのイベントリスナー
+        const confirmButton = document.getElementById('confirm-button');
+        if (confirmButton) {
+            confirmButton.addEventListener('click', function () {
+                const memo = document.getElementById('memo');
+                localStorage.setItem('memo', memo.value); // メモを保存
+                memo.disabled = true; // テキストエリアを再び非編集にする
+            });
+        }
     });
 </script>
 {% endblock %}
