@@ -5,11 +5,10 @@
 {% block content %}
 
 <div class="main-contents">
-    <div class="success_text"></div>
-    <div class="success-parent-container">
-        <p class="success_text1">撮影結果</p>
+    <div class="success-text">
+        <p class="success-text1">撮影結果</p>
+        <p class="success-text2">下記のごはんを認識しました</p>
     </div>
-    <p class="txt-center">下記のごはんを認識しました</p>
     <!-- <ul>
         <li><input type="text" id="predicted1" value="{{ predicted_labels[0][0] }}" readonly>
             <button class="editButton" data-target="predicted1">編集</button>
@@ -25,7 +24,7 @@
         </li>
     </ul> -->
     <!-- <h3>特徴を平均して認識するパターン:</h3> -->
-    <ul class="prediction_result">
+    <ul class="prediction-result">
         <li><input type="text" id="averagePredicted" value="{{ predicted_labels[1][0] }}" class="pred-txt" readonly>
             <button class="editButton" data-target="averagePredicted">✎編集</button>
             <button class="completeButton" data-target="averagePredicted" style="display:none;">✔完了</button>
@@ -35,7 +34,7 @@
     <form action="{{ url_for('register_food') }}" method="post">
         <input type="hidden" name="account_id" value="{{ session['account_id'] }}"> <!-- アカウントID -->
         <input type="hidden" name="cuisine" value="{{ predicted_labels[1][0] }}"> <!-- 料理名 -->
-        <div class="success-parent-container">
+        <div class="submitButton-container">
             <button id="submitButton">登録する</button>
         </div>
     </form>
