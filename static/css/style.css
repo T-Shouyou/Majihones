@@ -787,54 +787,37 @@ canvas {
 
 /*----------------------------即席修理ここまで------------------------*/
 
-<<<<<<< HEAD
-
-/* success */
-.success_text {
-=======
 /* 予測結果画面　またの名をsuccess */
-.text-success {
->>>>>>> 24f0f4ac9553ea7892761c790301c251b8747300
+.success-text {
     display: flex;
     text-align: center;
     flex-direction: column;
+    width: 50%;
+    margin: 0 auto;
     margin-top: -20px;
 }
 
 
-.success_text1 {
+.success-text1 {
     font-size: 30px;
     background-color: white;
     border-radius: 5px;
     border: 1px solid black;
     list-style-type: none;
-    width: 400px;
     text-align: center;
     padding-top: 15px;
     padding-bottom: -50px;
 }
 
 
-.prediction_result {
-<<<<<<< HEAD
-    display: flex; /* フレックスボックスにする */
-    justify-content: center; /* 横方向の中央揃え */
-    align-items: center; /* 縦方向の中央揃え */
-    width: 100%; /* 幅を100%に設定 */
-    height: 100px; /* 高さを設定 */
-    list-style-type: none; /* リストマーカーを消す */
-    padding: 0; /* デフォルトのパディングを消す */
-    margin: 0; /* デフォルトのマージンを消す */
-    margin-top: -40px;
-=======
+.prediction-result {
     height: 100px;
     list-style-type: none; /* リストマーカーを消す */
     padding: 0; /* デフォルトのパディングを消す */
     margin-left: 50%; /* デフォルトのマージンを消す */
->>>>>>> 24f0f4ac9553ea7892761c790301c251b8747300
 }
 
-.prediction_result li {
+.prediction-result li {
     display: flex; /* フレックスボックスにする */
     justify-content: center; /* 横方向の中央揃え */
     align-items: center; /* 縦方向の中央揃え */
@@ -844,22 +827,6 @@ canvas {
     margin: 10px; /* 各要素間の間隔を調整する */
 }
 
-<<<<<<< HEAD
-#averagePredicted {
-    width: 400px;
-    height: 40px;
-    font-size: 20px;
-}
-
-.editButton, .completeButton{
-    padding: 10px 10px;
-    font-size: 15px;
-    margin: 5px;
-    cursor: pointer;
-}
-
-
-=======
 /* レシピアップロード画面CSS */
 .recipe-camera {
     position:fixed;
@@ -936,4 +903,3 @@ canvas {
 .touroku-comp-button:hover {
     background-color: #efe8d2; /* ホバー時の灰色を少し暗くする */
 }
->>>>>>> 24f0f4ac9553ea7892761c790301c251b8747300
