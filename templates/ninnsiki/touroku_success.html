@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登録完了</title>
-</head>
-<body>
-    <h2>ごはんを登録しました</h2>
-    <a href="{{ url_for('photo_menu') }}" class="upload-button">あっぷろーｄｐ</a>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}登録完了{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="style.css">
+
+    <h2 class="touroku-comp">ごはんの登録が完了しました</h2>
+    <a href="{{ url_for('photo_menu') }}" class="touroku-comp-button">あっぷろーｄｐ</a>
+
+{% endblock %}
