@@ -173,6 +173,12 @@
     });
 }
 
+function resetSearch() {
+    document.getElementById('searchAccountId').value = '';
+    document.getElementById('searchAccountName').value = '';
+    document.getElementById('searchEmail').value = '';
+    searchAccounts();
+}
 
 </script>
 
@@ -187,6 +193,7 @@
     <input type="text" id="searchAccountId" placeholder="アカウントIDで検索..." oninput="searchAccounts()">
     <input type="text" id="searchAccountName" placeholder="アカウント名で検索..." oninput="searchAccounts()">
     <input type="text" id="searchEmail" placeholder="メールアドレスで検索..." oninput="searchAccounts()">
+    <button id="resetButton" type="button" onclick="resetSearch()">リセット</button>
 </div>
 
 <div class="table-container">
