@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}運営アカウント確認{% endblock %}
+{% block content %}
+
+    <div class="container">
+        <div class="master-pad"></div>
+        <h2 class="txt-center">運営用のアカウントでログインしています。</h2>
+        <p class="txt-center">このまま続ける場合は右のはいボタンを<br>
+            ログアウトする場合は左のいいえボタンを押下</p>
+        <div class="button-container">
+            <form action="{{ url_for('mainmenu') }}" method="GET">
+                <button type="submit" class="button-yes">はい</button>
+            </form>
+            <form action="{{ url_for('logout') }}" method="POST">
+                <button type="submit" class="button-no">いいえ</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

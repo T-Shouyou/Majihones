@@ -615,13 +615,31 @@ canvas {
 
 #selected-image { /* 画像の最大サイズを制限　「縛り」 */
     position:fixed;
-    left:90px;
+    top:270px;
+    left:130px;
     display: none; /* 初期状態で非表示 */
     max-width: 150px; /* 幅を400pxに制限 */
     max-height: 150px; /* 高さを300pxに制限 */
     width: auto; /* 幅の自動調整 */
     height: auto; /* 高さの自動調整 */
     overflow: hidden; /* はみ出す部分を隠す */
+}
+
+.upload-img-zone{
+    background-color:gainsboro;
+    position:fixed;
+    top:240px;
+    left:90px;
+    width: 270px; /* 幅を400pxに制限 */
+    height: 220px; /* 高さを300pxに制限 */
+    overflow: hidden; /* はみ出す部分を隠す */
+}
+
+.upload-img-zone-text {
+    color: #555;
+    font-size: 16px;
+    text-align: center;
+    line-height: 220px; /* 高さに合わせて垂直中央に配置 */
 }
 
 .clearfix::after {
@@ -792,29 +810,34 @@ canvas {
     display: flex;
     text-align: center;
     flex-direction: column;
-    width: 50%;
+    width: 400px;
     margin: 0 auto;
     margin-top: -20px;
 }
 
 
+/* success_text1 */
 .success-text1 {
     font-size: 30px;
     background-color: white;
     border-radius: 5px;
     border: 1px solid black;
     list-style-type: none;
-    text-align: center;
-    padding-top: 15px;
-    padding-bottom: -50px;
+    align-items: center;
+    padding-top: 2px;
 }
 
 
 .prediction-result {
-    height: 100px;
+    display: flex; /* フレックスボックスにする */
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center; /* 縦方向の中央揃え */
+    width: 100%; /* 幅を100%に設定 */
+    height: 100px; /* 高さを設定 */
     list-style-type: none; /* リストマーカーを消す */
     padding: 0; /* デフォルトのパディングを消す */
-    margin-left: 50%; /* デフォルトのマージンを消す */
+    margin: 0; /* デフォルトのマージンを消す */
+    margin-top: -40px;
 }
 
 .prediction-result li {
@@ -827,12 +850,26 @@ canvas {
     margin: 10px; /* 各要素間の間隔を調整する */
 }
 
+#averagePredicted {
+    width: 400px;
+    height: 40px;
+    font-size: 20px;
+}
+
+.editButton, .completeButton{
+    padding: 10px 10px;
+    font-size: 15px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+
 /* レシピアップロード画面CSS */
 .recipe-camera {
     position:fixed;
     flex-direction: column;     /* 縦方向に要素を配置 */
     top:200px;
-    left:30px;
+    left:60px;
     height:200px;
     width:auto;
 }
@@ -841,6 +878,9 @@ canvas {
     font-size: 16px;
     height:60px;
     width:auto;
+}
+.recipe-photo-take{
+
 }
 
 .editButton{
@@ -864,16 +904,22 @@ canvas {
     cursor: pointer; /* カーソルをポインターに変更 */
 }
 
+.submitButton-container {
+    width: 110px;
+    position: fixed; /* 視覚的に固定 */
+    bottom: 40px; /* 下から0px */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 #submitButton{
     border-radius: 5px;
-    position:fixed;
-    justify-content: center; /* 横方向の中央揃え */
-    left:50%;
-    background-color:plum;
+    background-color:#f8cecc;
     height:60px;
-    min-width: 110px; /* 最小幅も設定 */
+    width: 110px; /* 最小幅も設定 */
     padding:10px;
     cursor: pointer; /* カーソルをポインターに変更 */
+    font-size: 20px;
 }
 
 /* ごはんアップロード完了ページCSS */

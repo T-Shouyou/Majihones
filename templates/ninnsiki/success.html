@@ -34,7 +34,9 @@
     <form action="{{ url_for('register_food') }}" method="post">
         <input type="hidden" name="account_id" value="{{ session['account_id'] }}"> <!-- アカウントID -->
         <input type="hidden" name="cuisine" value="{{ predicted_labels[1][0] }}"> <!-- 料理名 -->
-        <button id="submitButton">登録する</button>
+        <div class="submitButton-container">
+            <button id="submitButton">登録する</button>
+        </div>
     </form>
 </div>
 
