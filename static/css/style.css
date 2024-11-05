@@ -809,32 +809,65 @@ canvas {
 .text-success {
     display: flex;
     text-align: center;
-    font-size: 30px;
     flex-direction: column;
-    list-style-type: none;
     margin-top: -20px;
 }
 
-.text-success li {
-    margin-bottom: -20px;
+/* 親要素 */
+.success-parent-container {
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 水平方向に中央揃え */
+    align-items: center; /* 垂直方向に中央揃え */
 }
 
+/* success_text1 */
+.success_text1 {
+    font-size: 30px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid black;
+    list-style-type: none;
+    width: 400px;
+    text-align: center;
+    padding-top: 15px;
+}
+
+
 .prediction_result {
-    height: 100px;
+    display: flex; /* フレックスボックスにする */
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center; /* 縦方向の中央揃え */
+    width: 100%; /* 幅を100%に設定 */
+    height: 100px; /* 高さを設定 */
     list-style-type: none; /* リストマーカーを消す */
     padding: 0; /* デフォルトのパディングを消す */
-    margin-left: 50%; /* デフォルトのマージンを消す */
+    margin: 0; /* デフォルトのマージンを消す */
+    margin-top: -40px;
 }
 
 .prediction_result li {
     display: flex; /* フレックスボックスにする */
-    align-items: center; /* 縦方向の中央揃え */
     justify-content: center; /* 横方向の中央揃え */
-    width: 50px; /* 固定幅 */
+    align-items: center; /* 縦方向の中央揃え */
+    width: auto; /* 自動幅に変更 */
     height: 30px; /* 固定高さ */
     font-size: 20px; /* フォントサイズ */
     margin: 10px; /* 各要素間の間隔を調整する */
 }
+
+#averagePredicted {
+    width: 400px;
+    height: 40px;
+    font-size: 20px;
+}
+
+.editButton, .completeButton{
+    padding: 10px 10px;
+    font-size: 15px;
+    margin: 5px;
+    cursor: pointer;
+}
+
 
 /* レシピアップロード画面CSS */
 .recipe-camera {
@@ -878,12 +911,9 @@ canvas {
 
 #submitButton{
     border-radius: 5px;
-    position:fixed;
-    justify-content: center; /* 横方向の中央揃え */
-    left:50%;
     background-color:plum;
     height:60px;
-    min-width: 110px; /* 最小幅も設定 */
+    width: 110px; /* 最小幅も設定 */
     padding:10px;
     cursor: pointer; /* カーソルをポインターに変更 */
 }

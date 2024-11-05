@@ -6,10 +6,11 @@
 
 <title>撮影結果</title>
 <div class="main-contents">
-    <ul class="text-success">
-        <li>撮影結果</p>
-        <li>下記のごはんを認識しました</p>
-    </ul>
+    <div class="success_text"></div>
+    <div class="success-parent-container">
+        <p class="success_text1">撮影結果</p>
+    </div>
+    <p class="txt-center">下記のごはんを認識しました</p>
     <!-- <ul>
         <li><input type="text" id="predicted1" value="{{ predicted_labels[0][0] }}" readonly>
             <button class="editButton" data-target="predicted1">編集</button>
@@ -35,7 +36,9 @@
     <form action="{{ url_for('register_food') }}" method="post">
         <input type="hidden" name="account_id" value="{{ session['account_id'] }}"> <!-- アカウントID -->
         <input type="hidden" name="cuisine" value="{{ predicted_labels[1][0] }}"> <!-- 料理名 -->
-        <button id="submitButton">登録する</button>
+        <div class="success-parent-container">
+            <button id="submitButton">登録する</button>
+        </div>
     </form>
 </div>
 
