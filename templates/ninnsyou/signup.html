@@ -16,14 +16,14 @@
         </div>
     {% endif %}
     
-    <form action="{{ url_for('signup') }}" method="post">  <!-- 修正点: actionをFlaskのurl_forで指定 -->
+    <form action="{{ url_for('signup') }}" method="post">
         <div id="input1">
             <div class="signup-form">
-                <input name="account_name" class="my-textbox" placeholder="アカウント名(表示名)" required>
+                <input name="account_name" class="my-textbox" placeholder="アカウント名(表示名)" value="{{ account_name or '' }}" required>
             </div>
             <br>
             <div class="signup-form">
-                <input name="mail_address" class="my-textbox" placeholder="メールアドレス" required>
+                <input name="mail_address" class="my-textbox" placeholder="メールアドレス" value="{{ mail_address or '' }}" required>
             </div>
             <br>
             <div class="signup-form">
@@ -31,7 +31,7 @@
             </div>
             <br>
             <div class="signup-form">
-                <button type="submit" id="login-button" class="signup-button">登録</button> <!-- 修正点: typeをsubmitに変更 -->
+                <button type="submit" id="login-button" class="signup-button">登録</button>
             </div>
         </div>
     </form>

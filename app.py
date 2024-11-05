@@ -244,7 +244,7 @@ def signup():
     # 入力値のバリデーション
     if len(account_name) > 10 or len(password) < 8 or len(password) > 20:
         error_message = "アカウント名は10桁以内、パスワードは8桁以上20桁以内で入力してね"
-        return render_template('ninnsyou/signup.html', error_message=error_message)
+        return render_template('ninnsyou/signup.html', account_name=account_name, mail_address=mail_address, error_message=error_message)
 
     conn = get_db()
     cur = conn.cursor()
@@ -254,7 +254,7 @@ def signup():
         cur.close()
         conn.close()
         error_message = "そのメールアドレスは既に使用されています。"
-        return render_template('ninnsyou/signup.html', error_message=error_message)
+        return render_template('ninnsyou/signup.html', account_name=account_name, mail_address=mail_address, error_message=error_message)
 
     #新規登録
     cur.execute("INSERT INTO ACCOUNT (ACCOUNT_NAME, MAIL, PASS) VALUES (?, ?, ?)", (account_name, mail_address, password))
