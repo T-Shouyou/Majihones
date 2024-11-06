@@ -2,6 +2,7 @@
 {% block title %}登録成功{% endblock %}
 {% block content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <div class="pad"></div>
             <h2 class="txt-center">新規登録が完了しました</h2>
             <div class="login-form">
                 <button onclick="location.href='{{ url_for('login') }}';" id="login-button" class="login-button">ログイン</button>

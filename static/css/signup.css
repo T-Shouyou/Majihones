@@ -89,7 +89,10 @@ body {
 
 .error-message {
     color: red;
-    display: none; /* 初期状態で非表示 */
     margin-left: 10px;
     text-align:center;
+}
+
+.pad{
+    margin-top:140px;
 }

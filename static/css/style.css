@@ -210,7 +210,11 @@ header {
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
 }
 
-
+.LoginSignup-error-message {
+    color: red;
+    margin-left: 10px;
+    text-align:center;
+}
 
 .back-button:hover {
     background-color: #efe8d2; /* ホバー時の水色を少し暗くする */
@@ -424,7 +428,7 @@ canvas {
 
 
 
-/*     ------------------ごはん広場CSS---------------------------- */
+/* --------------------------------ごはん広場CSS------------------------------------- */
 
 .fixed-button {
     position: fixed; /* 固定位置にする */
@@ -512,7 +516,19 @@ canvas {
     margin-left:20px;
 }
 
-/*     ------------------ごはん提案CSS---------------------------- */
+.reset-button{
+    height:20px;
+    width:90px;
+    margin-left:20px;
+    background-color:red;
+    color:white;
+    border-radius:5px;
+    border: 1px solid black;
+    line-height: 5px;
+    text-align: center;   
+}
+
+/*     ----------------------------------ごはん提案CSS---------------------------- */
 
 .sugglook-button{
     background-color: skyblue;
@@ -574,9 +590,9 @@ canvas {
 
 .error-message {
     color: red;
-    display: none; /* 初期状態で非表示 */
     margin-left: 10px;
     text-align:center;
+    display: none;
 }
 
 .fixed-button-back {

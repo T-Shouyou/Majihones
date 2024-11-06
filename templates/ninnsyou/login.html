@@ -1,14 +1,14 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>ログイン</title>
+{% extends 'base.html' %}
+{% block title %}ログイン{% endblock %}
+
+{% block content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
-</head>
-<body background="{{ url_for('static', filename='img/background.png') }}" class="kabegami">
-    <div class="container">
-        <img src="{{ url_for('static', filename='img/title.png') }}" class="title">
-    </div>
+
+    <div class="pad"></div>
+    {% if error_message %}
+            <div class="LoginSignup-error-message">{{ error_message }}</div>
+    {% endif %}
+
     <form action="{{ url_for('login') }}" method="post">
         <div class="login-form">
             <input name="mail_address" class="my-textbox" placeholder="メールアドレス" value="{{ mail_address }}" required>
@@ -22,9 +22,6 @@
             <button id="login-button" type="submit" class="login-button">ログイン</button>
         </div>
         <br>
-        {% if error_message %}
-            <div class="error-message">{{ error_message }}</div>
-        {% endif %}
         <div class="login-form">
             <a href="{{ url_for('signup') }}" class="start-link">新規登録はこちら</a>
         </div>
@@ -32,5 +29,4 @@
     <div class="back-button-container">
         <button id="back-button" onclick="location.href='{{ url_for('index') }}';" class="back-button">戻る</button>
     </div>
-</body>
-</html>
+    {% endblock %}

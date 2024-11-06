@@ -88,3 +88,13 @@ body {
 .txt-center{
     text-align : center;
 }
+
+.error-message {
+    color: red;
+    margin-left: 10px;
+    text-align:center;
+}
+
+.pad{
+    margin-top:140px;
+}

@@ -187,18 +187,13 @@ function resetSearch() {
 </div>
 <br><br><br><br>
 <h1 class="txtcenter">アカウント情報</h1>
-<<<<<<< HEAD
-<p class="txt-center">アカウントIDでの検索は完全一致、アカウント名・メールアドレスは部分一致で検索だよん</p>
-<div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
-=======
+<p class="txt-center">アカウントIDでの検索は完全一致、アカウント名・メールアドレスでの検索は部分一致だよん</p>
 
-<div style="margin-bottom: 20px;">
-    <p>アカウントIDでの検索は完全一致、アカウント名・メールアドレスでの検索は部分一致だよん</p>
->>>>>>> e8593791a154399acb86d69f5ea4d2ffd9af5f8c
+<div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
     <input type="text" id="searchAccountId" placeholder="アカウントIDで検索..." oninput="searchAccounts()">
     <input type="text" id="searchAccountName" placeholder="アカウント名で検索..." oninput="searchAccounts()">
     <input type="text" id="searchEmail" placeholder="メールアドレスで検索..." oninput="searchAccounts()">
-    <button id="resetButton" type="button" onclick="resetSearch()">リセット</button>
+    <button id="resetButton" type="button" onclick="resetSearch()" class="reset-button">リセット</button>
 </div>
 
 <div class="table-container">
