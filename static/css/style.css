@@ -576,6 +576,7 @@ canvas {
     color: red;
     display: none; /* 初期状態で非表示 */
     margin-left: 10px;
+    text-align:center;
 }
 
 .fixed-button-back {

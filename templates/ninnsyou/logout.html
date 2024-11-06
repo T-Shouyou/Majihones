@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>ログアウト確認</title>
+{% extends 'base.html' %}
+{% block title %}ログアウト確認{% endblock %}
+{% block content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/logout.css') }}">
-</head>
-<body background="{{ url_for('static', filename='img/background.png') }}" class="kabegami">
-    <div class="container">
-        <img src="{{ url_for('static', filename='img/title.png') }}" class="title">
-        <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
-    </div>
 
     <h2 class="txt-center">現在のアカウントからログアウトします。</h2>
     <br>
@@ -21,5 +13,4 @@
             <button type="submit" class="logout-Y">はい</button>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}

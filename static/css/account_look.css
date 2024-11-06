@@ -143,3 +143,11 @@ html, body {
     padding: 0;
     box-sizing: border-box;
 }
+
+#searchAccountName{
+    margin-left:20px;
+}
+
+#searchEmail{
+    margin-left:20px;
+}
