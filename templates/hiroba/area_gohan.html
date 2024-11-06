@@ -4,181 +4,202 @@
 
 {% block content %}
 
-    <br><br>
-    <h1 class="txt-center">ごはん広場</h1>
-    <h2 class="txt-center">投稿の責任は投稿した本人にあります。</h2>
+<br><br>
+<h1 class="txt-center">ごはん広場</h1>
+<h2 class="txt-center">投稿の責任は投稿した本人にあります。</h2>
 
+<<<<<<< HEAD
     <!-- 検索ボックス -->
     <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
         <input type="text" id="searchByName" placeholder="投稿者名で検索...">
         <input type="text" id="searchByContent" placeholder="投稿文で検索...">
     </div>
+=======
+<!-- 検索ボックス -->
+<div style="margin-bottom: 20px;">
+    <input type="text" id="searchByName" placeholder="投稿者名で検索...">
+    <input type="text" id="searchByContent" placeholder="投稿文で検索...">
+    <button type="button" onclick="resetSearch()">リセット</button>
+</div>
+>>>>>>> e8593791a154399acb86d69f5ea4d2ffd9af5f8c
 
-    <div class="posts" id="postsContainer">
-        {% for post in posts %}
-        <div class="post" data-post-id="{{ post.post_id }}">
-            <hr>
-            <p class="post-txt">
-                <strong>投稿者名:</strong> <span class="account-name">{{ post.account_name }}</span>
-                {% if account_id == 1 or post.account_id == account_id %}
-                <button onclick="toggleEditMode(this)" class="edit-button">編集</button>
-                <button onclick="confirmDelete(this)" class="delete-button">削除</button>
-                <button class="cancel-button" style="display:none;" onclick="cancelEdit(this)">キャンセル</button>
-                <button class="confirm-delete-button" style="display:none;" onclick="deletePost(this)">はい</button>
-                <button class="cancel-delete-button" style="display:none;" onclick="cancelDelete(this)">いいえ</button>
-                {% endif %}
-            </p>
-            <hr>
-            <div class="post-content">
-                {% if post.photo %}
-                <img src="{{ url_for('static', filename='hiroba_img/' + post.photo) }}" alt="投稿画像" class="post-img">
-                {% endif %}
-                <p class="post-txt" data-original="{{ post.sentence }}"><span class="post-sentence">{{ post.sentence }}</span></p>
-            </div>
+<div class="posts" id="postsContainer">
+    {% for post in posts %}
+    <div class="post" data-post-id="{{ post.post_id }}">
+        <hr>
+        <p class="post-txt">
+            <strong>投稿者名:</strong> <span class="account-name">{{ post.account_name }}</span>
+            {% if account_id == 1 or post.account_id == account_id %}
+            <button onclick="toggleEditMode(this)" class="edit-button">編集</button>
+            <button onclick="confirmDelete(this)" class="delete-button">削除</button>
+            <button class="cancel-button" style="display:none;" onclick="cancelEdit(this)">キャンセル</button>
+            <button class="confirm-delete-button" style="display:none;" onclick="deletePost(this)">はい</button>
+            <button class="cancel-delete-button" style="display:none;" onclick="cancelDelete(this)">いいえ</button>
+            {% endif %}
+        </p>
+        <hr>
+        <div class="post-content">
+            {% if post.photo %}
+            <img src="{{ url_for('static', filename='hiroba_img/' + post.photo) }}" alt="投稿画像" class="post-img">
+            {% endif %}
+            <p class="post-txt" data-original="{{ post.sentence }}"><span class="post-sentence">{{ post.sentence
+                    }}</span></p>
         </div>
-        {% endfor %}
     </div>
+    {% endfor %}
+</div>
 
-    <div class="fixed-button">
-        <button onclick="location.href='{{ url_for('mainmenu') }}';" class="main-button">メイン<br>メニュー</button>
-        <button onclick="location.href='{{ url_for('post_gohan') }}';" class="main-button">ごはん投稿</button>
-    </div>
+<div class="fixed-button">
+    <button onclick="location.href='{{ url_for('mainmenu') }}';" class="main-button">メイン<br>メニュー</button>
+    <button onclick="location.href='{{ url_for('post_gohan') }}';" class="main-button">ごはん投稿</button>
+</div>
 
-    <script>
-        let currentEditingPost = null;
-        let currentDeletingPost = null;
+<script>
+    let currentEditingPost = null;
+    let currentDeletingPost = null;
 
-        // 投稿者名での検索
-        document.getElementById("searchByName").addEventListener("input", function() {
-            const nameFilter = this.value.toLowerCase();
-            const posts = document.querySelectorAll(".post");
+    // 投稿者名での検索
+    document.getElementById("searchByName").addEventListener("input", function () {
+        const nameFilter = this.value.toLowerCase();
+        const posts = document.querySelectorAll(".post");
 
-            posts.forEach(post => {
-                const accountName = post.querySelector(".account-name").textContent.toLowerCase();
-                if (accountName.includes(nameFilter)) {
-                    post.style.display = ""; // 表示
-                } else {
-                    post.style.display = "none"; // 非表示
-                }
-            });
+        posts.forEach(post => {
+            const accountName = post.querySelector(".account-name").textContent.toLowerCase();
+            if (accountName.includes(nameFilter)) {
+                post.style.display = ""; // 表示
+            } else {
+                post.style.display = "none"; // 非表示
+            }
         });
+    });
 
-        // 投稿文での検索
-        document.getElementById("searchByContent").addEventListener("input", function() {
-            const contentFilter = this.value.toLowerCase();
-            const posts = document.querySelectorAll(".post");
+    // 投稿文での検索
+    document.getElementById("searchByContent").addEventListener("input", function () {
+        const contentFilter = this.value.toLowerCase();
+        const posts = document.querySelectorAll(".post");
 
-            posts.forEach(post => {
-                const postContent = post.querySelector(".post-sentence").textContent.toLowerCase();
-                if (postContent.includes(contentFilter)) {
-                    post.style.display = ""; // 表示
-                } else {
-                    post.style.display = "none"; // 非表示
-                }
-            });
+        posts.forEach(post => {
+            const postContent = post.querySelector(".post-sentence").textContent.toLowerCase();
+            if (postContent.includes(contentFilter)) {
+                post.style.display = ""; // 表示
+            } else {
+                post.style.display = "none"; // 非表示
+            }
         });
+    });
 
-        async function toggleEditMode(button) {
-            const postElement = button.closest('.post');
-            if (currentEditingPost && currentEditingPost !== postElement) {
-                cancelEdit(currentEditingPost.querySelector('.cancel-button'));
-            }
-            const sentenceElement = postElement.querySelector('.post-txt[data-original]');
-            const originalText = sentenceElement.getAttribute('data-original');
-            const editButton = postElement.querySelector('.edit-button');
-            const cancelButton = postElement.querySelector('.cancel-button');
-            const deleteButton = postElement.querySelector('.delete-button');
-
-            if (editButton.textContent === "編集") {
-                currentEditingPost = postElement;
-                sentenceElement.innerHTML = `<textarea class="edit-txtarea" maxlength="100">${originalText}</textarea>`;
-                editButton.textContent = "保存";
-                cancelButton.style.display = 'inline';
-                deleteButton.style.display = 'none';
-            } else if (editButton.textContent === "保存") {
-                const updatedSentence = sentenceElement.querySelector('textarea').value;
-
-                const response = await fetch(`/hiroba/edit_post/${postElement.getAttribute('data-post-id')}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ sentence: updatedSentence })
-                });
-
-                if (response.ok) {
-                    sentenceElement.innerHTML = updatedSentence;
-                    sentenceElement.setAttribute('data-original', updatedSentence);
-                    editButton.textContent = "編集";
-                    cancelButton.style.display = 'none';
-                    deleteButton.style.display = 'inline';
-                    currentEditingPost = null;
-                }
-            }
+    async function toggleEditMode(button) {
+        const postElement = button.closest('.post');
+        if (currentEditingPost && currentEditingPost !== postElement) {
+            cancelEdit(currentEditingPost.querySelector('.cancel-button'));
         }
+        const sentenceElement = postElement.querySelector('.post-txt[data-original]');
+        const originalText = sentenceElement.getAttribute('data-original');
+        const editButton = postElement.querySelector('.edit-button');
+        const cancelButton = postElement.querySelector('.cancel-button');
+        const deleteButton = postElement.querySelector('.delete-button');
 
-        function cancelEdit(button) {
-            const postElement = button.closest('.post');
-            const sentenceElement = postElement.querySelector('.post-txt[data-original]');
-            const originalText = sentenceElement.getAttribute('data-original');
-            const editButton = postElement.querySelector('.edit-button');
-            const cancelButton = postElement.querySelector('.cancel-button');
-            const deleteButton = postElement.querySelector('.delete-button');
-
-            sentenceElement.innerHTML = originalText;
-            editButton.textContent = "編集";
-            cancelButton.style.display = 'none';
-            deleteButton.style.display = 'inline';
-            currentEditingPost = null;
-        }
-
-        function confirmDelete(button) {
-            const postElement = button.closest('.post');
-
-            if (currentDeletingPost && currentDeletingPost !== postElement) {
-                cancelDelete(currentDeletingPost.querySelector('.cancel-delete-button'));
-            }
-
-            currentDeletingPost = postElement;
-
-            const editButton = postElement.querySelector('.edit-button');
-            const deleteButton = postElement.querySelector('.delete-button');
-            const confirmDeleteButton = postElement.querySelector('.confirm-delete-button');
-            const cancelDeleteButton = postElement.querySelector('.cancel-delete-button');
-
-            editButton.style.display = 'none';
+        if (editButton.textContent === "編集") {
+            currentEditingPost = postElement;
+            sentenceElement.innerHTML = `<textarea class="edit-txtarea" maxlength="100">${originalText}</textarea>`;
+            editButton.textContent = "保存";
+            cancelButton.style.display = 'inline';
             deleteButton.style.display = 'none';
-            confirmDeleteButton.style.display = 'inline';
-            cancelDeleteButton.style.display = 'inline';
-        }
+        } else if (editButton.textContent === "保存") {
+            const updatedSentence = sentenceElement.querySelector('textarea').value;
 
-        async function deletePost(button) {
-            const postElement = button.closest('.post');
-            const postId = postElement.getAttribute('data-post-id');
-
-            const response = await fetch(`/hiroba/delete_post/${postId}`, {
-                method: 'POST'
+            const response = await fetch(`/hiroba/edit_post/${postElement.getAttribute('data-post-id')}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ sentence: updatedSentence })
             });
 
             if (response.ok) {
-                postElement.remove();
-                currentDeletingPost = null;
+                sentenceElement.innerHTML = updatedSentence;
+                sentenceElement.setAttribute('data-original', updatedSentence);
+                editButton.textContent = "編集";
+                cancelButton.style.display = 'none';
+                deleteButton.style.display = 'inline';
+                currentEditingPost = null;
             }
         }
+    }
 
-        function cancelDelete(button) {
-            const postElement = button.closest('.post');
-            const editButton = postElement.querySelector('.edit-button');
-            const deleteButton = postElement.querySelector('.delete-button');
-            const confirmDeleteButton = postElement.querySelector('.confirm-delete-button');
-            const cancelDeleteButton = postElement.querySelector('.cancel-delete-button');
+    function cancelEdit(button) {
+        const postElement = button.closest('.post');
+        const sentenceElement = postElement.querySelector('.post-txt[data-original]');
+        const originalText = sentenceElement.getAttribute('data-original');
+        const editButton = postElement.querySelector('.edit-button');
+        const cancelButton = postElement.querySelector('.cancel-button');
+        const deleteButton = postElement.querySelector('.delete-button');
 
-            editButton.style.display = 'inline';
-            deleteButton.style.display = 'inline';
-            confirmDeleteButton.style.display = 'none';
-            cancelDeleteButton.style.display = 'none';
+        sentenceElement.innerHTML = originalText;
+        editButton.textContent = "編集";
+        cancelButton.style.display = 'none';
+        deleteButton.style.display = 'inline';
+        currentEditingPost = null;
+    }
+
+    function confirmDelete(button) {
+        const postElement = button.closest('.post');
+
+        if (currentDeletingPost && currentDeletingPost !== postElement) {
+            cancelDelete(currentDeletingPost.querySelector('.cancel-delete-button'));
+        }
+
+        currentDeletingPost = postElement;
+
+        const editButton = postElement.querySelector('.edit-button');
+        const deleteButton = postElement.querySelector('.delete-button');
+        const confirmDeleteButton = postElement.querySelector('.confirm-delete-button');
+        const cancelDeleteButton = postElement.querySelector('.cancel-delete-button');
+
+        editButton.style.display = 'none';
+        deleteButton.style.display = 'none';
+        confirmDeleteButton.style.display = 'inline';
+        cancelDeleteButton.style.display = 'inline';
+    }
+
+    async function deletePost(button) {
+        const postElement = button.closest('.post');
+        const postId = postElement.getAttribute('data-post-id');
+
+        const response = await fetch(`/hiroba/delete_post/${postId}`, {
+            method: 'POST'
+        });
+
+        if (response.ok) {
+            postElement.remove();
             currentDeletingPost = null;
         }
-    </script>
+    }
+
+    function cancelDelete(button) {
+        const postElement = button.closest('.post');
+        const editButton = postElement.querySelector('.edit-button');
+        const deleteButton = postElement.querySelector('.delete-button');
+        const confirmDeleteButton = postElement.querySelector('.confirm-delete-button');
+        const cancelDeleteButton = postElement.querySelector('.cancel-delete-button');
+
+        editButton.style.display = 'inline';
+        deleteButton.style.display = 'inline';
+        confirmDeleteButton.style.display = 'none';
+        cancelDeleteButton.style.display = 'none';
+        currentDeletingPost = null;
+    }
+
+    function resetSearch() {
+        document.getElementById("searchByName").value = '';
+        document.getElementById("searchByContent").value = '';
+
+        const posts = document.querySelectorAll(".post");
+        posts.forEach(post => {
+            post.style.display = "";
+        });
+    }
+
+</script>
 
 {% endblock %}

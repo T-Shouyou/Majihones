@@ -5,13 +5,14 @@
     <title>新規登録</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
 </head>
+
 <body background="../static/img/background.png" class="kabegami">
     <div class="container">
         <img src="../static/img/title.png" class="title">
     </div>
 
     {% if error_message %}
-        <div class="error-message" style="color: red; text-align: center;">
+        <div class="error-message">
             {{ error_message }}
         </div>
     {% endif %}

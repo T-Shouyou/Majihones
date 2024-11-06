@@ -811,34 +811,29 @@ canvas {
 /*----------------------------即席修理ここまで------------------------*/
 
 /* 予測結果画面　またの名をsuccess */
-.text-success {
+.success-text {
     display: flex;
     text-align: center;
     flex-direction: column;
+    width: 400px;
+    margin: 0 auto;
     margin-top: -20px;
 }
 
-/* 親要素 */
-.success-parent-container {
-    display: flex; /* フレックスボックスを使用 */
-    justify-content: center; /* 水平方向に中央揃え */
-    align-items: center; /* 垂直方向に中央揃え */
-}
 
 /* success_text1 */
-.success_text1 {
+.success-text1 {
     font-size: 30px;
     background-color: white;
     border-radius: 5px;
     border: 1px solid black;
     list-style-type: none;
-    width: 400px;
-    text-align: center;
-    padding-top: 15px;
+    align-items: center;
+    padding-top: 2px;
 }
 
 
-.prediction_result {
+.prediction-result {
     display: flex; /* フレックスボックスにする */
     justify-content: center; /* 横方向の中央揃え */
     align-items: center; /* 縦方向の中央揃え */
@@ -850,7 +845,7 @@ canvas {
     margin-top: -40px;
 }
 
-.prediction_result li {
+.prediction-result li {
     display: flex; /* フレックスボックスにする */
     justify-content: center; /* 横方向の中央揃え */
     align-items: center; /* 縦方向の中央揃え */
@@ -914,13 +909,22 @@ canvas {
     cursor: pointer; /* カーソルをポインターに変更 */
 }
 
+.submitButton-container {
+    width: 110px;
+    position: fixed; /* 視覚的に固定 */
+    bottom: 40px; /* 下から0px */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 #submitButton{
     border-radius: 5px;
-    background-color:plum;
+    background-color:#f8cecc;
     height:60px;
     width: 110px; /* 最小幅も設定 */
     padding:10px;
     cursor: pointer; /* カーソルをポインターに変更 */
+    font-size: 20px;
 }
 
 /* ごはんアップロード完了ページCSS */
