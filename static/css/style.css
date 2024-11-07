@@ -794,7 +794,7 @@ canvas {
     width: 920px; /* コンテナの幅を更新 */
     text-align: center; /* 中央揃え */
     margin: 0 auto; /* コンテナを中央に配置 */
-    margin-top:-130px;
+    margin-top: 70px;
 }
 
 .button-container-ac button {
@@ -805,30 +805,6 @@ canvas {
     border-radius: 5px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
 }
-
-
-/*------------即席修理なので直せる人は直してくださいお願いいたします----*/
-
-.back-button-ac {
-    position: fixed;
-    text-align: left;
-    background-color: transparent; /* 透明の背景色 */
-    color: black; /* テキストの色を黒に設定 */
-    padding: 9px 30px; /* 上下の余白を15px、左右を30pxに設定 */
-    font-size: 18px; /* フォントサイズを18pxに設定 */
-    border: 2px solid black ; /* 枠線を黒に設定 */
-    border-radius: 5px; /* 角を丸くする */
-    cursor: pointer; /* カーソルをポインターに変更 */
-    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
-    left: 60px; /* 左端との間隔を40pxあける */
-    bottom:40px;
-}
-
-.back-button-ac:hover {
-    background-color: #efe8d2; /* ホバー時の水色を少し暗くする */
-}
-
-/*----------------------------即席修理ここまで------------------------*/
 
 /* 予測結果画面　またの名をsuccess */
 .success-text {
@@ -913,9 +889,15 @@ canvas {
     display:flex;
     flex-direction:column;
     gap: 10px;
-
+    width: 300px;
 }
 
+.recipe-name {
+    margin-left: -30px;
+    display:flex;
+    gap: 10px;
+    flex-direction: column;
+}
 
 
 .pred-txt{
@@ -1029,4 +1011,154 @@ canvas {
 
 form.MC-form {
     display: inline-flex;  /* フォーム自体をインラインフレックスに設定 */
+}
+
+
+
+
+/* acct_set(アカウント設定)------------------------------------------------------- */
+
+.container {
+    align-items: center; /* 縦方向の中央揃え */
+    height: 100%; /* コンテナの高さを100%に設定 */
+}
+
+
+.login-image{
+    height: 120px;
+    width: 120px;
+    float: right;
+    position: absolute;
+    margin-left: 1100px;
+}
+
+.login-name {
+    float: right;
+    margin-top: 100px;
+}
+
+/* ----------アレルギー登録云々---------- */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    width: 920px; /* コンテナの幅を更新 */
+    text-align: center; /* 中央揃え */
+    margin: 0 auto; /* コンテナを中央に配置 */
+}
+
+.button-container button {
+    width: 700px; /* ボタンの幅を設定 */
+    height:70px;
+    margin:0px 30px 30px 100px; /* ボタンの間にスペースを追加 */
+    font-size: 22px;
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+.allergy-button {
+    background-color: #f0ff8c;
+    border: 3px solid #ffd700;
+}
+
+.chanpsw-button {
+    border: 3px solid #696969;
+}
+
+
+/* ----------垢削除と戻る---------- */
+.button-sel {
+    display: flex;
+    text-align: center;
+    margin: 0 auto;
+    width: 800px;
+    height: 50px;
+}
+
+.acctdel-button {
+    margin-left: 440px;
+    width: 160px;
+    font-size: 18px;
+    color: white;
+    background-color:red;
+    border-radius: 5px;
+    border: solid #000;
+    cursor: pointer;
+}
+
+
+
+/* ----------アレルギー登録---------- */
+.ale {
+    padding-top: 20px;
+    text-align: center;
+    font-size: 24px;
+}
+
+.chkbox {
+    text-align: center;
+    font-size:20px;
+    accent-color: rgb(34, 171, 34);
+}
+
+input {
+    margin-left: 30px;
+}
+
+.under-cls {
+    text-align: center;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.tmg-friends {
+    position: absolute;
+    height: 300px;
+    width: 350px;
+    float: right;
+    margin-left: 350px;
+}
+
+.subbutton {
+    width: 120px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    margin: 0 auto;
+    background-color: #ffb6cb;
+    border: 3px solid #db7093;
+    border-radius: 5px;
+}
+
+.bkb {
+    margin-top: 100px;
+    margin-left: 50px;
+}
+
+.allergy-p {
+    text-align: center;
+    font-size: 20px;
+}
+
+.menu-button {
+    width: 120px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    margin: 0 auto;
+    background-color: skyblue;
+    border: 3px solid #44acce;
+    border-radius: 5px;
+}
+
+/*   あれるぎーちぇっくぼくす */
+
+.chkbox input[type="checkbox"] {
+    width: 20px;  /* チェックボックスの幅 */
+    height: 20px; /* チェックボックスの高さ */
+    transform: scale(1.5); /* チェックボックスを拡大 */
+    margin-right: 10px; /* ラベルとの間にスペースを追加 */
+}
+
+.chkbox {
+    font-size: 25px; /* ラベルの文字サイズ */
 }

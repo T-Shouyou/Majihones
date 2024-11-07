@@ -20,8 +20,10 @@
 
     <div class="recipe-button-container">
         <form action="/ninnsiki/upload_recipe" method="POST" enctype="multipart/form_data" class="recipe-form-container">
-            <input type="text" name="label" placeholder="料理名を入力" class="recipe-form" required>
-            <input type="file" name="image" accept="image/*" required>
+            <div class="recipe-name">
+                <input type="text" name="label" placeholder="料理名を入力"required>
+                <input type="file" name="image" accept="image/*"  required>
+            </div>
             <button type="submit">アップロード</button>
         </form>
         <button id="del-button" onclick="location.href='{{ url_for('recipe_delete') }}';" class="">レシピ削除</button>
