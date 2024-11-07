@@ -3,14 +3,6 @@
 {% block title %}アレルギー新規登録{% endblock %}
 
 {% block content %}
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/acct_set.css') }}">
-
-
-
-    <div class="container">
-    </div>
-    <br><br><br><br>
     <p class="ale">アレルギーの登録</p>
 
     <form action="{{ url_for('new_allergy', account_id=account_id) }}" method="post">

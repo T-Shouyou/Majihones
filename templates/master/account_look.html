@@ -2,198 +2,243 @@
 {% block title %}アカウント情報{% endblock %}
 
 {% block content %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/account_look.css') }}">
-    <script>
-        let currentEditingRow = null;
-        let currentDeletingRow = null;
+<link rel="stylesheet" href="{{ url_for('static', filename='css/account_look.css') }}">
+<script>
+    let currentEditingRow = null;
+    let currentDeletingRow = null;
 
-        // メールアドレスの重複チェック
-        function checkDuplicateEmail(row) {
-            const mailInput = row.querySelector('td:nth-child(3) input');
-            const mailAddress = mailInput.value;
-            let isDuplicate = false;
+    // メールアドレスの重複チェック
+    function checkDuplicateEmail(row) {
+        const mailInput = row.querySelector('td:nth-child(3) input');
+        const mailAddress = mailInput.value;
+        let isDuplicate = false;
 
-            document.querySelectorAll('tr').forEach(r => {
-                const emailCell = r.querySelector('td:nth-child(3)');
-                if (emailCell && emailCell.innerText === mailAddress && r !== row) {
-                    isDuplicate = true;
-                }
-            });
-
-            const warningMessage = row.querySelector('.email-warning');
-            if (isDuplicate) {
-                if (!warningMessage) {
-                    const warning = document.createElement('div');
-                    warning.classList.add('email_warning');
-                    warning.style.color = 'red';
-                    warning.innerText = 'このメールアドレスはすでに使用されています。';
-                    mailInput.parentElement.appendChild(warning);
-                }
-                row.querySelector('.save-button').disabled = true;
-            } else {
-                if (warningMessage) {
-                    warningMessage.remove();
-                }
-                row.querySelector('.save-button').disabled = false;
+        document.querySelectorAll('tr').forEach(r => {
+            const emailCell = r.querySelector('td:nth-child(3)');
+            if (emailCell && emailCell.innerText === mailAddress && r !== row) {
+                isDuplicate = true;
             }
+        });
+
+        const warningMessage = row.querySelector('.email-warning');
+        if (isDuplicate) {
+            if (!warningMessage) {
+                const warning = document.createElement('div');
+                warning.classList.add('email-warning');
+                warning.style.color = 'red';
+                warning.innerText = 'このメールアドレスはすでに使用されています。';
+                mailInput.parentElement.appendChild(warning);
+            }
+            row.querySelector('.save-button').disabled = true;
+        } else {
+            if (warningMessage) {
+                warningMessage.remove();
+            }
+            row.querySelector('.save-button').disabled = false;
+        }
+    }
+
+    function editRow(row) {
+        if (currentEditingRow && currentEditingRow !== row) {
+            cancelEdit(currentEditingRow);
         }
 
-        function editRow(row) {
-            if (currentEditingRow && currentEditingRow !== row) {
-                cancelEdit(currentEditingRow);
-            }
+        currentEditingRow = row;
 
-            currentEditingRow = row;
+        const cells = row.getElementsByTagName('td');
+        for (let i = 1; i < cells.length - 1; i++) {
+            const currentText = cells[i].innerText;
+            cells[i].innerHTML = `<input type="text" value="${currentText}">`;
+        }
+        row.querySelector('.edit-button').style.display = 'none';
+        row.querySelector('.save-button').style.display = 'inline';
+        row.querySelector('.cancel-button').style.display = 'inline';
+        row.querySelector('.delete-button').style.display = 'none';
+        row.querySelector('td:nth-child(3) input').addEventListener('input', () => checkDuplicateEmail(row));
+    }
 
-            const cells = row.getElementsByTagName('td');
-            for (let i = 1; i < cells.length - 1; i++) {
-                const currentText = cells[i].innerText;
-                cells[i].innerHTML = `<input type="text" value="${currentText}">`;
-            }
-            row.querySelector('.edit-button').style.display = 'none';
-            row.querySelector('.save-button').style.display = 'inline';
-            row.querySelector('.cancel-button').style.display = 'inline';
-            row.querySelector('.delete-button').style.display = 'none';
-            row.querySelector('td:nth-child(3) input').addEventListener('input', () => checkDuplicateEmail(row));
+    function cancelEdit(row) {
+        const cells = row.getElementsByTagName('td');
+        for (let i = 1; i < cells.length - 1; i++) {
+            const originalText = cells[i].getAttribute('data-original');
+            cells[i].innerText = originalText;
+        }
+        row.querySelector('.edit-button').style.display = 'inline';
+        row.querySelector('.save-button').style.display = 'none';
+        row.querySelector('.cancel-button').style.display = 'none';
+        row.querySelector('.delete-button').style.display = 'inline';
+
+        if (currentEditingRow === row) {
+            currentEditingRow = null;
+        }
+    }
+
+    async function saveRow(row) {
+        const cells = row.getElementsByTagName('td');
+        const accountId = cells[0].innerText;
+        const accountName = cells[1].querySelector('input').value;
+        const mailAddress = cells[2].querySelector('input').value;
+        const password = cells[3].querySelector('input').value;
+
+        const warningMessage = row.querySelector('.email-warning');
+        if (warningMessage) {
+            return;
         }
 
-        function cancelEdit(row) {
-            const cells = row.getElementsByTagName('td');
+        const response = await fetch(`/edit_account/${accountId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                account_name: accountName,
+                mail_address: mailAddress,
+                password: password
+            })
+        });
+
+        if (response.ok) {
             for (let i = 1; i < cells.length - 1; i++) {
-                const originalText = cells[i].getAttribute('data-original');
-                cells[i].innerText = originalText;
+                cells[i].innerText = cells[i].querySelector('input').value;
+                cells[i].setAttribute('data-original', cells[i].innerText);
             }
             row.querySelector('.edit-button').style.display = 'inline';
             row.querySelector('.save-button').style.display = 'none';
             row.querySelector('.cancel-button').style.display = 'none';
             row.querySelector('.delete-button').style.display = 'inline';
+            currentEditingRow = null;
+        }
+    }
 
-            if (currentEditingRow === row) {
-                currentEditingRow = null;
-            }
+    // 削除確認
+    function showDeleteConfirmation(row) {
+        if (currentDeletingRow && currentDeletingRow !== row) {
+            cancelDelete(currentDeletingRow);
         }
 
-        async function saveRow(row) {
-            const cells = row.getElementsByTagName('td');
-            const accountId = cells[0].innerText;
-            const accountName = cells[1].querySelector('input').value;
-            const mailAddress = cells[2].querySelector('input').value;
-            const password = cells[3].querySelector('input').value;
+        currentDeletingRow = row;
+        row.querySelector('.delete-confirm').style.display = 'inline'; // 確認ボタン表示
+        row.querySelector('.delete-button').style.display = 'none'; // 削除ボタン非表示
+        row.querySelector('.edit-button').style.display = 'none'; // 編集ボタン非表示
+    }
 
-            const warningMessage = row.querySelector('.email-warning');
-            if (warningMessage) {
-                return;
+    // 削除処理
+    async function deleteAccount(row) {
+        const accountId = row.cells[0].innerText;
+
+        const response = await fetch(`/master/account_delete/${accountId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
             }
+        });
 
-            const response = await fetch(`/edit-account/${accountId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    account_name: accountName,
-                    mail_address: mailAddress,
-                    password: password
-                })
-            });
-
-            if (response.ok) {
-                for (let i = 1; i < cells.length - 1; i++) {
-                    cells[i].innerText = cells[i].querySelector('input').value;
-                    cells[i].setAttribute('data-original', cells[i].innerText);
-                }
-                row.querySelector('.edit-button').style.display = 'inline';
-                row.querySelector('.save-button').style.display = 'none';
-                row.querySelector('.cancel-button').style.display = 'none';
-                row.querySelector('.delete-button').style.display = 'inline';
-                currentEditingRow = null;
-            }
+        if (response.ok) {
+            row.remove();
         }
+    }
 
-        // 削除確認
-        function showDeleteConfirmation(row) {
-            if (currentDeletingRow && currentDeletingRow !== row) {
-                cancelDelete(currentDeletingRow);
-            }
+    // 削除キャンセル
+    function cancelDelete(row) {
+        row.querySelector('.delete-confirm').style.display = 'none'; // 確認ボタン非表示
+        row.querySelector('.delete-button').style.display = 'inline'; // 削除ボタン表示
+        row.querySelector('.edit-button').style.display = 'inline'; // 編集ボタン表示
 
-            currentDeletingRow = row;
-            row.querySelector('.delete-confirm').style.display = 'inline'; // 確認ボタン表示
-            row.querySelector('.delete-button').style.display = 'none'; // 削除ボタン非表示
-            row.querySelector('.edit-button').style.display = 'none'; // 編集ボタン非表示
+        if (currentDeletingRow === row) {
+            currentDeletingRow = null;
         }
+    }
 
-        // 削除処理
-        async function deleteAccount(row) {
-            const accountId = row.cells[0].innerText;
+    function searchAccounts() {
+        const accountIdFilter = document.getElementById('searchAccountId').value.toLowerCase();
+        const accountNameFilter = document.getElementById('searchAccountName').value.toLowerCase();
+        const emailFilter = document.getElementById('searchEmail').value.toLowerCase();
+        const rows = document.querySelectorAll('table tr');
 
-            const response = await fetch(`/master/account_delete/${accountId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+        rows.forEach((row, index) => {
+            if (index === 0) return; 
+            const accountId = row.cells[0].innerText.toLowerCase();
+            const accountName = row.cells[1].innerText.toLowerCase();
+            const email = row.cells[2].innerText.toLowerCase();
 
-            if (response.ok) {
-                row.remove();
-            }
+            if (
+            (accountIdFilter === '' || accountId === accountIdFilter) &&
+            accountName.includes(accountNameFilter) &&
+            email.includes(emailFilter)
+        ) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
         }
+    });
+}
 
-        // 削除キャンセル
-        function cancelDelete(row) {
-            row.querySelector('.delete-confirm').style.display = 'none'; // 確認ボタン非表示
-            row.querySelector('.delete-button').style.display = 'inline'; // 削除ボタン表示
-            row.querySelector('.edit-button').style.display = 'inline'; // 編集ボタン表示
+function resetSearch() {
+    document.getElementById('searchAccountId').value = '';
+    document.getElementById('searchAccountName').value = '';
+    document.getElementById('searchEmail').value = '';
+    searchAccounts();
+}
 
-            if (currentDeletingRow === row) {
-                currentDeletingRow = null;
-            }
-        }
-    </script>
+</script>
 
-    <div class="container">
-        
-    </div>
-    <br><br><br><br>
-    <h1 class="txtcenter">アカウント情報</h1>
-    <div class="table-container">
-        <table>
-            <tr>
-                <th>アカウントID</th>
-                <th>アカウント名</th>
-                <th>メールアドレス</th>
-                <th>パスワード</th>
-                <th>操作</th>
-            </tr>
-            {% for account in accounts %}
-            <tr>
-                <td>{{ account[0] }}</td>
-                <td data-original="{{ account[1] }}">{{ account[1] }}</td>
-                <td data-original="{{ account[2] }}">{{ account[2] }}</td>
-                <td data-original="{{ account[3] }}">{{ account[3] }}</td>
-                <td>
-                    {% if account[0] == 1 %}
-                        <button class="edit-button" type="button" disabled>編集</button>
-                        <button class="save-button" type="button" style="display:none;" disabled>保存</button>
-                        <button class="cancel-button" type="button" style="display:none;" disabled>キャンセル</button>
-                        <button class="delete-button" type="button" disabled>削除</button>
-                    {% else %}
-                        <button class="edit-button" type="button" onclick="editRow(this.parentElement.parentElement)">編集</button>
-                        <button class="save-button" type="button" style="display:none;" onclick="saveRow(this.parentElement.parentElement)">保存</button>
-                        <button class="cancel-button" type="button" style="display:none;" onclick="cancelEdit(this.parentElement.parentElement)">キャンセル</button>
-                        <button class="delete-button" type="button" onclick="showDeleteConfirmation(this.parentElement.parentElement)">削除</button>
-                        <span class="delete-confirm" style="display:none;">
-                            <button type="button" onclick="deleteAccount(this.closest('tr'))">はい</button>
-                            <button type="button" onclick="cancelDelete(this.parentElement.parentElement)">いいえ</button>
-                        </span>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
+<div class="container">
 
-    <div class="txtcenter">
-        <a href="{{ url_for('mainmenu') }}">メインメニュー</a>
-        <a href="{{ url_for('logout') }}">ログアウト</a>
-    </div>
+</div>
+<br><br><br><br>
+<h1 class="txtcenter">アカウント情報</h1>
+<p class="txt-center">アカウントIDでの検索は完全一致、アカウント名・メールアドレスでの検索は部分一致だよん</p>
+
+<div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+    <input type="text" id="searchAccountId" placeholder="アカウントIDで検索..." oninput="searchAccounts()">
+    <input type="text" id="searchAccountName" placeholder="アカウント名で検索..." oninput="searchAccounts()">
+    <input type="text" id="searchEmail" placeholder="メールアドレスで検索..." oninput="searchAccounts()">
+    <button id="resetButton" type="button" onclick="resetSearch()" class="reset-button">リセット</button>
+</div>
+
+<div class="table-container">
+    <table>
+        <tr>
+            <th>アカウントID</th>
+            <th>アカウント名</th>
+            <th>メールアドレス</th>
+            <th>パスワード</th>
+            <th>操作</th>
+        </tr>
+        {% for account in accounts %}
+        <tr>
+            <td>{{ account[0] }}</td>
+            <td data-original="{{ account[1] }}">{{ account[1] }}</td>
+            <td data-original="{{ account[2] }}">{{ account[2] }}</td>
+            <td data-original="{{ account[3] }}">{{ account[3] }}</td>
+            <td>
+                {% if account[0] == 1 %}
+                <button class="edit-button" type="button" disabled>編集</button>
+                <button class="save-button" type="button" style="display:none;" disabled>保存</button>
+                <button class="cancel-button" type="button" style="display:none;" disabled>キャンセル</button>
+                <button class="delete-button" type="button" disabled>削除</button>
+                {% else %}
+                <button class="edit-button" type="button"
+                    onclick="editRow(this.parentElement.parentElement)">編集</button>
+                <button class="save-button" type="button" style="display:none;"
+                    onclick="saveRow(this.parentElement.parentElement)">保存</button>
+                <button class="cancel-button" type="button" style="display:none;"
+                    onclick="cancelEdit(this.parentElement.parentElement)">キャンセル</button>
+                <button class="delete-button" type="button"
+                    onclick="showDeleteConfirmation(this.parentElement.parentElement)">削除</button>
+                <span class="delete-confirm" style="display:none;">
+                    <button type="button" onclick="deleteAccount(this.closest('tr'))">はい</button>
+                    <button type="button" onclick="cancelDelete(this.parentElement.parentElement)">いいえ</button>
+                </span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="txtcenter">
+    <a href="{{ url_for('mainmenu') }}">メインメニュー</a>
+    <a href="{{ url_for('logout') }}">ログアウト</a>
+</div>
 {% endblock %}

@@ -1,18 +1,105 @@
 {% extends 'base.html' %}
+
 {% block title %}レシピ画像アップロード{% endblock %}
 
 {% block content %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/recipe_images.css') }}">
-    <h1 class="txt-center">レシピ画像をアップロード</h1>
-    <div class="form-container">
-        <form action="/ninnsiki/upload_recipe" method="POST" enctype="multipart/form_data">
-            <input type="text" name="label" placeholder="料理名を入力" class="recipe-form" required>
-            <input type="file" name="image" accept="image/*" required>
+    <p class="recipe_images-text1">レシピ画像をアップロード</p>
+    <!--カメラ部分-->
+    <div class="video-container">
+        <video id="video" autoplay></video>
+    </div>
+
+    <form action="/predict" method="POST" enctype="multipart/form-data" onsubmit="startLoading();">
+        <input type="file" name="image" accept="image/*" multiple required style="display: none;" id="file-upload" onchange="previewImage();">
+        <div class="button-container-photo-take">
+            <button id="capture" type="button" class="capture">撮影</button> 
+        </div>
+    </form>
+
+    <!-- 終わり -->
+
+    <div class="recipe-button-container">
+        <form action="/ninnsiki/upload_recipe" method="POST" enctype="multipart/form_data" class="recipe-form-container">
+            <div class="recipe-name">
+                <input type="text" name="label" placeholder="料理名を入力"required>
+                <input type="file" name="image" accept="image/*"  required>
+            </div>
             <button type="submit">アップロード</button>
         </form>
+        <button id="del-button" onclick="location.href='{{ url_for('recipe_delete') }}';" class="">レシピ削除</button>
+        <button id="look-button" onclick="location.href='{{ url_for('recipe_look') }}';">現在のレシピ一覧を見る</button>
     </div>
-    <button id="back-button" onclick="location.href='{{ url_for('recipe_delete') }}';" class="">レシピ削除</button>
     <div class="back-button-container">
         <button id="back-button" onclick="location.href='{{ url_for('mainmenu') }}';" class="back-button">戻る</button>
     </div>
+
+
+    <script>
+        async function startCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                const video = document.getElementById('video');
+                video.srcObject = stream;
+            } catch (error) {
+                console.error('カメラを起動できませんでした:', error);
+            }
+        }
+
+        document.getElementById('capture').addEventListener('click', async (event) => {
+            event.preventDefault(); // フォームのデフォルト送信を防ぐ
+
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('canvas');
+            const context = canvas.getContext('2d');
+
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            const imageUrl = canvas.toDataURL('image/png');
+            sessionStorage.setItem('capturedImage', imageUrl);
+
+            const fileInput = document.getElementById('file-upload');
+            const blob = dataURLtoBlob(imageUrl);
+            const file = new File([blob], "captured_image.png", { type: 'image/png' });
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            fileInput.files = dataTransfer.files;
+
+            const captureButton = document.getElementById('capture');
+            captureButton.textContent = '撮影完了!';
+
+            // フォームを自動的に送信
+            document.querySelector('form').submit();
+        });
+
+        function dataURLtoBlob(dataURL) {
+            const byteString = atob(dataURL.split(',')[1]);
+            const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+            const ab = new ArrayBuffer(byteString.length);
+            const ia = new Uint8Array(ab);
+            for (let i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            return new Blob([ab], { type: mimeString });
+        }
+
+        window.onload = startCamera;
+
+        function previewImage() {
+            const fileInput = document.getElementById('file-upload');
+            const selectedImage = document.getElementById('selected-image');
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    selectedImage.src = e.target.result;
+                    selectedImage.style.display = 'block';
+                    sessionStorage.setItem('capturedImage', e.target.result);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+    </script>
+    
 {% endblock %}

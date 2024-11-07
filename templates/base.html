@@ -20,10 +20,11 @@
         </nav>
     </header>
     
-
     <main>
         <div class="container">
-            <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
+            {% if account_name and account_id %}
+                <p>ログイン中：{{ account_name }} (ID: {{ account_id }})</p>
+            {% endif %}
         </div>
         
         {% block content %}

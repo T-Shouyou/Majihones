@@ -42,6 +42,14 @@ body {
     justify-content: center; /* 縦方向も中央揃え（高さがある場合） */
 }
 
+.signup-form1{
+    margin-top:140px;
+    display: flex; /* フレックスボックスを使用 */
+    flex-direction: column; /* 縦に並べる */
+    align-items: center; /* 中央揃え */
+    justify-content: center; /* 縦方向も中央揃え（高さがある場合） */
+}
+
 .signup-button {
     background-color: #749DFC; /* 水色の背景色 */
     color: black; /* テキストの色を黒に設定 */
@@ -77,4 +85,14 @@ body {
 
 .txt-center{
     text-align : center;
+}
+
+.error-message {
+    color: red;
+    margin-left: 10px;
+    text-align:center;
+}
+
+.pad{
+    margin-top:140px;
 }

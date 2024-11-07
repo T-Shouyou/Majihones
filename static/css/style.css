@@ -196,7 +196,6 @@ header {
     position: fixed; /* 視覚的に固定 */
     bottom: 20px; /* 下から0px */
     left: 40px; /* 左から0px */
-    width: 100%; /* 幅を100%に */
     padding: 20px;
 }
 
@@ -211,7 +210,11 @@ header {
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
 }
 
-
+.LoginSignup-error-message {
+    color: red;
+    margin-left: 10px;
+    text-align:center;
+}
 
 .back-button:hover {
     background-color: #efe8d2; /* ホバー時の水色を少し暗くする */
@@ -382,46 +385,54 @@ aside {
 
 
 .button-container-photo-take {
-    display: flex;
+    position: relative;
     flex-wrap: wrap; /* ボタンを折り返し可能にする */
     width: 100%; /* コンテナの幅を更新 */
-    justify-content: center; /* 中央揃え */
-    margin: auto; /* コンテナを中央に配置 */
-    padding-top: 30px;
+    height: 100%;
 }
 
-.video-container {
-    display: flex; /* フレックスボックスを使用 */
-    justify-content: center; /* 水平方向の中央揃え */
-    align-items: center; /* 垂直方向の中央揃え */
-    padding-top: 50px;
-}
-
-video {
-    width: 30%; /* ビデオの幅を50%に設定 */
-    height: auto; /* 高さは自動で調整 */
-    border: 1px solid black; /* 境界線を追加（任意） */
-}
-
-canvas {
-    display: none; /* Canvasは非表示にする */
-}
 
 .capture{
-    display: block;
+    position: absolute;
     width: 150px;
-    height: 50px;  
+    height: 50px; 
+    top: 370px;
+    left: 50%;
+    transform: translate(-50%); 
     background-color: red; /* 赤の背景色 */
     color: white; /* テキストの色を白に設定 */
     font-size: 18px; /* フォントサイズを18pxに設定 */
     border-radius: 5px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+    z-index: 1000;
+}
+
+
+.video-container {
+    position:relative;
+    width: 100%;
+    height: 100%;
+}
+
+video {
+    position: absolute;
+    width: 30%; /* ビデオの幅を50%に設定 */
+    height: auto; /* 高さは自動で調整 */
+    border: 1px solid black; /* 境界線を追加（任意） */
+    top: 60px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+canvas {
+    display: none; /* Canvasは非表示にする */
 }
 
 
 
-/*     ------------------ごはん広場CSS---------------------------- */
+
+/* --------------------------------ごはん広場CSS------------------------------------- */
 
 .fixed-button {
     position: fixed; /* 固定位置にする */
@@ -486,12 +497,42 @@ canvas {
 }
 
 .post-txt {
+    word-wrap: break-word; /* 単語の途中で改行を許可 */
+    overflow-wrap: break-word; /* overflow-wrapのプロパティをサポートするブラウザ向け */
+    overflow: hidden; /* はみ出す部分を隠す */
+    white-space: pre-wrap normal; /* 空白を保持し、折り返す */
     margin-left:10px;
     margin-bottom:20px;
     flex: 1; /* テキストが残りのスペースを占有する */
 }
 
-/*     ------------------ごはん提案CSS---------------------------- */
+.edit-txtarea{
+    font-size: 16px;
+    min-height: 100px; /* 最小高さを設定 */
+    height:auto;
+    width: 500px; /* 幅を固定 */
+    resize: none; /* ユーザーによるサイズ変更を無効化 */
+    overflow:hidden ; /* 内容に応じて高さが増える */
+    white-space: pre-wrap; /* 改行を保持しつつ、単語の途中での折り返しを許可 */
+}
+
+#searchByContent{
+    margin-left:20px;
+}
+
+.reset-button{
+    height:20px;
+    width:90px;
+    margin-left:20px;
+    background-color:red;
+    color:white;
+    border-radius:5px;
+    border: 1px solid black;
+    line-height: 5px;
+    text-align: center;   
+}
+
+/*     ----------------------------------ごはん提案CSS---------------------------- */
 
 .sugglook-button{
     background-color: skyblue;
@@ -553,8 +594,9 @@ canvas {
 
 .error-message {
     color: red;
-    display: none; /* 初期状態で非表示 */
     margin-left: 10px;
+    text-align:center;
+    display: none;
 }
 
 .fixed-button-back {
@@ -585,6 +627,10 @@ canvas {
 .fixed-button-back button:hover {
     background-color: #0056b3; /* ホバー時の背景色 */
 }
+
+.txterror-message{
+    text-align:center;
+}
 /* photo_upload -------------------------------------------------------------------*/
 
 
@@ -593,13 +639,32 @@ canvas {
 }
 
 #selected-image { /* 画像の最大サイズを制限　「縛り」 */
+    position:fixed;
+    top:270px;
+    left:130px;
     display: none; /* 初期状態で非表示 */
     max-width: 150px; /* 幅を400pxに制限 */
     max-height: 150px; /* 高さを300pxに制限 */
     width: auto; /* 幅の自動調整 */
     height: auto; /* 高さの自動調整 */
-    margin: 10px 0; /* 上下のマージンを設定 */
     overflow: hidden; /* はみ出す部分を隠す */
+}
+
+.upload-img-zone{
+    background-color:gainsboro;
+    position:fixed;
+    top:240px;
+    left:90px;
+    width: 270px; /* 幅を400pxに制限 */
+    height: 220px; /* 高さを300pxに制限 */
+    overflow: hidden; /* はみ出す部分を隠す */
+}
+
+.upload-img-zone-text {
+    color: #555;
+    font-size: 16px;
+    text-align: center;
+    line-height: 220px; /* 高さに合わせて垂直中央に配置 */
 }
 
 .clearfix::after {
@@ -643,6 +708,14 @@ canvas {
     flex-direction: column; /* 縦に並べる */       
 }
 
+.disabled-button {
+    background-color: lightgray; /* 薄い灰色 */
+    color: darkgray; /* 文字色も薄く */
+    pointer-events: none; /* クリックイベントを無効にする */
+    cursor: not-allowed; /* カーソルを禁止にする */
+}
+
+
 
 /* ごはん提案メニュー */
 .button-container-sugg {
@@ -675,33 +748,6 @@ canvas {
     padding: 10px 20px;
     cursor: pointer;
 }
-
-
-
-
-
-/* 
-
-<style>
-input[type="file"] {
-    display: none;
-}
-
-.custom-file-upload {
-    display: inline-block;
-    padding: 10px 20px;
-    cursor: pointer;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 5px;
-}
-
-.custom-file-upload:hover {
-    background-color: #d32f2f;
-}
-</style> */
-
 
 
 /* アカウント設定CSS */
@@ -748,7 +794,7 @@ input[type="file"] {
     width: 920px; /* コンテナの幅を更新 */
     text-align: center; /* 中央揃え */
     margin: 0 auto; /* コンテナを中央に配置 */
-    margin-top:-130px;
+    margin-top: 70px;
 }
 
 .button-container-ac button {
@@ -760,26 +806,359 @@ input[type="file"] {
     cursor: pointer; /* カーソルをポインターに変更 */
 }
 
+/* 予測結果画面　またの名をsuccess */
+.success-text {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    width: 400px;
+    margin: 0 auto;
+    margin-top: -20px;
+}
 
-/*------------即席修理なので直せる人は直してくださいお願いいたします----*/
 
-.back-button-ac {
-    position: fixed;
-    text-align: left;
-    background-color: transparent; /* 透明の背景色 */
-    color: black; /* テキストの色を黒に設定 */
-    padding: 9px 30px; /* 上下の余白を15px、左右を30pxに設定 */
-    font-size: 18px; /* フォントサイズを18pxに設定 */
-    border: 2px solid black ; /* 枠線を黒に設定 */
-    border-radius: 5px; /* 角を丸くする */
+/* success_text1 */
+.success-text1 {
+    font-size: 30px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid black;
+    list-style-type: none;
+    align-items: center;
+    padding-top: 2px;
+}
+
+
+.prediction-result {
+    display: flex; /* フレックスボックスにする */
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center; /* 縦方向の中央揃え */
+    width: 100%; /* 幅を100%に設定 */
+    height: 100px; /* 高さを設定 */
+    list-style-type: none; /* リストマーカーを消す */
+    padding: 0; /* デフォルトのパディングを消す */
+    margin: 0; /* デフォルトのマージンを消す */
+    margin-top: -40px;
+}
+
+.prediction-result li {
+    display: flex; /* フレックスボックスにする */
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center; /* 縦方向の中央揃え */
+    width: auto; /* 自動幅に変更 */
+    height: 30px; /* 固定高さ */
+    font-size: 20px; /* フォントサイズ */
+    margin: 10px; /* 各要素間の間隔を調整する */
+}
+
+#averagePredicted {
+    width: 400px;
+    height: 40px;
+    font-size: 20px;
+}
+
+.editButton, .completeButton{
+    padding: 10px 10px;
+    font-size: 15px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+
+/* レシピアップロード画面CSS */
+
+.recipe_images-text1 {
+    font-size: 30px;
+    float: left;
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+.recipe-button-container {
+    width: 300px;
+    height: 600px;
+    display: flex;
+    padding-top: 10px;
+    padding-left: 10px;
+    flex-direction: column;
+    padding-right: 800px;
+    gap: 10px;
+}
+
+.recipe-form-container {
+    display:flex;
+    flex-direction:column;
+    gap: 10px;
+    width: 300px;
+}
+
+.recipe-name {
+    margin-left: -30px;
+    display:flex;
+    gap: 10px;
+    flex-direction: column;
+}
+
+
+.pred-txt{
+    font-size: 16px;
+    height:60px;
+    width:auto;
+}
+
+/* .recipe-photo-take{
+
+} */
+
+.editButton{
+    border-radius: 5px;
+    background-color:palegreen;
+    margin-left:10px;
+    height:50px;
+    min-width: 85px; /* 最小幅も設定 */
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+
+
+.completeButton{
+    color:white;
+    border-radius: 5px;
+    background-color:red;
+    margin-left:10px;
+    height:50px;
+    min-width: 85px; /* 最小幅も設定 */
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+.submitButton-container {
+    width: 110px;
+    position: fixed; /* 視覚的に固定 */
+    bottom: 40px; /* 下から0px */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#submitButton{
+    border-radius: 5px;
+    background-color:#f8cecc;
+    height:60px;
+    width: 110px; /* 最小幅も設定 */
+    padding:10px;
+    cursor: pointer; /* カーソルをポインターに変更 */
+    font-size: 20px;
+}
+
+/* ごはんアップロード完了ページCSS */
+
+.touroku-comp{
+    text-align:center;
+    margin-top:100px;
+}
+
+.touroku-comp-button {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 中央揃え */
+    
+    width: 400px; /* ボタンの幅を設定 */
+    height: 70px; /* ボタンの高さを設定 */
+    margin: 150px 0px 0px 35%; /* ボタンの間にスペースを追加 */
+    border: none; /* 枠線をなしに設定 */
+    color: black;
+    font-size: 22px;
+    border-radius: 10px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
-    left: 60px; /* 左端との間隔を40pxあける */
-    bottom:40px;
 }
 
-.back-button-ac:hover {
-    background-color: #efe8d2; /* ホバー時の水色を少し暗くする */
+.touroku-comp-button:hover {
+    background-color: #efe8d2; /* ホバー時の灰色を少し暗くする */
 }
 
-/*----------------------------即席修理ここまで------------------------*/
+
+/* ---------------------MasterCheck用CSS -------------------------*/
+
+.master-pad1{
+    padding-top:100px;
+}
+
+.MC-button-container{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.MasCheck-button {
+    width: 150px; /* ボタンの幅を設定 */
+    height:40px;
+    margin:10px 10px 10px 10px; /* ボタンの間にスペースを追加 */
+    border-style: solid;
+    border-color:darkslateblue; /* 枠線をなしに設定 */
+    background-color: #007BFF;
+    color: white;
+    font-size: 22px;
+    border-radius: 65px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+
+.MasCheck-button:hover {
+    background-color: #0056b3; /* ホバー時の水色を少し暗くする */
+}
+
+form.MC-form {
+    display: inline-flex;  /* フォーム自体をインラインフレックスに設定 */
+}
+
+
+
+
+/* acct_set(アカウント設定)------------------------------------------------------- */
+
+.container {
+    align-items: center; /* 縦方向の中央揃え */
+    height: 100%; /* コンテナの高さを100%に設定 */
+}
+
+
+.login-image{
+    height: 120px;
+    width: 120px;
+    float: right;
+    position: absolute;
+    margin-left: 1100px;
+}
+
+.login-name {
+    float: right;
+    margin-top: 100px;
+}
+
+/* ----------アレルギー登録云々---------- */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    width: 920px; /* コンテナの幅を更新 */
+    text-align: center; /* 中央揃え */
+    margin: 0 auto; /* コンテナを中央に配置 */
+}
+
+.button-container button {
+    width: 700px; /* ボタンの幅を設定 */
+    height:70px;
+    margin:0px 30px 30px 100px; /* ボタンの間にスペースを追加 */
+    font-size: 22px;
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+.allergy-button {
+    background-color: #f0ff8c;
+    border: 3px solid #ffd700;
+}
+
+.chanpsw-button {
+    border: 3px solid #696969;
+}
+
+
+/* ----------垢削除と戻る---------- */
+.button-sel {
+    display: flex;
+    text-align: center;
+    margin: 0 auto;
+    width: 800px;
+    height: 50px;
+}
+
+.acctdel-button {
+    margin-left: 440px;
+    width: 160px;
+    font-size: 18px;
+    color: white;
+    background-color:red;
+    border-radius: 5px;
+    border: solid #000;
+    cursor: pointer;
+}
+
+
+
+/* ----------アレルギー登録---------- */
+.ale {
+    padding-top: 20px;
+    text-align: center;
+    font-size: 24px;
+}
+
+.chkbox {
+    text-align: center;
+    font-size:20px;
+    accent-color: rgb(34, 171, 34);
+}
+
+input {
+    margin-left: 30px;
+}
+
+.under-cls {
+    text-align: center;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.tmg-friends {
+    position: absolute;
+    height: 300px;
+    width: 350px;
+    float: right;
+    margin-left: 350px;
+}
+
+.subbutton {
+    width: 120px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    margin: 0 auto;
+    background-color: #ffb6cb;
+    border: 3px solid #db7093;
+    border-radius: 5px;
+}
+
+.bkb {
+    margin-top: 100px;
+    margin-left: 50px;
+}
+
+.allergy-p {
+    text-align: center;
+    font-size: 20px;
+}
+
+.menu-button {
+    width: 120px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    margin: 0 auto;
+    background-color: skyblue;
+    border: 3px solid #44acce;
+    border-radius: 5px;
+}
+
+/*   あれるぎーちぇっくぼくす */
+
+.chkbox input[type="checkbox"] {
+    width: 20px;  /* チェックボックスの幅 */
+    height: 20px; /* チェックボックスの高さ */
+    transform: scale(1.5); /* チェックボックスを拡大 */
+    margin-right: 10px; /* ラベルとの間にスペースを追加 */
+}
+
+.chkbox {
+    font-size: 25px; /* ラベルの文字サイズ */
+}

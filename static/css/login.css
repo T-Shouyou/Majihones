@@ -22,6 +22,16 @@ body {
     border-radius: 5px; /* 角を丸くする */
 }
 
+.my-textbox1 {
+    margin-top:140px;
+    width: 500px;  /* 幅を300ピクセルに設定 */
+    height: 40px;  /* 高さを40ピクセルに設定 */
+    padding: 10px; /* 内側の余白を10ピクセルに設定 */
+    font-size: 16px; /* フォントサイズを16ピクセルに設定 */
+    border: 1px solid #ccc; /* 枠線を設定 */
+    border-radius: 5px; /* 角を丸くする */
+}
+
 .container {
     display: flex; /* フレックスボックスを使用 */
     justify-content: center; /* 横方向の中央揃え */
@@ -77,4 +87,14 @@ body {
 
 .txt-center{
     text-align : center;
+}
+
+.error-message {
+    color: red;
+    margin-left: 10px;
+    text-align:center;
+}
+
+.pad{
+    margin-top:140px;
 }

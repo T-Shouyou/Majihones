@@ -7,40 +7,53 @@
 function previewImage() {
     const fileInput = document.getElementById('file-upload');
     const selectedImage = document.getElementById('selected-image');
-    const predictButton = document.getElementById('predictButton'); // 予測ボタンの取得
+    const predictButton = document.getElementById('predictButton'); // 認識ボタンの取得
     const defaultButton = document.getElementById('defaultButton'); // 画像未選択ボタンの取得
+    const uploadImgZone = document.querySelector('.upload-img-zone'); // ZONEの取得
+    const uploadImgZoneText = document.querySelector('.upload-img-zone-text'); // 初期メッセージの取得
 
     if (fileInput.files && fileInput.files[0]) {
         const reader = new FileReader();
         reader.onload = function(e) {
             selectedImage.src = e.target.result;
             selectedImage.style.display = 'block'; // 画像を表示
+            uploadImgZoneText.style.display = 'none'; // 初期メッセージを非表示
 
             // 一時的に保存
             sessionStorage.setItem('capturedImage', e.target.result);
 
             // ボタンの切り替え
-            predictButton.style.display = 'block'; // 予測するボタンを表示
+            predictButton.style.display = 'block'; // 認識するボタンを表示
             defaultButton.style.display = 'none'; // 画像未選択ボタンを非表示
+
+            // ボタンのクラスを変更
+            defaultButton.classList.remove('disabled-button');
+
+            // upload-img-zoneを表示
+            uploadImgZone.style.display = 'block'; // ZONEを表示
         };
         reader.readAsDataURL(fileInput.files[0]);
     } else {
         selectedImage.style.display = 'none'; // 画像が選択されていない場合は非表示
+        uploadImgZoneText.style.display = 'block'; // 初期メッセージを再表示
 
         // ボタンの切り替え
-        predictButton.style.display = 'none'; // 予測するボタンを非表示
+        predictButton.style.display = 'none'; // 認識するボタンを非表示
         defaultButton.style.display = 'block'; // 画像未選択ボタンを表示
-    }
-}
 
-function startLoading() {
-    const loading = document.getElementById('loading');
-    loading.style.display = 'block'; // ローディングメッセージを表示
+        // ボタンのクラスを変更
+        defaultButton.classList.add('disabled-button');
+
+        // upload-img-zoneを非表示
+        uploadImgZone.style.display = 'none'; // ZONEを非表示
+    }
 }
 </script>
 
 <br><br><br><br>
-<h1 class="txt-center-photo-upload">料理画像をアップロードして予測します</h1>
+<h1 class="txt-center-photo-upload">
+    <span id="loading-text">料理画像をアップロードして認識</span>
+</h1>
 <div id="loading" class="txt-center" style="display: none;">fish fish fish 魚釣りをする魚</div>
 <form action="/predict" method="POST" enctype="multipart/form-data" onsubmit="startLoading();">
     <input type="file" name="image" accept="image/*" multiple required style="display: none;" id="file-upload" onchange="previewImage();">
@@ -48,9 +61,12 @@ function startLoading() {
         <label for="file-upload" class="upload-button">
             画像を選択
         </label>
+        <div class="upload-img-zone">
+            <div class="upload-img-zone-text">ここに選択した画像が表示されます</div> <!-- 初期メッセージ -->
+        </div>
         <img id="selected-image" style="display:none; max-width: 200px; margin: 10px 0;" alt="選択された画像">
-        <button type="button" id="defaultButton" class="upload-button" style="display: block;">画像未選択</button> <!-- 画像未選択ボタン -->
-        <button type="submit" id="predictButton" class="upload-button" style="display: none;">予測する</button> <!-- 予測するボタン -->
+        <button type="button" id="defaultButton" class="upload-button disabled-button" style="display: block;">画像未選択</button> <!-- 画像未選択ボタン -->
+        <button type="submit" id="predictButton" class="upload-button" style="display: none;">認識する</button> <!-- 認識するボタン -->
     </div>
 </form>
 

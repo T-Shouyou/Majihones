@@ -8,6 +8,7 @@ import os
 import secrets
 import random
 import string
+import re
 from datetime import datetime 
 
 
@@ -17,6 +18,8 @@ app.secret_key = secrets.token_hex(16)
 
 # 自分のパソコンで実行する際の画像の保存先のパス、本番では検索して消せ
 LOCAL_IMAGE_FOLDER = 'static/hiroba_img'
+# LOCAL_IMAGE_FOLDER = os.path.join(app.root_path, 'static', 'hiroba_img')
+
 
 # SQLiteデータベースの設定
 # 検索してナンバーを消せ
@@ -194,6 +197,19 @@ def register_food():
 def touroku_success():
     return render_template('ninnsiki/touroku_success.html')
 
+@app.route('/ninnsiki/recipe_look', methods=['GET'])
+def recipe_look():
+    # 既存の料理特徴を読み込む
+    with open('recipe_features.pkl', 'rb') as f:
+        recipe_features = pickle.load(f)
+
+    # レシピのラベルを取得
+    recipe_labels = sorted(recipe_features.keys())
+    
+    return render_template('ninnsiki/recipe_look.html', recipe_labels=recipe_labels)
+
+
+
 @app.route('/ninnsyou/login', methods=['GET', 'POST'])
 def login():
     mail_address = ""
@@ -212,11 +228,24 @@ def login():
         if user:
             session['account_id'] = user[0]
             session['account_name'] = user[1]
-            return redirect(url_for('mainmenu'))
+            if user[0] == 1:
+                return redirect(url_for('master_check'))
+            else:
+                return redirect(url_for('mainmenu'))
         else:
             error_message = "ログインに失敗しました。アカウント名またはパスワードが間違っています。"
 
     return render_template('ninnsyou/login.html', mail_address=mail_address, error_message=error_message)
+
+@app.route('/ninnsyou/master_check', methods=['GET', 'POST'])
+def master_check():
+    if request.method == 'POST':
+        if request.form['confirm'] == 'yes':
+            return redirect(url_for('mainmenu'))
+        else:
+            return redirect(url_for('login'))
+
+    return render_template('ninnsyou/master_check.html')
 
 @app.route('/ninnsyou/signup', methods=['GET'])
 def sign_up():
@@ -228,9 +257,15 @@ def signup():
     mail_address = request.form['mail_address']
     password = request.form['password']
 
+    email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(email_regex, mail_address):
+        error_message = "メールアドレスの形式が正しくありません。"
+        return render_template('ninnsyou/signup.html', account_name=account_name, mail_address=mail_address, error_message=error_message)
+
     # 入力値のバリデーション
     if len(account_name) > 10 or len(password) < 8 or len(password) > 20:
-        return "アカウント名は10桁以内、パスワードは8桁以上20桁以内で入力してね"
+        error_message = "アカウント名は10桁以内、パスワードは8桁以上20桁以内で入力してね"
+        return render_template('ninnsyou/signup.html', account_name=account_name, mail_address=mail_address, error_message=error_message)
 
     conn = get_db()
     cur = conn.cursor()
@@ -239,7 +274,8 @@ def signup():
     if cur.fetchone() is not None:
         cur.close()
         conn.close()
-        return "そのメールアドレスは既に使用されています。"
+        error_message = "そのメールアドレスは既に使用されています。"
+        return render_template('ninnsyou/signup.html', account_name=account_name, mail_address=mail_address, error_message=error_message)
 
     #新規登録
     cur.execute("INSERT INTO ACCOUNT (ACCOUNT_NAME, MAIL, PASS) VALUES (?, ?, ?)", (account_name, mail_address, password))
@@ -271,7 +307,7 @@ def inject_account_info():
         'account_id': session.get('account_id')
     }
 
-@app.route('/mainmenu/mainmenu')
+@app.route('/mainmenu/mainmenu', methods=['GET', 'POST'])
 def mainmenu():
     if 'account_name' in session:
         return render_template('mainmenu/mainmenu.html')
@@ -331,6 +367,7 @@ def sugg_look():
 def sugg_hist():
     return render_template('sugg/sugg_hist.html')
 
+# 本番ではこっちを検索して消せ
 @app.route('/hiroba/area_gohan')
 def area_gohan():
     conn = get_db()
@@ -354,6 +391,28 @@ def area_gohan():
     
     return render_template('hiroba/area_gohan.html', posts=posts, account_id=account_id)
 
+# @app.route('/hiroba/area_gohan')
+# def area_gohan():
+#     conn = get_db()
+#     cursor = conn.cursor()
+
+#     cursor.execute("""
+#     SELECT P.POST_ID, A.ACCOUNT_ID, A.ACCOUNT_NAME, P.SENTENCE, P.PHOTO
+#     FROM POST P
+#     JOIN ACCOUNT A ON P.ACCOUNT_ID = A.ACCOUNT_ID
+#     ORDER BY P.POST_ID DESC
+#     """)
+
+#     posts = cursor.fetchall()
+#     conn.close()
+
+#     # フォーマットを変更して辞書リストを作成
+#     posts = [{'post_id': row[0], 'account_id': row[1], 'account_name': row[2], 'sentence': row[3], 'photo': row[4]} for row in posts]
+
+#     account_id = session.get('account_id')
+
+#     return render_template('hiroba/area_gohan.html', posts=posts, account_id=account_id)
+
 @app.route('/hiroba/edit_post/<int:post_id>', methods=['POST'])
 def edit_post(post_id):
     data = request.json
@@ -374,6 +433,8 @@ def generate_unique_filename(extension):
     random_str = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
     return f"{random_str}.{extension}"
 
+
+# 本番ではこっちを検索して消せ
 @app.route('/hiroba/save_gohan_post', methods=['POST'])
 def save_gohan_post():
     account_id = session.get('account_id')
@@ -402,6 +463,51 @@ def save_gohan_post():
             conn.close()
     
     return redirect(url_for('area_gohan'))
+
+# @app.route('/hiroba/save_gohan_post', methods=['POST'])
+# def save_gohan_post():
+#     account_id = session.get('account_id')
+#     sentence = request.form['sentence']
+#     photo = request.files['photo']
+
+#     if photo:
+#         # 元の拡張子のまま
+#         extension = photo.filename.rsplit('.', 1)[1].lower()
+#         unique_filename = generate_unique_filename(extension)
+
+#         # 保存先のパス
+#         photo_path = os.path.join(LOCAL_IMAGE_FOLDER, unique_filename)
+#         photo.save(photo_path)
+
+#         # データベースに情報を保存
+#         conn = get_db()
+#         cursor = conn.cursor()
+
+#         try:
+#             cursor.execute(
+#                 "INSERT INTO POST (ACCOUNT_ID, SENTENCE, PHOTO) VALUES (?, ?, ?)",
+#                 (account_id, sentence, unique_filename)
+#             )
+#             conn.commit()
+#         finally:
+#             conn.close()
+
+#     return redirect(url_for('area_gohan'))
+
+@app.route('/hiroba/delete_post/<int:post_id>', methods=['POST'])
+def delete_post(post_id):
+    conn = get_db()
+    cur = conn.cursor()
+    
+    try:
+        cur.execute("DELETE FROM POST WHERE POST_ID = ?", (post_id,))
+        conn.commit()
+    finally:
+        cur.close()
+        conn.close()
+    
+    return redirect(url_for('area_gohan'))
+
 
 
 # ーーーーーーーーーーアカウント設定ーーーーーーーーーー
