@@ -1,35 +1,32 @@
 {% extends 'base.html' %}
+
 {% block title %}レシピ画像アップロード{% endblock %}
 
 {% block content %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <br>
-    <h1 class="txt-center">レシピ画像をアップロード</h1>
-
+    <p class="recipe_images-text1">レシピ画像をアップロード</p>
     <!--カメラ部分-->
     <div class="video-container">
-        <video id="video" autoplay class="recipe-camera"></video>
+        <video id="video" autoplay></video>
     </div>
 
     <form action="/predict" method="POST" enctype="multipart/form-data" onsubmit="startLoading();">
         <input type="file" name="image" accept="image/*" multiple required style="display: none;" id="file-upload" onchange="previewImage();">
-        <div class="recipe-photo-take">
-            <button id="capture" class="capture">撮影</button> 
+        <div class="button-container-photo-take">
+            <button id="capture" type="button" class="capture">撮影</button> 
         </div>
     </form>
 
     <!-- 終わり -->
 
-
-    <div class="form-container">
-        <form action="/ninnsiki/upload_recipe" method="POST" enctype="multipart/form_data">
+    <div class="recipe-button-container">
+        <form action="/ninnsiki/upload_recipe" method="POST" enctype="multipart/form_data" class="recipe-form-container">
             <input type="text" name="label" placeholder="料理名を入力" class="recipe-form" required>
             <input type="file" name="image" accept="image/*" required>
             <button type="submit">アップロード</button>
         </form>
+        <button id="del-button" onclick="location.href='{{ url_for('recipe_delete') }}';" class="">レシピ削除</button>
+        <button id="look-button" onclick="location.href='{{ url_for('recipe_look') }}';">現在のレシピ一覧を見る</button>
     </div>
-    <button id="back-button" onclick="location.href='{{ url_for('recipe_delete') }}';" class="">レシピ削除</button>
-    <button id="look-button" onclick="location.href='{{ url_for('recipe_look') }}';">現在のレシピ一覧を見る</button>
     <div class="back-button-container">
         <button id="back-button" onclick="location.href='{{ url_for('mainmenu') }}';" class="back-button">戻る</button>
     </div>
