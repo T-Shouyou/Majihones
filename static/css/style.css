@@ -385,19 +385,20 @@ aside {
 
 
 .button-container-photo-take {
-    display: flex;
+    position: relative;
     flex-wrap: wrap; /* ボタンを折り返し可能にする */
     width: 100%; /* コンテナの幅を更新 */
-    justify-content: center; /* 中央揃え */
-    margin: auto; /* コンテナを中央に配置 */
-    padding-top: 30px;
+    height: 100%;
 }
 
 
 .capture{
-    display: block;
+    position: absolute;
     width: 150px;
-    height: 50px;  
+    height: 50px; 
+    top: 370px;
+    left: 50%;
+    transform: translate(-50%); 
     background-color: red; /* 赤の背景色 */
     color: white; /* テキストの色を白に設定 */
     font-size: 18px; /* フォントサイズを18pxに設定 */
@@ -409,16 +410,19 @@ aside {
 
 
 .video-container {
-    display: flex; /* フレックスボックスを使用 */
-    justify-content: center; /* 水平方向の中央揃え */
-    align-items: center; /* 垂直方向の中央揃え */
-    padding-top: 50px;
+    position:relative;
+    width: 100%;
+    height: 100%;
 }
 
 video {
+    position: absolute;
     width: 30%; /* ビデオの幅を50%に設定 */
     height: auto; /* 高さは自動で調整 */
     border: 1px solid black; /* 境界線を追加（任意） */
+    top: 60px;
+    left: 50%;
+    transform: translate(-50%);
 }
 
 canvas {
@@ -886,23 +890,43 @@ canvas {
 
 
 /* レシピアップロード画面CSS */
-.recipe-camera {
-    position:fixed;
-    flex-direction: column;     /* 縦方向に要素を配置 */
-    top:200px;
-    left:60px;
-    height:200px;
-    width:auto;
+
+.recipe_images-text1 {
+    font-size: 30px;
+    float: left;
+    padding-left: 20px;
+    padding-top: 20px;
 }
+
+.recipe-button-container {
+    width: 300px;
+    height: 600px;
+    display: flex;
+    padding-top: 10px;
+    padding-left: 10px;
+    flex-direction: column;
+    padding-right: 800px;
+    gap: 10px;
+}
+
+.recipe-form-container {
+    display:flex;
+    flex-direction:column;
+    gap: 10px;
+
+}
+
+
 
 .pred-txt{
     font-size: 16px;
     height:60px;
     width:auto;
 }
-.recipe-photo-take{
 
-}
+/* .recipe-photo-take{
+
+} */
 
 .editButton{
     border-radius: 5px;
@@ -913,6 +937,8 @@ canvas {
     display: inline-block; /* インラインブロックに設定 */
     cursor: pointer; /* カーソルをポインターに変更 */
 }
+
+
 
 .completeButton{
     color:white;
