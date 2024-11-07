@@ -13,16 +13,29 @@
     <br><br><br><br>
     <p class="ale">アレルギーの登録</p>
 
-    <form action="{{ url_for('register_allergy') }}" method="POST">
-        <input type="hidden" name="account_id" value="{{ account_id }}"> <!-- アカウントIDを隠しフィールドとして追加 -->
+    <form action="{{ url_for('new_allergy', account_id=account_id) }}" method="post">
         <div class="chkbox">
-            <input type="checkbox" name="allergies" value="egg">卵
-            <input type="checkbox" name="allergies" value="milk">乳
-            <input type="checkbox" name="allergies" value="wheat">小麦
-            <input type="checkbox" name="allergies" value="shrimp">えび
-            <input type="checkbox" name="allergies" value="crab">かに
-            <input type="checkbox" name="allergies" value="peanut">落花生
-            <input type="checkbox" name="allergies" value="buckwheat">そば
+            <label>
+                <input type="checkbox" name="egg" value="true">卵
+            </label>
+            <label>
+                <input type="checkbox" name="milk" value="true">乳
+            </label>
+            <label>
+                <input type="checkbox" name="wheat" value="true">小麦
+            </label>
+            <lable>
+                <input type="checkbox" name="shrimp" value="true">えび
+            </lable>
+            <label>
+                <input type="checkbox" name="crab" value="true">かに
+            </label>
+            <label>
+                <input type="checkbox" name="peanut" value="true">落花生
+            </label>
+            <label>
+                <input type="checkbox" name="buckwheat" value="true">そば
+            </label>
         </div>
 
         <div class="under-cls">

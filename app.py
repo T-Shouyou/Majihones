@@ -411,34 +411,48 @@ def acct_set():
 
 @app.route('/acset/allergy_new')
 def allergy_new():
+    
     return render_template('acset/allergy_new.html')
 
-@app.route('/acset/allergy_set')
-def allergy_set():
-    return render_template('acset/allergy_set.html')
+@app.route('/acset/new_allergy/<int:account_id>', methods=['GET', 'POST'])
+def new_allergy(account_id):
+    # チェックされたアレルギーの情報を取得
+    egg = request.form.get('egg',False) == 'true'
+    milk = request.form.get('milk',False) == 'true'
+    wheat = request.form.get('wheat',False) == 'true'
+    shrimp = request.form.get('shrimp',False) == 'true'
+    crab = request.form.get('crab',False) == 'true'
+    peanut = request.form.get('peanut',False) == 'true'
+    buckwheat = request.form.get('buckwheat',False) == 'true'
+    
+    print(egg,milk,wheat,shrimp,crab,peanut,buckwheat)
 
-@app.route('/register_allergy', methods=['POST'])
-def register_allergy():
-    account_id = session.get('account_id')
+    conn = get_db()
+    # アレルギー情報を更新または挿入
+    conn.execute('''
+        INSERT OR REPLACE INTO ALLERGEN (account_id, egg, milk, wheat, shrimp, crab, peanut, buckwheat)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)''', 
+        (account_id, egg, milk, wheat, shrimp, crab, peanut, buckwheat))
+    
+    sql = """
+        SELECT
+            CASE WHEN egg = 1 THEN '卵' ELSE NULL END AS allergy1,
+            CASE WHEN milk = 1 THEN '牛乳' ELSE NULL END AS allergy2,
+            CASE WHEN wheat = 1 THEN '小麦' ELSE NULL END AS allergy3,
+            CASE WHEN shrimp = 1 THEN 'えび' ELSE NULL END AS allergy4,
+            CASE WHEN crab = 1 THEN 'かに' ELSE NULL END AS allergy5,
+            CASE WHEN peanut = 1 THEN '落花生' ELSE NULL END AS allergy6,
+            CASE WHEN buckwheat = 1 THEN 'そば' ELSE NULL END AS allergy7
+        FROM ALLERGEN
+        WHERE account_id = ?;"""
+    jiken = conn.execute(sql, (account_id,)).fetchone()
+    conn.commit()
+    conn.close()
 
-    # 受け取ったアレルゲンデータを取得
-    allergies = request.form.getlist('allergy')
+    allergies = [allergy for allergy in jiken if allergy is not None]
 
-    conn = sqlite3.connect('mydatabase.db')
-    cursor = conn.cursor()
-
-    try:
-        for allergy in allergies:
-            cursor.execute("INSERT INTO ALLERGEN (ACCOUNT_ID, ALLERGY) VALUES (?, ?)", (account_id, allergy))
-
-        conn.commit()
-    except sqlite3.Error as e:
-        print("エラーが発生しました:", e)
-        conn.rollback()
-    finally:
-        conn.close()
-
-    return redirect(url_for('acct_set'))
+    print(allergies)
+    return render_template('acset/allergy_set.html',account_id=account_id,allergies=allergies)
 
 @app.route('/acset/psd_change', methods=['GET','POST'])
 def psd_change():
