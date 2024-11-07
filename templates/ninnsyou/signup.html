@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>新規登録</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
-</head>
-<body background="../static/img/background.png" class="kabegami">
-    <div class="container">
-        <img src="../static/img/title.png" class="title">
-    </div>
+{% extends 'base.html' %}
+{% block title %}新規登録{% endblock %}
 
+{% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+    <div class="pad"></div>
     {% if error_message %}
-        <div class="error-message" style="color: red; text-align: center;">
+        <div class="LoginSignup-error-message">
             {{ error_message }}
         </div>
     {% endif %}
@@ -42,5 +36,4 @@
     <div class="back-button-container">
         <button id="back-button" onclick="location.href='{{ url_for('index') }}';" class="back-button">戻る</button>
     </div>
-</body>
-</html>
+{% endblock %}

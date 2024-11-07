@@ -64,3 +64,7 @@ html, body {
     justify-content: center;    /* 縦方向の中央寄せ */
     height: 100vh;              /* ビューポートの高さを100%に */
 }
+
+.pad{
+    margin-top:140px;
+}

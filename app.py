@@ -18,6 +18,8 @@ app.secret_key = secrets.token_hex(16)
 
 # 自分のパソコンで実行する際の画像の保存先のパス、本番では検索して消せ
 LOCAL_IMAGE_FOLDER = 'static/hiroba_img'
+# LOCAL_IMAGE_FOLDER = os.path.join(app.root_path, 'static', 'hiroba_img')
+
 
 # SQLiteデータベースの設定
 # 検索してナンバーを消せ
@@ -365,6 +367,7 @@ def sugg_look():
 def sugg_hist():
     return render_template('sugg/sugg_hist.html')
 
+# 本番ではこっちを検索して消せ
 @app.route('/hiroba/area_gohan')
 def area_gohan():
     conn = get_db()
@@ -388,6 +391,28 @@ def area_gohan():
     
     return render_template('hiroba/area_gohan.html', posts=posts, account_id=account_id)
 
+# @app.route('/hiroba/area_gohan')
+# def area_gohan():
+#     conn = get_db()
+#     cursor = conn.cursor()
+
+#     cursor.execute("""
+#     SELECT P.POST_ID, A.ACCOUNT_ID, A.ACCOUNT_NAME, P.SENTENCE, P.PHOTO
+#     FROM POST P
+#     JOIN ACCOUNT A ON P.ACCOUNT_ID = A.ACCOUNT_ID
+#     ORDER BY P.POST_ID DESC
+#     """)
+
+#     posts = cursor.fetchall()
+#     conn.close()
+
+#     # フォーマットを変更して辞書リストを作成
+#     posts = [{'post_id': row[0], 'account_id': row[1], 'account_name': row[2], 'sentence': row[3], 'photo': row[4]} for row in posts]
+
+#     account_id = session.get('account_id')
+
+#     return render_template('hiroba/area_gohan.html', posts=posts, account_id=account_id)
+
 @app.route('/hiroba/edit_post/<int:post_id>', methods=['POST'])
 def edit_post(post_id):
     data = request.json
@@ -408,6 +433,8 @@ def generate_unique_filename(extension):
     random_str = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
     return f"{random_str}.{extension}"
 
+
+# 本番ではこっちを検索して消せ
 @app.route('/hiroba/save_gohan_post', methods=['POST'])
 def save_gohan_post():
     account_id = session.get('account_id')
@@ -436,6 +463,36 @@ def save_gohan_post():
             conn.close()
     
     return redirect(url_for('area_gohan'))
+
+# @app.route('/hiroba/save_gohan_post', methods=['POST'])
+# def save_gohan_post():
+#     account_id = session.get('account_id')
+#     sentence = request.form['sentence']
+#     photo = request.files['photo']
+
+#     if photo:
+#         # 元の拡張子のまま
+#         extension = photo.filename.rsplit('.', 1)[1].lower()
+#         unique_filename = generate_unique_filename(extension)
+
+#         # 保存先のパス
+#         photo_path = os.path.join(LOCAL_IMAGE_FOLDER, unique_filename)
+#         photo.save(photo_path)
+
+#         # データベースに情報を保存
+#         conn = get_db()
+#         cursor = conn.cursor()
+
+#         try:
+#             cursor.execute(
+#                 "INSERT INTO POST (ACCOUNT_ID, SENTENCE, PHOTO) VALUES (?, ?, ?)",
+#                 (account_id, sentence, unique_filename)
+#             )
+#             conn.commit()
+#         finally:
+#             conn.close()
+
+#     return redirect(url_for('area_gohan'))
 
 @app.route('/hiroba/delete_post/<int:post_id>', methods=['POST'])
 def delete_post(post_id):
