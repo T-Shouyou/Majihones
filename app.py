@@ -530,8 +530,6 @@ def new_allergy(account_id):
     crab = request.form.get('crab',False) == 'true'
     peanut = request.form.get('peanut',False) == 'true'
     buckwheat = request.form.get('buckwheat',False) == 'true'
-    
-    print(egg,milk,wheat,shrimp,crab,peanut,buckwheat)
 
     conn = get_db()
     # アレルギー情報を更新または挿入
@@ -557,7 +555,6 @@ def new_allergy(account_id):
 
     allergies = [allergy for allergy in jiken if allergy is not None]
 
-    print(allergies)
     return render_template('acset/allergy_set.html',account_id=account_id,allergies=allergies)
 
 @app.route('/acset/psd_change', methods=['GET','POST'])
