@@ -10,9 +10,13 @@ import random
 import string
 import re
 from datetime import datetime 
+from werkzeug.utils import escape
+# デバッグ用のログ出力
+import logging
 
 
 app = Flask(__name__)
+app.logger.setLevel(logging.DEBUG)
 
 app.secret_key = secrets.token_hex(16)
 
@@ -413,16 +417,61 @@ def area_gohan():
 
 #     return render_template('hiroba/area_gohan.html', posts=posts, account_id=account_id)
 
+import logging
+
 @app.route('/hiroba/edit_post/<int:post_id>', methods=['POST'])
 def edit_post(post_id):
     data = request.json
-    sentence = data['sentence']
-
+    sentence = data['sentence']  # 投稿文を受け取る
+    # サニタイズを適用
+    sentence = sanitize_post_content(sentence)
+    # ここで flask.escape() を使ってエスケープ
+    sentence = escape(sentence)  # HTML エスケープを行う
+    # データベースに接続し、更新を行う
     conn = get_db()
-    cur = conn.cursor()
-    cur.execute("UPDATE POST SET SENTENCE = ? WHERE POST_ID = ?", (sentence, post_id))
-    conn.commit()
-    return '', 204
+    try:
+        cur = conn.cursor()
+        cur.execute("UPDATE POST SET SENTENCE = ? WHERE POST_ID = ?", (sentence, post_id))  # サニタイズされた投稿文を保存
+        conn.commit()
+        app.logger.info(f"Post {post_id} updated successfully with sentence: {sentence}")
+        return '', 204  # 成功時は204 No Contentを返す
+    except Exception as e:
+        logging.error(f"Error updating post: {e}")
+        conn.rollback()
+        return "Error updating post", 500  # エラー時には500を返す
+
+
+
+#---------------------------サニタイズ処理関連------------------------------------------
+
+import bleach
+import re
+
+# 許可するタグと属性
+allowed_tags = ['b', 'i', 'u', 'em', 'strong', 'a', 'p', 'br']  # 許可するタグをリスト
+
+def sanitize_post_content(content):
+    """
+    ユーザーが入力した投稿内容をサニタイズする関数
+    - 不正なタグやスクリプトを除去
+    - 許可されたタグだけを残す
+    """
+    # bleach.clean() で許可されたタグだけを残し、その他は削除
+    sanitized_content = bleach.clean(content, tags=allowed_tags, strip=True)
+    
+    # style タグを削除
+    sanitized_content = re.sub(r'<style.*?>.*?</style>', '', sanitized_content, flags=re.DOTALL)  # <style>タグ全体を削除
+    
+    # style 属性を削除（他の属性が残らないようにする）
+    sanitized_content = re.sub(r' style="[^"]*"', '', sanitized_content)  # style 属性の削除
+    
+    # 中括弧内の内容（CSS など）を除去
+    sanitized_content = re.sub(r'\{.*?\}', '', sanitized_content)  # CSS など、中括弧内の内容を除去
+
+    return sanitized_content
+
+
+#---------------------------------------------------------------------------------------
 
 @app.route('/hiroba/post_gohan')
 def post_gohan():
@@ -435,10 +484,15 @@ def generate_unique_filename(extension):
 
 
 # 本番ではこっちを検索して消せ
+
 @app.route('/hiroba/save_gohan_post', methods=['POST'])
 def save_gohan_post():
     account_id = session.get('account_id')
-    sentence = request.form['sentence']
+    sentence = request.form['sentence']  # 投稿文を取得
+    
+    # サニタイズを適用し、flask.escapeでエスケープ
+    sentence = escape(sentence)  # ここで HTML エスケープを行う
+    
     photo = request.files['photo']
     
     if photo:
@@ -456,13 +510,14 @@ def save_gohan_post():
         try:
             cursor.execute(
                 "INSERT INTO POST (ACCOUNT_ID, SENTENCE, PHOTO) VALUES (?, ?, ?)",
-                (account_id, sentence, unique_filename)
+                (account_id, sentence, unique_filename)  # エスケープされた投稿文を保存
             )
             conn.commit()
         finally:
             conn.close()
     
     return redirect(url_for('area_gohan'))
+
 
 # @app.route('/hiroba/save_gohan_post', methods=['POST'])
 # def save_gohan_post():
