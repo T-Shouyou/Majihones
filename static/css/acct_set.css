@@ -3,6 +3,17 @@
     height: 100%; /* コンテナの高さを100%に設定 */
 }
 
+.kabegami {
+    background-size: cover;
+}
+
+.title {
+    justify-content: center; /* 水平方向に中央配置 */
+    max-width: 30%; /* 画像の最大幅を65%に設定 */
+    height: auto; /* 高さを自動に設定してアスペクト比を保持 */
+    margin-top: -50px; /* 上にずらすためのマージンを設定（値は調整可） */
+    margin-left: 205px; 
+}
 
 .login-image{
     height: 120px;
@@ -44,6 +55,19 @@
     border: 3px solid #696969;
 }
 
+.allergy-l ul{
+    width:auto;
+    text-align: center;
+}
+
+.allergy-l li {
+    font-size: 20px;
+    list-style: none;
+    align-items:center;
+    display: inline;
+    text-align: center;
+}
+
 
 /* ----------垢削除と戻る---------- */
 .button-sel {
@@ -52,6 +76,7 @@
     margin: 0 auto;
     width: 800px;
     height: 50px;
+    clear: left;
 }
 
 .acctdel-button {
