@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
+
 {% block title %}アカウント情報{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/account_look.css') }}">
 <script>
     let currentEditingRow = null;
     let currentDeletingRow = null;
@@ -182,63 +182,59 @@ function resetSearch() {
 
 </script>
 
-<div class="container">
+<div class="main-contents">
+    <p class="account_look-text1">アカウント情報<br>アカウントIDでの検索は完全一致、アカウント名・メールアドレスでの検索は部分一致だよん</p>
+    <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+        <input type="text" id="searchAccountId" placeholder="アカウントIDで検索..." oninput="searchAccounts()">
+        <input type="text" id="searchAccountName" placeholder="アカウント名で検索..." oninput="searchAccounts()">
+        <input type="text" id="searchEmail" placeholder="メールアドレスで検索..." oninput="searchAccounts()">
+        <button id="resetButton" type="button" onclick="resetSearch()" class="reset-button">リセット</button>
+    </div>
 
-</div>
-<br><br><br><br>
-<h1 class="txtcenter">アカウント情報</h1>
-<p class="txt-center">アカウントIDでの検索は完全一致、アカウント名・メールアドレスでの検索は部分一致だよん</p>
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>アカウントID</th>
+                <th>アカウント名</th>
+                <th>メールアドレス</th>
+                <th>パスワード</th>
+                <th>操作</th>
+            </tr>
+            {% for account in accounts %}
+            <tr>
+                <td>{{ account[0] }}</td>
+                <td data-original="{{ account[1] }}">{{ account[1] }}</td>
+                <td data-original="{{ account[2] }}">{{ account[2] }}</td>
+                <td data-original="{{ account[3] }}">{{ account[3] }}</td>
+                <td>
+                    {% if account[0] == 1 %}
+                    <button class="edit-button" type="button" disabled>編集</button>
+                    <button class="save-button" type="button" style="display:none;" disabled>保存</button>
+                    <button class="cancel-button" type="button" style="display:none;" disabled>キャンセル</button>
+                    <button class="delete-button" type="button" disabled>削除</button>
+                    {% else %}
+                    <button class="edit-button" type="button"
+                        onclick="editRow(this.parentElement.parentElement)">編集</button>
+                    <button class="save-button" type="button" style="display:none;"
+                        onclick="saveRow(this.parentElement.parentElement)">保存</button>
+                    <button class="cancel-button" type="button" style="display:none;"
+                        onclick="cancelEdit(this.parentElement.parentElement)">キャンセル</button>
+                    <button class="delete-button" type="button"
+                        onclick="showDeleteConfirmation(this.parentElement.parentElement)">削除</button>
+                    <span class="delete-confirm" style="display:none;">
+                        <button type="button" onclick="deleteAccount(this.closest('tr'))">はい</button>
+                        <button type="button" onclick="cancelDelete(this.parentElement.parentElement)">いいえ</button>
+                    </span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 
-<div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
-    <input type="text" id="searchAccountId" placeholder="アカウントIDで検索..." oninput="searchAccounts()">
-    <input type="text" id="searchAccountName" placeholder="アカウント名で検索..." oninput="searchAccounts()">
-    <input type="text" id="searchEmail" placeholder="メールアドレスで検索..." oninput="searchAccounts()">
-    <button id="resetButton" type="button" onclick="resetSearch()" class="reset-button">リセット</button>
-</div>
-
-<div class="table-container">
-    <table>
-        <tr>
-            <th>アカウントID</th>
-            <th>アカウント名</th>
-            <th>メールアドレス</th>
-            <th>パスワード</th>
-            <th>操作</th>
-        </tr>
-        {% for account in accounts %}
-        <tr>
-            <td>{{ account[0] }}</td>
-            <td data-original="{{ account[1] }}">{{ account[1] }}</td>
-            <td data-original="{{ account[2] }}">{{ account[2] }}</td>
-            <td data-original="{{ account[3] }}">{{ account[3] }}</td>
-            <td>
-                {% if account[0] == 1 %}
-                <button class="edit-button" type="button" disabled>編集</button>
-                <button class="save-button" type="button" style="display:none;" disabled>保存</button>
-                <button class="cancel-button" type="button" style="display:none;" disabled>キャンセル</button>
-                <button class="delete-button" type="button" disabled>削除</button>
-                {% else %}
-                <button class="edit-button" type="button"
-                    onclick="editRow(this.parentElement.parentElement)">編集</button>
-                <button class="save-button" type="button" style="display:none;"
-                    onclick="saveRow(this.parentElement.parentElement)">保存</button>
-                <button class="cancel-button" type="button" style="display:none;"
-                    onclick="cancelEdit(this.parentElement.parentElement)">キャンセル</button>
-                <button class="delete-button" type="button"
-                    onclick="showDeleteConfirmation(this.parentElement.parentElement)">削除</button>
-                <span class="delete-confirm" style="display:none;">
-                    <button type="button" onclick="deleteAccount(this.closest('tr'))">はい</button>
-                    <button type="button" onclick="cancelDelete(this.parentElement.parentElement)">いいえ</button>
-                </span>
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
-
-<div class="txtcenter">
-    <a href="{{ url_for('mainmenu') }}">メインメニュー</a>
-    <a href="{{ url_for('logout') }}">ログアウト</a>
+    <div class="account_look-text1">
+        <a href="{{ url_for('mainmenu') }}">メインメニュー</a>
+        <a href="{{ url_for('logout') }}">ログアウト</a>
+    </div>
 </div>
 {% endblock %}
