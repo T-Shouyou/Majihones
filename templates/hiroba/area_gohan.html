@@ -98,8 +98,13 @@
             cancelButton.style.display = 'inline';
             deleteButton.style.display = 'none';
         } else if (editButton.textContent === "保存") {
-            const updatedSentence = sentenceElement.querySelector('textarea').value;
+                 // テキストエリアから入力された更新された投稿文を取得
+            let updatedSentence = sentenceElement.querySelector('textarea').value;
 
+            // 置き換え処理を追加
+            updatedSentence = updatedSentence.replace(/</g, "＜").replace(/>/g, "＞");
+
+            // サーバーに送信
             const response = await fetch(`/hiroba/edit_post/${postElement.getAttribute('data-post-id')}`, {
                 method: 'POST',
                 headers: {
@@ -107,7 +112,6 @@
                 },
                 body: JSON.stringify({ sentence: updatedSentence })
             });
-
             if (response.ok) {
                 sentenceElement.innerHTML = updatedSentence;
                 sentenceElement.setAttribute('data-original', updatedSentence);
