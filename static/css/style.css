@@ -320,27 +320,6 @@ aside {
 }
 
   /* photomenu -----------------------------------------------------------------------------------*/
-
-
-
-
-
-.my-textbox {
-    width: 500px;  /* 幅を300ピクセルに設定 */
-    height: 40px;  /* 高さを40ピクセルに設定 */
-    padding: 10px; /* 内側の余白を10ピクセルに設定 */
-    font-size: 16px; /* フォントサイズを16ピクセルに設定 */
-    border: 1px solid #ccc; /* 枠線を設定 */
-    border-radius: 5px; /* 角を丸くする */
-}
-
-.login-form{
-    display: flex; /* フレックスボックスを使用 */
-    flex-direction: column; /* 縦に並べる */
-    align-items: center; /* 中央揃え */
-    justify-content: center; /* 縦方向も中央揃え（高さがある場合） */
-}
-
 .login-button {
     background-color: #749DFC; /* 水色の背景色 */
     color: black; /* テキストの色を黒に設定 */
@@ -794,7 +773,6 @@ canvas {
     width: 920px; /* コンテナの幅を更新 */
     text-align: center; /* 中央揃え */
     margin: 0 auto; /* コンテナを中央に配置 */
-    margin-top: 70px;
 }
 
 .button-container-ac button {
@@ -876,7 +854,7 @@ canvas {
 
 .recipe-button-container {
     width: 300px;
-    height: 600px;
+    height: 300px;
     display: flex;
     padding-top: 10px;
     padding-left: 10px;
@@ -1017,13 +995,6 @@ form.MC-form {
 
 
 /* acct_set(アカウント設定)------------------------------------------------------- */
-
-.container {
-    align-items: center; /* 縦方向の中央揃え */
-    height: 100%; /* コンテナの高さを100%に設定 */
-}
-
-
 .login-image{
     height: 120px;
     width: 120px;
@@ -1161,4 +1132,94 @@ input {
 
 .chkbox {
     font-size: 25px; /* ラベルの文字サイズ */
+}
+
+/* login------------------------------------------------------ */
+.main-contents-ninshou {
+    padding-top: 120px;
+}
+
+.ninshou-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+}
+
+/* logout----------------------------------------------------- */
+.button-container-logout {
+    display: flex;
+    flex-wrap: wrap; /* ボタンを折り返し可能にする */
+    width: 920px; /* コンテナの幅を更新 */
+    justify-content: center; /* 中央揃え */
+    margin: auto; /* コンテナを中央に配置 */
+}
+
+.button-container-logout button {
+    width: 200px; /* ボタンの幅を設定 */
+    height:80px;
+    margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
+    border-style: solid;
+    border-color:red; /* 枠線をなしに設定 */
+    background-color: #ff6161;
+    color: white;
+    font-size: 22px;
+    border-radius: 65px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+
+.button-container-logout button:hover {
+    background-color: #ffab96; /* ホバー時の水色を少し暗くする */
+}
+
+.logout-text {
+    font-size: 30px;
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+/* logout_success---------------------------------------------------------- */
+.logout-success-text {
+    font-size: 30px;
+    text-align:center;
+    padding-top: 20px;
+}
+
+.restart-button {
+    text-align: center;
+    font-size: 20px;
+    padding-top: 50px;
+}
+
+
+/* signup---------------------------------------------------------- */
+.signup-form{
+    display: flex; /* フレックスボックスを使用 */
+    flex-direction: column; /* 縦に並べる */
+    align-items: center; /* 中央揃え */
+    justify-content: center; /* 縦方向も中央揃え（高さがある場合） */
+}
+
+.signup-form1{
+    margin-top:140px;
+    display: flex; /* フレックスボックスを使用 */
+    flex-direction: column; /* 縦に並べる */
+    align-items: center; /* 中央揃え */
+    justify-content: center; /* 縦方向も中央揃え（高さがある場合） */
+}
+
+.signup-button {
+    background-color: #749DFC; /* 水色の背景色 */
+    color: black; /* テキストの色を黒に設定 */
+    padding: 10px 30px; /* 上下の余白を15px、左右を30pxに設定 */
+    font-size: 18px; /* フォントサイズを18pxに設定 */
+    border: none; /* 枠線をなしに設定 */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+
+.signup-button:hover {
+    background-color: #009acd; /* ホバー時の水色を少し暗くする */
 }

@@ -1,32 +1,28 @@
 {% extends 'base.html' %}
+
 {% block title %}新規登録{% endblock %}
 
 {% block content %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
-    <div class="pad"></div>
+
+<div class="main-contents-ninshou">
     {% if error_message %}
         <div class="LoginSignup-error-message">
             {{ error_message }}
         </div>
     {% endif %}
     
-    <form action="{{ url_for('signup') }}" method="post">
-        <div id="input1">
-            <div class="signup-form">
-                <input name="account_name" class="my-textbox" placeholder="アカウント名(表示名)" value="{{ account_name or '' }}" required>
-            </div>
-            <br>
-            <div class="signup-form">
-                <input name="mail_address" class="my-textbox" type="mail" placeholder="メールアドレス" value="{{ mail_address or '' }}" required>
-            </div>
-            <br>
-            <div class="signup-form">
-                <input type="password" name="password" class="my-textbox" placeholder="パスワード" required>
-            </div>
-            <br>
-            <div class="signup-form">
-                <button type="submit" id="login-button" class="signup-button">登録</button>
-            </div>
+    <form action="{{ url_for('signup') }}" method="post" class="ninshou-form-container">
+        <div class="signup-form">
+            <input name="account_name" class="my-textbox" placeholder="アカウント名(表示名)" value="{{ account_name or '' }}" required>
+        </div>
+        <div class="signup-form">
+            <input name="mail_address" class="my-textbox" type="mail" placeholder="メールアドレス" value="{{ mail_address or '' }}" required>
+        </div>
+        <div class="signup-form">
+            <input type="password" name="password" class="my-textbox" placeholder="パスワード" required>
+        </div>
+        <div class="signup-form">
+            <button type="submit" id="login-button" class="signup-button">登録</button>
         </div>
     </form>
 
@@ -36,4 +32,5 @@
     <div class="back-button-container">
         <button id="back-button" onclick="location.href='{{ url_for('index') }}';" class="back-button">戻る</button>
     </div>
+</div>
 {% endblock %}

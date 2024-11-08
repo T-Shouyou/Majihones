@@ -1,27 +1,24 @@
 {% extends 'base.html' %}
+
 {% block title %}ログイン{% endblock %}
 
 {% block content %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 
-    <div class="pad"></div>
+<div class="main-contents-ninshou">
     {% if error_message %}
             <div class="LoginSignup-error-message">{{ error_message }}</div>
     {% endif %}
 
-    <form action="{{ url_for('login') }}" method="post">
+    <form action="{{ url_for('login') }}" method="post" class="ninshou-form-container">
         <div class="login-form">
             <input name="mail_address" class="my-textbox" placeholder="メールアドレス" value="{{ mail_address }}" required>
         </div>
-        <br>
         <div class="login-form">
             <input type="password" name="password" class="my-textbox" placeholder="パスワード" required>
         </div>
-        <br>
         <div class="login-form">
             <button id="login-button" type="submit" class="login-button">ログイン</button>
         </div>
-        <br>
         <div class="login-form">
             <a href="{{ url_for('signup') }}" class="txt-center">新規登録はこちら</a>
         </div>
@@ -29,4 +26,5 @@
     <div class="back-button-container">
         <button id="back-button" onclick="location.href='{{ url_for('index') }}';" class="back-button">戻る</button>
     </div>
-    {% endblock %}
+</div>
+{% endblock %}

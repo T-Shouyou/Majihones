@@ -50,35 +50,37 @@
     let currentEditingPost = null;
     let currentDeletingPost = null;
 
-    // 投稿者名での検索
-    document.getElementById("searchByName").addEventListener("input", function () {
-        const nameFilter = this.value.toLowerCase();
+    // 投稿者名と投稿文での複合検索
+    function searchPosts() {
+        const nameFilter = document.getElementById("searchByName").value.toLowerCase();
+        const contentFilter = document.getElementById("searchByContent").value.toLowerCase();
         const posts = document.querySelectorAll(".post");
 
         posts.forEach(post => {
             const accountName = post.querySelector(".account-name").textContent.toLowerCase();
-            if (accountName.includes(nameFilter)) {
-                post.style.display = ""; // 表示
-            } else {
-                post.style.display = "none"; // 非表示
-            }
-        });
-    });
-
-    // 投稿文での検索
-    document.getElementById("searchByContent").addEventListener("input", function () {
-        const contentFilter = this.value.toLowerCase();
-        const posts = document.querySelectorAll(".post");
-
-        posts.forEach(post => {
             const postContent = post.querySelector(".post-sentence").textContent.toLowerCase();
-            if (postContent.includes(contentFilter)) {
+
+            // 両方のフィルタに合致する場合のみ表示
+            if (
+                (nameFilter === "" || accountName.includes(nameFilter)) &&
+                (contentFilter === "" || postContent.includes(contentFilter))
+            ) {
                 post.style.display = ""; // 表示
             } else {
                 post.style.display = "none"; // 非表示
             }
         });
-    });
+    }
+
+    // 各入力ボックスにイベントリスナーを追加
+    document.getElementById("searchByName").addEventListener("input", searchPosts);
+    document.getElementById("searchByContent").addEventListener("input", searchPosts);
+
+    function resetSearch() {
+        document.getElementById("searchByName").value = '';
+        document.getElementById("searchByContent").value = '';
+        searchPosts();
+    }
 
     async function toggleEditMode(button) {
         const postElement = button.closest('.post');
@@ -98,7 +100,8 @@
             cancelButton.style.display = 'inline';
             deleteButton.style.display = 'none';
         } else if (editButton.textContent === "保存") {
-            const updatedSentence = sentenceElement.querySelector('textarea').value;
+            let updatedSentence = sentenceElement.querySelector('textarea').value;
+            updatedSentence = updatedSentence.replace(/</g, "＜").replace(/>/g, "＞");
 
             const response = await fetch(`/hiroba/edit_post/${postElement.getAttribute('data-post-id')}`, {
                 method: 'POST',
@@ -107,7 +110,6 @@
                 },
                 body: JSON.stringify({ sentence: updatedSentence })
             });
-
             if (response.ok) {
                 sentenceElement.innerHTML = updatedSentence;
                 sentenceElement.setAttribute('data-original', updatedSentence);
@@ -181,17 +183,6 @@
         cancelDeleteButton.style.display = 'none';
         currentDeletingPost = null;
     }
-
-    function resetSearch() {
-        document.getElementById("searchByName").value = '';
-        document.getElementById("searchByContent").value = '';
-
-        const posts = document.querySelectorAll(".post");
-        posts.forEach(post => {
-            post.style.display = "";
-        });
-    }
-
 </script>
 
 {% endblock %}
