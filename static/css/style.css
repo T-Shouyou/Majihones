@@ -1130,6 +1130,7 @@ input {
     width: 920px; /* コンテナの幅を更新 */
     justify-content: center; /* 中央揃え */
     margin: auto; /* コンテナを中央に配置 */
+    padding-top: 90px;
 }
 
 .button-container-logout button {
@@ -1150,18 +1151,8 @@ input {
     background-color: #ffab96; /* ホバー時の水色を少し暗くする */
 }
 
-.ninshou-text {
-    font-size: 30px;
-    text-align: center;
-    padding-bottom: 30px;
-}
 
 /* logout_success---------------------------------------------------------- */
-.logout-success-text {
-    font-size: 30px;
-    text-align:center;
-    padding-top: 20px;
-}
 
 .restart-button {
     text-align: center;
@@ -1244,9 +1235,4 @@ th, td {
 
 #searchEmail{
     margin-left:20px;
-}
-
-.account_look-text1 {
-    font-size: 20px;
-    text-align:center;
 }
