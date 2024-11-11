@@ -143,8 +143,6 @@
     }
 </script>
 
-
-
 <div class="main-contents">
     <p class="main-text">ごはん広場</p>
     <p class="main-text">投稿の責任は投稿した本人にあります。</p>
@@ -161,7 +159,8 @@
         <div class="post" data-post-id="{{ post.post_id }}">
             <hr>
             <p class="post-txt">
-                <strong>投稿者名:</strong> <span class="account-name">{{ post.account_name }}</span>
+                <strong>投稿者名:</strong> <span class="account-name">{{ post.account_name }}</span><br>
+                <strong>投稿時刻:</strong> {{ post.created_at }} <!-- 日付がすでにフォーマット済み -->
                 {% if account_id == 1 or post.account_id == account_id %}
                 <button onclick="toggleEditMode(this)" class="edit-button">編集</button>
                 <button onclick="confirmDelete(this)" class="delete-button">削除</button>
@@ -175,18 +174,18 @@
                 {% if post.photo %}
                 <img src="{{ url_for('static', filename='hiroba_img/' + post.photo) }}" alt="投稿画像" class="post-img">
                 {% endif %}
-                <p class="post-txt" data-original="{{ post.sentence }}"><span class="post-sentence">{{ post.sentence
-                        }}</span></p>
+                <p class="post-txt" data-original="{{ post.sentence }}">
+                    <span class="post-sentence">{{ post.sentence }}</span>
+                </p>
             </div>
         </div>
         {% endfor %}
     </div>
-
+    
     <div class="fixed-button">
         <button onclick="location.href='{{ url_for('mainmenu') }}';" class="main-button">メイン<br>メニュー</button>
         <button onclick="location.href='{{ url_for('post_gohan') }}';" class="main-button">ごはん投稿</button>
     </div>
 </div>
-
 
 {% endblock %}
