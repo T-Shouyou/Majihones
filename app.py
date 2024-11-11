@@ -549,19 +549,34 @@ def save_gohan_post():
 
 #     return redirect(url_for('area_gohan'))
 
+import os
+
 @app.route('/hiroba/delete_post/<int:post_id>', methods=['POST'])
 def delete_post(post_id):
     conn = get_db()
     cur = conn.cursor()
     
     try:
+        cur.execute("SELECT PHOTO FROM POST WHERE POST_ID = ?", (post_id,))
+        photo_path = cur.fetchone()
+        
         cur.execute("DELETE FROM POST WHERE POST_ID = ?", (post_id,))
         conn.commit()
+        
+        if photo_path and photo_path[0]:
+            # ここは本番では検索して消せ(正確なパスに修正)
+            # パスをフルで書く感じになるはず
+            base_dir = os.path.dirname(__file__)
+            full_path = os.path.join(base_dir, 'static', 'hiroba_img', photo_path[0])
+            if os.path.exists(full_path):
+                os.remove(full_path)
+    
     finally:
         cur.close()
         conn.close()
     
     return redirect(url_for('area_gohan'))
+
 
 
 
