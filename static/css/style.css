@@ -520,18 +520,17 @@ canvas {
 }
 
 .post-button {
-    position: fixed;  /* ボタンを固定位置に配置 */
-    width: 110px;     /* 幅 */
-    height: 50px;     /* 高さ */
-    bottom: 118px;     /* 画面下からの距離 */
-    right: 290px;      /* 画面右からの距離 */
-    background-color: skyblue; /* 背景色 */
-    border-radius: 5px; /* 角を丸くする */
-    border: none; /* ボーダーを消す */
-    color: white; /* テキストの色 */
-    font-size: 16px; /* フォントサイズ */
-    cursor: pointer; /* カーソルをポインターにする */
-    transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
+    width:110px;
+    height:50px;
+    margin-left: 470px; /* 左のマージンを保持 */
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: skyblue; /* ボタンの背景色 */
+    color: white;               /* ボタンの文字色 */
+    border-radius: 5px;        /* 角を丸くする */
+    border: none;              /* ボーダーを消す */
+    text-align: center;        /* テキストを中央揃え */
+    margin-top: -50px; 
 }
 
 .select-img {
