@@ -1235,3 +1235,7 @@ th, td {
 #searchEmail{
     margin-left:20px;
 }
+
+.text-center {
+    text-align:center;
+}
