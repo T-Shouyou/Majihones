@@ -378,7 +378,7 @@ def area_gohan():
     cursor = conn.cursor()
 
     cursor.execute("""
-    SELECT P.POST_ID, A.ACCOUNT_ID, A.ACCOUNT_NAME, P.SENTENCE, P.PHOTO 
+    SELECT P.POST_ID, A.ACCOUNT_ID, A.ACCOUNT_NAME, P.SENTENCE, P.PHOTO, P.CREATED_AT
     FROM POST P
     JOIN ACCOUNT A ON P.ACCOUNT_ID = A.ACCOUNT_ID
     ORDER BY P.POST_ID DESC
@@ -389,7 +389,7 @@ def area_gohan():
     conn.close()
     
     # フォーマットを変更して辞書リストを作成
-    posts = [{'post_id': row[0], 'account_id': row[1], 'account_name': row[2], 'sentence': row[3], 'photo': row[4]} for row in posts]
+    posts = [{'post_id': row[0], 'account_id': row[1], 'account_name': row[2], 'sentence': row[3], 'photo': row[4], 'created_at': row[5]} for row in posts]
 
     account_id = session.get('account_id')
     
