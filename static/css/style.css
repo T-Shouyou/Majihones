@@ -190,19 +190,22 @@ header {
 .back-button-container {
     position: fixed; /* 視覚的に固定 */
     bottom: 20px; /* 下から0px */
-    left: 40px; /* 左から0px */
-    padding: 20px;
+    left: 20px; /* 左から0px */
 }
 
-.back-button {
-    background-color: transparent; /* 透明の背景色 */
-    color: black; /* テキストの色を黒に設定 */
-    padding: 9px 30px; /* 上下の余白を9px、左右を30pxに設定 */
-    font-size: 18px; /* フォントサイズを18pxに設定 */
-    border: 2px solid black; /* 枠線を黒に設定 */
-    border-radius: 5px; /* 角を丸くする */
-    cursor: pointer; /* カーソルをポインターに変更 */
-    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+.back-button-container button {
+    width: 100px; /* ボタンの幅 */
+    height: 100px; /* ボタンの高さ */
+    border-radius: 50%; /* 円形にする */
+    border: none; /* ボーダーを消す */
+    background-color: #007BFF; /* ボタンの背景色 */
+    color: white; /* テキストの色 */
+    font-size: 16px; /* フォントサイズ */
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center; /* 縦方向の中央揃え */
+    cursor: pointer; /* カーソルをポインターにする */
+    transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
 }
 
 .LoginSignup-error-message {
@@ -599,8 +602,8 @@ canvas {
 
 #selected-image { /* 画像の最大サイズを制限　「縛り」 */
     position:fixed;
-    top:270px;
-    left:130px;
+    top:250px;
+    right:110px;
     display: none; /* 初期状態で非表示 */
     max-width: 150px; /* 幅を400pxに制限 */
     max-height: 150px; /* 高さを300pxに制限 */
@@ -612,8 +615,8 @@ canvas {
 .upload-img-zone{
     background-color:gainsboro;
     position:fixed;
-    top:230px;
-    left:90px;
+    top:210px;
+    right:70px;
     width: 270px; /* 幅を400pxに制限 */
     height: 220px; /* 高さを300pxに制限 */
     overflow: hidden; /* はみ出す部分を隠す */
