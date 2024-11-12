@@ -530,7 +530,7 @@ canvas {
     border-radius: 5px;        /* 角を丸くする */
     border: none;              /* ボーダーを消す */
     text-align: center;        /* テキストを中央揃え */
-    margin-top: -50px; 
+    margin-top: 20px; 
 }
 
 .select-img {
