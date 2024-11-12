@@ -140,11 +140,6 @@ header {
     display: table;
 }
 
-
-.kabegami {
-    background-size: cover;
-}
-
 #input1 {
     display: block;
     margin: auto;
@@ -218,10 +213,6 @@ header {
 
 .back-button:hover {
     background-color: #efe8d2; /* ホバー時の水色を少し暗くする */
-}
-
-.txt-center{
-    text-align : center;
 }
 
 .camera-button{
@@ -320,16 +311,6 @@ aside {
 }
 
   /* photomenu -----------------------------------------------------------------------------------*/
-.login-button {
-    background-color: #749DFC; /* 水色の背景色 */
-    color: black; /* テキストの色を黒に設定 */
-    padding: 10px 30px; /* 上下の余白を15px、左右を30pxに設定 */
-    font-size: 18px; /* フォントサイズを18pxに設定 */
-    border: none; /* 枠線をなしに設定 */
-    border-radius: 5px; /* 角を丸くする */
-    cursor: pointer; /* カーソルをポインターに変更 */
-    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
-}
 
 .login-button:hover {
     background-color: #009acd; /* ホバー時の水色を少し暗くする */
@@ -371,7 +352,7 @@ aside {
 }
 
 
-.capture{
+.capture {
     position: absolute;
     width: 150px;
     height: 50px; 
@@ -632,7 +613,7 @@ canvas {
 .upload-img-zone{
     background-color:gainsboro;
     position:fixed;
-    top:240px;
+    top:230px;
     left:90px;
     width: 270px; /* 幅を400pxに制限 */
     height: 220px; /* 高さを300pxに制限 */
@@ -646,18 +627,18 @@ canvas {
     line-height: 220px; /* 高さに合わせて垂直中央に配置 */
 }
 
-.clearfix::after {
-    content: "";
-    clear: both;
-    display: table;
-}
 
-.txt-center-photo-upload {
+.main-text {
     text-align: center;
-    margin-top: -40px;
-    padding-bottom: 20px;
+    margin-top: -25px;
+    margin-bottom: 15px;
+    font-size: 35px;
+    font-weight: bold;
 }
 
+.loading-text {
+    text-align:center; 
+}
 .upload-button {
     background-color: white;
     display: flex;
@@ -960,10 +941,6 @@ canvas {
 
 /* ---------------------MasterCheck用CSS -------------------------*/
 
-.master-pad1{
-    padding-top:100px;
-}
-
 .MC-button-container{
     display: flex;
     justify-content: center;
@@ -1110,6 +1087,19 @@ input {
     font-size: 20px;
 }
 
+.allergy-l {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.allergy-l li {
+    margin: 0 10px;
+    font-size: 25px;
+}
+
 .menu-button {
     width: 120px;
     height: 50px;
@@ -1173,7 +1163,7 @@ input {
     background-color: #ffab96; /* ホバー時の水色を少し暗くする */
 }
 
-.logout-text {
+.ninshou-text {
     font-size: 30px;
     text-align: center;
     padding-bottom: 30px;
@@ -1222,4 +1212,54 @@ input {
 
 .signup-button:hover {
     background-color: #009acd; /* ホバー時の水色を少し暗くする */
+}
+
+/* account_look---------------------------------------------------- */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0); /* 初期位置 */
+    }
+    50% {
+        transform: translateY(-10px); /* 上に10px移動 */
+    }
+}
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 5px #ffcc00, 0 0 10px #ffcc00, 0 0 15px #ffcc00; /* スタートの状態 */
+        opacity: 0.7; /* 初めの透明度 */
+    }
+    100% {
+        text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00, 0 0 30px #ffcc00; /* 最後の発光状態 */
+        opacity: 1; /* 最後の透明度 */
+    }
+}
+
+.table-container {
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 水平方向に中央揃え */
+    margin: 20px; /* 上下のマージンを追加 */
+}
+
+table {
+    border-collapse: collapse; /* セルの境界を重ねる */
+    width: 80%; /* テーブルの幅を設定（必要に応じて変更） */
+}
+
+th, td {
+    border: 1px solid #ccc; /* セルの境界線 */
+    padding: 8px; /* パディングを追加 */
+    text-align: center; /* テキストを中央揃え */
+}
+
+#searchAccountName{
+    margin-left:20px;
+}
+
+#searchEmail{
+    margin-left:20px;
+}
+
+.account_look-text1 {
+    font-size: 20px;
+    text-align:center;
 }
