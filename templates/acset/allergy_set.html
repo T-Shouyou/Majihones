@@ -4,14 +4,16 @@
 
 {% block content %}
 
-    <div>
+    <div class="touroku-comp">
         <p class="allergy-p">以下のアレルギーを登録しました:</p>
         <p class="allergy-p">登録済み</p>
-        <ul class="allergy-l">
-            {% for allergy in allergies %}
-                <li>{{ allergy }}</li>
-            {% endfor %}
-        </ul>
+        <div class="allergy-li">
+            <ul class="allergy-l">
+                {% for allergy in allergies %}
+                    <li>{{ allergy }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 
     <div class="button-sel">

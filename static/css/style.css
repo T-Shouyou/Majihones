@@ -533,7 +533,7 @@ canvas {
     border-radius: 5px;        /* 角を丸くする */
     border: none;              /* ボーダーを消す */
     text-align: center;        /* テキストを中央揃え */
-    margin-top: -50px; 
+    margin-top: 20px; 
 }
 
 .select-img {
@@ -1089,6 +1089,19 @@ input {
     font-size: 20px;
 }
 
+.allergy-l {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.allergy-l li {
+    margin: 0 10px;
+    font-size: 25px;
+}
+
 .menu-button {
     width: 120px;
     height: 50px;
@@ -1239,6 +1252,6 @@ th, td {
     margin-left:20px;
 }
 
-.text-center {
-    text-align:center;
+.txt-center{
+    text-align: center;
 }

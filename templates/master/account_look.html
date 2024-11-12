@@ -183,7 +183,7 @@ function resetSearch() {
 </script>
 
 <div class="main-contents">
-    <p class="main-text">アカウント情報<br>アカウントIDでの検索は完全一致、<br>アカウント名・メールアドレスでの検索は部分一致だよん</p>
+    <p class="main-text">アカウント情報<br><div class="txt-center">アカウントIDでの検索は完全一致、<br>アカウント名・メールアドレスでの検索は部分一致だよん</div></p>
     <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
         <input type="text" id="searchAccountId" placeholder="アカウントIDで検索..." oninput="searchAccounts()">
         <input type="text" id="searchAccountName" placeholder="アカウント名で検索..." oninput="searchAccounts()">
@@ -232,7 +232,7 @@ function resetSearch() {
         </table>
     </div>
 
-    <div class="text-center">
+    <div class="txt-center">
         <a href="{{ url_for('mainmenu') }}">メインメニュー</a>
         <a href="{{ url_for('logout') }}">ログアウト</a>
     </div>
