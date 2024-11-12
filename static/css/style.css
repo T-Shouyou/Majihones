@@ -1086,6 +1086,19 @@ input {
     font-size: 20px;
 }
 
+.allergy-l {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.allergy-l li {
+    margin: 0 10px;
+    font-size: 25px;
+}
+
 .menu-button {
     width: 120px;
     height: 50px;
