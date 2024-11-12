@@ -3,8 +3,8 @@
 {% block title %}アレルギー新規登録{% endblock %}
 
 {% block content %}
-    <p class="ale">アレルギーの登録</p>
-
+<div class="main-contents">
+    <p class="main-text">アレルギーの登録</p>
     <form action="{{ url_for('new_allergy', account_id=account_id) }}" method="post">
         <div class="chkbox">
             <label>
@@ -40,5 +40,7 @@
     <div class="back-button-container">
         <button onclick="location.href='{{ url_for('acct_set') }}';" class="back-button">戻る</button>
     </div>
+
+</div>
 
 {% endblock %}
