@@ -1252,12 +1252,16 @@ th, td {
     margin-left:20px;
 }
 
+/*　結局必要だったので追加しました　お許しを　*/
 .txt-center{
     text-align: center;
 }
 
+
+/*パスワード変更画面のエラーメッセージ用個別CSS　許して*/
 .PsdChange-error-message{
     color: red;
     margin-left: 10px;
     text-align: center;
 }
+
