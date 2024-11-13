@@ -1255,3 +1255,9 @@ th, td {
 .txt-center{
     text-align: center;
 }
+
+.PsdChange-error-message{
+    color: red;
+    margin-left: 10px;
+    text-align: center;
+}
