@@ -9,6 +9,7 @@ import secrets
 import random
 import string
 import re
+import requests
 from datetime import datetime 
 from werkzeug.utils import escape
 # デバッグ用のログ出力
@@ -373,7 +374,7 @@ def generate_content():
     content = request.form.get('content', '')
     
     if not content:
-        return render_template('gemini.html', result="入力が空だよ、無駄に使おうとしないで")
+        return render_template('sugg_look.html', result="入力が空だよ、無駄に使おうとしないで")
 
     # Gemini APIに送信するリクエストデータ
     data = {
@@ -396,13 +397,13 @@ def generate_content():
         generated_content = response_data.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '生成に失敗しました。')
         
         # 成功した内容を表示
-        return render_template('gemini.html', result=generated_content)
+        return render_template('sugg/sugg_look.html', result=generated_content)
     else:
         # 詳細なエラーメッセージをログに表示、APIの制限にひっかかったときに出てくると私は今のところ信じている
         error_message = f"エラーが発生しました: {response.status_code} - {response.text}"
         
         # エラーメッセージをHTMLに表示
-        return render_template('gemini.html', result=error_message)
+        return render_template('sugg_look.html', result=error_message)
 
 @app.route('/sugg/sugg_look')
 def sugg_look():
