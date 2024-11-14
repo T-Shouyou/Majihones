@@ -441,7 +441,7 @@ def area_gohan():
 def add_hours(value, hours):
     if value:
         if isinstance(value, str):
-            value = datetime.strptime(value, '%Y-%m-%d %H:%M:%S')  # 適切なフォーマットに合わせて調整
+            value = datetime.strptime(value, '%Y-%m-%d %H:%M:%S')
         return value + timedelta(hours=hours)
     return value
 
