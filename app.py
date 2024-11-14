@@ -22,13 +22,13 @@ app.logger.setLevel(logging.DEBUG)
 app.secret_key = secrets.token_hex(16)
 
 # Google Gemini APIのエンドポイントとAPIキー
+# 本番では検索して消せ、WSGIにでも書いて
 API_KEY = 'AIzaSyBoMvTV9_bazFwVBvOWB8okoivdukf-3uk' 
 GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent'
 
 # 自分のパソコンで実行する際の画像の保存先のパス、本番では検索して消せ
 LOCAL_IMAGE_FOLDER = 'static/hiroba_img'
 # LOCAL_IMAGE_FOLDER = os.path.join(app.root_path, 'static', 'hiroba_img')
-
 
 # SQLiteデータベースの設定
 # 検索してナンバーを消せ
