@@ -10,7 +10,7 @@ import random
 import string
 import re
 import requests
-from datetime import datetime 
+from datetime import datetime, timedelta
 from werkzeug.utils import escape
 # デバッグ用のログ出力
 import logging
@@ -436,6 +436,14 @@ def area_gohan():
     account_id = session.get('account_id')
     
     return render_template('hiroba/area_gohan.html', posts=posts, account_id=account_id)
+
+@app.template_filter('add_hours')
+def add_hours(value, hours):
+    if value:
+        if isinstance(value, str):
+            value = datetime.strptime(value, '%Y-%m-%d %H:%M:%S')  # 適切なフォーマットに合わせて調整
+        return value + timedelta(hours=hours)
+    return value
 
 # @app.route('/hiroba/area_gohan')
 # def area_gohan():
