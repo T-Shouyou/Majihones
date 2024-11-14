@@ -10,18 +10,7 @@
                 src="../static/img/camera.png" class="camera-icon">ごはん撮影</button>
         
         <!-- ごはん提案ボタン -->
-        <button id="sugg-button" class="sug-button">🍖ごはん提案</button>
-
-        <script>
-            // 「ごはん提案」ボタンのテキスト変更
-            const suggButton = document.getElementById('sugg-button');
-            suggButton.addEventListener('mouseenter', function () {
-                suggButton.textContent = '課金機能です';
-            });
-            suggButton.addEventListener('mouseleave', function () {
-                suggButton.textContent = '🍖ごはん提案';
-            });
-        </script>
+        <button onclick="location.href='{{ url_for('sugg_look') }}';" id="sugg-button" class="sug-button">🍖ごはん提案</button>
 
         <button onclick="location.href='{{ url_for('area_gohan') }}';" class="hiroba-button"><img
                 src="../static/img/chat.png" class="hiroba-icon">ごはん広場</button>

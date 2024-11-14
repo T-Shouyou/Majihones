@@ -9,6 +9,7 @@ import secrets
 import random
 import string
 import re
+import requests
 from datetime import datetime 
 from werkzeug.utils import escape
 # デバッグ用のログ出力
@@ -20,10 +21,14 @@ app.logger.setLevel(logging.DEBUG)
 
 app.secret_key = secrets.token_hex(16)
 
+# Google Gemini APIのエンドポイントとAPIキー
+# 本番では検索して消せ、WSGIにでも書いて
+API_KEY = 'AIzaSyBoMvTV9_bazFwVBvOWB8okoivdukf-3uk' 
+GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent'
+
 # 自分のパソコンで実行する際の画像の保存先のパス、本番では検索して消せ
 LOCAL_IMAGE_FOLDER = 'static/hiroba_img'
 # LOCAL_IMAGE_FOLDER = os.path.join(app.root_path, 'static', 'hiroba_img')
-
 
 # SQLiteデータベースの設定
 # 検索してナンバーを消せ
@@ -362,6 +367,43 @@ def photo_take():
 @app.route('/sugg/sugg_menu')
 def sugg_menu():
     return render_template('sugg/sugg_menu.html')
+
+@app.route('/generate', methods=['POST'])
+def generate_content():
+    # フォームから入力されたテキストを取得
+    content = request.form.get('content', '')
+    
+    if not content:
+        return render_template('sugg_look.html', result="入力が空だよ、無駄に使おうとしないで")
+
+    # Gemini APIに送信するリクエストデータ
+    data = {
+        "contents": [{
+            "parts": [{
+                "text": content
+            }]
+        }]
+    }
+
+    # APIリクエストを送信
+    response = requests.post(GEMINI_API_URL, json=data, params={'key': API_KEY})
+    
+    # レスポンスが成功した場合
+    if response.status_code == 200:
+        
+        # 生成されたコンテンツを取得
+        response_data = response.json()
+        # JSONレスポンスの構造に基づいて適切にテキストを取得
+        generated_content = response_data.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '生成に失敗しました。')
+        
+        # 成功した内容を表示
+        return render_template('sugg/sugg_look.html', result=generated_content)
+    else:
+        # 詳細なエラーメッセージをログに表示、APIの制限にひっかかったときに出てくると私は今のところ信じている
+        error_message = f"エラーが発生しました: {response.status_code} - {response.text}"
+        
+        # エラーメッセージをHTMLに表示
+        return render_template('sugg_look.html', result=error_message)
 
 @app.route('/sugg/sugg_look')
 def sugg_look():

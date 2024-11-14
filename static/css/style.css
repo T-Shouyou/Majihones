@@ -500,9 +500,9 @@ canvas {
 }
 
 .post-button {
+    position:fixed;
     width:110px;
     height:50px;
-    margin-left: 470px; /* 左のマージンを保持 */
     padding: 10px 20px;
     cursor: pointer;
     background-color: skyblue; /* ボタンの背景色 */
@@ -511,6 +511,7 @@ canvas {
     border: none;              /* ボーダーを消す */
     text-align: center;        /* テキストを中央揃え */
     margin-top: 20px; 
+    right:290px;
 }
 
 .select-img {
@@ -518,8 +519,8 @@ canvas {
 }
 
 .select-post-img {
+    position: fixed;
     width:110px;
-    height:50px;
     margin-left: 290px; /* 左のマージンを保持 */
     padding: 10px 20px;
     cursor: pointer;
@@ -528,7 +529,7 @@ canvas {
     border-radius: 5px;        /* 角を丸くする */
     border: none;              /* ボーダーを消す */
     text-align: center;        /* テキストを中央揃え */
-    margin-top: -50px; 
+    margin-top: 20px; 
 }
 
 .error-message {
@@ -1234,11 +1235,22 @@ th, td {
     margin-left:20px;
 }
 
+/*　結局必要だったので追加しました　お許しを　*/
 .txt-center{
     text-align: center;
 }
 
+<<<<<<< HEAD
 .pankuzu {
     z-index: 1000;
     background-color: red;
 }
+=======
+/*パスワード変更画面のエラーメッセージ用個別CSS　面倒だったので許して*/
+.PsdChange-error-message{
+    color: red;
+    margin-left: 10px;
+    text-align: center;
+}
+
+>>>>>>> 273e95c3b5431b21e4ca7a1f95a6c5b47080999d
