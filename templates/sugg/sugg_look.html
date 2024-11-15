@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="ja">
+{% extends 'base.html' %}
+{% block title %}提案{% endblock %}
+{% block content %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Gemini</title>
-</head>
-
-<body>
-    <h1>Google Gemini API</h1>
-    <h2>1分間に15回まで、超過した場合はエラー</h2>
+    <br>
+    <h1 class="txt-center">Google Gemini API</h1>
+    <h2 class="txt-center">1分間に15回まで、超過した場合はエラー</h2>
     <form action="/generate" method="post">
         <label for="content">ここで入力した内容がGeminiに送られる</label><br>
         <!-- input -->
@@ -24,7 +20,4 @@
     {% else %}
     <p>ここにGeminiからの返しが表示される</p>
     {% endif %}
-
-</body>
-
-</html>
+{% endblock %}

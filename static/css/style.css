@@ -549,7 +549,7 @@ canvas {
     z-index: 1000; /* 他の要素の上に表示するためにz-indexを設定 */
 }
 
-.fixed-button-back button {
+.fixed-button button {
     width: 100px; /* ボタンの幅 */
     height: 100px; /* ボタンの高さ */
     border-radius: 50%; /* 円形にする */
@@ -557,11 +557,11 @@ canvas {
     background-color: #007BFF; /* ボタンの背景色 */
     color: white; /* テキストの色 */
     font-size: 16px; /* フォントサイズ */
-    display: flex; /* フレックスボックスを使用 */
     justify-content: center; /* 横方向の中央揃え */
     align-items: center; /* 縦方向の中央揃え */
     cursor: pointer; /* カーソルをポインターにする */
     transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
+    right:20px;
 }
 
 .fixed-button-back button:hover {
@@ -1240,12 +1240,10 @@ th, td {
     text-align: center;
 }
 
-<<<<<<< HEAD
 .pankuzu {
     z-index: 1000;
     background-color: red;
 }
-=======
 /*パスワード変更画面のエラーメッセージ用個別CSS　面倒だったので許して*/
 .PsdChange-error-message{
     color: red;
@@ -1253,4 +1251,3 @@ th, td {
     text-align: center;
 }
 
->>>>>>> 273e95c3b5431b21e4ca7a1f95a6c5b47080999d
