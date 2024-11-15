@@ -539,17 +539,19 @@ canvas {
     display: none;
 }
 
-.fixed-button-back {
+
+
+.fixed-button {
     position: fixed; /* 固定位置にする */
     bottom: 20px; /* 下からの距離 */
-    left: 20px; /* 右からの距離 */
+    right: 20px; /* 右からの距離 */
     display: flex; /* フレックスボックスを使用 */
     flex-direction: column; /* 縦に並べる */
     gap: 10px; /* ボタン間のスペース */
     z-index: 1000; /* 他の要素の上に表示するためにz-indexを設定 */
 }
 
-.fixed-button-back button {
+.fixed-button button {
     width: 100px; /* ボタンの幅 */
     height: 100px; /* ボタンの高さ */
     border-radius: 50%; /* 円形にする */
@@ -1240,12 +1242,10 @@ th, td {
     text-align: center;
 }
 
-<<<<<<< HEAD
 .pankuzu {
     z-index: 1000;
     background-color: red;
 }
-=======
 /*パスワード変更画面のエラーメッセージ用個別CSS　面倒だったので許して*/
 .PsdChange-error-message{
     color: red;
@@ -1253,4 +1253,18 @@ th, td {
     text-align: center;
 }
 
->>>>>>> 273e95c3b5431b21e4ca7a1f95a6c5b47080999d
+/* sugg_look------------------------------------------------------------------ */
+.teian-container {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    width: 300px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.teian-result {
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+}
