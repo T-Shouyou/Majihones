@@ -532,10 +532,11 @@ canvas {
     margin-top: 20px; 
 }
 
-.error-message {
+.post-error-message {
+    position:fixed;
     color: red;
-    margin-left: 10px;
-    text-align:center;
+    left: 450px;
+    margin-top:5px;
     display: none;
 }
 
@@ -559,11 +560,11 @@ canvas {
     background-color: #007BFF; /* ボタンの背景色 */
     color: white; /* テキストの色 */
     font-size: 16px; /* フォントサイズ */
-    display: flex; /* フレックスボックスを使用 */
     justify-content: center; /* 横方向の中央揃え */
     align-items: center; /* 縦方向の中央揃え */
     cursor: pointer; /* カーソルをポインターにする */
     transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
+    right:20px;
 }
 
 .fixed-button-back button:hover {
@@ -573,6 +574,13 @@ canvas {
 .txterror-message{
     text-align:center;
 }
+
+.file-name{
+    position:fixed;
+    left:450px;
+    margin-top:30px;
+}
+
 /* photo_upload -------------------------------------------------------------------*/
 
 
@@ -1244,4 +1252,11 @@ th, td {
     font-size: 20px;
     width: 100%;
     text-align: center;
+}
+
+.error-message{
+    color: red;
+    margin-left: 10px;
+    text-align:center;
+    display: none;
 }
