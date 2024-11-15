@@ -7,12 +7,12 @@
     <p class="main-text">運営用のアカウントでログインしています。</p>
     <p class="txt-center">このまま続ける場合ははいボタンを<br>ログアウトする場合はいいえボタンを押下</p>
 
-    <div class="MC-button-container">
+    <div class="button-container-ninshou">
         <form action="{{ url_for('logout') }}" method="POST" class="MC-form">
-            <button type="submit" class="MasCheck-button">いいえ</button>
+            <button type="submit">いいえ</button>
         </form>
         <form action="{{ url_for('mainmenu') }}" method="GET" class="MC-form">
-            <button type="submit" class="MasCheck-button">はい</button>
+            <button type="submit">はい</button>
         </form>
     </div>
 </div>

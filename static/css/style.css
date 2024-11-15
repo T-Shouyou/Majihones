@@ -923,35 +923,9 @@ canvas {
 
 /* ---------------------MasterCheck用CSS -------------------------*/
 
-.MC-button-container{
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-.MasCheck-button {
-    width: 150px; /* ボタンの幅を設定 */
-    height:40px;
-    margin:10px 10px 10px 10px; /* ボタンの間にスペースを追加 */
-    border-style: solid;
-    border-color:darkslateblue; /* 枠線をなしに設定 */
-    background-color: #007BFF;
-    color: white;
-    font-size: 22px;
-    border-radius: 65px; /* 角を丸くする */
-    cursor: pointer; /* カーソルをポインターに変更 */
-    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
-}
-
-.MasCheck-button:hover {
-    background-color: #0056b3; /* ホバー時の水色を少し暗くする */
-}
-
 form.MC-form {
     display: inline-flex;  /* フォーム自体をインラインフレックスに設定 */
 }
-
-
-
 
 /* acct_set(アカウント設定)------------------------------------------------------- */
 .login-image{
@@ -1028,6 +1002,7 @@ form.MC-form {
     text-align: center;
     font-size:20px;
     accent-color: rgb(34, 171, 34);
+    padding-top: 40px;
 }
 
 input {
@@ -1042,13 +1017,15 @@ input {
 .tmg-friends {
     height: 300px;
     width: 350px;
+    display: flex;
     float: right;
+    margin-top: -50px;
 }
 
 .new-allergy-button-container {
     margin: 0 auto;
-    padding-top: 20px;
-    width: 200px;
+    padding-top: 80px;
+    width: 120px;
 }
 
 
@@ -1124,7 +1101,7 @@ input {
 }
 
 /* logout----------------------------------------------------- */
-.button-container-logout {
+.button-container-ninshou {
     display: flex;
     flex-wrap: wrap; /* ボタンを折り返し可能にする */
     width: 920px; /* コンテナの幅を更新 */
@@ -1133,7 +1110,7 @@ input {
     padding-top: 90px;
 }
 
-.button-container-logout button {
+.button-container-ninshou button {
     width: 200px; /* ボタンの幅を設定 */
     height:80px;
     margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
