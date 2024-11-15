@@ -532,17 +532,20 @@ canvas {
     margin-top: 20px; 
 }
 
-.error-message {
+.post-error-message {
+    position:fixed;
     color: red;
-    margin-left: 10px;
-    text-align:center;
+    left: 450px;
+    margin-top:5px;
     display: none;
 }
 
-.fixed-button-back {
+
+
+.fixed-button {
     position: fixed; /* 固定位置にする */
     bottom: 20px; /* 下からの距離 */
-    left: 20px; /* 右からの距離 */
+    right: 20px; /* 右からの距離 */
     display: flex; /* フレックスボックスを使用 */
     flex-direction: column; /* 縦に並べる */
     gap: 10px; /* ボタン間のスペース */
@@ -571,6 +574,13 @@ canvas {
 .txterror-message{
     text-align:center;
 }
+
+.file-name{
+    position:fixed;
+    left:450px;
+    margin-top:30px;
+}
+
 /* photo_upload -------------------------------------------------------------------*/
 
 
@@ -1251,3 +1261,25 @@ th, td {
     text-align: center;
 }
 
+/* sugg_look------------------------------------------------------------------ */
+.teian-container {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    width: 300px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.teian-result {
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.error-message{
+    color: red;
+    margin-left: 10px;
+    text-align:center;
+    display: none;
+}
