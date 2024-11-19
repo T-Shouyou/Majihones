@@ -1023,11 +1023,11 @@ input {
 }
 
 .tmg-friends {
-    height: 300px;
-    width: 350px;
+    height: 250px;
+    width: 300px;
     display: flex;
     float: right;
-    margin-top: -50px;
+    margin-top: -110px;
 }
 
 .new-allergy-button-container {
@@ -1243,15 +1243,24 @@ th, td {
     display: flex;
     position: absolute;
     flex-direction: column;
-    width: 80%;
+    text-align:center;
+    width: 300px;
     left: 50%;
     transform: translate(-50%);
-    height: auto;
+}
+
+.teian-container2 {
+    padding-top: 50px;
+    text-align:center;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .teian-result {
     font-size: 20px;
     text-align: center;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .error-message{
