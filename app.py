@@ -374,7 +374,7 @@ def generate_content():
     content = request.form.get('content', '')
     
     if not content:
-        return render_template('sugg_look.html', result="入力が空だよ、無駄に使おうとしないで")
+        return render_template('sugg/sugg_look.html', result="入力が空だよ、無駄に使おうとしないで")
 
     # Gemini APIに送信するリクエストデータ
     data = {
