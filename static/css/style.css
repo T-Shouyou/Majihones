@@ -1243,14 +1243,14 @@ th, td {
     display: flex;
     position: absolute;
     flex-direction: column;
-    width: 300px;
+    width: 80%;
     left: 50%;
     transform: translate(-50%);
+    height: auto;
 }
 
 .teian-result {
     font-size: 20px;
-    width: 100%;
     text-align: center;
 }
 

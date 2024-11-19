@@ -24,6 +24,10 @@
         <p>ここにGeminiからの返しが表示される</p>
         {% endif %}
     </div>
+
+    <div class="back-button-container">
+        <button onclick="location.href='{{ url_for('mainmenu') }}';" class="back-button">戻る</button>
+    </div>
 </div>
 
 {% endblock %}
