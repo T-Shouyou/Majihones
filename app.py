@@ -403,7 +403,7 @@ def generate_content():
         error_message = f"エラーが発生しました: {response.status_code} - {response.text}"
         
         # エラーメッセージをHTMLに表示
-        return render_template('sugg_look.html', result=error_message)
+        return render_template('sugg/sugg_look.html', result=error_message)
 
 @app.route('/sugg/sugg_look')
 def sugg_look():
