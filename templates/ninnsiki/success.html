@@ -9,31 +9,19 @@
         <p class="success-text1">撮影結果</p>
         <p class="success-text2">下記のごはんを認識しました</p>
     </div>
-    <!-- <ul>
-        <li><input type="text" id="predicted1" value="{{ predicted_labels[0][0] }}" readonly>
-            <button class="editButton" data-target="predicted1">編集</button>
-            <button class="completeButton" data-target="predicted1" style="display:none;">完了</button>
-        </li>
-        <li><input type="text" id="predicted2" value="{{ predicted_labels[0][1] }}" readonly>
-            <button class="editButton" data-target="predicted2">編集</button>
-            <button class="completeButton" data-target="predicted2" style="display:none;">完了</button>
-        </li>
-        <li><input type="text" id="predicted3" value="{{ predicted_labels[0][2] }}" readonly>
-            <button class="editButton" data-target="predicted3">編集</button>
-            <button class="completeButton" data-target="predicted3" style="display:none;">完了</button>
-        </li>
-    </ul> -->
-    <!-- <h3>特徴を平均して認識するパターン:</h3> -->
+
     <ul class="prediction-result">
-        <li><input type="text" id="averagePredicted" value="{{ predicted_labels[1][0] }}" class="pred-txt" readonly>
+        <li>
+            <input type="text" id="averagePredicted" name="dish_name" value="{{ predicted_labels[1][0] }}" class="pred-txt" readonly>
             <button class="editButton" data-target="averagePredicted">✎編集</button>
+            <button class="cancelButton" data-target="averagePredicted" style="display:none;">キャンセル</button>
             <button class="completeButton" data-target="averagePredicted" style="display:none;">✔完了</button>
         </li>
     </ul>
 
     <form action="{{ url_for('register_food') }}" method="post">
         <input type="hidden" name="account_id" value="{{ session['account_id'] }}"> <!-- アカウントID -->
-        <input type="hidden" name="cuisine" value="{{ predicted_labels[1][0] }}"> <!-- 料理名 -->
+        <input type="hidden" id="hiddenCuisine" name="cuisine" value="{{ predicted_labels[1][0] }}"> <!-- 料理名 -->
         <div class="submitButton-container">
             <button id="submitButton">登録する</button>
         </div>
@@ -44,36 +32,68 @@
     <button onclick="location.href='{{ url_for('photo_menu') }}';" class="back-button">戻る</button>
 </div>
 
-    <script>
-        // 編集ボタンにクリックイベントを追加
-        document.querySelectorAll('.editButton').forEach(function(button) {
-            button.addEventListener('click', function() {
-                var targetId = this.getAttribute('data-target');
-                var input = document.getElementById(targetId);
-                var completeButton = document.querySelector('.completeButton[data-target="' + targetId + '"]');
+<script>
+    // 編集ボタンの動作
+    document.querySelectorAll('.editButton').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var targetId = this.getAttribute('data-target');
+            var input = document.getElementById(targetId);
+            var cancelButton = document.querySelector('.cancelButton[data-target="' + targetId + '"]');
+            var completeButton = document.querySelector('.completeButton[data-target="' + targetId + '"]');
 
-                // 編集状態を切り替え
-                if (input.hasAttribute('readonly')) {
-                    input.removeAttribute('readonly');
-                    input.focus(); // フォーカスを当てる
-                    completeButton.style.display = 'inline'; // 完了ボタンを表示
-                }
-            });
-        });
+            // 編集可能に設定
+            input.removeAttribute('readonly');
+            input.focus();
 
-        // 完了ボタンにクリックイベントを追加
-        document.querySelectorAll('.completeButton').forEach(function(button) {
-            button.addEventListener('click', function() {
-                var targetId = this.getAttribute('data-target');
-                var input = document.getElementById(targetId);
-                input.setAttribute('readonly', true); // 編集不可に戻す
-                this.style.display = 'none'; // 完了ボタンを非表示
-            });
-        });
+            // ボタンの表示切り替え
+            this.style.display = 'none';
+            cancelButton.style.display = 'inline';
+            completeButton.style.display = 'inline';
 
-        // 登録ボタンは今は機能なし
-        document.getElementById('submitButton').addEventListener('click', function() {
-            // 機能は未実装
+            // 元の値を保存しておく
+            input.dataset.originalValue = input.value;
         });
-    </script>
+    });
+
+    // キャンセルボタンの動作
+    document.querySelectorAll('.cancelButton').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var targetId = this.getAttribute('data-target');
+            var input = document.getElementById(targetId);
+            var editButton = document.querySelector('.editButton[data-target="' + targetId + '"]');
+            var completeButton = document.querySelector('.completeButton[data-target="' + targetId + '"]');
+
+            // 元の値に戻す
+            input.value = input.dataset.originalValue;
+            input.setAttribute('readonly', true);
+
+            // ボタンの表示切り替え
+            this.style.display = 'none';
+            completeButton.style.display = 'none';
+            editButton.style.display = 'inline';
+        });
+    });
+
+    // 完了ボタンの動作
+    document.querySelectorAll('.completeButton').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var targetId = this.getAttribute('data-target');
+            var input = document.getElementById(targetId);
+            var editButton = document.querySelector('.editButton[data-target="' + targetId + '"]');
+            var cancelButton = document.querySelector('.cancelButton[data-target="' + targetId + '"]');
+
+            // 編集内容を確定し、readonlyを再設定
+            input.setAttribute('readonly', true);
+
+            // 隠しフィールドの値を更新
+            document.getElementById('hiddenCuisine').value = input.value;
+
+            // ボタンの表示切り替え
+            this.style.display = 'none';
+            cancelButton.style.display = 'none';
+            editButton.style.display = 'inline';
+        });
+    });
+</script>
+
 {% endblock %}

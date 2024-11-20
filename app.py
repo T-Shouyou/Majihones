@@ -95,6 +95,7 @@ def identify_dishes_from_multiple_images(image_paths):
 #     return histogram
 
 
+
 @app.route('/')
 def index():
     return render_template('top/index.html')
