@@ -371,12 +371,9 @@ def sugg_menu():
 
 @app.route('/generate', methods=['POST'])
 def generate_content():
-    # フォームから入力されたテキストを取得
-    content = request.form.get('content', '')
+    # 定型文を自動的に送信
+    content = '今夜のごはんのおすすめを３つ提示してください。名前のみ'
     
-    if not content:
-        return render_template('sugg/sugg_look.html', result="入力が空だよ、無駄に使おうとしないで")
-
     # Gemini APIに送信するリクエストデータ
     data = {
         "contents": [{
@@ -391,24 +388,21 @@ def generate_content():
     
     # レスポンスが成功した場合
     if response.status_code == 200:
-        
         # 生成されたコンテンツを取得
         response_data = response.json()
-        # JSONレスポンスの構造に基づいて適切にテキストを取得
         generated_content = response_data.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '生成に失敗しました。')
         
-        # 成功した内容を表示
+        # 成功した内容を返す
         return render_template('sugg/sugg_look.html', result=generated_content)
     else:
-        # 詳細なエラーメッセージをログに表示、APIの制限にひっかかったときに出てくると私は今のところ信じている
+        # エラーメッセージを表示
         error_message = f"エラーが発生しました: {response.status_code} - {response.text}"
-        
-        # エラーメッセージをHTMLに表示
         return render_template('sugg/sugg_look.html', result=error_message)
 
 @app.route('/sugg/sugg_look')
 def sugg_look():
-    return render_template('sugg/sugg_look.html')
+    # このルートにアクセスしたとき、定型文を送信して結果を表示
+    return generate_content()
 
 @app.route('/sugg/sugg_hist')
 def sugg_hist():
