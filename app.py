@@ -365,6 +365,35 @@ def photo_menu():
 def photo_take():
     return render_template('photo/photo_take.html')
 
+def get_history():
+    # データベースに接続
+    conn = get_db()
+    cursor = conn.cursor()
+
+    # HISTORYテーブルからデータを取得
+    cursor.execute("SELECT SUGG_ID, SUGG_txt FROM HISTORY ORDER BY SUGG_ID DESC")
+    rows = cursor.fetchall()
+
+    # 接続を閉じる
+    conn.close()
+
+    # データを返す（過去の提案）
+    return rows
+
+def save_to_history(sugg_txt):
+    # データベースに接続
+    conn = get_db()
+    cursor = conn.cursor()
+
+    # 提案内容をHISTORYテーブルに保存
+    cursor.execute("INSERT INTO HISTORY (SUGG_txt) VALUES (?)", (sugg_txt,))
+
+    # 変更を保存
+    conn.commit()
+
+    # 接続を閉じる
+    conn.close()
+
 @app.route('/sugg/sugg_menu')
 def sugg_menu():
     return render_template('sugg/sugg_menu.html')
@@ -392,6 +421,8 @@ def generate_content():
         response_data = response.json()
         generated_content = response_data.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '生成に失敗しました。')
         
+        save_to_history(generated_content)
+
         # 成功した内容を返す
         return render_template('sugg/sugg_look.html', result=generated_content)
     else:
@@ -404,9 +435,13 @@ def sugg_look():
     # このルートにアクセスしたとき、定型文を送信して結果を表示
     return generate_content()
 
+
+
 @app.route('/sugg/sugg_hist')
 def sugg_hist():
-    return render_template('sugg/sugg_hist.html')
+    # 過去の提案を取得して表示
+    history = get_history()
+    return render_template('sugg/sugg_hist.html', history=history)
 
 @app.route('/sugg/eat_hist')
 def eat_hist():

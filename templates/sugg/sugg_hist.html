@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}過去の提案{% endblock %}
+
+{% block content %}
+<div class="main-contents">
+    <h2 class="txt-center">過去のごはんの提案</h2>
+
+    <div class="history-container">
+        {% if history %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>提案ID</th>
+                        <th>提案内容</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sugg in history %}
+                        <tr>
+                            <td>{{ sugg[0] }}</td>
+                            <td>{{ sugg[1] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>過去の提案はまだありません。</p>
+        {% endif %}
+    </div>
+
+    <div class="back-button-container">
+        <button onclick="location.href='{{ url_for('sugg_menu') }}';" class="back-button">戻る</button>
+    </div>
+</div>
+{% endblock %}
