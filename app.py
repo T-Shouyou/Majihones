@@ -521,8 +521,6 @@ def add_hours(value, hours):
 
 #     return render_template('hiroba/area_gohan.html', posts=posts, account_id=account_id)
 
-import logging
-
 @app.route('/hiroba/edit_post/<int:post_id>', methods=['POST'])
 def edit_post(post_id):
     data = request.json
