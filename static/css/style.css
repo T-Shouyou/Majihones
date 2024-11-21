@@ -865,6 +865,7 @@ canvas {
     margin-left:10px;
     height:50px;
     min-width: 85px; /* 最小幅も設定 */
+    border: 2px solid black;
     display: inline-block; /* インラインブロックに設定 */
     cursor: pointer; /* カーソルをポインターに変更 */
 }
@@ -872,12 +873,25 @@ canvas {
 
 
 .completeButton{
+    color:black;
+    border-radius: 5px;
+    background-color:palegreen;
+    margin-left:10px;
+    height:50px;
+    min-width: 85px; /* 最小幅も設定 */
+    border: 2px solid black;
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+.cancelButton{
     color:white;
     border-radius: 5px;
     background-color:red;
     margin-left:10px;
     height:50px;
     min-width: 85px; /* 最小幅も設定 */
+    border: 2px solid black;
     display: inline-block; /* インラインブロックに設定 */
     cursor: pointer; /* カーソルをポインターに変更 */
 }
