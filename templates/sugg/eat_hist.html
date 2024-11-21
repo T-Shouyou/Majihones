@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}過去の食事{% endblock %}
+
+{% block content %}
+<div class="main-contents">
+    <h2>過去の食事記録</h2>
+
+    {% if food_data_list %}
+        <ul>
+        {% for eat_date, cuisine in food_data_list %}
+            <li>Date: {{ eat_date }}, Cuisine: {{ cuisine }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>まだ食事記録がありません。</p>
+    {% endif %}
+
+    <div class="back-button-container">
+        <button onclick="location.href='{{ url_for('sugg_menu') }}';" class="back-button">戻る</button>
+    </div>
+</div>
+{% endblock %}
