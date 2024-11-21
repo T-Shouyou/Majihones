@@ -1289,3 +1289,8 @@ th, td {
     text-align:center;
     display: none;
 }
+
+.history-container{
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 水平方向に中央揃え */   
+}
