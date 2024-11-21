@@ -5,20 +5,37 @@
 {% block content %}
 <div class="main-contents">
     <p class="main-text">過去の食事記録</h2>
-    <div class="txt-center">
-        {% if food_data_list %}
-            <ul class="eat-hist-list">
-            {% for eat_date, cuisine in food_data_list %}
-                <li>Date: {{ eat_date }}, Cuisine: {{ cuisine }}</li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            <p>まだ食事記録がありません。</p>
-        {% endif %}
-    </div>
+        <div class="ate-container">
+            {% if food_data_list %}
+                <table class="eat-hist-table">
+                    <thead>
+                        <tr>
+                            <th>日付</th>
+                            <th>料理</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for eat_date, cuisine in food_data_list %}
+                            <tr>
+                                <td>{{ eat_date }}</td>
+                                <td>{{ cuisine }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>食事記録はありません。</p>
+            {% endif %}
+        </div>
+        
 
     <div class="back-button-container">
         <button onclick="location.href='{{ url_for('sugg_menu') }}';" class="back-button">戻る</button>
     </div>
+</div>
+
+<br>
+<div class="txt-center">
+    <a href="{{ url_for('mainmenu') }}">メインメニュー</a>
 </div>
 {% endblock %}
