@@ -414,6 +414,30 @@ def sugg_look():
 def sugg_hist():
     return render_template('sugg/sugg_hist.html')
 
+@app.route('/sugg/eat_hist')
+def eat_hist():
+    account_id = session.get('account_id')  # セッションからログイン中のアカウントIDを取得
+    if not account_id:
+        return redirect(url_for('home'))  # アカウントIDがない場合はホームにリダイレクト
+
+    conn = get_db()  # データベース接続
+    cursor = conn.cursor()
+
+    # `FOOD_DATA` テーブルから指定されたアカウントIDのデータを取得
+    cursor.execute("""
+    SELECT EAT_DATE, CUISINE
+    FROM FOOD_DATA
+    WHERE ACCOUNT_ID = ?
+    ORDER BY EAT_DATE DESC
+    """, (account_id,))
+    
+    food_data_list = cursor.fetchall()  # 結果を取得
+    conn.close()  # データベース接続を閉じる
+
+    # データをHTMLに渡して表示
+    return render_template('sugg/eat_hist.html', food_data_list=food_data_list, account_id=account_id)
+
+
 # 本番ではこっちを検索して消せ
 @app.route('/hiroba/area_gohan')
 def area_gohan():
