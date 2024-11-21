@@ -365,18 +365,44 @@ def photo_menu():
 def photo_take():
     return render_template('photo/photo_take.html')
 
+def get_history():
+    # データベースに接続
+    conn = get_db()
+    cursor = conn.cursor()
+
+    # HISTORYテーブルからデータを取得
+    cursor.execute("SELECT SUGG_ID, SUGG_txt FROM HISTORY ORDER BY SUGG_ID DESC")
+    rows = cursor.fetchall()
+
+    # 接続を閉じる
+    conn.close()
+
+    # データを返す（過去の提案）
+    return rows
+
+def save_to_history(sugg_txt):
+    # データベースに接続
+    conn = get_db()
+    cursor = conn.cursor()
+
+    # 提案内容をHISTORYテーブルに保存
+    cursor.execute("INSERT INTO HISTORY (SUGG_txt) VALUES (?)", (sugg_txt,))
+
+    # 変更を保存
+    conn.commit()
+
+    # 接続を閉じる
+    conn.close()
+
 @app.route('/sugg/sugg_menu')
 def sugg_menu():
     return render_template('sugg/sugg_menu.html')
 
 @app.route('/generate', methods=['POST'])
 def generate_content():
-    # フォームから入力されたテキストを取得
-    content = request.form.get('content', '')
+    # 定型文を自動的に送信
+    content = '今夜のごはんのおすすめを３つ提示してください。名前のみ'
     
-    if not content:
-        return render_template('sugg/sugg_look.html', result="入力が空だよ、無駄に使おうとしないで")
-
     # Gemini APIに送信するリクエストデータ
     data = {
         "contents": [{
@@ -391,28 +417,31 @@ def generate_content():
     
     # レスポンスが成功した場合
     if response.status_code == 200:
-        
         # 生成されたコンテンツを取得
         response_data = response.json()
-        # JSONレスポンスの構造に基づいて適切にテキストを取得
         generated_content = response_data.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '生成に失敗しました。')
         
-        # 成功した内容を表示
+        save_to_history(generated_content)
+
+        # 成功した内容を返す
         return render_template('sugg/sugg_look.html', result=generated_content)
     else:
-        # 詳細なエラーメッセージをログに表示、APIの制限にひっかかったときに出てくると私は今のところ信じている
+        # エラーメッセージを表示
         error_message = f"エラーが発生しました: {response.status_code} - {response.text}"
-        
-        # エラーメッセージをHTMLに表示
         return render_template('sugg/sugg_look.html', result=error_message)
 
 @app.route('/sugg/sugg_look')
 def sugg_look():
-    return render_template('sugg/sugg_look.html')
+    # このルートにアクセスしたとき、定型文を送信して結果を表示
+    return generate_content()
+
+
 
 @app.route('/sugg/sugg_hist')
 def sugg_hist():
-    return render_template('sugg/sugg_hist.html')
+    # 過去の提案を取得して表示
+    history = get_history()
+    return render_template('sugg/sugg_hist.html', history=history)
 
 @app.route('/sugg/eat_hist')
 def eat_hist():

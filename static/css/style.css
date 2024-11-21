@@ -1241,6 +1241,12 @@ th, td {
     text-align: center;
 }
 
+.eat-hist-list {
+    list-style:none;
+    font-size: 25px;
+    margin-left: -35px;
+}
+
 .pankuzu {
     z-index: 1000;
     background-color: red;
