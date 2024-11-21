@@ -371,7 +371,7 @@ def get_history():
     cursor = conn.cursor()
 
     # HISTORYテーブルからデータを取得
-    cursor.execute("SELECT SUGG_ID, SUGG_txt FROM HISTORY ORDER BY SUGG_ID DESC")
+    cursor.execute("SELECT SUGG_ID, DAY, SUGG_txt FROM HISTORY ORDER BY SUGG_ID DESC")
     rows = cursor.fetchall()
 
     # 接続を閉じる
