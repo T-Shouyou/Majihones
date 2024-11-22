@@ -5,24 +5,18 @@
 {% block content %}
 
 <div class="main-contents">
-    <p class="main-text">Google Gemini API</p>
-    <h2 class="txt-center">1分間に15回まで、超過した場合はエラー</h2>
-    <div class="teian-container">
-        <form action="/generate" method="post">
-            <label for="content" class="txt-center">ここで入力した内容がGeminiに送られる</label>
-            <!-- input -->
-            <input name="content" id="content" rows="4" cols="50" placeholder="生成する内容を入力"></input>
-            <!-- textarea -->
-            <!-- <textarea name="content" id="content" rows="4" cols="50" placeholder="生成する内容を入力"></textarea><br><br> -->
-            <input type="submit" value="送信">
-        </form>
-
+    <p class="main-text">Google Gemini API</p>   
+    <div class="teian-container2">
         {% if result %}
-        <p>Geminiから返されたされた内容</p>
+        <p>Geminiから返された内容</p>
         <p class="teian-result">{{ result }}</p>
         {% else %}
         <p>ここにGeminiからの返しが表示される</p>
         {% endif %}
+    </div>
+
+    <div class="back-button-container">
+        <button onclick="location.href='{{ url_for('sugg_menu') }}';" class="back-button">戻る</button>
     </div>
 </div>
 
