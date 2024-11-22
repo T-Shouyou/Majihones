@@ -11,7 +11,7 @@
 <body background="{{ url_for('static', filename='img/background.png') }}" class="kabegami">
     <header class="clearfix">
         <img src="{{ url_for('static', filename='img/title.png') }}" class="header-logo">
-        <nav>
+        <nav class="pankuzu">
             {% if breadcrumbs %}
                 {% for crumb in breadcrumbs %}
                     <a href="{{ crumb[1] }}">{{ crumb[0] }}</a>

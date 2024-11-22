@@ -12,13 +12,13 @@
         <input type="file" name="photo" id="imageUpload" accept="image/*" class="select-img" 
                onchange="document.getElementById('fileName').textContent = this.files[0] ? this.files[0].name : '';">
         <label for="imageUpload" class="select-post-img">画像を選択</label>
-        <span id="imageErrorMessage" class="error-message">画像が未選択です。</span>
+        <span id="imageErrorMessage" class="post-error-message">画像が未選択です。</span>
         <span id="fileName" class="file-name"></span>
         <img id="imagePreview" class="image-preview" style="display:none;" alt="Image-preview">
         <span id="txtErrorMessage" class="txterror-message" style="display:none; color: red;">投稿文は100文字以内にしてください。</span>
         <button type="submit" class="post-button">投稿</button>
     </form>
-    <div class="fixed-button-back">
+    <div class="back-button-container">
         <button onclick="location.href='{{ url_for('area_gohan') }}';">戻る</button>
     </div>
     <script>

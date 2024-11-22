@@ -190,19 +190,26 @@ header {
 .back-button-container {
     position: fixed; /* 視覚的に固定 */
     bottom: 20px; /* 下から0px */
-    left: 40px; /* 左から0px */
-    padding: 20px;
+    left: 20px; /* 左から0px */
 }
 
-.back-button {
-    background-color: transparent; /* 透明の背景色 */
-    color: black; /* テキストの色を黒に設定 */
-    padding: 9px 30px; /* 上下の余白を9px、左右を30pxに設定 */
-    font-size: 18px; /* フォントサイズを18pxに設定 */
-    border: 2px solid black; /* 枠線を黒に設定 */
-    border-radius: 5px; /* 角を丸くする */
-    cursor: pointer; /* カーソルをポインターに変更 */
-    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+.back-button-container button {
+    width: 100px; /* ボタンの幅 */
+    height: 100px; /* ボタンの高さ */
+    border-radius: 50%; /* 円形にする */
+    border: none; /* ボーダーを消す */
+    background-color: #007BFF; /* ボタンの背景色 */
+    color: white; /* テキストの色 */
+    font-size: 16px; /* フォントサイズ */
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center; /* 縦方向の中央揃え */
+    cursor: pointer; /* カーソルをポインターにする */
+    transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
+}
+
+.back-button-container button:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
 }
 
 .LoginSignup-error-message {
@@ -394,34 +401,7 @@ canvas {
 
 /* --------------------------------ごはん広場CSS------------------------------------- */
 
-.fixed-button {
-    position: fixed; /* 固定位置にする */
-    bottom: 20px; /* 下からの距離 */
-    right: 20px; /* 右からの距離 */
-    display: flex; /* フレックスボックスを使用 */
-    flex-direction: column; /* 縦に並べる */
-    gap: 10px; /* ボタン間のスペース */
-    z-index: 1000; /* 他の要素の上に表示するためにz-indexを設定 */
-}
 
-.fixed-button button {
-    width: 100px; /* ボタンの幅 */
-    height: 100px; /* ボタンの高さ */
-    border-radius: 50%; /* 円形にする */
-    border: none; /* ボーダーを消す */
-    background-color: #007BFF; /* ボタンの背景色 */
-    color: white; /* テキストの色 */
-    font-size: 16px; /* フォントサイズ */
-    display: flex; /* フレックスボックスを使用 */
-    justify-content: center; /* 横方向の中央揃え */
-    align-items: center; /* 縦方向の中央揃え */
-    cursor: pointer; /* カーソルをポインターにする */
-    transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
-}
-
-.fixed-button button:hover {
-    background-color: #0056b3; /* ホバー時の背景色 */
-}
 
 .post-img{
     width: 100px;
@@ -520,9 +500,9 @@ canvas {
 }
 
 .post-button {
+    position:fixed;
     width:110px;
     height:50px;
-    margin-left: 470px; /* 左のマージンを保持 */
     padding: 10px 20px;
     cursor: pointer;
     background-color: skyblue; /* ボタンの背景色 */
@@ -530,7 +510,8 @@ canvas {
     border-radius: 5px;        /* 角を丸くする */
     border: none;              /* ボーダーを消す */
     text-align: center;        /* テキストを中央揃え */
-    margin-top: -50px; 
+    margin-top: 20px; 
+    right:290px;
 }
 
 .select-img {
@@ -538,8 +519,8 @@ canvas {
 }
 
 .select-post-img {
+    position: fixed;
     width:110px;
-    height:50px;
     margin-left: 290px; /* 左のマージンを保持 */
     padding: 10px 20px;
     cursor: pointer;
@@ -548,27 +529,30 @@ canvas {
     border-radius: 5px;        /* 角を丸くする */
     border: none;              /* ボーダーを消す */
     text-align: center;        /* テキストを中央揃え */
-    margin-top: -50px; 
+    margin-top: 20px; 
 }
 
-.error-message {
+.post-error-message {
+    position:fixed;
     color: red;
-    margin-left: 10px;
-    text-align:center;
+    left: 450px;
+    margin-top:5px;
     display: none;
 }
 
-.fixed-button-back {
+
+
+.fixed-button {
     position: fixed; /* 固定位置にする */
     bottom: 20px; /* 下からの距離 */
-    left: 20px; /* 右からの距離 */
+    right: 20px; /* 右からの距離 */
     display: flex; /* フレックスボックスを使用 */
     flex-direction: column; /* 縦に並べる */
     gap: 10px; /* ボタン間のスペース */
     z-index: 1000; /* 他の要素の上に表示するためにz-indexを設定 */
 }
 
-.fixed-button-back button {
+.fixed-button button {
     width: 100px; /* ボタンの幅 */
     height: 100px; /* ボタンの高さ */
     border-radius: 50%; /* 円形にする */
@@ -576,11 +560,11 @@ canvas {
     background-color: #007BFF; /* ボタンの背景色 */
     color: white; /* テキストの色 */
     font-size: 16px; /* フォントサイズ */
-    display: flex; /* フレックスボックスを使用 */
     justify-content: center; /* 横方向の中央揃え */
     align-items: center; /* 縦方向の中央揃え */
     cursor: pointer; /* カーソルをポインターにする */
     transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
+    right:20px;
 }
 
 .fixed-button-back button:hover {
@@ -590,6 +574,13 @@ canvas {
 .txterror-message{
     text-align:center;
 }
+
+.file-name{
+    position:fixed;
+    left:450px;
+    margin-top:30px;
+}
+
 /* photo_upload -------------------------------------------------------------------*/
 
 
@@ -599,8 +590,8 @@ canvas {
 
 #selected-image { /* 画像の最大サイズを制限　「縛り」 */
     position:fixed;
-    top:270px;
-    left:130px;
+    top:250px;
+    right:110px;
     display: none; /* 初期状態で非表示 */
     max-width: 150px; /* 幅を400pxに制限 */
     max-height: 150px; /* 高さを300pxに制限 */
@@ -612,8 +603,8 @@ canvas {
 .upload-img-zone{
     background-color:gainsboro;
     position:fixed;
-    top:230px;
-    left:90px;
+    top:210px;
+    right:70px;
     width: 270px; /* 幅を400pxに制限 */
     height: 220px; /* 高さを300pxに制限 */
     overflow: hidden; /* はみ出す部分を隠す */
@@ -940,35 +931,9 @@ canvas {
 
 /* ---------------------MasterCheck用CSS -------------------------*/
 
-.MC-button-container{
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-.MasCheck-button {
-    width: 150px; /* ボタンの幅を設定 */
-    height:40px;
-    margin:10px 10px 10px 10px; /* ボタンの間にスペースを追加 */
-    border-style: solid;
-    border-color:darkslateblue; /* 枠線をなしに設定 */
-    background-color: #007BFF;
-    color: white;
-    font-size: 22px;
-    border-radius: 65px; /* 角を丸くする */
-    cursor: pointer; /* カーソルをポインターに変更 */
-    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
-}
-
-.MasCheck-button:hover {
-    background-color: #0056b3; /* ホバー時の水色を少し暗くする */
-}
-
 form.MC-form {
     display: inline-flex;  /* フォーム自体をインラインフレックスに設定 */
 }
-
-
-
 
 /* acct_set(アカウント設定)------------------------------------------------------- */
 .login-image{
@@ -1045,6 +1010,7 @@ form.MC-form {
     text-align: center;
     font-size:20px;
     accent-color: rgb(34, 171, 34);
+    padding-top: 40px;
 }
 
 input {
@@ -1054,18 +1020,24 @@ input {
 .under-cls {
     text-align: center;
     margin: auto;
-    margin-top: 20px;
 }
 
 .tmg-friends {
-    position: absolute;
     height: 300px;
     width: 350px;
+    display: flex;
     float: right;
-    margin-left: 350px;
+    margin-top: -50px;
 }
 
-.subbutton {
+.new-allergy-button-container {
+    margin: 0 auto;
+    padding-top: 80px;
+    width: 120px;
+}
+
+
+.new-allergy-button-container button {
     width: 120px;
     height: 50px;
     font-size: 20px;
@@ -1075,6 +1047,7 @@ input {
     border: 3px solid #db7093;
     border-radius: 5px;
 }
+
 
 .bkb {
     margin-top: 100px;
@@ -1136,7 +1109,7 @@ input {
 }
 
 /* logout----------------------------------------------------- */
-.button-container-logout {
+.button-container-ninshou {
     display: flex;
     flex-wrap: wrap; /* ボタンを折り返し可能にする */
     width: 920px; /* コンテナの幅を更新 */
@@ -1145,7 +1118,7 @@ input {
     padding-top: 90px;
 }
 
-.button-container-logout button {
+.button-container-ninshou button {
     width: 200px; /* ボタンの幅を設定 */
     height:80px;
     margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
@@ -1249,6 +1222,41 @@ th, td {
     margin-left:20px;
 }
 
+/*　結局必要だったので追加しました　お許しを　*/
 .txt-center{
     text-align: center;
+}
+
+.pankuzu {
+    z-index: 1000;
+    background-color: red;
+}
+/*パスワード変更画面のエラーメッセージ用個別CSS　面倒だったので許して*/
+.PsdChange-error-message{
+    color: red;
+    margin-left: 10px;
+    text-align: center;
+}
+
+/* sugg_look------------------------------------------------------------------ */
+.teian-container {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    width: 300px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.teian-result {
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.error-message{
+    color: red;
+    margin-left: 10px;
+    text-align:center;
+    display: none;
 }

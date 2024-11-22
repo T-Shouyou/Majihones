@@ -9,7 +9,8 @@ import secrets
 import random
 import string
 import re
-from datetime import datetime 
+import requests
+from datetime import datetime, timedelta
 from werkzeug.utils import escape
 # デバッグ用のログ出力
 import logging
@@ -20,10 +21,14 @@ app.logger.setLevel(logging.DEBUG)
 
 app.secret_key = secrets.token_hex(16)
 
+# Google Gemini APIのエンドポイントとAPIキー
+# 本番では検索して消せ、WSGIにでも書いて
+API_KEY = 'AIzaSyBoMvTV9_bazFwVBvOWB8okoivdukf-3uk' 
+GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent'
+
 # 自分のパソコンで実行する際の画像の保存先のパス、本番では検索して消せ
 LOCAL_IMAGE_FOLDER = 'static/hiroba_img'
 # LOCAL_IMAGE_FOLDER = os.path.join(app.root_path, 'static', 'hiroba_img')
-
 
 # SQLiteデータベースの設定
 # 検索してナンバーを消せ
@@ -363,6 +368,43 @@ def photo_take():
 def sugg_menu():
     return render_template('sugg/sugg_menu.html')
 
+@app.route('/generate', methods=['POST'])
+def generate_content():
+    # フォームから入力されたテキストを取得
+    content = request.form.get('content', '')
+    
+    if not content:
+        return render_template('sugg_look.html', result="入力が空だよ、無駄に使おうとしないで")
+
+    # Gemini APIに送信するリクエストデータ
+    data = {
+        "contents": [{
+            "parts": [{
+                "text": content
+            }]
+        }]
+    }
+
+    # APIリクエストを送信
+    response = requests.post(GEMINI_API_URL, json=data, params={'key': API_KEY})
+    
+    # レスポンスが成功した場合
+    if response.status_code == 200:
+        
+        # 生成されたコンテンツを取得
+        response_data = response.json()
+        # JSONレスポンスの構造に基づいて適切にテキストを取得
+        generated_content = response_data.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '生成に失敗しました。')
+        
+        # 成功した内容を表示
+        return render_template('sugg/sugg_look.html', result=generated_content)
+    else:
+        # 詳細なエラーメッセージをログに表示、APIの制限にひっかかったときに出てくると私は今のところ信じている
+        error_message = f"エラーが発生しました: {response.status_code} - {response.text}"
+        
+        # エラーメッセージをHTMLに表示
+        return render_template('sugg_look.html', result=error_message)
+
 @app.route('/sugg/sugg_look')
 def sugg_look():
     return render_template('sugg/sugg_look.html')
@@ -394,6 +436,14 @@ def area_gohan():
     account_id = session.get('account_id')
     
     return render_template('hiroba/area_gohan.html', posts=posts, account_id=account_id)
+
+@app.template_filter('add_hours')
+def add_hours(value, hours):
+    if value:
+        if isinstance(value, str):
+            value = datetime.strptime(value, '%Y-%m-%d %H:%M:%S')
+        return value + timedelta(hours=hours)
+    return value
 
 # @app.route('/hiroba/area_gohan')
 # def area_gohan():
@@ -642,10 +692,11 @@ def change_psd(account_id):
     cur = conn.cursor()
     
     try:
-        cur.execute("SELECT * FROM ACCOUNT WHERE PASS = ?", (password,))
+        cur.execute("SELECT PASS FROM ACCOUNT WHERE ACCOUNT_ID = ?", (account_id,))
         acuser = cur.fetchone()
+        accuser = acuser[0]
 
-        if acuser:
+        if accuser == password:
             print("通過１")
         else:
             error_message = "入力されたパスワードが間違っています"
@@ -674,9 +725,59 @@ def change_psd(account_id):
 def psd_changec():
     return render_template('acset/psd_changec.html')
 
-@app.route('/acset/acct_del')
+@app.route('/acset/acct_del', methods=['GET','POST'])
 def acct_del():
     return render_template('acset/acct_del.html')
+
+@app.route('/del_acct/<int:account_id>', methods=['POST'])
+def del_acct(account_id):
+    error_message = ""
+    password = request.form.get('password')
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    try:
+        cur.execute("SELECT PASS FROM ACCOUNT WHERE ACCOUNT_ID = ?", (account_id,))
+        acuser = cur.fetchone()
+        accuser = acuser[0]
+
+        if accuser == password:
+            return redirect(url_for('acct_del_con'))
+        else:
+            error_message = "入力されたパスワードが間違っています"
+            return render_template('acset/acct_del.html', error_message=error_message)
+    
+    except Exception as e:
+        error_message = str(e)
+        return render_template('acset/acct_del.html', error_message=error_message)
+    finally:
+        cur.close()
+        conn.close()
+
+@app.route('/acset/acct_del_con')
+def acct_del_con():
+    return render_template('acset/acct_del_con.html')
+
+@app.route('/acct_delete/<int:account_id>', methods=['POST'])
+def acct_delete(account_id):
+    
+    conn = get_db()
+    cur = conn.cursor()
+    
+    cur.execute("DELETE FROM ACCOUNT WHERE ACCOUNT_ID = ?", (account_id,))
+    conn.commit()
+    
+    cur.close()
+    conn.close()
+
+    session.clear()
+    return render_template('acset/acct_del_succ.html')
+
+@app.route('/acset/acct_del_succ')
+def acct_del_succ():
+    return render_template('acset/acct_del_succ.html')
+
 
 # -------------------------------------------------------
 

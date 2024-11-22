@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}アカウント削除{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/psd_change.css') }}">
+
+    <br><br>
+    <p class="p-p">現在のアカウントを削除します</p>
+    <p class="p-p">よろしいですか</p>
+
+    <div class="acct-del-button">
+        <button id="delete-button" onclick="location.href='{{ url_for('acct_set') }}';">いいえ</button>
+        
+        <form action="{{ url_for('acct_delete',account_id=account_id) }}" method="post">
+            <button id="delete-button" type="submit">はい</button>
+        </form>
+    </div>
+{% endblock %}
