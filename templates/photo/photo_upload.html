@@ -62,8 +62,8 @@ function previewImage() {
             </label>
             <div class="upload-img-zone">
                 <div class="upload-img-zone-text">ここに選択した画像が表示されます</div> <!-- 初期メッセージ -->
+                <img id="selected-image" style="display:none; max-width: 200px; margin: 10px 0;" alt="選択された画像">
             </div>
-            <img id="selected-image" style="display:none; max-width: 200px; margin: 10px 0;" alt="選択された画像">
             <button type="button" id="defaultButton" class="upload-button disabled-button" style="display: block;">画像未選択</button> <!-- 画像未選択ボタン -->
             <button type="submit" id="predictButton" class="upload-button" style="display: none;">認識する</button> <!-- 認識するボタン -->
         </div>

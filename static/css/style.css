@@ -588,33 +588,45 @@ canvas {
     background-color: #0056b3; /* ホバー時の背景色 */
 }
 
-#selected-image { /* 画像の最大サイズを制限　「縛り」 */
-    position:fixed;
-    top:250px;
-    right:110px;
+/* 画像のスタイル */
+#selected-image {
+    position: absolute; /* 位置を絶対指定 */
+    top: 50%; /* 垂直方向中央 */
+    left: 50%; /* 水平方向中央 */
+    transform: translate(-50%, -50%); /* 中央に位置調整 */
     display: none; /* 初期状態で非表示 */
-    max-width: 150px; /* 幅を400pxに制限 */
-    max-height: 150px; /* 高さを300pxに制限 */
+    max-width: 150px; /* 幅を150pxに制限 */
+    max-height: 150px; /* 高さを150pxに制限 */
     width: auto; /* 幅の自動調整 */
     height: auto; /* 高さの自動調整 */
-    overflow: hidden; /* はみ出す部分を隠す */
+    object-fit: contain; /* 縦横比を保ちながら画像が収まる */
+    overflow: hidden; /* 画像が領域を超えないように隠す */
 }
 
-.upload-img-zone{
-    background-color:gainsboro;
-    position:fixed;
-    top:210px;
-    right:70px;
-    width: 270px; /* 幅を400pxに制限 */
-    height: 220px; /* 高さを300pxに制限 */
+/* 画像表示領域 */
+.upload-img-zone {
+    background-color: gainsboro; /* 背景色 */
+    position: fixed;
+    top: 210px; /* 表示領域の位置 */
+    right: 70px;
+    width: 270px; /* 幅を270pxに制限 */
+    height: 220px; /* 高さを220pxに制限 */
     overflow: hidden; /* はみ出す部分を隠す */
+    display: flex; /* フレックスボックスを使用して中央配置 */
+    justify-content: center; /* 水平中央に配置 */
+    align-items: center; /* 垂直中央に配置 */
+    border: 2px solid #ccc; /* 枠線を追加して見やすく */
+    border-radius: 8px; /* 角を丸くする */
 }
 
+/* 初期メッセージ */
 .upload-img-zone-text {
     color: #555;
     font-size: 16px;
     text-align: center;
     line-height: 220px; /* 高さに合わせて垂直中央に配置 */
+    position: absolute; /* 絶対配置で中央に配置 */
+    width: 100%; /* 幅を100%に */
 }
 
 

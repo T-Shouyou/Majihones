@@ -92,3 +92,51 @@ body {
     border: 3px solid #44acce;
     border-radius: 5px;
 }
+
+.back-button-container {
+    position: fixed; /* 視覚的に固定 */
+    bottom: 20px; /* 下から0px */
+    left: 20px; /* 左から0px */
+}
+
+.back-button-container button {
+    width: 100px; /* ボタンの幅 */
+    height: 100px; /* ボタンの高さ */
+    border-radius: 50%; /* 円形にする */
+    border: none; /* ボーダーを消す */
+    background-color: #007BFF; /* ボタンの背景色 */
+    color: white; /* テキストの色 */
+    font-size: 16px; /* フォントサイズ */
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center; /* 縦方向の中央揃え */
+    cursor: pointer; /* カーソルをポインターにする */
+    transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
+}
+
+.back-button-container button:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
+}
+
+.acct-del-button {
+    display: flex;
+    flex-wrap: wrap; /* ボタンを折り返し可能にする */
+    width: 920px; /* コンテナの幅を更新 */
+    justify-content: center; /* 中央揃え */
+    margin: auto; /* コンテナを中央に配置 */
+    padding-top: 90px;
+}
+
+.acct-del-button button {
+    width: 200px; /* ボタンの幅を設定 */
+    height:80px;
+    margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
+    border-style: solid;
+    border-color:red; /* 枠線をなしに設定 */
+    background-color: #ff6161;
+    color: white;
+    font-size: 22px;
+    border-radius: 65px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
