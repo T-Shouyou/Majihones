@@ -1289,3 +1289,14 @@ th, td {
     text-align:center;
     display: none;
 }
+
+.history-container{
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 水平方向に中央揃え */   
+}
+
+.eat-hist-table {
+    width: 50%;  /* テーブルの横幅を80%に設定 */
+    margin: 0 auto;  /* テーブルを中央に配置 */
+    border-collapse: collapse;
+}
