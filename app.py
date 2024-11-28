@@ -11,7 +11,7 @@ import string
 import re
 import requests
 from datetime import datetime, timedelta
-from werkzeug.utils import escape
+from markupsafe import escape
 # デバッグ用のログ出力
 import logging
 
@@ -365,13 +365,13 @@ def photo_menu():
 def photo_take():
     return render_template('photo/photo_take.html')
 
-def get_history():
+def get_history(account_id):
     # データベースに接続
     conn = get_db()
     cursor = conn.cursor()
 
     # HISTORYテーブルからデータを取得
-    cursor.execute("SELECT SUGG_ID, DAY, SUGG_txt FROM HISTORY ORDER BY SUGG_ID DESC")
+    cursor.execute("""SELECT SUGG_ID, DAY, SUGG_txt FROM HISTORY WHERE ACCOUNT_ID = ? ORDER BY SUGG_ID DESC""", (account_id,))
     rows = cursor.fetchall()
 
     # 接続を閉じる
@@ -380,13 +380,13 @@ def get_history():
     # データを返す（過去の提案）
     return rows
 
-def save_to_history(sugg_txt):
+def save_to_history(account_id, sugg_txt):
     # データベースに接続
     conn = get_db()
     cursor = conn.cursor()
 
     # 提案内容をHISTORYテーブルに保存
-    cursor.execute("INSERT INTO HISTORY (SUGG_txt) VALUES (?)", (sugg_txt,))
+    cursor.execute("INSERT INTO HISTORY (ACCOUNT_ID, SUGG_txt) VALUES (?, ?)", (account_id, sugg_txt,))
 
     # 変更を保存
     conn.commit()
@@ -400,9 +400,43 @@ def sugg_menu():
 
 @app.route('/generate', methods=['POST'])
 def generate_content():
-    # 定型文を自動的に送信
-    content = '今夜のごはんのおすすめを３つ提示してください。名前のみ'
-    
+    # ユーザーIDを取得（フォームやセッションから）
+    user_id = request.form.get('user_id')  # フォームからユーザーIDを取得
+
+    # データベース接続
+    conn = get_db()
+
+    # アレルギー情報を取得
+    sql = """
+        SELECT 
+            CASE WHEN egg = 1 THEN '卵' ELSE NULL END AS egg,
+            CASE WHEN milk = 1 THEN '乳' ELSE NULL END AS milk,
+            CASE WHEN wheat = 1 THEN '小麦' ELSE NULL END AS wheat,
+            CASE WHEN shrimp = 1 THEN 'えび' ELSE NULL END AS shrimp,
+            CASE WHEN crab = 1 THEN 'かに' ELSE NULL END AS crab,
+            CASE WHEN peanut = 1 THEN 'ピーナッツ' ELSE NULL END AS peanut,
+            CASE WHEN buckwheat = 1 THEN 'そば' ELSE NULL END AS buckwheat
+        FROM ALLERGEN
+        WHERE ACCOUNT_ID = ?;
+    """
+    result = conn.execute(sql, (user_id,)).fetchone()
+    conn.close()
+
+    # アレルギーがあるものをリスト化
+    if result:
+        allergies = [item for item in result if item is not None]
+    else:
+        allergies = []
+
+    # アレルギー情報を文にする
+    if allergies:
+        allergy_text = f"私にはこれらのアレルギーがあります：{', '.join(allergies)}。"
+    else:
+        allergy_text = "私にはアレルギーはありません。"
+
+    # contentにアレルギー情報を含める
+    content = f"{allergy_text} 今夜のごはんのおすすめを3つ提示してください。名前のみ。"
+
     # Gemini APIに送信するリクエストデータ
     data = {
         "contents": [{
@@ -414,13 +448,12 @@ def generate_content():
 
     # APIリクエストを送信
     response = requests.post(GEMINI_API_URL, json=data, params={'key': API_KEY})
-    
-    # レスポンスが成功した場合
+
     if response.status_code == 200:
         # 生成されたコンテンツを取得
         response_data = response.json()
         generated_content = response_data.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '生成に失敗しました。')
-        
+
         save_to_history(generated_content)
 
         # 成功した内容を返す
@@ -439,8 +472,9 @@ def sugg_look():
 
 @app.route('/sugg/sugg_hist')
 def sugg_hist():
+    account_id = session.get('account_id')
     # 過去の提案を取得して表示
-    history = get_history()
+    history = get_history(account_id)
     return render_template('sugg/sugg_hist.html', history=history)
 
 @app.route('/sugg/eat_hist')
