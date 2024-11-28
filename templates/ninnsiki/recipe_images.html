@@ -5,21 +5,21 @@
 {% block content %}
     <p class="recipe_images-text1">レシピ画像をアップロード</p>
     <!--カメラ部分-->
-    <div class="video-container">
+    <!-- <div class="video-container">
         <video id="video" autoplay></video>
-    </div>
+    </div> -->
 
-    <form action="/predict" method="POST" enctype="multipart/form-data" onsubmit="startLoading();">
+    <!-- <form action="/predict" method="POST" enctype="multipart/form-data" onsubmit="startLoading();">
         <input type="file" name="image" accept="image/*" multiple required style="display: none;" id="file-upload" onchange="previewImage();">
         <div class="button-container-photo-take">
             <button id="capture" type="button" class="capture">撮影</button> 
         </div>
-    </form>
+    </form> -->
 
     <!-- 終わり -->
 
     <div class="recipe-button-container">
-        <form action="/ninnsiki/upload_recipe" method="POST" enctype="multipart/form_data" class="recipe-form-container">
+        <form action="/ninnsiki/upload_recipe" method="POST" enctype="multipart/form-data" class="recipe-form-container">
             <div class="recipe-name">
                 <input type="text" name="label" placeholder="料理名を入力"required>
                 <input type="file" name="image" accept="image/*"  required>
@@ -34,7 +34,7 @@
     </div>
 
 
-    <script>
+    <!-- <script>
         async function startCamera() {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -100,6 +100,6 @@
                 reader.readAsDataURL(fileInput.files[0]);
             }
         }
-    </script>
+    </script> -->
     
 {% endblock %}
