@@ -3,7 +3,22 @@
 {% block title %}アカウント削除{% endblock %}
 
 {% block content %}
-    <div class="container">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/psd_change.css') }}">
 
+    <br><br>
+    <p class="p-p">アカウント削除</p>
+    <form action="{{ url_for('del_acct',account_id=account_id) }}" method="post">
+        <div class="login-form">
+            <input type="password" name="password" class="my-textbox" placeholder="現在のパスワードを入力..." required>
+        </div>
+        {% if error_message %}
+            <div class="PsdChange-error-message">{{ error_message }}</div>
+        {% endif %}
+        <div class="login-form">
+            <button id="update-button" type="submit" class="update-button">次へ</button>
+        </div>
+    </form>
+    <div class="back-button-container">
+        <button id="back-button" onclick="location.href='{{ url_for('acct_set') }}';" class="back-button">戻る</button>
     </div>
 {% endblock %}
