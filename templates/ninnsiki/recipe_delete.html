@@ -1,16 +1,19 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
+{% extends 'base.html' %}
+
+{% block title %}レシピの削除{% endblock %}
+
+{% block content %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>レシピの削除</title>
-</head>
-<body>
-    <h1>削除したいレシピの料理名を入力してください</h1>
-    <form action="/ninnsiki/delete_recipe" method="POST">
-        <input type="text" name="label" placeholder="料理名を入力" required>
-        <button type="submit">削除</button>
-    </form>
-    <button id="look-button" onclick="location.href='{{ url_for('recipe_images') }}';">戻る</button>
-</body>
-</html>
+    <br>
+    <h1 class="txt-center">削除したいレシピの料理名を入力してください</h1>
+    <div class="center-container">
+        <form action="/ninnsiki/delete_recipe" method="POST">
+            <input type="text" name="label" placeholder="料理名を入力" required>
+            <button type="submit">削除</button>
+        </form>
+        <button id="look-button" onclick="location.href='{{ url_for('recipe_images') }}';">戻る</button>
+    </div>
+    
+
+{% endblock %}

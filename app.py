@@ -365,13 +365,13 @@ def photo_menu():
 def photo_take():
     return render_template('photo/photo_take.html')
 
-def get_history():
+def get_history(account_id):
     # データベースに接続
     conn = get_db()
     cursor = conn.cursor()
 
     # HISTORYテーブルからデータを取得
-    cursor.execute("SELECT SUGG_ID, DAY, SUGG_txt FROM HISTORY ORDER BY SUGG_ID DESC")
+    cursor.execute("""SELECT SUGG_ID, DAY, SUGG_txt FROM HISTORY WHERE ACCOUNT_ID = ? ORDER BY SUGG_ID DESC""", (account_id,))
     rows = cursor.fetchall()
 
     # 接続を閉じる
@@ -380,13 +380,13 @@ def get_history():
     # データを返す（過去の提案）
     return rows
 
-def save_to_history(sugg_txt):
+def save_to_history(account_id, sugg_txt):
     # データベースに接続
     conn = get_db()
     cursor = conn.cursor()
 
     # 提案内容をHISTORYテーブルに保存
-    cursor.execute("INSERT INTO HISTORY (SUGG_txt) VALUES (?)", (sugg_txt,))
+    cursor.execute("INSERT INTO HISTORY (ACCOUNT_ID, SUGG_txt) VALUES (?, ?)", (account_id, sugg_txt,))
 
     # 変更を保存
     conn.commit()
@@ -472,8 +472,9 @@ def sugg_look():
 
 @app.route('/sugg/sugg_hist')
 def sugg_hist():
+    account_id = session.get('account_id')
     # 過去の提案を取得して表示
-    history = get_history()
+    history = get_history(account_id)
     return render_template('sugg/sugg_hist.html', history=history)
 
 @app.route('/sugg/eat_hist')
