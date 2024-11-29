@@ -1,12 +1,16 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
+{% extends 'base.html' %}
+
+{% block title %}削除成功{% endblock %}
+
+{% block content %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>削除成功</title>
-</head>
-<body>
+
+<div class="txt-center">
+    <br>
     <h1>レシピが削除されました。</h1>
-    <a href="/ninnsiki\upload.html">戻る</a>
-</body>
-</html>
+    <br>
+    <a href="/ninnsiki\upload.html" class="txt-center">戻る</a>
+</div>
+
+{% endblock %}

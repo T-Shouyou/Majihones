@@ -1312,3 +1312,59 @@ th, td {
     margin: 0 auto;  /* テーブルを中央に配置 */
     border-collapse: collapse;
 }
+
+
+
+
+/* 中央配置用のコンテナ */
+.center-container {
+    display: flex;
+    flex-direction: column; /* アイテムを縦に並べる */
+    justify-content: center; /* 縦方向に中央揃え */
+    align-items: center; /* 横方向に中央揃え */
+}
+
+/* .txt-center クラスでテキストを中央揃え */
+.txt-center {
+    text-align: center;
+}
+
+/* 検索ボックスのスタイル */
+#searchBox {
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    width: 300px; /* 幅を指定 */
+    text-align: center; /* 入力内容を中央揃え */
+}
+
+/* レシピリストのスタイル */
+#recipeList {
+    list-style-type: none; /* デフォルトのリストスタイルを無効にする */
+    padding: 0;
+    margin: 0;
+    text-align: center; /* リストアイテムを中央揃え */
+}
+
+#recipeList li {
+    padding: 5px 0;
+    font-size: 18px;
+}
+
+.hidden {
+    display: none;
+}
+
+.recipe-look-link {
+    margin-top: 20%; /* 画面下から20pxの位置 */
+    margin-left: 50%; /* 横方向の中央 */
+    transform: translateX(-50%); /* 50%の左にずらして正確に中央に */
+    text-align: center; /* リンクのテキストを中央揃え */
+    width: 100%; /* 横幅いっぱい */
+}
+
+.recipe-look-link a {
+    display: inline-block; /* リンクを横並びにするためにインラインブロックに */
+    margin: 0 10px; /* リンク間のスペースを指定 */
+    text-align: center; /* リンク内のテキストも中央揃え */
+}
