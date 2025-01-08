@@ -1368,3 +1368,60 @@ th, td {
     margin: 0 10px; /* リンク間のスペースを指定 */
     text-align: center; /* リンク内のテキストも中央揃え */
 }
+
+.back-menu-button {
+    width: 180px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 30px;
+    margin-left:auto;
+    margin-right:auto;
+    background-color: skyblue;
+    border: 3px solid #44acce;
+    border-radius: 5px;
+}
+
+.edit-button{
+    border-radius: 5px;
+    background-color:palegreen;
+    margin-left:10px;
+    height:auto;
+    min-width: auto; /* 最小幅も設定 */
+    border: 1px solid black;
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+.delete-button{
+    color:white;
+    border-radius: 5px;
+    background-color:red;
+    margin-left:10px;
+    height:auto;
+    min-width: auto; /* 最小幅も設定 */
+    border: 1px solid black;
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+#edit-button{
+    border-radius: 5px;
+    background-color:palegreen;
+    height:auto;
+    min-width: auto; /* 最小幅も設定 */
+    border: 1px solid black;
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+#confirm-button{
+    color:white;
+    border-radius: 5px;
+    background-color:red;
+    height:auto;
+    min-width: auto; /* 最小幅も設定 */
+    border: 1px solid black;
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
