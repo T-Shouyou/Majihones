@@ -400,9 +400,33 @@ def sugg_menu():
 
 @app.route('/generate', methods=['POST'])
 def generate_content():
-    # 定型文を自動的に送信
-    content = '今夜のごはんのおすすめを３つ提示してください。名前のみ'
-    
+    # アカウントIDを取得
+    account_id = session.get('account_id')
+
+    # データベースからアレルギー情報を取得
+    allergens = []
+    try:
+        # DB接続を取得
+        connection = get_db()
+        cursor = connection.cursor()
+        cursor.execute("SELECT EGG, MILK, WHEAT, SHRIMP, CRAB, PEANUT, BUCKWHEAT FROM ALLERGEN WHERE ACCOUNT_ID = ?", (account_id,))
+        row = cursor.fetchone()
+        
+        if row:
+            # アレルギーがTrueの項目を抽出
+            allergen_names = ["卵", "乳", "小麦", "えび", "かに", "ピーナッツ", "そば"]
+            allergens = [allergen_names[i] for i, value in enumerate(row) if value]
+
+    except Exception as e:
+        return f"データベースエラー: {str(e)}"
+
+    # アレルギー情報に基づいて定型文を生成
+    if allergens:
+        allergen_list = "、".join(allergens)
+        content = f"今夜のごはんのおすすめを3つ提示してください。ただし、{allergen_list}を含まないものにしてください。"
+    else:
+        content = "今夜のごはんのおすすめを3つ提示してください。名前のみ"
+
     # Gemini APIに送信するリクエストデータ
     data = {
         "contents": [{
@@ -414,22 +438,17 @@ def generate_content():
 
     # APIリクエストを送信
     response = requests.post(GEMINI_API_URL, json=data, params={'key': API_KEY})
-    
-    # レスポンスが成功した場合
+
+    # レスポンスの処理
     if response.status_code == 200:
-        # 生成されたコンテンツを取得
         response_data = response.json()
         generated_content = response_data.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '生成に失敗しました。')
         
         save_to_history(generated_content)
-
-        # 成功した内容を返す
         return render_template('sugg/sugg_look.html', result=generated_content)
     else:
-        # エラーメッセージを表示
         error_message = f"エラーが発生しました: {response.status_code} - {response.text}"
         return render_template('sugg/sugg_look.html', result=error_message)
-
 @app.route('/sugg/sugg_look')
 def sugg_look():
     # このルートにアクセスしたとき、定型文を送信して結果を表示
