@@ -6,7 +6,6 @@
 
     <div class="touroku-comp">
         <p class="allergy-p">以下のアレルギーを登録しました:</p>
-        <p class="allergy-p">登録済み</p>
         <div class="allergy-li">
             <ul class="allergy-l">
                 {% for allergy in allergies %}
@@ -16,7 +15,8 @@
         </div>
     </div>
 
+    
     <div class="button-sel">
-        <button onclick="location.href='{{ url_for('mainmenu') }}';" class="menu-button">メニュー</button>
+        <button onclick="location.href='{{ url_for('mainmenu') }}';" class="back-menu-button">メニューに戻る</button>
     </div>
 {% endblock %}
