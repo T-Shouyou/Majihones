@@ -6,14 +6,12 @@
 
 <div class="main-contents">
     <div class="button-container-mainmenu">
-        <button onclick="location.href='{{ url_for('photo_menu') }}';" class="camera-button"><img
-                src="../static/img/camera.png" class="camera-icon">ごはん撮影</button>
+        <button onclick="location.href='{{ url_for('photo_menu') }}';" class="camera-button">📸ごはん撮影</button>
         
         <!-- ごはん提案ボタン -->
         <button onclick="location.href='{{ url_for('sugg_menu') }}';" id="sugg-button" class="sug-button">🍖ごはん提案</button>
 
-        <button onclick="location.href='{{ url_for('area_gohan') }}';" class="hiroba-button"><img
-                src="../static/img/chat.png" class="hiroba-icon">ごはん広場</button>
+        <button onclick="location.href='{{ url_for('area_gohan') }}';" class="hiroba-button">💬ごはん広場</button>
         <button onclick="location.href='{{ url_for('acct_set') }}';" class="ac-op-button">⚙アカウント設定</button>
     </div>
 </div>
