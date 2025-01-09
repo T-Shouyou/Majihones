@@ -160,7 +160,12 @@ def recipe_images():
 
 @app.route('/ninnsiki/recipe_delete', methods=['GET'])
 def recipe_delete():
-    return render_template('ninnsiki/recipe_delete.html')
+    with open('recipe_features.pkl', 'rb') as f:
+        recipe_features = pickle.load(f)
+
+    # レシピのラベルを取得
+    recipe_labels = sorted(recipe_features.keys())
+    return render_template('ninnsiki/recipe_delete.html', recipe_labels=recipe_labels)
 
 @app.route('/ninnsiki/delete_recipe', methods=['POST'])
 def delete_recipe():

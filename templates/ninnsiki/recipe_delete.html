@@ -10,8 +10,16 @@
     <div class="center-container">
         <form action="/ninnsiki/delete_recipe" method="POST">
             <input type="text" name="label" placeholder="料理名を入力" required>
-            <button type="submit">削除</button>
+            <button type="submit" class="delete-button">削除</button>
         </form>
+
+        <h2 class="txt-center">登録済みの料理</h2>
+        <ul id="recipeList">
+            {% for label in recipe_labels %}
+                <li>{{ label }}</li>
+            {% endfor %}
+        </ul>
+
         <div class="back-button-container">
             <button id="back-button" onclick="location.href='{{ url_for('recipe_images') }}';" class="back-button">戻る</button>
         </div>
