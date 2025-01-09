@@ -830,7 +830,7 @@ canvas {
 
 .recipe_images-text1 {
     font-size: 30px;
-    float: left;
+    text-align:center;
     padding-left: 20px;
     padding-top: 20px;
 }
@@ -842,7 +842,8 @@ canvas {
     padding-top: 10px;
     padding-left: 10px;
     flex-direction: column;
-    padding-right: 800px;
+    padding-right: 500px;
+    margin-left:36%;
     gap: 10px;
 }
 
@@ -854,12 +855,13 @@ canvas {
 }
 
 .recipe-name {
-    margin-left: -30px;
-    display:flex;
     gap: 10px;
     flex-direction: column;
 }
 
+.recipe-name-box{
+    width:250px;
+}
 
 .pred-txt{
     font-size: 16px;
