@@ -869,9 +869,20 @@ canvas {
     width:auto;
 }
 
-/* .recipe-photo-take{
+#recipeList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3列を均等に分ける */
+    gap: 0; /* アイテム間の間隔をゼロに設定（ボーダーで区切るので間隔は不要） */
+    list-style-type: none; /* リストの点を消す */
+    padding: 0; /* ulのデフォルトのパディングを削除 */
+}
 
-} */
+#recipeList li {
+    text-align: center; /* アイテムのテキストを中央揃え */
+    padding: 10px; /* 内側の余白を追加 */
+    border: 1px solid black; /* 黒い実線でボーダーを追加 */
+    box-sizing: border-box; /* ボーダーを含むようにサイズを調整 */
+}
 
 .editButton{
     border-radius: 5px;
@@ -1358,7 +1369,7 @@ th, td {
 }
 
 .recipe-look-link {
-    margin-top: 20%; /* 画面下から20pxの位置 */
+    margin-top: 5%; /* 画面下から5%の位置 */
     margin-left: 50%; /* 横方向の中央 */
     transform: translateX(-50%); /* 50%の左にずらして正確に中央に */
     text-align: center; /* リンクのテキストを中央揃え */

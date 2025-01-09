@@ -178,9 +178,9 @@ def delete_recipe():
             with open('recipe_features.pkl', 'wb') as f:
                 pickle.dump(recipe_features, f)
 
-            return render_template('ninnski/recipe_delete_success.html')
+            return render_template('ninnsiki/recipe_delete_success.html')
         else:
-            return "指定された料理名は存在しません。"
+            return render_template('ninnsiki/recipe_delete_nothing.html')
 
     except Exception as e:
         return f"エラーが発生しました: {str(e)}"
