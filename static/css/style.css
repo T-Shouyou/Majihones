@@ -999,6 +999,7 @@ canvas {
 #submitButton{
     border-radius: 5px;
     background-color:orange;
+    border:none;
     height:60px;
     width: 110px; /* 最小幅も設定 */
     padding:10px;

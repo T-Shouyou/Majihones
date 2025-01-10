@@ -6,7 +6,7 @@
 <div class="main-contents">
     <p class="main-text">現在のアカウントからログアウトします。<br>よろしいですか？</p>
     <div class="button-container-ninshou">
-        <button onclick="window.location.href='{{ url_for('mainmenu') }}'">いいえ</button>
+        <button onclick="window.location.href='{{ url_for('acct_set') }}'">いいえ</button>
         <!-- ログアウト処理のためにPOSTリクエストを送信 -->
         <form action="{{ url_for('logout') }}" method="POST" style="display: inline;">
             <button type="submit">はい</button>
