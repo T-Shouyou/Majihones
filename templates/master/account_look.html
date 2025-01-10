@@ -232,8 +232,8 @@ function resetSearch() {
         </table>
     </div>
 
-    <div class="txt-center">
-        <a href="{{ url_for('mainmenu') }}">メインメニュー</a>
+    <div class="back-button-container">
+        <button id="back-button" onclick="location.href='{{ url_for('mainmenu') }}';" class="back-button">戻る</button>
     </div>
 </div>
 {% endblock %}
