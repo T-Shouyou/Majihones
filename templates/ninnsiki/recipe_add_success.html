@@ -1,15 +1,16 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
+{% extends 'base.html' %}
+
+{% block title %}アップロード成功{% endblock %}
+
+{% block content %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>アップロード成功</title>
-</head>
-<body>
-    <h1>レシピ画像のアップロードが成功しました！</h1>
-    <p>料理名が正しく保存されました。</p>
+    <br>
+    <h1 class="txt-center">レシピ画像のアップロードが成功しました！</h1>
+    <p class="txt-center">料理名が正しく保存されました。</p>
 
-    <a href="/ninnsiki/upload.html">料理予測ページに戻る</a>
-    <a href="/ninnsiki/recipe_imagesh.html">レシピ画像のアップロードページに戻る</a>
-</body>
-</html>
+    <div class="txt-center">
+        <a href="/ninnsiki/recipe_images">レシピ画像のアップロードページに戻る</a>
+    </div>
+
+{% endblock %}

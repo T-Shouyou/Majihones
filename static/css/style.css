@@ -173,7 +173,7 @@ header {
 }
 
 .login-button {
-    background-color: #749DFC; /* 水色の背景色 */
+    background-color: orange; /* 水色の背景色 */
     color: black; /* テキストの色を黒に設定 */
     padding: 10px 30px; /* 上下の余白を15px、左右を30pxに設定 */
     font-size: 18px; /* フォントサイズを18pxに設定 */
@@ -184,7 +184,7 @@ header {
 }
 
 .login-button:hover {
-    background-color: #009acd; /* ホバー時の水色を少し暗くする */
+    background-color: #f58208; /* ホバー時の水色を少し暗くする */
 }
 
 .back-button-container {
@@ -223,19 +223,19 @@ header {
 }
 
 .camera-button{
-    background-color: blue;
+    background-color: orange;
 }
 
 .sug-button{
-    background-color: red;
+    background-color: orange;
 }
 
 .hiroba-button{
-    background-color: green;
+    background-color: orange;
 }
 
 .ac-op-button{
-    background-color: gray;
+    background-color: orange;
 }
 
 
@@ -320,7 +320,7 @@ aside {
   /* photomenu -----------------------------------------------------------------------------------*/
 
 .login-button:hover {
-    background-color: #009acd; /* ホバー時の水色を少し暗くする */
+    background-color: #f58208;; /* ホバー時の水色を少し暗くする */
 }
 
 .button-container-photo-menu {
@@ -337,8 +337,8 @@ aside {
     height:80px;
     margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
     border: none; /* 枠線をなしに設定 */
-    color: black;
-    background-color: skyblue;
+    color: white;
+    background-color: orange;
     font-size: 22px;
     border-radius: 5px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
@@ -366,7 +366,7 @@ aside {
     top: 370px;
     left: 50%;
     transform: translate(-50%); 
-    background-color: red; /* 赤の背景色 */
+    background-color: orange; /* 赤の背景色 */
     color: white; /* テキストの色を白に設定 */
     font-size: 18px; /* フォントサイズを18pxに設定 */
     border-radius: 5px; /* 角を丸くする */
@@ -475,11 +475,11 @@ canvas {
 /*     ----------------------------------ごはん提案CSS---------------------------- */
 
 .sugglook-button{
-    background-color: skyblue;
+    background-color: orange;
 }
 
 .sugghist-button{
-    background-color: skyblue;
+    background-color: orange;
 }
 
 
@@ -505,7 +505,7 @@ canvas {
     height:50px;
     padding: 10px 20px;
     cursor: pointer;
-    background-color: skyblue; /* ボタンの背景色 */
+    background-color: orange; /* ボタンの背景色 */
     color: white;               /* ボタンの文字色 */
     border-radius: 5px;        /* 角を丸くする */
     border: none;              /* ボーダーを消す */
@@ -524,7 +524,7 @@ canvas {
     margin-left: 290px; /* 左のマージンを保持 */
     padding: 10px 20px;
     cursor: pointer;
-    background-color: skyblue; /* ボタンの背景色 */
+    background-color: orange; /* ボタンの背景色 */
     color: white;               /* ボタンの文字色 */
     border-radius: 5px;        /* 角を丸くする */
     border: none;              /* ボーダーを消す */
@@ -585,7 +585,7 @@ canvas {
 
 
 .upload-button:hover {
-    background-color: #0056b3; /* ホバー時の背景色 */
+    background-color: #f58208; /* ホバー時の背景色 */
 }
 
 /* 画像のスタイル */
@@ -642,7 +642,7 @@ canvas {
     text-align:center; 
 }
 .upload-button {
-    background-color: white;
+    background-color: orange;
     display: flex;
     align-items: center;
     justify-content: center; /* 中央揃え */
@@ -651,7 +651,7 @@ canvas {
     height: 70px; /* ボタンの高さを設定 */
     margin: 35px 0px 0px 55px; /* ボタンの間にスペースを追加 */
     border: none; /* 枠線をなしに設定 */
-    color: black;
+    color: white;
     font-size: 22px;
     border-radius: 10px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
@@ -662,8 +662,8 @@ canvas {
     width: 40%;
     height: 250px;
     padding-top: -50px;
-    background-color: #dae8fc;
-    border: 2px solid cornflowerblue;
+    background-color: rgb(250, 250, 166);
+    border: 2px solid yellow;
     display: flex;
     flex-wrap: wrap; /* ボタンを折り返し可能にする */
     margin: auto; /* コンテナを中央に配置 */
@@ -693,8 +693,8 @@ canvas {
     height:80px;
     margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
     border: none; /* 枠線をなしに設定 */
-    color: black;
-    background-color: skyblue;
+    color: white;
+    background-color: orange;
     font-size: 22px;
     border-radius: 5px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
@@ -715,7 +715,7 @@ canvas {
 /* アカウント設定CSS */
 
 .allergy-button {
-    background-color: #f0ff8c;
+    background-color: orange;
     border: 3px solid #ffd700;
 }
 
@@ -830,7 +830,7 @@ canvas {
 
 .recipe_images-text1 {
     font-size: 30px;
-    float: left;
+    text-align:center;
     padding-left: 20px;
     padding-top: 20px;
 }
@@ -842,7 +842,8 @@ canvas {
     padding-top: 10px;
     padding-left: 10px;
     flex-direction: column;
-    padding-right: 800px;
+    padding-right: 500px;
+    margin-left:36%;
     gap: 10px;
 }
 
@@ -854,12 +855,13 @@ canvas {
 }
 
 .recipe-name {
-    margin-left: -30px;
-    display:flex;
     gap: 10px;
     flex-direction: column;
 }
 
+.recipe-name-box{
+    width:250px;
+}
 
 .pred-txt{
     font-size: 16px;
@@ -867,9 +869,20 @@ canvas {
     width:auto;
 }
 
-/* .recipe-photo-take{
+#recipeList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3列を均等に分ける */
+    gap: 0; /* アイテム間の間隔をゼロに設定（ボーダーで区切るので間隔は不要） */
+    list-style-type: none; /* リストの点を消す */
+    padding: 0; /* ulのデフォルトのパディングを削除 */
+}
 
-} */
+#recipeList li {
+    text-align: center; /* アイテムのテキストを中央揃え */
+    padding: 10px; /* 内側の余白を追加 */
+    border: 1px solid black; /* 黒い実線でボーダーを追加 */
+    box-sizing: border-box; /* ボーダーを含むようにサイズを調整 */
+}
 
 .editButton{
     border-radius: 5px;
@@ -918,7 +931,7 @@ canvas {
 
 #submitButton{
     border-radius: 5px;
-    background-color:#f8cecc;
+    background-color:orange;
     height:60px;
     width: 110px; /* 最小幅も設定 */
     padding:10px;
@@ -934,7 +947,7 @@ canvas {
 }
 
 .touroku-comp-button {
-    background-color: white;
+    background-color: orange;
     display: flex;
     align-items: center;
     justify-content: center; /* 中央揃え */
@@ -943,15 +956,16 @@ canvas {
     height: 70px; /* ボタンの高さを設定 */
     margin: 150px 0px 0px 35%; /* ボタンの間にスペースを追加 */
     border: none; /* 枠線をなしに設定 */
-    color: black;
+    color: white;
     font-size: 22px;
     border-radius: 10px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+    text-decoration: none;
 }
 
 .touroku-comp-button:hover {
-    background-color: #efe8d2; /* ホバー時の灰色を少し暗くする */
+    background-color: #f58208; /* ホバー時の灰色を少し暗くする */
 }
 
 
@@ -994,12 +1008,15 @@ form.MC-form {
 }
 
 .allergy-button {
-    background-color: #f0ff8c;
+    background-color: orange;
     border: 3px solid #ffd700;
+    color:white;
+    cursor: pointer;
 }
 
 .chanpsw-button {
-    border: 3px solid #696969;
+    border: 3px solid orange;
+    cursor: pointer;
 }
 
 
@@ -1069,9 +1086,11 @@ input {
     font-size: 20px;
     text-align: center;
     margin: 0 auto;
-    background-color: #ffb6cb;
-    border: 3px solid #db7093;
+    color:white;
+    background-color: orange;
+    border: 3px solid orange;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 
@@ -1104,8 +1123,8 @@ input {
     font-size: 20px;
     text-align: center;
     margin: 0 auto;
-    background-color: skyblue;
-    border: 3px solid #44acce;
+    background-color: orange;
+    border: 3px solid orange;
     border-radius: 5px;
 }
 
@@ -1189,7 +1208,7 @@ input {
 }
 
 .signup-button {
-    background-color: #749DFC; /* 水色の背景色 */
+    background-color: orange; /* 水色の背景色 */
     color: black; /* テキストの色を黒に設定 */
     padding: 10px 30px; /* 上下の余白を15px、左右を30pxに設定 */
     font-size: 18px; /* フォントサイズを18pxに設定 */
@@ -1200,7 +1219,7 @@ input {
 }
 
 .signup-button:hover {
-    background-color: #009acd; /* ホバー時の水色を少し暗くする */
+    background-color: #f58208; /* ホバー時の水色を少し暗くする */
 }
 
 /* account_look---------------------------------------------------- */
@@ -1311,4 +1330,119 @@ th, td {
     width: 50%;  /* テーブルの横幅を80%に設定 */
     margin: 0 auto;  /* テーブルを中央に配置 */
     border-collapse: collapse;
+}
+
+
+
+
+/* 中央配置用のコンテナ */
+.center-container {
+    display: flex;
+    flex-direction: column; /* アイテムを縦に並べる */
+    justify-content: center; /* 縦方向に中央揃え */
+    align-items: center; /* 横方向に中央揃え */
+}
+
+/* .txt-center クラスでテキストを中央揃え */
+.txt-center {
+    text-align: center;
+}
+
+/* 検索ボックスのスタイル */
+#searchBox {
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    width: 300px; /* 幅を指定 */
+    text-align: center; /* 入力内容を中央揃え */
+}
+
+/* レシピリストのスタイル */
+#recipeList {
+    list-style-type: none; /* デフォルトのリストスタイルを無効にする */
+    padding: 0;
+    margin: 0;
+    text-align: center; /* リストアイテムを中央揃え */
+}
+
+#recipeList li {
+    padding: 5px 0;
+    font-size: 18px;
+}
+
+.hidden {
+    display: none;
+}
+
+.recipe-look-link {
+    margin-top: 5%; /* 画面下から5%の位置 */
+    margin-left: 50%; /* 横方向の中央 */
+    transform: translateX(-50%); /* 50%の左にずらして正確に中央に */
+    text-align: center; /* リンクのテキストを中央揃え */
+    width: 100%; /* 横幅いっぱい */
+}
+
+.recipe-look-link a {
+    display: inline-block; /* リンクを横並びにするためにインラインブロックに */
+    margin: 0 10px; /* リンク間のスペースを指定 */
+    text-align: center; /* リンク内のテキストも中央揃え */
+}
+
+.back-menu-button {
+    width: 180px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 30px;
+    margin-left:auto;
+    margin-right:auto;
+    color:white;
+    background-color: orange;
+    border: 3px solid #f58208;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-button{
+    border-radius: 5px;
+    background-color:palegreen;
+    margin-left:10px;
+    height:auto;
+    min-width: auto; /* 最小幅も設定 */
+    border: 1px solid black;
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+.delete-button{
+    color:white;
+    border-radius: 5px;
+    background-color:red;
+    margin-left:10px;
+    height:auto;
+    min-width: auto; /* 最小幅も設定 */
+    border: 1px solid black;
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+#edit-button{
+    border-radius: 5px;
+    background-color:palegreen;
+    height:auto;
+    min-width: auto; /* 最小幅も設定 */
+    border: 1px solid black;
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+#confirm-button{
+    color:white;
+    border-radius: 5px;
+    background-color:red;
+    height:auto;
+    min-width: auto; /* 最小幅も設定 */
+    border: 1px solid black;
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
 }
