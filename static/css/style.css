@@ -1149,9 +1149,9 @@ input {
 .tmg-friends {
     height: 250px;
     width: 300px;
-    display: flex;
-    float: right;
-    margin-top: -110px;
+    position:absolute;
+    right: 20px;
+    bottom: 0px;
 }
 
 .new-allergy-button-container {
