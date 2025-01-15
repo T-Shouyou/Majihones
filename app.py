@@ -857,5 +857,13 @@ def photo_upload():
 def photo_recog():
     return render_template('photo/photo_recog.html')
 
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('error/error.html'), 404
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template('error/error.html'), 500
+
 if __name__ == '__main__':
     app.run(debug=True)
