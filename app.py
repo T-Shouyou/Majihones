@@ -298,7 +298,7 @@ def signup():
     cur.close()
     conn.close()
 
-    return redirect(url_for('login'))
+    return redirect(url_for('signup_success'))
 
 @app.route('/ninnsyou/signup_success')
 def signup_success():
@@ -800,12 +800,54 @@ def change_psd(account_id):
 def psd_changec():
     return render_template('acset/psd_changec.html')
 
-@app.route('/acset/acct_del', methods=['GET'])
+@app.route('/acset/acct_del', methods=['GET','POST'])
 def acct_del():
     return render_template('acset/acct_del.html')
 
+@app.route('/del_acct/<int:account_id>', methods=['POST'])
+def del_acct(account_id):
+    error_message = ""
+    password = request.form.get('password')
+    conn = get_db()
+    cur = conn.cursor()
+    try:
+        cur.execute("SELECT PASS FROM ACCOUNT WHERE ACCOUNT_ID = ?", (account_id,))
+        acuser = cur.fetchone()
+        accuser = acuser[0]
+        if accuser == password:
+            return redirect(url_for('acct_del_con'))
+        else:
+            error_message = "入力されたパスワードが間違っています"
+            return render_template('acset/acct_del.html', error_message=error_message)
+    
+    except Exception as e:
+        error_message = str(e)
+        return render_template('acset/acct_del.html', error_message=error_message)
+    finally:
+        cur.close()
+        conn.close()
+        
+@app.route('/acset/acct_del_con')
+def acct_del_con():
+    return render_template('acset/acct_del_con.html')
 
-# -------------------------------------------------------
+@app.route('/acct_delete/<int:account_id>', methods=['POST'])
+def acct_delete(account_id):
+    
+    conn = get_db()
+    cur = conn.cursor()
+    
+    cur.execute("DELETE FROM ACCOUNT WHERE ACCOUNT_ID = ?", (account_id,))
+    conn.commit()
+    
+    cur.close()
+    conn.close()
+    session.clear()
+    return render_template('acset/acct_del_succ.html')
+
+@app.route('/acset/acct_del_succ')
+def acct_del_succ():
+    return render_template('acset/acct_del_succ.html')
 
 @app.route('/photo/photo_upload')
 def photo_upload():

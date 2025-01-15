@@ -181,6 +181,9 @@ header {
     border-radius: 5px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+    position: absolute;
+    left: center;
+    top: 70%;
 }
 
 .login-button:hover {
@@ -1157,9 +1160,9 @@ input {
 .tmg-friends {
     height: 250px;
     width: 300px;
-    display: flex;
-    float: right;
-    margin-top: -110px;
+    position:absolute;
+    right: 20px;
+    bottom: 0px;
 }
 
 .new-allergy-button-container {
