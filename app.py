@@ -298,7 +298,7 @@ def signup():
     cur.close()
     conn.close()
 
-    return redirect(url_for('login'))
+    return redirect(url_for('signup_success'))
 
 @app.route('/ninnsyou/signup_success')
 def signup_success():
