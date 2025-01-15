@@ -18,7 +18,9 @@
 
     <div class="recipe-look-link">
         <a href="/ninnsiki/recipe_delete" class="txt-center">レシピを削除する</a>
-        <a href="/ninnsiki/recipe_images" class="txt-center">戻る</a>
+        <div class="back-button-container">
+            <button id="back-button" onclick="location.href='{{ url_for('recipe_images') }}';" class="back-button">戻る</button>
+        </div>
     </div>
 
     <script>

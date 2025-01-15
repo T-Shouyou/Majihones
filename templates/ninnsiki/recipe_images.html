@@ -3,7 +3,7 @@
 {% block title %}レシピ画像アップロード{% endblock %}
 
 {% block content %}
-    <p class="recipe_images-text1">レシピ画像をアップロード</p>
+    <h2 class="recipe_images-text1">レシピ画像をアップロード</h2>
     <!--カメラ部分-->
     <!-- <div class="video-container">
         <video id="video" autoplay></video>
@@ -21,12 +21,12 @@
     <div class="recipe-button-container">
         <form action="/ninnsiki/upload_recipe" method="POST" enctype="multipart/form-data" class="recipe-form-container">
             <div class="recipe-name">
-                <input type="text" name="label" placeholder="料理名を入力"required>
+                <input type="text" name="label"  class="recipe-name-box" placeholder="料理名を入力"required>
                 <input type="file" name="image" accept="image/*"  required>
             </div>
             <button type="submit">アップロード</button>
         </form>
-        <button id="del-button" onclick="location.href='{{ url_for('recipe_delete') }}';" class="">レシピ削除</button>
+        <button id="del-button" onclick="location.href='{{ url_for('recipe_delete') }}';">レシピ削除</button>
         <button id="look-button" onclick="location.href='{{ url_for('recipe_look') }}';">現在のレシピ一覧を見る</button>
     </div>
     <div class="back-button-container">

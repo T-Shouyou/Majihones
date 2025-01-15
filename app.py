@@ -160,7 +160,12 @@ def recipe_images():
 
 @app.route('/ninnsiki/recipe_delete', methods=['GET'])
 def recipe_delete():
-    return render_template('ninnsiki/recipe_delete.html')
+    with open('recipe_features.pkl', 'rb') as f:
+        recipe_features = pickle.load(f)
+
+    # レシピのラベルを取得
+    recipe_labels = sorted(recipe_features.keys())
+    return render_template('ninnsiki/recipe_delete.html', recipe_labels=recipe_labels)
 
 @app.route('/ninnsiki/delete_recipe', methods=['POST'])
 def delete_recipe():
@@ -178,9 +183,9 @@ def delete_recipe():
             with open('recipe_features.pkl', 'wb') as f:
                 pickle.dump(recipe_features, f)
 
-            return render_template('ninnski/recipe_delete_success.html')
+            return render_template('ninnsiki/recipe_delete_success.html')
         else:
-            return "指定された料理名は存在しません。"
+            return render_template('ninnsiki/recipe_delete_nothing.html')
 
     except Exception as e:
         return f"エラーが発生しました: {str(e)}"
@@ -400,9 +405,33 @@ def sugg_menu():
 
 @app.route('/generate', methods=['POST'])
 def generate_content():
-    # 定型文を自動的に送信
-    content = '今夜のごはんのおすすめを３つ提示してください。名前のみ'
-    
+    # アカウントIDを取得
+    account_id = session.get('account_id')
+
+    # データベースからアレルギー情報を取得
+    allergens = []
+    try:
+        # DB接続を取得
+        connection = get_db()
+        cursor = connection.cursor()
+        cursor.execute("SELECT EGG, MILK, WHEAT, SHRIMP, CRAB, PEANUT, BUCKWHEAT FROM ALLERGEN WHERE ACCOUNT_ID = ?", (account_id,))
+        row = cursor.fetchone()
+        
+        if row:
+            # アレルギーがTrueの項目を抽出
+            allergen_names = ["卵", "乳", "小麦", "えび", "かに", "ピーナッツ", "そば"]
+            allergens = [allergen_names[i] for i, value in enumerate(row) if value]
+
+    except Exception as e:
+        return f"データベースエラー: {str(e)}"
+
+    # アレルギー情報に基づいて定型文を生成
+    if allergens:
+        allergen_list = "、".join(allergens)
+        content = f"今夜のごはんのおすすめを3つ提示してください。ただし、{allergen_list}を含まないものにしてください。"
+    else:
+        content = "今夜のごはんのおすすめを3つ提示してください。名前のみ"
+
     # Gemini APIに送信するリクエストデータ
     data = {
         "contents": [{
@@ -414,22 +443,17 @@ def generate_content():
 
     # APIリクエストを送信
     response = requests.post(GEMINI_API_URL, json=data, params={'key': API_KEY})
-    
-    # レスポンスが成功した場合
+
+    # レスポンスの処理
     if response.status_code == 200:
-        # 生成されたコンテンツを取得
         response_data = response.json()
         generated_content = response_data.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '生成に失敗しました。')
         
         save_to_history(generated_content)
-
-        # 成功した内容を返す
         return render_template('sugg/sugg_look.html', result=generated_content)
     else:
-        # エラーメッセージを表示
         error_message = f"エラーが発生しました: {response.status_code} - {response.text}"
         return render_template('sugg/sugg_look.html', result=error_message)
-
 @app.route('/sugg/sugg_look')
 def sugg_look():
     # このルートにアクセスしたとき、定型文を送信して結果を表示
@@ -776,9 +800,54 @@ def change_psd(account_id):
 def psd_changec():
     return render_template('acset/psd_changec.html')
 
-@app.route('/acset/acct_del')
+@app.route('/acset/acct_del', methods=['GET','POST'])
 def acct_del():
     return render_template('acset/acct_del.html')
+
+@app.route('/del_acct/<int:account_id>', methods=['POST'])
+def del_acct(account_id):
+    error_message = ""
+    password = request.form.get('password')
+    conn = get_db()
+    cur = conn.cursor()
+    try:
+        cur.execute("SELECT PASS FROM ACCOUNT WHERE ACCOUNT_ID = ?", (account_id,))
+        acuser = cur.fetchone()
+        accuser = acuser[0]
+        if accuser == password:
+            return redirect(url_for('acct_del_con'))
+        else:
+            error_message = "入力されたパスワードが間違っています"
+            return render_template('acset/acct_del.html', error_message=error_message)
+    
+    except Exception as e:
+        error_message = str(e)
+        return render_template('acset/acct_del.html', error_message=error_message)
+    finally:
+        cur.close()
+        conn.close()
+        
+@app.route('/acset/acct_del_con')
+def acct_del_con():
+    return render_template('acset/acct_del_con.html')
+
+@app.route('/acct_delete/<int:account_id>', methods=['POST'])
+def acct_delete(account_id):
+    
+    conn = get_db()
+    cur = conn.cursor()
+    
+    cur.execute("DELETE FROM ACCOUNT WHERE ACCOUNT_ID = ?", (account_id,))
+    conn.commit()
+    
+    cur.close()
+    conn.close()
+    session.clear()
+    return render_template('acset/acct_del_succ.html')
+
+@app.route('/acset/acct_del_succ')
+def acct_del_succ():
+    return render_template('acset/acct_del_succ.html')
 
 # -------------------------------------------------------
 

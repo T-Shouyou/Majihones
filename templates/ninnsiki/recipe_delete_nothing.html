@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}料理が存在しません{% endblock %}
+
+{% block content %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="txt-center">
+    <br>
+    <h1>指定された料理名は登録されていません</h1>
+    <br>
+    <a href="{{ url_for('recipe_delete') }}">削除画面に戻る</a>
+</div>
+
+{% endblock %}

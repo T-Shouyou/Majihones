@@ -173,8 +173,8 @@ header {
 }
 
 .login-button {
-    background-color: #749DFC; /* 水色の背景色 */
-    color: black; /* テキストの色を黒に設定 */
+    background-color: orange; /* オレンジの背景色 */
+    color: white; /* テキストの色を白に設定 */
     padding: 10px 30px; /* 上下の余白を15px、左右を30pxに設定 */
     font-size: 18px; /* フォントサイズを18pxに設定 */
     border: none; /* 枠線をなしに設定 */
@@ -184,7 +184,7 @@ header {
 }
 
 .login-button:hover {
-    background-color: #009acd; /* ホバー時の水色を少し暗くする */
+    background-color: #f58208; /* ホバー時の水色を少し暗くする */
 }
 
 .back-button-container {
@@ -223,21 +223,36 @@ header {
 }
 
 .camera-button{
-    background-color: blue;
+    background-color: orange;
+}
+
+.camera-button:hover {
+    background-color: #f58208; /* ホバー時の水色を少し暗くする */
 }
 
 .sug-button{
-    background-color: red;
+    background-color: orange;
+}
+
+.sug-button:hover {
+    background-color: #f58208; /* ホバー時の水色を少し暗くする */
 }
 
 .hiroba-button{
-    background-color: green;
+    background-color: orange;
+}
+
+.hiroba-button:hover {
+    background-color: #f58208; /* ホバー時の水色を少し暗くする */
 }
 
 .ac-op-button{
-    background-color: gray;
+    background-color: orange;
 }
 
+.ac-op-button:hover {
+    background-color: #f58208; /* ホバー時の水色を少し暗くする */
+}
 
 
 .camera-icon{
@@ -271,6 +286,10 @@ aside {
     border-style:none;
     cursor: pointer; /* カーソルをポインターに変更 */
     font-size: 20px;
+}
+
+.Master-only-button:hover {
+    background-color: #f58208; /* ホバー時の水色を少し暗くする */
 }
 /* 
 .recipe_teach{
@@ -320,7 +339,7 @@ aside {
   /* photomenu -----------------------------------------------------------------------------------*/
 
 .login-button:hover {
-    background-color: #009acd; /* ホバー時の水色を少し暗くする */
+    background-color: #f58208;; /* ホバー時の水色を少し暗くする */
 }
 
 .button-container-photo-menu {
@@ -337,14 +356,18 @@ aside {
     height:80px;
     margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
     border: none; /* 枠線をなしに設定 */
-    color: black;
-    background-color: skyblue;
+    color: white;
+    background-color: orange;
     font-size: 22px;
     border-radius: 5px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
     margin:auto;
     margin-bottom: 60px;
+}
+
+.button-container-photo-menu button:hover {
+    background-color: #f58208; /* ホバー時の水色を少し暗くする */
 }
 
 
@@ -366,13 +389,18 @@ aside {
     top: 370px;
     left: 50%;
     transform: translate(-50%); 
-    background-color: red; /* 赤の背景色 */
+    background-color: orange; /* 赤の背景色 */
+    border:1px solid orange;
     color: white; /* テキストの色を白に設定 */
     font-size: 18px; /* フォントサイズを18pxに設定 */
     border-radius: 5px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
     z-index: 1000;
+}
+
+.capture:hover {
+    background-color: #f58208; /* ホバー時の水色を少し暗くする */
 }
 
 
@@ -469,17 +497,26 @@ canvas {
     border-radius:5px;
     border: 1px solid black;
     line-height: 5px;
-    text-align: center;   
+    text-align: center;
+    cursor:pointer;
 }
 
 /*     ----------------------------------ごはん提案CSS---------------------------- */
 
 .sugglook-button{
-    background-color: skyblue;
+    background-color: orange;
+}
+
+.sugglook-button:hover {
+    background-color: #f58208;; /* ホバー時の水色を少し暗くする */
 }
 
 .sugghist-button{
-    background-color: skyblue;
+    background-color: orange;
+}
+
+.sugghist-button:hover {
+    background-color: #f58208;; /* ホバー時の水色を少し暗くする */
 }
 
 
@@ -505,13 +542,17 @@ canvas {
     height:50px;
     padding: 10px 20px;
     cursor: pointer;
-    background-color: skyblue; /* ボタンの背景色 */
+    background-color: orange; /* ボタンの背景色 */
     color: white;               /* ボタンの文字色 */
     border-radius: 5px;        /* 角を丸くする */
     border: none;              /* ボーダーを消す */
     text-align: center;        /* テキストを中央揃え */
     margin-top: 20px; 
     right:290px;
+}
+
+.post-button:hover {
+    background-color: #f58208;; /* ホバー時の水色を少し暗くする */
 }
 
 .select-img {
@@ -524,7 +565,7 @@ canvas {
     margin-left: 290px; /* 左のマージンを保持 */
     padding: 10px 20px;
     cursor: pointer;
-    background-color: skyblue; /* ボタンの背景色 */
+    background-color: orange; /* ボタンの背景色 */
     color: white;               /* ボタンの文字色 */
     border-radius: 5px;        /* 角を丸くする */
     border: none;              /* ボーダーを消す */
@@ -532,11 +573,15 @@ canvas {
     margin-top: 20px; 
 }
 
+.select-post-img:hover {
+    background-color: #f58208; /* ホバー時の背景色 */
+}
+
 .post-error-message {
     position:fixed;
     color: red;
     left: 450px;
-    margin-top:5px;
+    margin-top:30px;
     display: none;
 }
 
@@ -567,7 +612,7 @@ canvas {
     right:20px;
 }
 
-.fixed-button-back button:hover {
+.fixed-button button:hover {
     background-color: #0056b3; /* ホバー時の背景色 */
 }
 
@@ -585,7 +630,7 @@ canvas {
 
 
 .upload-button:hover {
-    background-color: #0056b3; /* ホバー時の背景色 */
+    background-color: #f58208; /* ホバー時の背景色 */
 }
 
 /* 画像のスタイル */
@@ -641,8 +686,9 @@ canvas {
 .loading-text {
     text-align:center; 
 }
+
 .upload-button {
-    background-color: white;
+    background-color: orange;
     display: flex;
     align-items: center;
     justify-content: center; /* 中央揃え */
@@ -651,19 +697,23 @@ canvas {
     height: 70px; /* ボタンの高さを設定 */
     margin: 35px 0px 0px 55px; /* ボタンの間にスペースを追加 */
     border: none; /* 枠線をなしに設定 */
-    color: black;
+    color: white;
     font-size: 22px;
     border-radius: 10px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
 }
 
+.upload-button:hover {
+    background-color: #f58208;; /* ホバー時の水色を少し暗くする */
+}
+
 .button-container-photo-upload {
     width: 40%;
     height: 250px;
     padding-top: -50px;
-    background-color: #dae8fc;
-    border: 2px solid cornflowerblue;
+    background-color: rgb(250, 250, 166);
+    border: 2px solid yellow;
     display: flex;
     flex-wrap: wrap; /* ボタンを折り返し可能にする */
     margin: auto; /* コンテナを中央に配置 */
@@ -693,12 +743,16 @@ canvas {
     height:80px;
     margin:0px 30px 30px 30px; /* ボタンの間にスペースを追加 */
     border: none; /* 枠線をなしに設定 */
-    color: black;
-    background-color: skyblue;
+    color: white;
+    background-color: orange;
     font-size: 22px;
     border-radius: 5px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+}
+
+.sugg-button:hover {
+    background-color: #f58208;; /* ホバー時の水色を少し暗くする */
 }
 
 
@@ -715,17 +769,21 @@ canvas {
 /* アカウント設定CSS */
 
 .allergy-button {
-    background-color: #f0ff8c;
+    background-color: orange;
     border: 3px solid #ffd700;
 }
 
-.chanpsw-button {
-    border: 3px solid #696969;
+.allergy-button:hover {
+    background-color: #f58208;; /* ホバー時の水色を少し暗くする */
 }
 
 .logout-button {
     background-color: #ffb6cb;
     border: 3px solid #db7093;
+}
+
+.logout-button:hover {
+    background-color: #db7093; /* ホバー時の水色を少し暗くする */
 }
 
 /* ----------垢削除と戻る---------- */
@@ -750,6 +808,10 @@ canvas {
     cursor: pointer;
 }
 
+.acctdel-button:hover {
+    background-color: #c60d0d; /* ホバー時の水色を少し暗くする */
+}
+
 .button-container-ac{
     display: flex;
     flex-direction: column;
@@ -764,6 +826,7 @@ canvas {
     margin:0px 30px 30px 100px; /* ボタンの間にスペースを追加 */
     font-size: 22px;
     border-radius: 5px; /* 角を丸くする */
+    border:none;
     cursor: pointer; /* カーソルをポインターに変更 */
 }
 
@@ -830,7 +893,7 @@ canvas {
 
 .recipe_images-text1 {
     font-size: 30px;
-    float: left;
+    text-align:center;
     padding-left: 20px;
     padding-top: 20px;
 }
@@ -842,7 +905,8 @@ canvas {
     padding-top: 10px;
     padding-left: 10px;
     flex-direction: column;
-    padding-right: 800px;
+    padding-right: 500px;
+    margin-left:36%;
     gap: 10px;
 }
 
@@ -854,12 +918,13 @@ canvas {
 }
 
 .recipe-name {
-    margin-left: -30px;
-    display:flex;
     gap: 10px;
     flex-direction: column;
 }
 
+.recipe-name-box{
+    width:250px;
+}
 
 .pred-txt{
     font-size: 16px;
@@ -867,9 +932,20 @@ canvas {
     width:auto;
 }
 
-/* .recipe-photo-take{
+#recipeList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3列を均等に分ける */
+    gap: 0; /* アイテム間の間隔をゼロに設定（ボーダーで区切るので間隔は不要） */
+    list-style-type: none; /* リストの点を消す */
+    padding: 0; /* ulのデフォルトのパディングを削除 */
+}
 
-} */
+#recipeList li {
+    text-align: center; /* アイテムのテキストを中央揃え */
+    padding: 10px; /* 内側の余白を追加 */
+    border: 1px solid black; /* 黒い実線でボーダーを追加 */
+    box-sizing: border-box; /* ボーダーを含むようにサイズを調整 */
+}
 
 .editButton{
     border-radius: 5px;
@@ -908,6 +984,10 @@ canvas {
     cursor: pointer; /* カーソルをポインターに変更 */
 }
 
+.cancelButton:hover {
+    background-color: #c60d0d; /* ホバー時の水色を少し暗くする */
+}
+
 .submitButton-container {
     width: 110px;
     position: fixed; /* 視覚的に固定 */
@@ -918,12 +998,17 @@ canvas {
 
 #submitButton{
     border-radius: 5px;
-    background-color:#f8cecc;
+    background-color:orange;
+    border:none;
     height:60px;
     width: 110px; /* 最小幅も設定 */
     padding:10px;
     cursor: pointer; /* カーソルをポインターに変更 */
     font-size: 20px;
+}
+
+#submitButton:hover {
+    background-color: #f58208;; /* ホバー時の水色を少し暗くする */
 }
 
 /* ごはんアップロード完了ページCSS */
@@ -934,7 +1019,7 @@ canvas {
 }
 
 .touroku-comp-button {
-    background-color: white;
+    background-color: orange;
     display: flex;
     align-items: center;
     justify-content: center; /* 中央揃え */
@@ -943,15 +1028,16 @@ canvas {
     height: 70px; /* ボタンの高さを設定 */
     margin: 150px 0px 0px 35%; /* ボタンの間にスペースを追加 */
     border: none; /* 枠線をなしに設定 */
-    color: black;
+    color: white;
     font-size: 22px;
     border-radius: 10px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+    text-decoration: none;
 }
 
 .touroku-comp-button:hover {
-    background-color: #efe8d2; /* ホバー時の灰色を少し暗くする */
+    background-color: #f58208; /* ホバー時の灰色を少し暗くする */
 }
 
 
@@ -994,12 +1080,24 @@ form.MC-form {
 }
 
 .allergy-button {
-    background-color: #f0ff8c;
-    border: 3px solid #ffd700;
+    background-color: orange;
+    border: 3px solid orange;
+    color:white;
+    cursor: pointer;
+}
+
+.allergy-button:hover {
+    background-color: #f58208;; /* ホバー時の水色を少し暗くする */
 }
 
 .chanpsw-button {
-    border: 3px solid #696969;
+    background-color: orange;
+    color:white;
+    cursor: pointer;
+}
+
+.chanpsw-button:hover {
+    background-color: #f58208;; /* ホバー時の水色を少し暗くする */
 }
 
 
@@ -1069,9 +1167,15 @@ input {
     font-size: 20px;
     text-align: center;
     margin: 0 auto;
-    background-color: #ffb6cb;
-    border: 3px solid #db7093;
+    color:white;
+    background-color: orange;
+    border: none;
     border-radius: 5px;
+    cursor: pointer;
+}
+
+.new-allergy-button-container button:hover {
+    background-color: #f58208;; /* ホバー時の水色を少し暗くする */
 }
 
 
@@ -1104,9 +1208,12 @@ input {
     font-size: 20px;
     text-align: center;
     margin: 0 auto;
-    background-color: skyblue;
-    border: 3px solid #44acce;
+    background-color: orange;
     border-radius: 5px;
+}
+
+.menu-button:hover {
+    background-color: #f58208;; /* ホバー時の水色を少し暗くする */
 }
 
 /*   あれるぎーちぇっくぼくす */
@@ -1158,7 +1265,7 @@ input {
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
 }
 
-.button-container-logout button:hover {
+.button-container-ninshou button:hover {
     background-color: #ffab96; /* ホバー時の水色を少し暗くする */
 }
 
@@ -1189,8 +1296,8 @@ input {
 }
 
 .signup-button {
-    background-color: #749DFC; /* 水色の背景色 */
-    color: black; /* テキストの色を黒に設定 */
+    background-color: orange; /* 水色の背景色 */
+    color: white; /* テキストの色を黒に設定 */
     padding: 10px 30px; /* 上下の余白を15px、左右を30pxに設定 */
     font-size: 18px; /* フォントサイズを18pxに設定 */
     border: none; /* 枠線をなしに設定 */
@@ -1200,7 +1307,7 @@ input {
 }
 
 .signup-button:hover {
-    background-color: #009acd; /* ホバー時の水色を少し暗くする */
+    background-color: #f58208; /* ホバー時の水色を少し暗くする */
 }
 
 /* account_look---------------------------------------------------- */
@@ -1356,7 +1463,7 @@ th, td {
 }
 
 .recipe-look-link {
-    margin-top: 20%; /* 画面下から20pxの位置 */
+    margin-top: 5%; /* 画面下から5%の位置 */
     margin-left: 50%; /* 横方向の中央 */
     transform: translateX(-50%); /* 50%の左にずらして正確に中央に */
     text-align: center; /* リンクのテキストを中央揃え */
@@ -1367,4 +1474,67 @@ th, td {
     display: inline-block; /* リンクを横並びにするためにインラインブロックに */
     margin: 0 10px; /* リンク間のスペースを指定 */
     text-align: center; /* リンク内のテキストも中央揃え */
+}
+
+.back-menu-button {
+    width: 180px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 30px;
+    margin-left:auto;
+    margin-right:auto;
+    color:white;
+    background-color: orange;
+    border:none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.back-menu-button:hover {
+    background-color: #f58208;; /* ホバー時の水色を少し暗くする */
+}
+
+.edit-button{
+    border-radius: 5px;
+    background-color:palegreen;
+    margin-left:10px;
+    height:auto;
+    min-width: auto; /* 最小幅も設定 */
+    border: 1px solid black;
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+.delete-button{
+    color:white;
+    border-radius: 5px;
+    background-color:red;
+    margin-left:10px;
+    height:auto;
+    min-width: auto; /* 最小幅も設定 */
+    border: 1px solid black;
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+#edit-button{
+    border-radius: 5px;
+    background-color:palegreen;
+    height:auto;
+    min-width: auto; /* 最小幅も設定 */
+    border: 1px solid black;
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+#confirm-button{
+    color:white;
+    border-radius: 5px;
+    background-color:red;
+    height:auto;
+    min-width: auto; /* 最小幅も設定 */
+    border: 1px solid black;
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
 }

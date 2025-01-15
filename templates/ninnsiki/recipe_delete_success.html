@@ -10,7 +10,9 @@
     <br>
     <h1>レシピが削除されました。</h1>
     <br>
-    <a href="/ninnsiki\upload.html" class="txt-center">戻る</a>
+    <div class="back-button-container">
+        <button id="back-button" onclick="location.href='{{ url_for('recipe_images') }}';" class="back-button">戻る</button>
+    </div>
 </div>
 
 {% endblock %}
