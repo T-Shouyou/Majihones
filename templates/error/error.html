@@ -3,6 +3,6 @@
 {% block title %}エラーが発生しました{% endblock %}
 
 {% block content %}
-    <h1>oops! エラーが発生しました。下記のボタンでTOPに戻りましょう</h1>
-    <button onclick="location.href='{{ url_for('mainmenu') }}';" id="sugg-button" class="sug-button">TOPへ戻る</button>
+    <h1 class="else-error">おっと！ エラーが発生しました。<br>下のボタンでTOPに戻りましょう</h1>
+    <button onclick="location.href='{{ url_for('mainmenu') }}';" id="error-button" class="error-button">TOPへ戻る</button>
 {% endblock %}

@@ -486,11 +486,13 @@ canvas {
 .edit-txtarea{
     font-size: 16px;
     min-height: 100px; /* 最小高さを設定 */
-    height:auto;
-    width: 500px; /* 幅を固定 */
+    height: auto;
+    width: 98%; /* 親要素に合わせて幅を98%に設定 */
+    margin-right: 10px; /* 右に少し余白を設定 */
     resize: none; /* ユーザーによるサイズ変更を無効化 */
-    overflow:hidden ; /* 内容に応じて高さが増える */
+    overflow: hidden; /* 内容に応じて高さが増える */
     white-space: pre-wrap; /* 改行を保持しつつ、単語の途中での折り返しを許可 */
+    box-sizing: border-box; /* パディングとボーダーを含めた幅設定 */
 }
 
 #searchByContent{
@@ -1551,3 +1553,31 @@ th, td {
     display: inline-block; /* インラインブロックに設定 */
     cursor: pointer; /* カーソルをポインターに変更 */
 }
+
+/*　　エラーページ用CSS　　*/
+
+.error-button {
+    width: 180px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 30px;
+    color:white;
+    background-color: orange;
+    border:none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;   /* ボタンをブロック要素にして marginを使えるようにする */
+    margin-left: auto; /* 左側の余白を自動調整 */
+    margin-right: auto; /* 右側の余白を自動調整 */
+}
+
+.error-button:hover {
+    background-color: #f58208;; /* ホバー時の水色を少し暗くする */
+}
+
+.else-error{
+    margin-top:70px;
+    text-align: center;
+}
+
