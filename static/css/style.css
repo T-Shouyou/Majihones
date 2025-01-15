@@ -1149,9 +1149,9 @@ input {
 .tmg-friends {
     height: 250px;
     width: 300px;
-    display: flex;
-    float: right;
-    margin-top: -110px;
+    position:absolute;
+    right: 20px;
+    bottom: 0px;
 }
 
 .new-allergy-button-container {
@@ -1339,6 +1339,10 @@ input {
 table {
     border-collapse: collapse; /* セルの境界を重ねる */
     width: 80%; /* テーブルの幅を設定（必要に応じて変更） */
+}
+
+.table-container table {
+    margin-bottom: 30px; /* アカウント一覧表の下に30pxの余白を追加 */
 }
 
 th, td {
