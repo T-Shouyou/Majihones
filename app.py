@@ -800,9 +800,10 @@ def change_psd(account_id):
 def psd_changec():
     return render_template('acset/psd_changec.html')
 
-@app.route('/acset/acct_del')
+@app.route('/acset/acct_del', methods=['GET'])
 def acct_del():
     return render_template('acset/acct_del.html')
+
 
 # -------------------------------------------------------
 
