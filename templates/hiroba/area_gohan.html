@@ -23,6 +23,7 @@
                 <strong>投稿者名:</strong> <span class="account-name">{{ post.account_name }}</span><br>
                 <strong>投稿時刻:</strong> {{ post.created_at|add_hours(9) }} <!-- 日付がすでにフォーマット済み -->
                 {% if account_id == 1 or post.account_id == account_id %}
+                <br>
                 <button onclick="toggleEditMode(this)" class="edit-button">編集</button>
                 <button onclick="confirmDelete(this)" class="delete-button">削除</button>
                 <button class="cancel-button" style="display:none;" onclick="cancelEdit(this)">キャンセル</button>
