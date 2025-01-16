@@ -44,6 +44,9 @@
         {% endfor %}
     </div>
     
+    <div class="goTop-button">
+        <button onclick="scrollToTop()">↑</button>
+    </div>
     <div class="fixed-button">
         <button onclick="location.href='{{ url_for('post_gohan') }}';">ごはん投稿</button>
     </div>
@@ -54,6 +57,21 @@
 
 
 <script>
+     // TOPに戻るボタンの表示・非表示の制御(機能してない)
+     window.onscroll = function() {
+        const goTopButton = document.getElementById('goTopButton');
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            goTopButton.style.display = 'block'; // スクロール位置が200px以上の場合ボタンを表示
+        } else {
+            goTopButton.style.display = 'none'; // スクロール位置が200px未満の場合ボタンを非表示
+        }
+    };
+
+    // 最上部にスクロールする関数
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
     let currentEditingPost = null;
     let currentDeletingPost = null;
 

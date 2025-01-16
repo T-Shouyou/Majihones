@@ -452,7 +452,7 @@ def generate_content():
         save_to_history(generated_content)
         return render_template('sugg/sugg_look.html', result=generated_content)
     else:
-        error_message = f"エラーが発生しました: {response.status_code} - {response.text}"
+        error_message = f"エラーが発生しました: {response.status_code}"
         return render_template('sugg/sugg_look.html', result=error_message)
 @app.route('/sugg/sugg_look')
 def sugg_look():
