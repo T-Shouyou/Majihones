@@ -461,11 +461,29 @@ def sugg_look():
 
 
 
-@app.route('/sugg/sugg_hist')
+@app.route('/sugg/sugg_hist') 
 def sugg_hist():
-    # 過去の提案を取得して表示
-    history = get_history()
+    account_id = session.get('account_id')  # セッションからログイン中のアカウントIDを取得
+    if not account_id:
+        return redirect(url_for('home'))  # アカウントIDがない場合はホームにリダイレクト
+
+    conn = get_db()  # データベース接続
+    cursor = conn.cursor()
+
+    # `HISTORY` テーブルから指定されたアカウントIDのデータを取得
+    cursor.execute("""
+    SELECT SUGG_ID, DAY, SUGG_txt
+    FROM HISTORY
+    WHERE ACCOUNT_ID = ?
+    ORDER BY DAY DESC
+    """, (account_id,))
+    
+    history = cursor.fetchall()  # 結果を取得
+    conn.close()  # データベース接続を閉じる
+
+    # データをHTMLに渡して表示
     return render_template('sugg/sugg_hist.html', history=history)
+
 
 @app.route('/sugg/eat_hist')
 def eat_hist():
