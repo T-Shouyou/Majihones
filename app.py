@@ -23,7 +23,7 @@ app.secret_key = secrets.token_hex(16)
 
 # Google Gemini APIのエンドポイントとAPIキー
 # 本番では検索して消せ、WSGIにでも書いて
-API_KEY = 'AIzaSyDaBVRSc9M2HEXpRWt75XQt0-PcW8s1TAs' 
+API_KEY = 'AIzaSyBneMFN_MwtaCXfQih0dqikuTYQKKCmU-s' 
 GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent'
 
 # 自分のパソコンで実行する際の画像の保存先のパス、本番では検索して消せ
@@ -878,6 +878,10 @@ def photo_recog():
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('error/error.html'), 404
+
+@app.errorhandler(405)
+def internal_server_error(error):
+    return render_template('error/error.html'), 405
 
 @app.errorhandler(500)
 def internal_server_error(error):

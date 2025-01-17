@@ -432,7 +432,48 @@ canvas {
 
 /* --------------------------------ごはん広場CSS------------------------------------- */
 
+.confirm-delete-button{
+    border-radius: 5px;
+    background-color:palegreen;
+    height:auto;
+    min-width: auto; /* 最小幅も設定 */
+    border: 1px solid black;
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+.confirm-delete-button:hover{
+    background-color:#4CAF50;
+}
 
+.cancel-button{
+    color: white;
+    border-radius: 5px;
+    background-color: red;
+    height: auto;
+    min-width: auto;
+    border: 1px solid black;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+    background-color: #c60d0d; /* ホバー時の水色を少し暗くする */
+}
+
+.cancel-delete-button{
+    color: white;
+    border-radius: 5px;
+    background-color: red;
+    height: auto;
+    min-width: auto;
+    border: 1px solid black;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.cancel-delete-button:hover {
+    background-color: #c60d0d; /* ホバー時の水色を少し暗くする */
+}
 
 /* 画像のスタイル */
 .post-img {
@@ -1552,6 +1593,9 @@ th, td {
     display: inline-block; /* インラインブロックに設定 */
     cursor: pointer; /* カーソルをポインターに変更 */
 }
+.edit-button:hover{
+    background-color:#4CAF50;
+}
 
 .delete-button{
     color:white;
@@ -1572,6 +1616,9 @@ th, td {
     border: 1px solid black;
     display: inline-block; /* インラインブロックに設定 */
     cursor: pointer; /* カーソルをポインターに変更 */
+}
+#edit-button:hover{
+    background-color:#4CAF50;
 }
 
 #confirm-button{

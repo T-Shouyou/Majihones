@@ -26,9 +26,9 @@
                 <br>
                 <button onclick="toggleEditMode(this)" class="edit-button">編集</button>
                 <button onclick="confirmDelete(this)" class="delete-button">削除</button>
-                <button class="cancel-button" style="display:none;" onclick="cancelEdit(this)">キャンセル</button>
-                <button class="confirm-delete-button" style="display:none;" onclick="deletePost(this)">はい</button>
-                <button class="cancel-delete-button" style="display:none;" onclick="cancelDelete(this)">いいえ</button>
+                <button class="cancel-button" style="display:none;" onclick="cancelEdit(this)">NO</button>
+                <button class="confirm-delete-button" style="display:none;" onclick="deletePost(this)">OK</button>
+                <button class="cancel-delete-button" style="display:none;" onclick="cancelDelete(this)">NO</button>
                 {% endif %}
             </p>
             <hr>
@@ -121,10 +121,10 @@
         if (editButton.textContent === "編集") {
             currentEditingPost = postElement;
             sentenceElement.innerHTML = `<textarea class="edit-txtarea" maxlength="100">${originalText}</textarea>`;
-            editButton.textContent = "保存";
+            editButton.textContent = "OK";
             cancelButton.style.display = 'inline';
             deleteButton.style.display = 'none';
-        } else if (editButton.textContent === "保存") {
+        } else if (editButton.textContent === "OK") {
             let updatedSentence = sentenceElement.querySelector('textarea').value;
             updatedSentence = updatedSentence.replace(/</g, "＜").replace(/>/g, "＞");
 
