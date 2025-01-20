@@ -183,7 +183,7 @@ header {
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
     position: absolute;
     left: center;
-    top: 70%;
+    top: 75%;
 }
 
 .login-button:hover {
