@@ -23,11 +23,12 @@
                 <strong>投稿者名:</strong> <span class="account-name">{{ post.account_name }}</span><br>
                 <strong>投稿時刻:</strong> {{ post.created_at|add_hours(9) }} <!-- 日付がすでにフォーマット済み -->
                 {% if account_id == 1 or post.account_id == account_id %}
+                <br>
                 <button onclick="toggleEditMode(this)" class="edit-button">編集</button>
                 <button onclick="confirmDelete(this)" class="delete-button">削除</button>
-                <button class="cancel-button" style="display:none;" onclick="cancelEdit(this)">キャンセル</button>
-                <button class="confirm-delete-button" style="display:none;" onclick="deletePost(this)">はい</button>
-                <button class="cancel-delete-button" style="display:none;" onclick="cancelDelete(this)">いいえ</button>
+                <button class="cancel-button" style="display:none;" onclick="cancelEdit(this)">NO</button>
+                <button class="confirm-delete-button" style="display:none;" onclick="deletePost(this)">OK</button>
+                <button class="cancel-delete-button" style="display:none;" onclick="cancelDelete(this)">NO</button>
                 {% endif %}
             </p>
             <hr>
@@ -43,6 +44,9 @@
         {% endfor %}
     </div>
     
+    <div class="goTop-button">
+        <button onclick="scrollToTop()">↑</button>
+    </div>
     <div class="fixed-button">
         <button onclick="location.href='{{ url_for('post_gohan') }}';">ごはん投稿</button>
     </div>
@@ -53,6 +57,21 @@
 
 
 <script>
+     // TOPに戻るボタンの表示・非表示の制御(機能してない)
+     window.onscroll = function() {
+        const goTopButton = document.getElementById('goTopButton');
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            goTopButton.style.display = 'block'; // スクロール位置が200px以上の場合ボタンを表示
+        } else {
+            goTopButton.style.display = 'none'; // スクロール位置が200px未満の場合ボタンを非表示
+        }
+    };
+
+    // 最上部にスクロールする関数
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
     let currentEditingPost = null;
     let currentDeletingPost = null;
 
@@ -102,10 +121,10 @@
         if (editButton.textContent === "編集") {
             currentEditingPost = postElement;
             sentenceElement.innerHTML = `<textarea class="edit-txtarea" maxlength="100">${originalText}</textarea>`;
-            editButton.textContent = "保存";
+            editButton.textContent = "OK";
             cancelButton.style.display = 'inline';
             deleteButton.style.display = 'none';
-        } else if (editButton.textContent === "保存") {
+        } else if (editButton.textContent === "OK") {
             let updatedSentence = sentenceElement.querySelector('textarea').value;
             updatedSentence = updatedSentence.replace(/</g, "＜").replace(/>/g, "＞");
 

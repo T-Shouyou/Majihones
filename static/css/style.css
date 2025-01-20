@@ -181,6 +181,9 @@ header {
     border-radius: 5px; /* 角を丸くする */
     cursor: pointer; /* カーソルをポインターに変更 */
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
+    position: absolute;
+    left: center;
+    top: 70%;
 }
 
 .login-button:hover {
@@ -429,40 +432,87 @@ canvas {
 
 /* --------------------------------ごはん広場CSS------------------------------------- */
 
+.confirm-delete-button{
+    border-radius: 5px;
+    background-color:palegreen;
+    height:auto;
+    min-width: auto; /* 最小幅も設定 */
+    border: 1px solid black;
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+.confirm-delete-button:hover{
+    background-color:#4CAF50;
+}
 
+.cancel-button{
+    color: white;
+    border-radius: 5px;
+    background-color: red;
+    height: auto;
+    min-width: auto;
+    border: 1px solid black;
+    display: inline-block;
+    cursor: pointer;
+}
 
-.post-img{
+.cancel-button:hover {
+    background-color: #c60d0d; /* ホバー時の水色を少し暗くする */
+}
+
+.cancel-delete-button{
+    color: white;
+    border-radius: 5px;
+    background-color: red;
+    height: auto;
+    min-width: auto;
+    border: 1px solid black;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.cancel-delete-button:hover {
+    background-color: #c60d0d; /* ホバー時の水色を少し暗くする */
+}
+
+/* 画像のスタイル */
+.post-img {
     width: 100px;
     height: 100px;
-    margin-left:20px;
-    object-fit: contain; /* 縦横比を維持しながら、領域にフィットさせる */
+    margin-left: 20px;
+    object-fit: contain; /* 縦横比を維持しながら領域にフィットさせる */
 }
 
-.posts{
-    height:50px;
-    width:700px;
+/* 投稿リスト全体 */
+.posts {
     display: flex; /* フレックスコンテナにする */
-    flex-direction: column; /* 子要素を縦に並べる */
-    align-items: center; /* 子要素を中央揃えにする */
+    flex-wrap: wrap; /* 要素を折り返して表示 */
+    justify-content: flex-start; /* 左寄せにする */
+    gap: 20px; /* 各投稿間の横の隙間 */
+    margin: 0 auto; /* 中央寄せ */
+    max-width: 100%; /* 最大幅を100%に設定 */
+    margin-left:130px;
 }
 
+/* 各投稿 */
 .post {
-    background-color:white;
-    border-radius:5px;
-    border:gray 3px solid;
-    width: 100%; /* 投稿の幅を指定 */
-    max-width: 900px; /* 最大幅を指定 */
-    margin: 10px 0; /* 上下にマージンを追加 */
-    margin-left:75%;
+    background-color: white;
+    border-radius: 5px;
+    border: gray 3px solid;
+    width: calc(33.333% - 20px); /* 1行に3つ並べるための幅設定（マージン考慮） */
+    margin: 10px 0; /* 上下の余白を追加 */
     text-align: left; /* テキストを左揃え */
+    box-sizing: border-box; /* 幅にパディングやボーダーを含める */
 }
 
+/* 投稿内容 */
 .post-content {
     display: flex; /* フレックスコンテナにする */
     align-items: flex-start; /* 縦の位置を揃える */
-    margin-top: 10px; /* 上部にマージンを追加（必要に応じて調整） */
-    margin-bottom:20px;
+    margin-top: 10px; /* 上部にマージン */
+    margin-bottom: 20px; /* 下部にマージン */
 }
+
 
 .post-txt {
     word-wrap: break-word; /* 単語の途中で改行を許可 */
@@ -477,11 +527,13 @@ canvas {
 .edit-txtarea{
     font-size: 16px;
     min-height: 100px; /* 最小高さを設定 */
-    height:auto;
-    width: 500px; /* 幅を固定 */
+    height: auto;
+    width: 98%; /* 親要素に合わせて幅を98%に設定 */
+    margin-right: 10px; /* 右に少し余白を設定 */
     resize: none; /* ユーザーによるサイズ変更を無効化 */
-    overflow:hidden ; /* 内容に応じて高さが増える */
+    overflow: hidden; /* 内容に応じて高さが増える */
     white-space: pre-wrap; /* 改行を保持しつつ、単語の途中での折り返しを許可 */
+    box-sizing: border-box; /* パディングとボーダーを含めた幅設定 */
 }
 
 #searchByContent{
@@ -609,10 +661,43 @@ canvas {
     align-items: center; /* 縦方向の中央揃え */
     cursor: pointer; /* カーソルをポインターにする */
     transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
-    right:20px;
+    left:20px;
+    position:fixed;
+    bottom: 130px;
 }
 
 .fixed-button button:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
+}
+
+.goTop-button {
+    position: fixed; /* 固定位置にする */
+    bottom: 20px; /* 下からの距離 */
+    right: 20px; /* 右からの距離 */
+    display: flex; /* フレックスボックスを使用 */
+    flex-direction: column; /* 縦に並べる */
+    gap: 10px; /* ボタン間のスペース */
+    z-index: 1000; /* 他の要素の上に表示するためにz-indexを設定 */
+}
+
+.goTop-button button {
+    width: 100px; /* ボタンの幅 */
+    height: 100px; /* ボタンの高さ */
+    border-radius: 50%; /* 円形にする */
+    border: none; /* ボーダーを消す */
+    background-color: #007BFF; /* ボタンの背景色 */
+    color: white; /* テキストの色 */
+    font-size: 16px; /* フォントサイズ */
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center; /* 縦方向の中央揃え */
+    cursor: pointer; /* カーソルをポインターにする */
+    transition: background-color 0.3s; /* ホバー時のスムーズな変化 */
+    left:20px;
+    position:fixed;
+    bottom: 240px;
+}
+
+.goTop-button button:hover {
     background-color: #0056b3; /* ホバー時の背景色 */
 }
 
@@ -1502,19 +1587,20 @@ th, td {
 .edit-button{
     border-radius: 5px;
     background-color:palegreen;
-    margin-left:10px;
     height:auto;
     min-width: auto; /* 最小幅も設定 */
     border: 1px solid black;
     display: inline-block; /* インラインブロックに設定 */
     cursor: pointer; /* カーソルをポインターに変更 */
 }
+.edit-button:hover{
+    background-color:#4CAF50;
+}
 
 .delete-button{
     color:white;
     border-radius: 5px;
     background-color:red;
-    margin-left:10px;
     height:auto;
     min-width: auto; /* 最小幅も設定 */
     border: 1px solid black;
@@ -1531,6 +1617,9 @@ th, td {
     display: inline-block; /* インラインブロックに設定 */
     cursor: pointer; /* カーソルをポインターに変更 */
 }
+#edit-button:hover{
+    background-color:#4CAF50;
+}
 
 #confirm-button{
     color:white;
@@ -1542,3 +1631,31 @@ th, td {
     display: inline-block; /* インラインブロックに設定 */
     cursor: pointer; /* カーソルをポインターに変更 */
 }
+
+/*　　エラーページ用CSS　　*/
+
+.error-button {
+    width: 180px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 30px;
+    color:white;
+    background-color: orange;
+    border:none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;   /* ボタンをブロック要素にして marginを使えるようにする */
+    margin-left: auto; /* 左側の余白を自動調整 */
+    margin-right: auto; /* 右側の余白を自動調整 */
+}
+
+.error-button:hover {
+    background-color: #f58208;; /* ホバー時の水色を少し暗くする */
+}
+
+.else-error{
+    margin-top:70px;
+    text-align: center;
+}
+

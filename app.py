@@ -23,7 +23,7 @@ app.secret_key = secrets.token_hex(16)
 
 # Google Gemini APIのエンドポイントとAPIキー
 # 本番では検索して消せ、WSGIにでも書いて
-API_KEY = 'AIzaSyDaBVRSc9M2HEXpRWt75XQt0-PcW8s1TAs' 
+API_KEY = 'AIzaSyBneMFN_MwtaCXfQih0dqikuTYQKKCmU-s' 
 GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent'
 
 # 自分のパソコンで実行する際の画像の保存先のパス、本番では検索して消せ
@@ -298,7 +298,7 @@ def signup():
     cur.close()
     conn.close()
 
-    return redirect(url_for('login'))
+    return redirect(url_for('signup_success'))
 
 @app.route('/ninnsyou/signup_success')
 def signup_success():
@@ -452,7 +452,7 @@ def generate_content():
         save_to_history(generated_content)
         return render_template('sugg/sugg_look.html', result=generated_content)
     else:
-        error_message = f"エラーが発生しました: {response.status_code} - {response.text}"
+        error_message = f"エラーが発生しました: {response.status_code}"
         return render_template('sugg/sugg_look.html', result=error_message)
 @app.route('/sugg/sugg_look')
 def sugg_look():
@@ -461,11 +461,29 @@ def sugg_look():
 
 
 
-@app.route('/sugg/sugg_hist')
+@app.route('/sugg/sugg_hist') 
 def sugg_hist():
-    # 過去の提案を取得して表示
-    history = get_history()
+    account_id = session.get('account_id')  # セッションからログイン中のアカウントIDを取得
+    if not account_id:
+        return redirect(url_for('home'))  # アカウントIDがない場合はホームにリダイレクト
+
+    conn = get_db()  # データベース接続
+    cursor = conn.cursor()
+
+    # `HISTORY` テーブルから指定されたアカウントIDのデータを取得
+    cursor.execute("""
+    SELECT SUGG_ID, DAY, SUGG_txt
+    FROM HISTORY
+    WHERE ACCOUNT_ID = ?
+    ORDER BY DAY DESC
+    """, (account_id,))
+    
+    history = cursor.fetchall()  # 結果を取得
+    conn.close()  # データベース接続を閉じる
+
+    # データをHTMLに渡して表示
     return render_template('sugg/sugg_hist.html', history=history)
+
 
 @app.route('/sugg/eat_hist')
 def eat_hist():
@@ -849,8 +867,6 @@ def acct_delete(account_id):
 def acct_del_succ():
     return render_template('acset/acct_del_succ.html')
 
-# -------------------------------------------------------
-
 @app.route('/photo/photo_upload')
 def photo_upload():
     return render_template('photo/photo_upload.html')
@@ -858,6 +874,18 @@ def photo_upload():
 @app.route('/photo/photo_recog')
 def photo_recog():
     return render_template('photo/photo_recog.html')
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('error/error.html'), 404
+
+@app.errorhandler(405)
+def internal_server_error(error):
+    return render_template('error/error.html'), 405
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template('error/error.html'), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
