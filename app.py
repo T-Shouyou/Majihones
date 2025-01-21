@@ -867,7 +867,7 @@ def new_allergy(account_id):
 
     return render_template('acset/allergy_set.html',account_id=account_id,allergies=allergies,breadcrumbs=breadcrumbs)
 
-@app.route('/acset/psd_change', methods=['GET','POST'])
+@app.route('/acset/psd_change', methods=['GET'])
 def psd_change():
 
     breadcrumbs = [
@@ -877,9 +877,10 @@ def psd_change():
     ]
     return render_template('acset/psd_change.html', breadcrumbs=breadcrumbs)
 
-@app.route('/change_psd/<int:account_id>', methods=['POST'])
-def change_psd(account_id):
+@app.route('/acset/psd_change', methods=['POST'])
+def change_psd():
     error_message = ""
+    account_id = session['account_id']
     password = request.form.get('password')
     password2 = request.form.get('passwordnew')
     password3 = request.form.get('passwordnew2')
@@ -927,7 +928,7 @@ def psd_changec():
     ]
     return render_template('acset/psd_changec.html',breadcrumbs=breadcrumbs)
 
-@app.route('/acset/acct_del', methods=['GET','POST'])
+@app.route('/acset/acct_del', methods=['GET'])
 def acct_del():
     breadcrumbs = [
         {"name": "メインメニュー", "url":"/mainmenu/mainmenu"},
@@ -936,9 +937,10 @@ def acct_del():
     ]
     return render_template('acset/acct_del.html', breadcrumbs=breadcrumbs)
 
-@app.route('/del_acct/<int:account_id>', methods=['POST'])
-def del_acct(account_id):
+@app.route('/acset/acct_del', methods=['POST'])
+def del_acct():
     error_message = ""
+    account_id = session['account_id']
     password = request.form.get('password')
     conn = get_db()
     cur = conn.cursor()

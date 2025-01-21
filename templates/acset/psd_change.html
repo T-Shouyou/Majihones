@@ -8,7 +8,7 @@
     <br>
     <p class="p-p">パスワードの変更</p>
 
-    <form action="{{ url_for('change_psd',account_id=account_id) }}" method="post">
+    <form action="{{ url_for('change_psd') }}" method="post">
         <div class="login-form">
             <input type="password" name="password" class="my-textbox" placeholder="現在のパスワードを入力..." required>
         </div>
