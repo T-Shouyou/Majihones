@@ -1456,7 +1456,7 @@ th, td {
 }
 
 .pankuzu {
-    z-index: 1000;
+    z-index: 10000;
     background-color: red;
 }
 /*パスワード変更画面のエラーメッセージ用個別CSS　面倒だったので許して*/
