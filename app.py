@@ -729,14 +729,14 @@ def delete_post(post_id):
 def acct_set():
     return render_template('acset/acct_set.html')
 
-@app.route('/acset/allergy_new')
+@app.route('/acset/allergy_new', methods=['GET'])
 def allergy_new():
-    
     return render_template('acset/allergy_new.html')
 
-@app.route('/acset/new_allergy/<int:account_id>', methods=['GET', 'POST'])
-def new_allergy(account_id):
+@app.route('/acset/allergy_new', methods=['POST'])
+def new_allergy():
     # チェックされたアレルギーの情報を取得
+    account_id = session['account_id']
     egg = request.form.get('egg',False) == 'true'
     milk = request.form.get('milk',False) == 'true'
     wheat = request.form.get('wheat',False) == 'true'
@@ -744,6 +744,7 @@ def new_allergy(account_id):
     crab = request.form.get('crab',False) == 'true'
     peanut = request.form.get('peanut',False) == 'true'
     buckwheat = request.form.get('buckwheat',False) == 'true'
+    print(account_id)
 
     conn = get_db()
     # アレルギー情報を更新または挿入

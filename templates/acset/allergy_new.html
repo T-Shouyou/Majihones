@@ -5,7 +5,7 @@
 {% block content %}
 <div class="main-contents">
     <p class="main-text">アレルギーの登録</p>
-    <form action="{{ url_for('new_allergy', account_id=account_id) }}" method="post">
+    <form action="{{ url_for('new_allergy') }}" method="post">
         <div class="chkbox">
             <label>
                 <input type="checkbox" name="egg" value="true">卵
