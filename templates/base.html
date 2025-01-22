@@ -11,13 +11,18 @@
 <body background="{{ url_for('static', filename='img/background.png') }}" class="kabegami">
     <header class="clearfix">
         <img src="{{ url_for('static', filename='img/title.png') }}" class="header-logo">
-        <nav class="pankuzu">
-            {% if breadcrumbs %}
-                {% for crumb in breadcrumbs %}
-                    <a href="{{ crumb[1] }}">{{ crumb[0] }}</a>
-                    {% if not loop.last %} &gt; {% endif %}
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                {% for breadcrumb in breadcrumbs %}
+                    <li class="breadcrumb-item">
+                        {% if loop.last %}
+                            {{ breadcrumb.name }} <!-- 最後のリンクはテキストのみ -->
+                        {% else %}
+                            <a href="{{ breadcrumb.url }}">{{ breadcrumb.name }}</a>
+                        {% endif %}
+                    </li>
                 {% endfor %}
-            {% endif %}
+            </ol>
         </nav>
     </header>
     

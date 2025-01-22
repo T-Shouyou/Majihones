@@ -132,6 +132,8 @@ def upload_recipe():
     # extract_features.pyにラベルと画像パスを追加する処理を呼び出す
     update_recipe_features(label, image_path)
 
+
+
     return render_template('ninnsiki/recipe_add_success.html')  # 成功画面に遷移
 
 def update_recipe_features(label, image_path):
@@ -156,7 +158,12 @@ def update_recipe_features(label, image_path):
 
 @app.route('/ninnsiki/recipe_images', methods=['GET'])
 def recipe_images():
-    return render_template('ninnsiki/recipe_images.html')
+
+    breadcrumbs = [
+        {"name": "メインメニュー", "url": "/mainmenu/mainmenu"},
+        {"name": "ごはん調教", "url": "/ninnsiki/recipe/images"}
+    ]
+    return render_template('ninnsiki/recipe_images.html', breadcrumbs=breadcrumbs)
 
 @app.route('/ninnsiki/recipe_delete', methods=['GET'])
 def recipe_delete():
@@ -165,7 +172,14 @@ def recipe_delete():
 
     # レシピのラベルを取得
     recipe_labels = sorted(recipe_features.keys())
-    return render_template('ninnsiki/recipe_delete.html', recipe_labels=recipe_labels)
+
+    breadcrumbs = [
+        {"name": "メインメニュー", "url":"/mainmenu/mainmenu"},
+        {"name": "ごはん調教" , "url":"/ninnsiki/recipe?images"},
+        {"name": "レシピ消去", "url": "/ninnsiki/resipe_delete"}
+    ]
+
+    return render_template('ninnsiki/recipe_delete.html', recipe_labels=recipe_labels, breadcrumbs=breadcrumbs)
 
 @app.route('/ninnsiki/delete_recipe', methods=['POST'])
 def delete_recipe():
@@ -210,7 +224,12 @@ def register_food():
 
 @app.route('/ninnsiki/touroku_success')
 def touroku_success():
-    return render_template('ninnsiki/touroku_success.html')
+
+    breadcrumbs = [
+        {"name": "登録完了", "url": "/ninnsiki/touroku_success"}
+    ]
+
+    return render_template('ninnsiki/touroku_success.html', breadcrumbs=breadcrumbs)
 
 @app.route('/ninnsiki/recipe_look', methods=['GET'])
 def recipe_look():
@@ -220,8 +239,14 @@ def recipe_look():
 
     # レシピのラベルを取得
     recipe_labels = sorted(recipe_features.keys())
+
+    breadcrumbs = [
+        {"name":"メインメニュー", "url":"/mainmenu/mainmenu"},
+        {"name":"ごはん調教", "url":"/ninnsiki/recipe_images"},
+        {"name":"レシピ一覧", "url":"/ninnsiki/recipe_look"}
+    ]
     
-    return render_template('ninnsiki/recipe_look.html', recipe_labels=recipe_labels)
+    return render_template('ninnsiki/recipe_look.html', recipe_labels=recipe_labels, breadcrumbs=breadcrumbs)
 
 
 
@@ -325,7 +350,10 @@ def inject_account_info():
 @app.route('/mainmenu/mainmenu', methods=['GET', 'POST'])
 def mainmenu():
     if 'account_name' in session:
-        return render_template('mainmenu/mainmenu.html')
+        breadcrumbs = [
+            {"name": "メインメニュー", "url": "/mainmenu/mainmenu"}
+        ]
+        return render_template('mainmenu/mainmenu.html', breadcrumbs=breadcrumbs)
     return redirect(url_for('login'))
 
 @app.route('/master/account_look')
@@ -337,8 +365,13 @@ def account_look():
         accounts = cur.fetchall()
         cur.close()
         conn.close()
+
+        breadcrumbs = [
+            {"name": "メインメニュー", "url": "/mainmenu/mainmenu"},
+            {"name": "アカウント閲覧", "url": "/master/account_look"}
+        ]
         
-        return render_template('master/account_look.html', accounts=accounts)
+        return render_template('master/account_look.html', accounts=accounts, breadcrumbs=breadcrumbs)
 
 @app.route('/edit_account/<int:account_id>', methods=['POST'])
 def edit_account(account_id):
@@ -364,11 +397,23 @@ def delete_account(account_id):
 
 @app.route('/photo/photo_menu')
 def photo_menu():
-    return render_template('photo/photo_menu.html')
+
+    breadcrumbs = [
+        {"name": "メインメニュー", "url": "/mainmenu/mainmenu"},
+        {"name": "フォトメニュー", "url": "/photo/photo_menu"}
+    ]
+
+    return render_template('photo/photo_menu.html',breadcrumbs=breadcrumbs)
 
 @app.route('/photo/photo_take')
 def photo_take():
-    return render_template('photo/photo_take.html')
+
+    breadcrumbs = [
+        {"name":"メインメニュー", "url": "/mainmenu/mainmenu"},
+        {"name":"フォトメニュー", "url": "/photo/photo_menu"},
+        {"name":"撮影画面", "url": "/photo/photo_take"}
+    ]
+    return render_template('photo/photo_take.html',breadcrumbs=breadcrumbs)
 
 def get_history():
     # データベースに接続
@@ -401,7 +446,12 @@ def save_to_history(sugg_txt):
 
 @app.route('/sugg/sugg_menu')
 def sugg_menu():
-    return render_template('sugg/sugg_menu.html')
+
+    breadcrumbs = [
+        {"name":"メインメニュー", "url":"/mainmenu/mainmenu"},
+        {"name":"ごはん提案", "url":"/sugg/sugg_menu"}
+    ]
+    return render_template('sugg/sugg_menu.html',breadcrumbs=breadcrumbs)
 
 @app.route('/generate', methods=['POST'])
 def generate_content():
@@ -450,7 +500,13 @@ def generate_content():
         generated_content = response_data.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '生成に失敗しました。')
         
         save_to_history(generated_content)
-        return render_template('sugg/sugg_look.html', result=generated_content)
+
+        breadcrumbs = [
+        {"name": "メインメニュー","url": "/mainmenu/mainmenu"},
+        {"name": "ごはん提案", "url": "/sugg/sugg_menu"},
+        {"name": "ごはん提案閲覧", "url":"/sugg/sugg_look"}
+    ]
+        return render_template('sugg/sugg_look.html', result=generated_content, breadcrumbs=breadcrumbs)
     else:
         error_message = f"エラーが発生しました: {response.status_code}"
         return render_template('sugg/sugg_look.html', result=error_message)
@@ -481,8 +537,14 @@ def sugg_hist():
     history = cursor.fetchall()  # 結果を取得
     conn.close()  # データベース接続を閉じる
 
+    breadcrumbs = [
+        {"name": "メインメニュー", "url": "/mainmenu/mainmenu"},
+        {"name": "ごはん提案", "url": "/sugg/sugg_menu"},
+        {"name": "過去のごはん提案", "url":"/sugg/sugg_hist"}
+    ]
+
     # データをHTMLに渡して表示
-    return render_template('sugg/sugg_hist.html', history=history)
+    return render_template('sugg/sugg_hist.html', history=history, breadcrumbs=breadcrumbs)
 
 
 @app.route('/sugg/eat_hist')
@@ -505,8 +567,14 @@ def eat_hist():
     food_data_list = cursor.fetchall()  # 結果を取得
     conn.close()  # データベース接続を閉じる
 
+    breadcrumbs = [
+        {"name": "メインメニュー", "url": "/mainmenu/mainmenu"},
+        {"name": "ごはん提案", "url":"/sugg/sugg_menu"},
+        {"name": "過去の食事記録", "url":"/sugg/eat?hist"}
+    ]
+
     # データをHTMLに渡して表示
-    return render_template('sugg/eat_hist.html', food_data_list=food_data_list, account_id=account_id)
+    return render_template('sugg/eat_hist.html', food_data_list=food_data_list, account_id=account_id, breadcrumbs=breadcrumbs)
 
 
 # 本番ではこっちを検索して消せ
@@ -530,8 +598,13 @@ def area_gohan():
     posts = [{'post_id': row[0], 'account_id': row[1], 'account_name': row[2], 'sentence': row[3], 'photo': row[4], 'created_at': row[5]} for row in posts]
 
     account_id = session.get('account_id')
+
+    breadcrumbs = [
+        {"name":"メインメニュー", "url":"/mainmenu/mainmenu"},
+        {"name":"ごはん広場","url":"/hiroba/area_gohan"}
+    ]
     
-    return render_template('hiroba/area_gohan.html', posts=posts, account_id=account_id)
+    return render_template('hiroba/area_gohan.html', posts=posts, account_id=account_id,breadcrumbs=breadcrumbs)
 
 @app.template_filter('add_hours')
 def add_hours(value, hours):
@@ -619,7 +692,13 @@ def sanitize_post_content(content):
 
 @app.route('/hiroba/post_gohan')
 def post_gohan():
-    return render_template('hiroba/post_gohan.html')
+
+    breadcrumbs = [
+        {"name":"メインメニュー", "url":"/mainmenu/mainmenu"},
+        {"name":"ごはん広場", "url":"/hiroba/area_gohan"},
+        {"name":"投稿フォーム", "url":"/hiroba/post_gohan"}
+    ]
+    return render_template('hiroba/post_gohan.html', breadcrumbs=breadcrumbs)
 
 # 英数字の桁数を変えたいときは k= の後の数値を変えてね
 def generate_unique_filename(extension):
@@ -727,12 +806,23 @@ def delete_post(post_id):
 # ーーーーーーーーーーアカウント設定ーーーーーーーーーー
 @app.route('/acset/acct_set')
 def acct_set():
-    return render_template('acset/acct_set.html')
+
+    breadcrumbs = [
+        {"name": "メインメニュー", "url":"/mainmenu/mainmenu"},
+        {"name": "ユーザ設定", "url":"/acset/acct_set"}
+    ]
+    return render_template('acset/acct_set.html',breadcrumbs=breadcrumbs)
 
 @app.route('/acset/allergy_new')
 def allergy_new():
+
+    breadcrumbs = [
+        {"name":"メインメニュー","url":"/mainmenu/mainmenu"},
+        {"name":"ユーザ設定","url":"/acset/acct_set"},
+        {"name":"アレルギー情報の更新", "url":"/acset/allergy_new"}
+    ]
     
-    return render_template('acset/allergy_new.html')
+    return render_template('acset/allergy_new.html',breadcrumbs=breadcrumbs)
 
 @app.route('/acset/new_allergy/<int:account_id>', methods=['GET', 'POST'])
 def new_allergy(account_id):
@@ -769,15 +859,28 @@ def new_allergy(account_id):
 
     allergies = [allergy for allergy in jiken if allergy is not None]
 
-    return render_template('acset/allergy_set.html',account_id=account_id,allergies=allergies)
+    breadcrumbs = [
+        {"name": "メインメニュー", "url":"/mainmenu/meinmenu"},
+        {"name": "ユーザ設定", "url":"/acset/acct_set"},
+        {"name": "アレルギーの登録", "url":"/acset/allergy_set"}
+    ]
 
-@app.route('/acset/psd_change', methods=['GET','POST'])
+    return render_template('acset/allergy_set.html',account_id=account_id,allergies=allergies,breadcrumbs=breadcrumbs)
+
+@app.route('/acset/psd_change', methods=['GET'])
 def psd_change():
-    return render_template('acset/psd_change.html')
 
-@app.route('/change_psd/<int:account_id>', methods=['POST'])
-def change_psd(account_id):
+    breadcrumbs = [
+        {"name":"メインメニュー", "url":"/mainmenu/mainmenu"},
+        {"name":"ユーザ設定", "url":"/acset/acct_set"},
+        {"name":"パスワード変更", "url":"/acset/psd_change"}
+    ]
+    return render_template('acset/psd_change.html', breadcrumbs=breadcrumbs)
+
+@app.route('/acset/psd_change', methods=['POST'])
+def change_psd():
     error_message = ""
+    account_id = session['account_id']
     password = request.form.get('password')
     password2 = request.form.get('passwordnew')
     password3 = request.form.get('passwordnew2')
@@ -816,15 +919,28 @@ def change_psd(account_id):
 
 @app.route('/acset/psd_changec')
 def psd_changec():
-    return render_template('acset/psd_changec.html')
 
-@app.route('/acset/acct_del', methods=['GET','POST'])
+    breadcrumbs = [
+        {"name": "メインメニュー", "url":"/mainmenu/mainmenu"},
+        {"name": "ユーザ設定", "url":"/acset/acct_set"},
+        {"name": "パスワード変更", "url":"/acset/psd_change"},
+        {"name": "パスワード変更完了", "url":"/acset_psd_changec"}
+    ]
+    return render_template('acset/psd_changec.html',breadcrumbs=breadcrumbs)
+
+@app.route('/acset/acct_del', methods=['GET'])
 def acct_del():
-    return render_template('acset/acct_del.html')
+    breadcrumbs = [
+        {"name": "メインメニュー", "url":"/mainmenu/mainmenu"},
+        {"name": "ユーザ設定", "url":"/acset/acct_set"},
+        {"name": "アカウント削除", "url":"/acset/acct_del"}
+    ]
+    return render_template('acset/acct_del.html', breadcrumbs=breadcrumbs)
 
-@app.route('/del_acct/<int:account_id>', methods=['POST'])
-def del_acct(account_id):
+@app.route('/acset/acct_del', methods=['POST'])
+def del_acct():
     error_message = ""
+    account_id = session['account_id']
     password = request.form.get('password')
     conn = get_db()
     cur = conn.cursor()
@@ -836,11 +952,25 @@ def del_acct(account_id):
             return redirect(url_for('acct_del_con'))
         else:
             error_message = "入力されたパスワードが間違っています"
-            return render_template('acset/acct_del.html', error_message=error_message)
+
+        breadcrumbs = [
+        {"name": "メインメニュー", "url":"/mainmenu/mainmenu"},
+        {"name": "ユーザ設定", "url":"/acset/acct_set"},
+        {"name": "アカウント削除", "url":"/acset/acct_del"}
+        ]
+            
+        return render_template('acset/acct_del.html', error_message=error_message,breadcrumbs=breadcrumbs)
     
     except Exception as e:
         error_message = str(e)
-        return render_template('acset/acct_del.html', error_message=error_message)
+
+        breadcrumbs = [
+        {"name": "メインメニュー", "url":"/mainmenu/mainmenu"},
+        {"name": "ユーザ設定", "url":"/acset/acct_set"},
+        {"name": "アカウント削除", "url":"/acset/acct_del"}
+        ]
+
+        return render_template('acset/acct_del.html', error_message=error_message, breadcrumbs=breadcrumbs)
     finally:
         cur.close()
         conn.close()
@@ -869,11 +999,24 @@ def acct_del_succ():
 
 @app.route('/photo/photo_upload')
 def photo_upload():
-    return render_template('photo/photo_upload.html')
+
+    breadcrumbs = [
+        {"name": "メインメニュー", "url":"/mainmenu/mainmenu"},
+        {"name": "フォトメニュー", "url":"/photo/photo_menu"},
+        {"name": "画像アップロード", "url":"/photo/photo_upload"}
+    ]
+    return render_template('photo/photo_upload.html',breadcrumbs=breadcrumbs)
 
 @app.route('/photo/photo_recog')
 def photo_recog():
-    return render_template('photo/photo_recog.html')
+
+    breadcrumbs = [
+        {"name": "メインメニュー", "url":"/mainmenu/mainmenu"},
+        {"name": "フォトメニュー", "url":"/photo/photo_menu"},
+        {"name": "撮影画面", "url":"/photo/photo_take/"},
+        {"name": "撮影結果画面", "url":"/photo/photo_recog"}
+    ]
+    return render_template('photo/photo_recog.html', breadcrumbs=breadcrumbs)
 
 @app.errorhandler(404)
 def not_found_error(error):
