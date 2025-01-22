@@ -809,7 +809,7 @@ def acct_set():
 
     breadcrumbs = [
         {"name": "メインメニュー", "url":"/mainmenu/mainmenu"},
-        {"name": "アカウント設定", "url":"/acset/acct_set"}
+        {"name": "ユーザ設定", "url":"/acset/acct_set"}
     ]
     return render_template('acset/acct_set.html',breadcrumbs=breadcrumbs)
 
@@ -818,7 +818,7 @@ def allergy_new():
 
     breadcrumbs = [
         {"name":"メインメニュー","url":"/mainmenu/mainmenu"},
-        {"name":"アカウント設定","url":"/acset/acct_set"},
+        {"name":"ユーザ設定","url":"/acset/acct_set"},
         {"name":"アレルギー情報の更新", "url":"/acset/allergy_new"}
     ]
     
@@ -861,7 +861,7 @@ def new_allergy(account_id):
 
     breadcrumbs = [
         {"name": "メインメニュー", "url":"/mainmenu/meinmenu"},
-        {"name": "アカウント設定", "url":"/acset/acct_set"},
+        {"name": "ユーザ設定", "url":"/acset/acct_set"},
         {"name": "アレルギーの登録", "url":"/acset/allergy_set"}
     ]
 
@@ -872,7 +872,7 @@ def psd_change():
 
     breadcrumbs = [
         {"name":"メインメニュー", "url":"/mainmenu/mainmenu"},
-        {"name":"アカウント設定", "url":"/acset/acct_set"},
+        {"name":"ユーザ設定", "url":"/acset/acct_set"},
         {"name":"パスワード変更", "url":"/acset/psd_change"}
     ]
     return render_template('acset/psd_change.html', breadcrumbs=breadcrumbs)
@@ -922,7 +922,7 @@ def psd_changec():
 
     breadcrumbs = [
         {"name": "メインメニュー", "url":"/mainmenu/mainmenu"},
-        {"name": "アカウント設定", "url":"/acset/acct_set"},
+        {"name": "ユーザ設定", "url":"/acset/acct_set"},
         {"name": "パスワード変更", "url":"/acset/psd_change"},
         {"name": "パスワード変更完了", "url":"/acset_psd_changec"}
     ]
@@ -932,7 +932,7 @@ def psd_changec():
 def acct_del():
     breadcrumbs = [
         {"name": "メインメニュー", "url":"/mainmenu/mainmenu"},
-        {"name": "アカウント設定", "url":"/acset/acct_set"},
+        {"name": "ユーザ設定", "url":"/acset/acct_set"},
         {"name": "アカウント削除", "url":"/acset/acct_del"}
     ]
     return render_template('acset/acct_del.html', breadcrumbs=breadcrumbs)
@@ -955,7 +955,7 @@ def del_acct():
 
         breadcrumbs = [
         {"name": "メインメニュー", "url":"/mainmenu/mainmenu"},
-        {"name": "アカウント設定", "url":"/acset/acct_set"},
+        {"name": "ユーザ設定", "url":"/acset/acct_set"},
         {"name": "アカウント削除", "url":"/acset/acct_del"}
         ]
             
@@ -966,7 +966,7 @@ def del_acct():
 
         breadcrumbs = [
         {"name": "メインメニュー", "url":"/mainmenu/mainmenu"},
-        {"name": "アカウント設定", "url":"/acset/acct_set"},
+        {"name": "ユーザ設定", "url":"/acset/acct_set"},
         {"name": "アカウント削除", "url":"/acset/acct_del"}
         ]
 
