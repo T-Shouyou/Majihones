@@ -161,7 +161,7 @@ def recipe_images():
 
     breadcrumbs = [
         {"name": "メインメニュー", "url": "/mainmenu/mainmenu"},
-        {"name": "ごはん調教", "url": "/ninnsiki/recipe/images"}
+        {"name": "ごはん調教", "url": "/ninnsiki/recipe_images"}
     ]
     return render_template('ninnsiki/recipe_images.html', breadcrumbs=breadcrumbs)
 
@@ -175,7 +175,7 @@ def recipe_delete():
 
     breadcrumbs = [
         {"name": "メインメニュー", "url":"/mainmenu/mainmenu"},
-        {"name": "ごはん調教" , "url":"/ninnsiki/recipe?images"},
+        {"name": "ごはん調教" , "url":"/ninnsiki/recipe_images"},
         {"name": "レシピ消去", "url": "/ninnsiki/resipe_delete"}
     ]
 
