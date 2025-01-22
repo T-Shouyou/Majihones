@@ -410,7 +410,7 @@ def photo_take():
 
     breadcrumbs = [
         {"name":"メインメニュー", "url": "/mainmenu/mainmenu"},
-        {"name":"フォトメニュー", "url": "photo/photo_menu"},
+        {"name":"フォトメニュー", "url": "/photo/photo_menu"},
         {"name":"撮影画面", "url": "/photo/photo_take"}
     ]
     return render_template('photo/photo_take.html',breadcrumbs=breadcrumbs)

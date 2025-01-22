@@ -1455,9 +1455,12 @@ th, td {
     margin-left: -35px;
 }
 
-.pankuzu {
-    z-index: 10000;
-    background-color: red;
+.breadcrumb {
+    display: flex;
+}
+
+.breadcrumb-item {
+    margin-right: 35px;
 }
 /*パスワード変更画面のエラーメッセージ用個別CSS　面倒だったので許して*/
 .PsdChange-error-message{
