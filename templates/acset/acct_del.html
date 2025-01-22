@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/psd_change.css') }}">
 
     <br><br>
-    <p class="p-p">アカウント削除</p>
-    <form action="{{ url_for('delete_account',account_id=account_id) }}" method="post">
+    <h2 class="txt-center">アカウント削除</h2>
+    <form action="{{ url_for('del_acct',account_id=account_id) }}" method="post">
         <div class="login-form">
             <input type="password" name="password" class="my-textbox" placeholder="現在のパスワードを入力..." required>
         </div>
