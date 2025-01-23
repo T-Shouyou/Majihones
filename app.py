@@ -161,7 +161,7 @@ def recipe_images():
 
     breadcrumbs = [
         {"name": "メインメニュー", "url": "/mainmenu/mainmenu"},
-        {"name": "ごはん調教", "url": "/ninnsiki/recipe/images"}
+        {"name": "ごはん調教", "url": "/ninnsiki/recipe_images"}
     ]
     return render_template('ninnsiki/recipe_images.html', breadcrumbs=breadcrumbs)
 
@@ -175,7 +175,7 @@ def recipe_delete():
 
     breadcrumbs = [
         {"name": "メインメニュー", "url":"/mainmenu/mainmenu"},
-        {"name": "ごはん調教" , "url":"/ninnsiki/recipe?images"},
+        {"name": "ごはん調教" , "url":"/ninnsiki/recipe_images"},
         {"name": "レシピ消去", "url": "/ninnsiki/resipe_delete"}
     ]
 
@@ -225,11 +225,7 @@ def register_food():
 @app.route('/ninnsiki/touroku_success')
 def touroku_success():
 
-    breadcrumbs = [
-        {"name": "登録完了", "url": "/ninnsiki/touroku_success"}
-    ]
-
-    return render_template('ninnsiki/touroku_success.html', breadcrumbs=breadcrumbs)
+    return render_template('ninnsiki/touroku_success.html')
 
 @app.route('/ninnsiki/recipe_look', methods=['GET'])
 def recipe_look():
@@ -859,13 +855,8 @@ def new_allergy(account_id):
 
     allergies = [allergy for allergy in jiken if allergy is not None]
 
-    breadcrumbs = [
-        {"name": "メインメニュー", "url":"/mainmenu/meinmenu"},
-        {"name": "ユーザ設定", "url":"/acset/acct_set"},
-        {"name": "アレルギーの登録", "url":"/acset/allergy_set"}
-    ]
 
-    return render_template('acset/allergy_set.html',account_id=account_id,allergies=allergies,breadcrumbs=breadcrumbs)
+    return render_template('acset/allergy_set.html',account_id=account_id,allergies=allergies)
 
 @app.route('/acset/psd_change', methods=['GET'])
 def psd_change():
