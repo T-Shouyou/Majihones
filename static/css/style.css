@@ -183,7 +183,7 @@ header {
     transition: background-color 0.3s; /* ホバー時の色変更を滑らかにする */
     position: absolute;
     left: center;
-    top: 70%;
+    top: 75%;
 }
 
 .login-button:hover {
@@ -1455,9 +1455,12 @@ th, td {
     margin-left: -35px;
 }
 
-.pankuzu {
-    z-index: 1000;
-    background-color: red;
+.breadcrumb {
+    display: flex;
+}
+
+.breadcrumb-item {
+    margin-right: 35px;
 }
 /*パスワード変更画面のエラーメッセージ用個別CSS　面倒だったので許して*/
 .PsdChange-error-message{
@@ -1659,3 +1662,7 @@ th, td {
     text-align: center;
 }
 
+.del-suc{
+    text-align:center;
+    margin-top:100px;
+}
