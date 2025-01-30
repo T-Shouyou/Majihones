@@ -11,7 +11,7 @@ import string
 import re
 import requests
 from datetime import datetime, timedelta
-from werkzeug.utils import escape
+from werkzeug.utils import escape   #消せ&修正ここはmarkup?みたいなのに変えないと動かない
 # デバッグ用のログ出力
 import logging
 
@@ -158,6 +158,8 @@ def update_recipe_features(label, image_path):
 
 @app.route('/ninnsiki/recipe_images', methods=['GET'])
 def recipe_images():
+    if 'account_id' not in session or session.get('account_id') != 1:
+        return redirect(url_for('mainmenu'))
 
     breadcrumbs = [
         {"name": "メインメニュー", "url": "/mainmenu/mainmenu"},
@@ -353,7 +355,11 @@ def mainmenu():
     return redirect(url_for('login'))
 
 @app.route('/master/account_look')
+
 def account_look():
+    if 'account_id' not in session or session.get('account_id') != 1:
+        return redirect(url_for('mainmenu'))
+    
     if 'account_name' in session:
         conn = get_db()
         cur = conn.cursor()
@@ -576,6 +582,8 @@ def eat_hist():
 # 本番ではこっちを検索して消せ
 @app.route('/hiroba/area_gohan')
 def area_gohan():
+    if 'account_id' not in session:
+        return redirect(url_for('mainmenu'))
     conn = get_db()
     cursor = conn.cursor()
 
@@ -688,6 +696,8 @@ def sanitize_post_content(content):
 
 @app.route('/hiroba/post_gohan')
 def post_gohan():
+    if 'account_id' not in session:
+        return redirect(url_for('mainmenu'))
 
     breadcrumbs = [
         {"name":"メインメニュー", "url":"/mainmenu/mainmenu"},
@@ -706,6 +716,7 @@ def generate_unique_filename(extension):
 
 @app.route('/hiroba/save_gohan_post', methods=['POST'])
 def save_gohan_post():
+    
     account_id = session.get('account_id')
     sentence = request.form['sentence']  # 投稿文を取得
     
