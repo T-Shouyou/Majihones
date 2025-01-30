@@ -820,8 +820,24 @@ def acct_set():
     ]
     return render_template('acset/acct_set.html',breadcrumbs=breadcrumbs)
 
-@app.route('/acset/allergy_new')
+@app.route('/acset/allergy_new', methods=['GET'])
 def allergy_new():
+
+    account_id = session['account_id']
+    conn = get_db()
+
+    sql = """
+        SELECT
+            CASE WHEN egg = 1 THEN '卵' ELSE NULL END AS allergy1,
+            CASE WHEN milk = 1 THEN '牛乳' ELSE NULL END AS allergy2,
+            CASE WHEN wheat = 1 THEN '小麦' ELSE NULL END AS allergy3,
+            CASE WHEN shrimp = 1 THEN 'えび' ELSE NULL END AS allergy4,
+            CASE WHEN crab = 1 THEN 'かに' ELSE NULL END AS allergy5,
+            CASE WHEN peanut = 1 THEN '落花生' ELSE NULL END AS allergy6,
+            CASE WHEN buckwheat = 1 THEN 'そば' ELSE NULL END AS allergy7
+        FROM ALLERGEN
+        WHERE account_id = ?;"""
+    allergies = conn.execute(sql, (account_id,)).fetchone()
 
     breadcrumbs = [
         {"name":"メインメニュー","url":"/mainmenu/mainmenu"},
@@ -829,11 +845,12 @@ def allergy_new():
         {"name":"アレルギー情報の更新", "url":"/acset/allergy_new"}
     ]
     
-    return render_template('acset/allergy_new.html',breadcrumbs=breadcrumbs)
+    return render_template('acset/allergy_new.html',breadcrumbs=breadcrumbs ,allergies=allergies)
 
-@app.route('/acset/new_allergy/<int:account_id>', methods=['GET', 'POST'])
-def new_allergy(account_id):
+@app.route('/acset/allergy_new', methods=['POST'])
+def new_allergy():
     # チェックされたアレルギーの情報を取得
+    account_id = session['account_id']
     egg = request.form.get('egg',False) == 'true'
     milk = request.form.get('milk',False) == 'true'
     wheat = request.form.get('wheat',False) == 'true'
@@ -921,14 +938,7 @@ def change_psd():
 
 @app.route('/acset/psd_changec')
 def psd_changec():
-
-    breadcrumbs = [
-        {"name": "メインメニュー", "url":"/mainmenu/mainmenu"},
-        {"name": "ユーザ設定", "url":"/acset/acct_set"},
-        {"name": "パスワード変更", "url":"/acset/psd_change"},
-        {"name": "パスワード変更完了", "url":"/acset_psd_changec"}
-    ]
-    return render_template('acset/psd_changec.html',breadcrumbs=breadcrumbs)
+    return render_template('acset/psd_changec.html')
 
 @app.route('/acset/acct_del', methods=['GET'])
 def acct_del():

@@ -5,28 +5,28 @@
 {% block content %}
 <div class="main-contents">
     <p class="main-text">アレルギーの登録</p>
-    <form action="{{ url_for('new_allergy', account_id=account_id) }}" method="post">
+    <form action="{{ url_for('new_allergy') }}" method="post">
         <div class="chkbox">
             <label>
-                <input type="checkbox" name="egg" value="true">卵
+                <input type="checkbox" name="egg" value="true" {% if "卵" in allergies %} checked {% endif %}>卵
             </label>
             <label>
-                <input type="checkbox" name="milk" value="true">乳
+                <input type="checkbox" name="milk" value="true" {% if "牛乳" in allergies %} checked {% endif %}>牛乳
             </label>
             <label>
-                <input type="checkbox" name="wheat" value="true">小麦
+                <input type="checkbox" name="wheat" value="true"{% if "小麦" in allergies %} checked {% endif %}>小麦
             </label>
             <lable>
-                <input type="checkbox" name="shrimp" value="true">えび
+                <input type="checkbox" name="shrimp" value="true"{% if "えび" in allergies %} checked {% endif %}>えび
             </lable>
             <label>
-                <input type="checkbox" name="crab" value="true">かに
+                <input type="checkbox" name="crab" value="true"{% if "かに" in allergies %} checked {% endif %}>かに
             </label>
             <label>
-                <input type="checkbox" name="peanut" value="true">落花生
+                <input type="checkbox" name="peanut" value="true"{% if "落花生" in allergies %} checked {% endif %}>落花生
             </label>
             <label>
-                <input type="checkbox" name="buckwheat" value="true">そば
+                <input type="checkbox" name="buckwheat" value="true"{% if "そば" in allergies %} checked {% endif %}>そば
             </label>
         </div>
 
